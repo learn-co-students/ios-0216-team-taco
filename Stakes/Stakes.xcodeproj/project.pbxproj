@@ -10,7 +10,6 @@
 		6BBE88D65A55BD8D270DCA74 /* libPods-Stakes.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0BD6E37DE74D5899B0BD7B43 /* libPods-Stakes.a */; };
 		CBA985541CAAEC6D00D1CC27 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = CBA985531CAAEC6D00D1CC27 /* main.m */; };
 		CBA985571CAAEC6D00D1CC27 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = CBA985561CAAEC6D00D1CC27 /* AppDelegate.m */; };
-		CBA9855A1CAAEC6D00D1CC27 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CBA985591CAAEC6D00D1CC27 /* ViewController.m */; };
 		CBA9855F1CAAEC6D00D1CC27 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CBA9855E1CAAEC6D00D1CC27 /* Assets.xcassets */; };
 		CBA985621CAAEC6D00D1CC27 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CBA985601CAAEC6D00D1CC27 /* LaunchScreen.storyboard */; };
 		CBA9856D1CAAEC6D00D1CC27 /* StakesTests.m in Sources */ = {isa = PBXBuildFile; fileRef = CBA9856C1CAAEC6D00D1CC27 /* StakesTests.m */; };
@@ -51,8 +50,6 @@
 		CBA985531CAAEC6D00D1CC27 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		CBA985551CAAEC6D00D1CC27 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		CBA985561CAAEC6D00D1CC27 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		CBA985581CAAEC6D00D1CC27 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		CBA985591CAAEC6D00D1CC27 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		CBA9855E1CAAEC6D00D1CC27 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CBA985611CAAEC6D00D1CC27 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		CBA985631CAAEC6D00D1CC27 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -151,12 +148,14 @@
 			children = (
 				CBA985551CAAEC6D00D1CC27 /* AppDelegate.h */,
 				CBA985561CAAEC6D00D1CC27 /* AppDelegate.m */,
-				CBA985581CAAEC6D00D1CC27 /* ViewController.h */,
-				CBA985591CAAEC6D00D1CC27 /* ViewController.m */,
 				CBA985851CAAED4500D1CC27 /* Secrets.h */,
 				CBA985861CAAED4500D1CC27 /* Secrets.m */,
 				CBA985881CAAEE0900D1CC27 /* CreatePactViewController.h */,
 				CBA985891CAAEE0900D1CC27 /* CreatePactViewController.m */,
+				CBA985921CAAEE0900D1CC27 /* PactDetailViewController.h */,
+				CBA985931CAAEE0900D1CC27 /* PactDetailViewController.m */,
+				CBA985941CAAEE0900D1CC27 /* UserPactsViewController.h */,
+				CBA985951CAAEE0900D1CC27 /* UserPactsViewController.m */,
 				CBA9858A1CAAEE0900D1CC27 /* JDDCheckIn.h */,
 				CBA9858B1CAAEE0900D1CC27 /* JDDCheckIn.m */,
 				CBA9858C1CAAEE0900D1CC27 /* JDDMessage.h */,
@@ -165,10 +164,6 @@
 				CBA9858F1CAAEE0900D1CC27 /* JDDPact.m */,
 				CBA985901CAAEE0900D1CC27 /* JDDUser.h */,
 				CBA985911CAAEE0900D1CC27 /* JDDUser.m */,
-				CBA985921CAAEE0900D1CC27 /* PactDetailViewController.h */,
-				CBA985931CAAEE0900D1CC27 /* PactDetailViewController.m */,
-				CBA985941CAAEE0900D1CC27 /* UserPactsViewController.h */,
-				CBA985951CAAEE0900D1CC27 /* UserPactsViewController.m */,
 				CBA9859D1CAAEE7500D1CC27 /* Main.storyboard */,
 				CBA9855E1CAAEC6D00D1CC27 /* Assets.xcassets */,
 				CBA985601CAAEC6D00D1CC27 /* LaunchScreen.storyboard */,
@@ -388,7 +383,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CBA9855A1CAAEC6D00D1CC27 /* ViewController.m in Sources */,
 				CBA985981CAAEE0900D1CC27 /* JDDMessage.m in Sources */,
 				CBA9859C1CAAEE0900D1CC27 /* UserPactsViewController.m in Sources */,
 				CBA9859A1CAAEE0900D1CC27 /* JDDUser.m in Sources */,

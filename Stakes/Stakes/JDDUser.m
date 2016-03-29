@@ -9,12 +9,17 @@
 #import "JDDUser.h"
 
 @interface JDDUser ()
-//name
-//email
-//id
+@property (nonatomic, strong) NSString *firstName;
+@property (nonatomic, strong) NSString *lastName;
+@property (nonatomic, strong) NSString *displayName;
+@property (nonatomic, strong) NSString *emailAddress;
+@property (nonatomic, strong) NSString *phoneNumber;
+@property (nonatomic, strong) NSString *userID;
+@property (nonatomic, strong) NSArray *pacts;
+@property (nonatomic, strong) NSString *twitterHandle;
+
 //friends array/dictionary
 //pacts - dictionary
-//phone #?
 
 @end
 

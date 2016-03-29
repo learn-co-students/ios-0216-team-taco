@@ -7,13 +7,21 @@
 //
 
 #import "JDDPact.h"
+#import "JDDCheckIn.h"
+
 @interface JDDPact ()
-//title
-//stakes
-//frequency
-//messages
-//check ints
-//users
+@property (nonatomic, strong) NSString *title;
+@property (nonatomic, strong) NSString *stakes;
+@property (nonatomic, strong) NSArray *users;
+@property (nonatomic) NSUInteger stakesCount;
+@property (nonatomic, strong) NSString *twitterPost;
+@property (nonatomic) NSUInteger frequency;
+@property (nonatomic, strong) NSString *frequencyString;
+@property (nonatomic) NSTimeInterval *lengthOfPact;
+@property (nonatomic, strong) NSArray *messages;
+@property (nonatomic) BOOL stakesArePerCheckIn;
+@property (nonatomic) BOOL allowsShaming;
+@property (nonatomic, strong) JDDCheckIn *checkins;
 
 @end
 

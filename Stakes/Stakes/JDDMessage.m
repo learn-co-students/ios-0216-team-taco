@@ -7,11 +7,13 @@
 //
 
 #import "JDDMessage.h"
+#import "JDDUser.h"
+
 @interface JDDMessage ()
 //date
 //time
-//string
-//user
+@property (nonatomic, strong) NSString *messageContent;
+@property (nonatomic, strong) JDDUser *userSender;
 //pact
 @end
 
