@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		6BBE88D65A55BD8D270DCA74 /* libPods-Stakes.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0BD6E37DE74D5899B0BD7B43 /* libPods-Stakes.a */; };
+		AF2883481CAC12C6003FD3E2 /* JDDDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = AF2883471CAC12C6003FD3E2 /* JDDDataSource.m */; };
 		CBA985541CAAEC6D00D1CC27 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = CBA985531CAAEC6D00D1CC27 /* main.m */; };
 		CBA985571CAAEC6D00D1CC27 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = CBA985561CAAEC6D00D1CC27 /* AppDelegate.m */; };
 		CBA9855F1CAAEC6D00D1CC27 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CBA9855E1CAAEC6D00D1CC27 /* Assets.xcassets */; };
@@ -48,6 +49,8 @@
 		0BD6E37DE74D5899B0BD7B43 /* libPods-Stakes.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Stakes.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1BAF31EC1AA215C0D2845783 /* Pods-Stakes.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Stakes.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Stakes/Pods-Stakes.debug.xcconfig"; sourceTree = "<group>"; };
 		79BEE4D5993F024270E6A571 /* Pods-Stakes.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Stakes.release.xcconfig"; path = "Pods/Target Support Files/Pods-Stakes/Pods-Stakes.release.xcconfig"; sourceTree = "<group>"; };
+		AF2883461CAC12C6003FD3E2 /* JDDDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JDDDataSource.h; sourceTree = "<group>"; };
+		AF2883471CAC12C6003FD3E2 /* JDDDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JDDDataSource.m; sourceTree = "<group>"; };
 		CBA9854F1CAAEC6D00D1CC27 /* Stakes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Stakes.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CBA985531CAAEC6D00D1CC27 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		CBA985551CAAEC6D00D1CC27 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -168,6 +171,8 @@
 				CBA9858F1CAAEE0900D1CC27 /* JDDPact.m */,
 				CBA985901CAAEE0900D1CC27 /* JDDUser.h */,
 				CBA985911CAAEE0900D1CC27 /* JDDUser.m */,
+				AF2883461CAC12C6003FD3E2 /* JDDDataSource.h */,
+				AF2883471CAC12C6003FD3E2 /* JDDDataSource.m */,
 				CBA9859D1CAAEE7500D1CC27 /* Main.storyboard */,
 				CBA985A11CAB0AF700D1CC27 /* dimitrysStoryboard.storyboard */,
 				CBA9859F1CAB0AE600D1CC27 /* dylansStoryboard.storyboard */,
@@ -395,6 +400,7 @@
 				CBA9859C1CAAEE0900D1CC27 /* UserPactsViewController.m in Sources */,
 				CBA9859A1CAAEE0900D1CC27 /* JDDUser.m in Sources */,
 				CBA985871CAAED4500D1CC27 /* Secrets.m in Sources */,
+				AF2883481CAC12C6003FD3E2 /* JDDDataSource.m in Sources */,
 				CBA985571CAAEC6D00D1CC27 /* AppDelegate.m in Sources */,
 				CBA9859B1CAAEE0900D1CC27 /* PactDetailViewController.m in Sources */,
 				CBA985541CAAEC6D00D1CC27 /* main.m in Sources */,

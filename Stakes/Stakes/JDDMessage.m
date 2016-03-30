@@ -8,13 +8,15 @@
 
 #import "JDDMessage.h"
 #import "JDDUser.h"
+#import "JDDPact.h"
 
 @interface JDDMessage ()
-//date
-//time
+
+@property (nonatomic, strong) NSDate * messageSendTime;
 @property (nonatomic, strong) NSString *messageContent;
 @property (nonatomic, strong) JDDUser *userSender;
-//pact
+@property (nonatomic, strong) JDDPact *pact;
+
 @end
 
 @implementation JDDMessage
