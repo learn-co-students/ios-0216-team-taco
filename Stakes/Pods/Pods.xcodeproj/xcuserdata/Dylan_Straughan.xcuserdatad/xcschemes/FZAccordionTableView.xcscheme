@@ -14,7 +14,7 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = 'primary'
-               BlueprintIdentifier = 'AB90AB76495E49CB71AE291B'
+               BlueprintIdentifier = '6CEB94A153E34DD7BBEDF540'
                BlueprintName = 'FZAccordionTableView'
                ReferencedContainer = 'container:Pods.xcodeproj'
                BuildableName = 'libFZAccordionTableView.a'>

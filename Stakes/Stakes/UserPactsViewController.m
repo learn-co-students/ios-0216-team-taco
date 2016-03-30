@@ -7,6 +7,7 @@
 //
 
 #import "UserPactsViewController.h"
+#import "JDDDataSource.h"
 #import "JDDUser.h"
 #import "JDDPact.h"
 
@@ -19,6 +20,13 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    JDDDataSource *dataSource = [JDDDataSource sharedDataSource];
+    
+    [dataSource generateFakeData];
+    
+    NSLog(@"%@",dataSource.users);
+    
 }
 
 - (void)didReceiveMemoryWarning {

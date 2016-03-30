@@ -6,6 +6,7 @@
 target 'Stakes' do
 pod 'FZAccordionTableView', '~> 0.1.2'
 pod 'Firebase', '>= 2.5.1'
+pod 'JSQMessagesViewController'
 end
 
 target 'StakesTests' do
