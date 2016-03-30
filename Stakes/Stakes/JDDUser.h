@@ -23,7 +23,7 @@
 @property (nonatomic, strong) NSString *userID;
 
 //Pacts
-@property (nonatomic, strong) NSArray *pacts;
+@property (nonatomic, strong) NSArray *pacts; 
 @property (nonatomic, strong) NSArray *checkins;
 
 #pragma methods

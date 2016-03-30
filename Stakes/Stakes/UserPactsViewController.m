@@ -68,12 +68,8 @@
     self.tableView.scrollEnabled = YES;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLineEtched;
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"basicCell"];
-//    for (JDDPact *pact in self.jeremy.pacts) {
-    
-        [self.tableView registerNib:[UINib nibWithNibName:@"PactAccordionHeaderView" bundle:nil] forHeaderFooterViewReuseIdentifier:accordionHeaderReuseIdentifier];
-  
-//    }
-    
+    [self.tableView registerNib:[UINib nibWithNibName:@"PactAccordionHeaderView" bundle:nil] forHeaderFooterViewReuseIdentifier:accordionHeaderReuseIdentifier];
+
 }
 
 
@@ -100,12 +96,12 @@
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
+
     return self.jeremy.pacts.count;
+
 }
 
--(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    return @"IS THIS THE FUCKING TITLE";
-}
+
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
@@ -121,7 +117,10 @@
 //}
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-    return [tableView dequeueReusableHeaderFooterViewWithIdentifier:accordionHeaderReuseIdentifier];
+    PactAccordionHeaderView *viewThing = [tableView dequeueReusableHeaderFooterViewWithIdentifier:accordionHeaderReuseIdentifier];
+    JDDPact *currentPact = self.jeremy.pacts[section];
+    viewThing.pact = currentPact;
+    return viewThing;
 }
 
 

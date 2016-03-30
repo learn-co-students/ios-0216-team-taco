@@ -64,6 +64,8 @@
     [self.containerView.widthAnchor constraintEqualToAnchor:self.widthAnchor].active = YES;
     [self.containerView.topAnchor constraintEqualToAnchor:self.topAnchor].active = YES;
     [self.containerView.leftAnchor constraintEqualToAnchor:self.leftAnchor].active = YES;
+    
+    [self updateUI];;
 }
 
 -(void)setPact:(JDDPact *)pact
