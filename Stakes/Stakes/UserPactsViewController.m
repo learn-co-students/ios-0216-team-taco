@@ -7,6 +7,7 @@
 //
 
 #import "UserPactsViewController.h"
+#import "JDDDataSource.h"
 #import "JDDUser.h"
 #import "JDDPact.h"
 #import <FZAccordionTableView/FZAccordionTableView.h>
@@ -96,9 +97,7 @@
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-
     return self.jeremy.pacts.count;
-
 }
 
 

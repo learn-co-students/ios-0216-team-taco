@@ -10,8 +10,11 @@
 
 @interface JDDDataSource : NSObject
 
-@property NSMutableArray *users;
+@property (nonatomic, strong) NSMutableArray *users;
 
 + (instancetype)sharedDataSource;
+
+-(void)generateFakeData;
+
 
 @end

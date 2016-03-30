@@ -9,13 +9,15 @@
 /* Begin PBXBuildFile section */
 		6BBE88D65A55BD8D270DCA74 /* libPods-Stakes.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0BD6E37DE74D5899B0BD7B43 /* libPods-Stakes.a */; };
 		AF2883481CAC12C6003FD3E2 /* JDDDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = AF2883471CAC12C6003FD3E2 /* JDDDataSource.m */; };
+		AFB521671CAC2C5C00A993E8 /* Secrets.m in Sources */ = {isa = PBXBuildFile; fileRef = AFB521661CAC2C5C00A993E8 /* Secrets.m */; };
+		AFB5216A1CAC450800A993E8 /* smackTackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AFB521691CAC450800A993E8 /* smackTackViewController.m */; };
+		AFB5216D1CAC727600A993E8 /* JDDFireBaseAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = AFB5216C1CAC727600A993E8 /* JDDFireBaseAPI.m */; };
 		CBA985541CAAEC6D00D1CC27 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = CBA985531CAAEC6D00D1CC27 /* main.m */; };
 		CBA985571CAAEC6D00D1CC27 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = CBA985561CAAEC6D00D1CC27 /* AppDelegate.m */; };
 		CBA9855F1CAAEC6D00D1CC27 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CBA9855E1CAAEC6D00D1CC27 /* Assets.xcassets */; };
 		CBA985621CAAEC6D00D1CC27 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CBA985601CAAEC6D00D1CC27 /* LaunchScreen.storyboard */; };
 		CBA9856D1CAAEC6D00D1CC27 /* StakesTests.m in Sources */ = {isa = PBXBuildFile; fileRef = CBA9856C1CAAEC6D00D1CC27 /* StakesTests.m */; };
 		CBA985781CAAEC6D00D1CC27 /* StakesUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = CBA985771CAAEC6D00D1CC27 /* StakesUITests.m */; };
-		CBA985871CAAED4500D1CC27 /* Secrets.m in Sources */ = {isa = PBXBuildFile; fileRef = CBA985861CAAED4500D1CC27 /* Secrets.m */; };
 		CBA985961CAAEE0900D1CC27 /* CreatePactViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CBA985891CAAEE0900D1CC27 /* CreatePactViewController.m */; };
 		CBA985971CAAEE0900D1CC27 /* JDDCheckIn.m in Sources */ = {isa = PBXBuildFile; fileRef = CBA9858B1CAAEE0900D1CC27 /* JDDCheckIn.m */; };
 		CBA985981CAAEE0900D1CC27 /* JDDMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = CBA9858D1CAAEE0900D1CC27 /* JDDMessage.m */; };
@@ -53,6 +55,11 @@
 		79BEE4D5993F024270E6A571 /* Pods-Stakes.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Stakes.release.xcconfig"; path = "Pods/Target Support Files/Pods-Stakes/Pods-Stakes.release.xcconfig"; sourceTree = "<group>"; };
 		AF2883461CAC12C6003FD3E2 /* JDDDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JDDDataSource.h; sourceTree = "<group>"; };
 		AF2883471CAC12C6003FD3E2 /* JDDDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JDDDataSource.m; sourceTree = "<group>"; };
+		AFB521661CAC2C5C00A993E8 /* Secrets.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Secrets.m; sourceTree = "<group>"; };
+		AFB521681CAC450800A993E8 /* smackTackViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = smackTackViewController.h; sourceTree = "<group>"; };
+		AFB521691CAC450800A993E8 /* smackTackViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = smackTackViewController.m; sourceTree = "<group>"; };
+		AFB5216B1CAC727600A993E8 /* JDDFireBaseAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JDDFireBaseAPI.h; sourceTree = "<group>"; };
+		AFB5216C1CAC727600A993E8 /* JDDFireBaseAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JDDFireBaseAPI.m; sourceTree = "<group>"; };
 		CBA9854F1CAAEC6D00D1CC27 /* Stakes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Stakes.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CBA985531CAAEC6D00D1CC27 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		CBA985551CAAEC6D00D1CC27 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -67,7 +74,6 @@
 		CBA985771CAAEC6D00D1CC27 /* StakesUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StakesUITests.m; sourceTree = "<group>"; };
 		CBA985791CAAEC6D00D1CC27 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CBA985851CAAED4500D1CC27 /* Secrets.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Secrets.h; sourceTree = "<group>"; };
-		CBA985861CAAED4500D1CC27 /* Secrets.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Secrets.m; sourceTree = "<group>"; };
 		CBA985881CAAEE0900D1CC27 /* CreatePactViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreatePactViewController.h; sourceTree = "<group>"; };
 		CBA985891CAAEE0900D1CC27 /* CreatePactViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreatePactViewController.m; sourceTree = "<group>"; };
 		CBA9858A1CAAEE0900D1CC27 /* JDDCheckIn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JDDCheckIn.h; sourceTree = "<group>"; };
@@ -161,7 +167,9 @@
 				CBA985551CAAEC6D00D1CC27 /* AppDelegate.h */,
 				CBA985561CAAEC6D00D1CC27 /* AppDelegate.m */,
 				CBA985851CAAED4500D1CC27 /* Secrets.h */,
-				CBA985861CAAED4500D1CC27 /* Secrets.m */,
+				AFB521661CAC2C5C00A993E8 /* Secrets.m */,
+				AFB521681CAC450800A993E8 /* smackTackViewController.h */,
+				AFB521691CAC450800A993E8 /* smackTackViewController.m */,
 				CBA985881CAAEE0900D1CC27 /* CreatePactViewController.h */,
 				CBA985891CAAEE0900D1CC27 /* CreatePactViewController.m */,
 				CBA985921CAAEE0900D1CC27 /* PactDetailViewController.h */,
@@ -176,6 +184,8 @@
 				CBA9858F1CAAEE0900D1CC27 /* JDDPact.m */,
 				CBA985901CAAEE0900D1CC27 /* JDDUser.h */,
 				CBA985911CAAEE0900D1CC27 /* JDDUser.m */,
+				AFB5216B1CAC727600A993E8 /* JDDFireBaseAPI.h */,
+				AFB5216C1CAC727600A993E8 /* JDDFireBaseAPI.m */,
 				AF2883461CAC12C6003FD3E2 /* JDDDataSource.h */,
 				AF2883471CAC12C6003FD3E2 /* JDDDataSource.m */,
 				CBA9859D1CAAEE7500D1CC27 /* Main.storyboard */,
@@ -408,13 +418,15 @@
 				CBA985981CAAEE0900D1CC27 /* JDDMessage.m in Sources */,
 				CBA9859C1CAAEE0900D1CC27 /* UserPactsViewController.m in Sources */,
 				CBA9859A1CAAEE0900D1CC27 /* JDDUser.m in Sources */,
-				CBA985871CAAED4500D1CC27 /* Secrets.m in Sources */,
 				AF2883481CAC12C6003FD3E2 /* JDDDataSource.m in Sources */,
+				AFB5216D1CAC727600A993E8 /* JDDFireBaseAPI.m in Sources */,
 				CBA985571CAAEC6D00D1CC27 /* AppDelegate.m in Sources */,
+				AFB5216A1CAC450800A993E8 /* smackTackViewController.m in Sources */,
 				CBA9859B1CAAEE0900D1CC27 /* PactDetailViewController.m in Sources */,
 				CBA985541CAAEC6D00D1CC27 /* main.m in Sources */,
 				CBA985971CAAEE0900D1CC27 /* JDDCheckIn.m in Sources */,
 				CBA985EB1CAC288000D1CC27 /* PactAccordionHeaderView.m in Sources */,
+				AFB521671CAC2C5C00A993E8 /* Secrets.m in Sources */,
 				CBA985991CAAEE0900D1CC27 /* JDDPact.m in Sources */,
 				CBA985961CAAEE0900D1CC27 /* CreatePactViewController.m in Sources */,
 			);
