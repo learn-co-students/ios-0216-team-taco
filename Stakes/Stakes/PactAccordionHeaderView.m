@@ -8,7 +8,7 @@
 
 #import "PactAccordionHeaderView.h"
 @interface PactAccordionHeaderView ()
-@property (strong, nonatomic) IBOutlet UIView *contentView;
+@property (weak, nonatomic) IBOutlet UIView *containerView;
 @property (weak, nonatomic) IBOutlet UILabel *title;
 @property (weak, nonatomic) IBOutlet UIImageView *rightImage;
 @property (weak, nonatomic) IBOutlet UIImageView *leftImage;
@@ -16,11 +16,12 @@
 
 @end
 
-@implementation PactAccordionHeaderView
 
+@implementation PactAccordionHeaderView
 
 -(instancetype)initWithCoder:(NSCoder *)aDecoder
 {
+    
     self = [super initWithCoder:aDecoder];
     if (self) {
         [self commonInit];
@@ -30,6 +31,7 @@
 
 -(instancetype)initWithFrame:(CGRect)frame
 {
+    
     self = [super initWithFrame:frame];
     if (self) {
         [self commonInit];
@@ -39,17 +41,32 @@
 
 -(void)commonInit
 {
-    [[NSBundle mainBundle] loadNibNamed:@"PactAccordionHeaderView" owner:self options:nil];
-    [self addSubview:self.contentView];
     
-    [self.contentView.heightAnchor constraintEqualToAnchor:self.heightAnchor].active = YES;
-    [self.contentView.widthAnchor constraintEqualToAnchor:self.widthAnchor].active = YES;
-    [self.contentView.topAnchor constraintEqualToAnchor:self.topAnchor].active = YES;\
-    [self.contentView.leftAnchor constraintEqualToAnchor:self.leftAnchor].active = YES;
+//    [[NSBundle mainBundle] loadNibNamed:@"PactAccordionHeaderView" owner:self options:nil];
+//    [self addSubview:self.containerView];
+    
+    
+//    self.title = self.subviews[0].subviews[2];
+//    
+//    [self.containerView.heightAnchor constraintEqualToAnchor:self.heightAnchor].active = YES;
+//    [self.containerView.widthAnchor constraintEqualToAnchor:self.widthAnchor].active = YES;
+//    [self.containerView.topAnchor constraintEqualToAnchor:self.topAnchor].active = YES;
+//    [self.containerView.leftAnchor constraintEqualToAnchor:self.leftAnchor].active = YES;
+
     
 }
 
--(void)setAccordionHeader:(JDDPact *)pact
+-(void)awakeFromNib
+{
+    [super awakeFromNib];
+     [self addSubview:self.containerView];
+    [self.containerView.heightAnchor constraintEqualToAnchor:self.heightAnchor].active = YES;
+    [self.containerView.widthAnchor constraintEqualToAnchor:self.widthAnchor].active = YES;
+    [self.containerView.topAnchor constraintEqualToAnchor:self.topAnchor].active = YES;
+    [self.containerView.leftAnchor constraintEqualToAnchor:self.leftAnchor].active = YES;
+}
+
+-(void)setPact:(JDDPact *)pact
 {
     _pact = pact;
     [self updateUI];
@@ -58,8 +75,7 @@
 -(void)updateUI;
 {
     self.title.text = self.pact.title;
-    self.rightImage.text = [NSString stringWithFormat:@"High: %.1fF", self.dailyForecast.temperatureMax];
-    self.leftImage.text = self.pact.use
+//set images to user images
 }
 
 

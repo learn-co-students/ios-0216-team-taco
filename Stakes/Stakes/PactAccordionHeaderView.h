@@ -7,9 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <FZAccordionTableView/FZAccordionTableView.h>
 #import "JDDPact.h"
 
-@interface PactAccordionHeaderView : UIView
+static NSString *const accordionHeaderReuseIdentifier = @"AccordionHeaderViewReuseIdentifier";
+
+@interface PactAccordionHeaderView : FZAccordionTableViewHeaderView
 @property (nonatomic, strong) JDDPact *pact;
 
 @end
