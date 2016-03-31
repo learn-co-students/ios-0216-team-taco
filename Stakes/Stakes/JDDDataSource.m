@@ -37,11 +37,19 @@
     JDDUser * dimitry = [self createNewUser3];
     
     JDDPact *pact = [self createPact];
+    JDDPact *pact1 = [self createPact1];
     pact.users = @[dylan, dimitry, jeremy];
+    pact1.users = @[dylan, dimitry, jeremy];
+    dylan.pacts = @[pact,pact1];
+    jeremy.pacts = @[pact,pact1];
+    dimitry.pacts = @[pact,pact1];
+
     
     [dylan.checkins arrayByAddingObject:[self createCheckInWtihPact:pact user:dylan]];
     [jeremy.checkins arrayByAddingObject:[self createCheckInWtihPact:pact user:jeremy]];
     [dimitry.checkins arrayByAddingObject:[self createCheckInWtihPact:pact user:dimitry]];
+    
+    
     
     self.users = [[NSMutableArray alloc]init];
     
@@ -119,6 +127,27 @@
     
     pact.messages = nil;
  
+    return pact;
+}
+
+-(JDDPact*)createPact1{
+    
+    JDDPact *pact = [[JDDPact alloc]init];
+    
+    pact.title = @"Jump Like an idiot";
+    pact.pactDescription = @"Jump 5 times a day";
+    pact.stakes = @"Loser has to buy a pony";
+    pact.users = [[NSArray alloc]init];
+    
+    pact.checkInsPerTimeInterval = 7;
+    pact.timeInterval = @"week";
+    pact.repeating = YES;
+    
+    pact.allowsShaming = YES;
+    pact.twitterPost = @"Im jumping like a clown";
+    
+    pact.messages = nil;
+    
     return pact;
 }
 
