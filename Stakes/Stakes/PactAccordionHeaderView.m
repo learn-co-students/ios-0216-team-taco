@@ -59,7 +59,7 @@
 -(void)awakeFromNib
 {
     [super awakeFromNib];
-     [self addSubview:self.containerView];
+    [self addSubview:self.containerView];
     [self.containerView.heightAnchor constraintEqualToAnchor:self.heightAnchor].active = YES;
     [self.containerView.widthAnchor constraintEqualToAnchor:self.widthAnchor].active = YES;
     [self.containerView.topAnchor constraintEqualToAnchor:self.topAnchor].active = YES;

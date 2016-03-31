@@ -40,16 +40,22 @@
     JDDPact *pact1 = [self createPact1];
     pact.users = @[dylan, dimitry, jeremy];
     pact1.users = @[dylan, dimitry, jeremy];
-    dylan.pacts = @[pact,pact1];
-    jeremy.pacts = @[pact,pact1];
-    dimitry.pacts = @[pact,pact1];
+    
+    [dylan.pacts addObjectsFromArray:@[pact,pact1]];
+    [jeremy.pacts addObjectsFromArray:@[pact,pact1]];
+    [dimitry.pacts addObjectsFromArray:@[pact,pact1]];
 
     
-    [dylan.checkins arrayByAddingObject:[self createCheckInWtihPact:pact user:dylan]];
-    [jeremy.checkins arrayByAddingObject:[self createCheckInWtihPact:pact user:jeremy]];
-    [dimitry.checkins arrayByAddingObject:[self createCheckInWtihPact:pact user:dimitry]];
+    [dylan.checkins addObject:[self createCheckInWtihPact:pact user:dylan]];
+    [jeremy.checkins addObject:[self createCheckInWtihPact:pact user:jeremy]];
+    [dimitry.checkins addObject:[self createCheckInWtihPact:pact user:dimitry]];
     
+    [dylan.checkins addObject:[self createCheckInWtihPact:pact1 user:dylan]];
+    [jeremy.checkins addObject:[self createCheckInWtihPact:pact1 user:jeremy]];
+    [dimitry.checkins addObject:[self createCheckInWtihPact:pact1 user:dimitry]];
     
+    NSLog(@"checkins: %lu",dylan.checkins.count);
+    NSLog(@"checkins: %@",dylan.checkins);
     
     self.users = [[NSMutableArray alloc]init];
     
@@ -66,9 +72,10 @@
     dylan.emailAddress= @"Dylanvs19@gmail.com";
     dylan.phoneNumber= @"3015128925";
     dylan.userID= @"1278619234798";
-    dylan.pacts = [[NSArray alloc]init];
-    dylan.checkins = [[NSArray alloc]init];
+    dylan.pacts = [[NSMutableArray alloc]init];
+    dylan.checkins = [[NSMutableArray alloc]init];
     dylan.twitterHandle= @"@DylanStraughan";
+    dylan.userImage = [UIImage imageNamed:@"Dylan"];
     
     return dylan;
     
@@ -83,8 +90,10 @@
     jeremy.emailAddress= @"Jeremy@gmail.com";
     jeremy.phoneNumber= @"3011111112";
     jeremy.userID= @"1278619234799";
-    jeremy.pacts = [[NSArray alloc]init];
-    jeremy.checkins = [[NSArray alloc]init];
+    jeremy.pacts = [[NSMutableArray alloc]init];
+    jeremy.checkins = [[NSMutableArray alloc]init];
+    jeremy.userImage = [UIImage imageNamed:@"Jeremy"];
+
 
     jeremy.twitterHandle= @"@jfeld";
     
@@ -100,8 +109,10 @@
     dimitry.emailAddress= @"Dimitry@gmail.com";
     dimitry.phoneNumber= @"3011111113";
     dimitry.userID= @"1278619234799";
-    dimitry.pacts = [[NSArray alloc]init];
-    dimitry.checkins = [[NSArray alloc]init];
+    dimitry.pacts = [[NSMutableArray alloc]init];
+    dimitry.checkins = [[NSMutableArray alloc]init];
+    dimitry.userImage = [UIImage imageNamed:@"Dimitry"];
+
     
     dimitry.twitterHandle= @"@dKaoiruek";
     

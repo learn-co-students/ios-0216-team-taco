@@ -13,6 +13,7 @@
 #import <FZAccordionTableView/FZAccordionTableView.h>
 #import "PactAccordionHeaderView.h"
 #import "JDDDataSource.h"
+#import "UserPactCellView.h"
 
 @interface UserPactsViewController () <UITableViewDataSource, UITableViewDelegate>
 @property (weak, nonatomic) IBOutlet FZAccordionTableView *tableView;
@@ -43,13 +44,14 @@
     self.tableView.initialOpenSections = [NSSet setWithObjects:@(0), nil];
     self.tableView.scrollEnabled = YES;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLineEtched;
-    [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"basicCell"];
+    
+    [self.tableView registerNib:[UINib nibWithNibName:@"UserPactCellView" bundle:nil] forCellReuseIdentifier:@"basicCell"];
     [self.tableView registerNib:[UINib nibWithNibName:@"PactAccordionHeaderView" bundle:nil] forHeaderFooterViewReuseIdentifier:accordionHeaderReuseIdentifier];
 
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 300;
+    return 550;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
@@ -63,11 +65,12 @@
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"basicCell" forIndexPath:indexPath];
-    cell.textLabel.text = @"work";
+    UserPactCellView * cell = [tableView dequeueReusableCellWithIdentifier:@"basicCell" forIndexPath:indexPath];
+    
+    cell.pact = self.currentUser.pacts[indexPath.section];
+    
     return cell;
 }
-
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
@@ -83,8 +86,11 @@
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     
     PactAccordionHeaderView *viewThing = [tableView dequeueReusableHeaderFooterViewWithIdentifier:accordionHeaderReuseIdentifier];
+    
     JDDPact *currentPact = self.currentUser.pacts[section];
+    
     viewThing.pact = currentPact;
+    
     return viewThing;
     
 }
