@@ -3,7 +3,6 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
-        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -14,48 +13,26 @@
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IIh-UQ-CM4" userLabel="containerView">
                     <rect key="frame" x="0.0" y="0.0" width="740" height="160"/>
-                    <subviews>
-                        <imageView userInteractionEnabled="NO" tag="1" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="wOv-2g-BJd" userLabel="right image">
-                            <rect key="frame" x="555" y="0.0" width="185" height="160"/>
-                        </imageView>
-                        <imageView userInteractionEnabled="NO" tag="2" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="t9W-RT-VfD" userLabel="left image">
-                            <rect key="frame" x="0.0" y="0.0" width="185" height="160"/>
-                        </imageView>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Test" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="D3q-1L-wcU" userLabel="pact title">
-                            <rect key="frame" x="0.0" y="0.0" width="740" height="160"/>
-                            <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
-                            <color key="textColor" red="0.10353883080582105" green="1" blue="0.25339664968533182" alpha="0.84665948275862069" colorSpace="calibratedRGB"/>
-                            <nil key="highlightedColor"/>
-                        </label>
-                    </subviews>
                     <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                    <constraints>
-                        <constraint firstItem="wOv-2g-BJd" firstAttribute="centerY" secondItem="IIh-UQ-CM4" secondAttribute="centerY" id="9Rm-RK-KMh"/>
-                        <constraint firstItem="wOv-2g-BJd" firstAttribute="height" secondItem="IIh-UQ-CM4" secondAttribute="height" id="Ba7-Sl-XAR"/>
-                        <constraint firstItem="D3q-1L-wcU" firstAttribute="centerX" secondItem="IIh-UQ-CM4" secondAttribute="centerX" id="FA2-0I-ORj"/>
-                        <constraint firstItem="t9W-RT-VfD" firstAttribute="leading" secondItem="IIh-UQ-CM4" secondAttribute="leading" id="O7D-4d-wAw"/>
-                        <constraint firstItem="t9W-RT-VfD" firstAttribute="centerY" secondItem="IIh-UQ-CM4" secondAttribute="centerY" id="RYl-c2-hC0"/>
-                        <constraint firstItem="D3q-1L-wcU" firstAttribute="height" secondItem="IIh-UQ-CM4" secondAttribute="height" id="XfD-5f-k8h"/>
-                        <constraint firstItem="t9W-RT-VfD" firstAttribute="height" secondItem="IIh-UQ-CM4" secondAttribute="height" id="Y5h-xy-rXl"/>
-                        <constraint firstItem="t9W-RT-VfD" firstAttribute="width" secondItem="IIh-UQ-CM4" secondAttribute="width" multiplier="0.25" id="ZAd-Bn-3Mo"/>
-                        <constraint firstAttribute="trailing" secondItem="wOv-2g-BJd" secondAttribute="trailing" id="bVK-Lf-aaO"/>
-                        <constraint firstItem="wOv-2g-BJd" firstAttribute="width" secondItem="IIh-UQ-CM4" secondAttribute="width" multiplier="0.25" id="jDu-YX-DnK"/>
-                        <constraint firstItem="D3q-1L-wcU" firstAttribute="centerY" secondItem="IIh-UQ-CM4" secondAttribute="centerY" id="m3L-g9-olk"/>
-                        <constraint firstItem="D3q-1L-wcU" firstAttribute="width" secondItem="IIh-UQ-CM4" secondAttribute="width" id="x4Y-dn-p65"/>
-                    </constraints>
                 </view>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Test" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="D3q-1L-wcU" userLabel="pact title">
+                    <rect key="frame" x="357" y="70" width="26" height="20"/>
+                    <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="15"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                </label>
             </subviews>
             <constraints>
                 <constraint firstItem="IIh-UQ-CM4" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="F0d-Hq-Jjq"/>
+                <constraint firstItem="D3q-1L-wcU" firstAttribute="centerX" secondItem="IIh-UQ-CM4" secondAttribute="centerX" id="HiN-ec-rmz"/>
                 <constraint firstItem="IIh-UQ-CM4" firstAttribute="height" secondItem="iN0-l3-epB" secondAttribute="height" id="Q7d-jf-6Wh"/>
                 <constraint firstItem="IIh-UQ-CM4" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="ZzK-ox-Ga9"/>
+                <constraint firstItem="D3q-1L-wcU" firstAttribute="centerY" secondItem="IIh-UQ-CM4" secondAttribute="centerY" id="xPw-im-zrg"/>
                 <constraint firstItem="IIh-UQ-CM4" firstAttribute="width" secondItem="iN0-l3-epB" secondAttribute="width" id="yKN-KE-fOF"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
                 <outlet property="containerView" destination="IIh-UQ-CM4" id="Y4q-O6-Wj4"/>
-                <outlet property="leftImage" destination="t9W-RT-VfD" id="NkW-PP-cFj"/>
-                <outlet property="rightImage" destination="wOv-2g-BJd" id="lSC-DV-yKH"/>
                 <outlet property="title" destination="D3q-1L-wcU" id="Xeb-IW-gx5"/>
             </connections>
             <point key="canvasLocation" x="457" y="388"/>

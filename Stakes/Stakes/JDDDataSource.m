@@ -28,7 +28,10 @@
     });
     
     return _sharedPiratesDataStore;
+    
 }
+
+
 
 -(void)generateFakeData{
    

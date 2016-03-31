@@ -7,6 +7,9 @@
 //
 
 #import "UserPactCellView.h"
+#import <CoreLocation/CoreLocation.h>
+#import "JDDDataSource.h"
+
 
 @interface UserPactCellView ()
 
@@ -23,51 +26,40 @@
 @property (strong, nonatomic) IBOutlet UILabel *name1checkIns;
 @property (strong, nonatomic) IBOutlet UILabel *name2checkIns;
 @property (strong, nonatomic) IBOutlet UILabel *name3checkIns;
+@property (strong, nonatomic) IBOutlet UIButton *checkInButton;
+//@property (strong,nonatomic)    CLLocationManager *locationManager;
+
 
 @end
 
 @implementation UserPactCellView
 
-
-//-(instancetype)initWithCoder:(NSCoder *)aDecoder
-//{
+- (IBAction)checkInButtonPressed:(id)sender {
+    
+//    self.locationManager = [[CLLocationManager alloc]init];
 //    
-//    self = [super initWithCoder:aDecoder];
-//    if (self) {
-//        [self commonInit];
-//    }
-//    return self;
-//}
-//
-//-(instancetype)initWithFrame:(CGRect)frame
-//{
 //    
-//    self = [super initWithFrame:frame];
-//    if (self) {
-//        
-//        [self commonInit];
-//    }
-//    return self;
-//}
-//
-//-(void)commonInit
-//{
 //    
-//    [[NSBundle mainBundle] loadNibNamed:@"UserPactCellView" owner:self options:nil];
-//    
-//    [self addSubview:self.contentView];
-//    
-//    self.contentView.frame = self.bounds;
-//    
-//    [self setShitUp];
-//    
-//}
+//    [self.locationManager startUpdatingLocation];
+    // identify user w oath? phone number?
+    // take location - add to messages.
+    
+//    JDDCheckIn *checkin = [[JDDCheckIn alloc]init];
+    
+    
+    
+    NSLog(@"checkin Button Pressed");
+    
+    
+}
 
 - (void)awakeFromNib {
     
     [super awakeFromNib];
     
-    [self setShitUp];
+//    
+//    self.locationManager.delegate = self;
+//    self.locationManager.desiredAccuracy = kCLLocationAccuracyBest;
     
 }
 
@@ -150,24 +142,8 @@
         self.stakesDetail.text = self.pact.stakes;
         
     }
-    
 
-    
-//    @property (strong, nonatomic) IBOutlet UILabel *name1;
-//    @property (strong, nonatomic) IBOutlet UILabel *name2;
-//    @property (strong, nonatomic) IBOutlet UILabel *name3;
-//    @property (strong, nonatomic) IBOutlet UILabel *pactTitle;
-//    @property (strong, nonatomic) IBOutlet UILabel *pactDetail;
-//    @property (strong, nonatomic) IBOutlet UILabel *stakesTitle;
-//    @property (strong, nonatomic) IBOutlet UILabel *stakesDetail;
-//    @property (strong, nonatomic) IBOutlet UIImageView *name1Image;
-//    @property (strong, nonatomic) IBOutlet UIImageView *name2Image;
-//    @property (strong, nonatomic) IBOutlet UIImageView *name3Image;
-//    @property (strong, nonatomic) IBOutlet UILabel *name1checkIns;
-//    @property (strong, nonatomic) IBOutlet UILabel *name2checkIns;
-//    @property (strong, nonatomic) IBOutlet UILabel *name3checkIns;
 
-    
     
     
     

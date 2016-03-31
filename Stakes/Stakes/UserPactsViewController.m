@@ -47,7 +47,7 @@
     
     [self.tableView registerNib:[UINib nibWithNibName:@"UserPactCellView" bundle:nil] forCellReuseIdentifier:@"basicCell"];
     [self.tableView registerNib:[UINib nibWithNibName:@"PactAccordionHeaderView" bundle:nil] forHeaderFooterViewReuseIdentifier:accordionHeaderReuseIdentifier];
-
+    
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -67,7 +67,15 @@
 {
     UserPactCellView * cell = [tableView dequeueReusableCellWithIdentifier:@"basicCell" forIndexPath:indexPath];
     
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    
     cell.pact = self.currentUser.pacts[indexPath.section];
+
+//    UISwipeGestureRecognizer *swipe = [[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(setSwipeGestureRight)];
+//    
+//    [self.swipeGestureLeft setDirection:UISwipeGestureRecognizerDirectionLeft];
+//    
+//    [cell addGestureRecognizer:self.swipeGestureLeft];
     
     return cell;
 }
@@ -75,6 +83,11 @@
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     return self.currentUser.pacts.count;
+}
+
+-(void)setSwipeGestureRight:(UISwipeGestureRecognizer *)swipeGestureRight{
+    
+    NSLog(@"this is happeneing!");
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -95,6 +108,17 @@
     
 }
 
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    // get selected pact
+    // create pact message vc
+    // pass pact to message vc
+    // show message vc -
+    
+//    self showViewController:<#(nonnull UIViewController *)#> sender:<#(nullable id)#>
+    
+}
+
 
 #pragma mark - <FZAccordionTableViewDelegate> -
 
@@ -111,6 +135,18 @@
 }
 
 - (void)tableView:(FZAccordionTableView *)tableView didCloseSection:(NSInteger)section withHeader:(UITableViewHeaderFooterView *)header {
+    
+}
+
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    
+    // need to pass pact information over to next VC
+    
+}
+
+-(void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    
+//    scrollView.contentOffset
     
 }
 
