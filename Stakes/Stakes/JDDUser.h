@@ -25,8 +25,8 @@
 @property (nonatomic, strong) NSString *userID;
 
 //Pacts
-@property (nonatomic, strong) NSArray *pacts; 
-@property (nonatomic, strong) NSArray *checkins;
+@property (nonatomic, strong) NSMutableArray *pacts;
+@property (nonatomic, strong) NSMutableArray *checkins;
 
 #pragma methods
 

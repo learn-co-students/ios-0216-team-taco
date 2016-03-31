@@ -118,7 +118,7 @@
                                 <rect key="frame" x="20" y="20" width="580" height="580"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="basicCell" textLabel="ZSQ-Sc-fGg" detailTextLabel="ODa-2K-vl7" style="IBUITableViewCellStyleValue1" id="pVL-sC-hca">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="basicCell" textLabel="ZSQ-Sc-fGg" detailTextLabel="ODa-2K-vl7" style="IBUITableViewCellStyleValue1" id="pVL-sC-hca" customClass="UserPactCellView">
                                         <rect key="frame" x="0.0" y="28" width="580" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="pVL-sC-hca" id="qbg-g3-Bql">
