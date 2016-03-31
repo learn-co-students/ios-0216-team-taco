@@ -7,8 +7,32 @@
 //
 
 #import <Foundation/Foundation.h>
+@import UIKit;
 
 @interface JDDUser : NSObject
 
+//Name
+@property (nonatomic, strong) NSString *firstName;
+@property (nonatomic, strong) NSString *lastName;
+
+//Contact Info
+@property (nonatomic, strong) NSString *emailAddress;
+@property (nonatomic, strong) NSString *phoneNumber;
+@property (nonatomic, strong) NSString *twitterHandle;
+@property (nonatomic, strong) UIImage * userImage;
+
+//App Info
+@property (nonatomic, strong) NSString *userID;
+
+//Pacts
+@property (nonatomic, strong) NSArray *pacts; 
+@property (nonatomic, strong) NSArray *checkins;
+
+#pragma methods
+
+//-(void)createNewPact;
+//-(void)checkInToPact:(JDDPact*)pact;
+//-(void)deletePact;
+//-(void)acceptPact;
 
 @end

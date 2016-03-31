@@ -7,8 +7,17 @@
 //
 
 #import "UserPactsViewController.h"
+#import "JDDDataSource.h"
+#import "JDDUser.h"
+#import "JDDPact.h"
+#import <FZAccordionTableView/FZAccordionTableView.h>
+#import "PactAccordionHeaderView.h"
+#import "JDDDataSource.h"
 
-@interface UserPactsViewController ()
+@interface UserPactsViewController () <UITableViewDataSource, UITableViewDelegate>
+@property (weak, nonatomic) IBOutlet FZAccordionTableView *tableView;
+@property (nonatomic, strong) JDDDataSource *dataSource;
+@property (nonatomic, strong) JDDUser * currentUser;
 
 @end
 
@@ -16,22 +25,88 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    
+    self.dataSource= [JDDDataSource sharedDataSource];
+    
+    [self.dataSource generateFakeData];
+    
+    self.currentUser = self.dataSource.users[0];
+    
+    NSLog(@"%@",self.currentUser);
+    
+    NSLog(@"%lu",self.currentUser.pacts.count);
+    
+    self.tableView.delegate = self;
+    self.tableView.dataSource = self;
+    self.tableView.allowMultipleSectionsOpen = NO;
+    self.tableView.keepOneSectionOpen = NO;
+    self.tableView.initialOpenSections = [NSSet setWithObjects:@(0), nil];
+    self.tableView.scrollEnabled = YES;
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLineEtched;
+    [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"basicCell"];
+    [self.tableView registerNib:[UINib nibWithNibName:@"PactAccordionHeaderView" bundle:nil] forHeaderFooterViewReuseIdentifier:accordionHeaderReuseIdentifier];
+
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return 300;
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    return 50;
 }
-*/
+
+-(BOOL)prefersStatusBarHidden
+{
+    return YES;
+}
+
+-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"basicCell" forIndexPath:indexPath];
+    cell.textLabel.text = @"work";
+    return cell;
+}
+
+
+-(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return self.currentUser.pacts.count;
+}
+
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return 1;
+}
+
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    
+    PactAccordionHeaderView *viewThing = [tableView dequeueReusableHeaderFooterViewWithIdentifier:accordionHeaderReuseIdentifier];
+    JDDPact *currentPact = self.currentUser.pacts[section];
+    viewThing.pact = currentPact;
+    return viewThing;
+    
+}
+
+
+#pragma mark - <FZAccordionTableViewDelegate> -
+
+- (void)tableView:(FZAccordionTableView *)tableView willOpenSection:(NSInteger)section withHeader:(UITableViewHeaderFooterView *)header {
+    
+}
+
+- (void)tableView:(FZAccordionTableView *)tableView didOpenSection:(NSInteger)section withHeader:(UITableViewHeaderFooterView *)header {
+    
+}
+
+- (void)tableView:(FZAccordionTableView *)tableView willCloseSection:(NSInteger)section withHeader:(UITableViewHeaderFooterView *)header {
+    
+}
+
+- (void)tableView:(FZAccordionTableView *)tableView didCloseSection:(NSInteger)section withHeader:(UITableViewHeaderFooterView *)header {
+    
+}
+
 
 @end
