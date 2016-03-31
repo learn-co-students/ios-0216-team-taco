@@ -22,7 +22,9 @@
 @property (strong, nonatomic)NSArray *timeIntervalPickerDataSourceArray;
 @property (weak, nonatomic) IBOutlet UISwitch *repeatSwitch;
 @property (weak, nonatomic) IBOutlet UISwitch *shameSwitch;
-
+@property (weak, nonatomic) IBOutlet UIView *topView;
+@property (weak, nonatomic) IBOutlet UITextField *stakesTextView;
+@property (nonatomic, strong) NSArray *pactParticipants;
 @end
 
 @implementation CreatePactViewController
@@ -34,8 +36,48 @@
     self.repeatSwitch.on = NO;
     self.shameSwitch.on = NO;
     self.twitterShamePost.hidden = YES;
+    [self imageStyle];
+    [self styleTopView];
+    [self stylePactDescriptionView];
+    [self styleTwitterPost];
+    [self styleStakesView];
+    self.profileImage.hidden = YES;
+    self.userNameLabel.hidden = YES;
+    
+}
+-(void)styleStakesView
+{
+    self.stakesTextView.layer.cornerRadius = 5;
+    self.stakesTextView.layer.borderWidth = 1.0f;
+    self.stakesTextView.layer.borderColor = [UIColor blackColor].CGColor;
+}
 
+-(void)styleTwitterPost
+{
+    self.twitterShamePost.layer.cornerRadius = 5;
+    self.twitterShamePost.layer.borderWidth = 1.0f;
+    self.twitterShamePost.layer.borderColor = [UIColor blackColor].CGColor;
+}
 
+-(void)stylePactDescriptionView
+{
+    self.pactDescription.layer.cornerRadius = 5;
+    self.pactDescription.layer.borderWidth = 1.0f;
+    self.pactDescription.layer.borderColor = [UIColor blackColor].CGColor;
+}
+
+-(void)styleTopView
+{
+    self.topView.layer.cornerRadius = 5;
+    self.topView.layer.borderWidth = 1.0f;
+    self.topView.layer.borderColor = [UIColor blackColor].CGColor;
+}
+-(void)imageStyle
+{
+    self.profileImage.layer.cornerRadius = self.profileImage.frame.size.height /2;
+    self.profileImage.layer.borderWidth = 1.0f;
+    self.profileImage.layer.borderColor = [UIColor blackColor].CGColor;
+    
 }
 
 
@@ -46,7 +88,7 @@
         [frequencyPicker addObject:number];
     }
     self.FrequencyPickerDataSourceArray = frequencyPicker;
-    self.timeIntervalPickerDataSourceArray = @[@"Day",@"Week",@"Month",@"Year",@"Winter",@"Summer"];
+    self.timeIntervalPickerDataSourceArray = @[@"Day",@"Week",@"Month",@"Year"];
     self.timeIntervalPicker.delegate =self;
     self.timeIntervalPicker.dataSource = self;
     self.frequencyPicker.delegate = self;
@@ -108,10 +150,13 @@
     }
 }
 
-- (void)contactPicker:(CNContactPickerViewController *)picker didSelectContact:(CNContact *)contact {
-    NSLog(@"Contact selected: %@", contact);
-}
 
+- (void)contactPicker:(CNContactPickerViewController *)picker didSelectContacts:(NSArray<CNContact*> *)contacts// delgate to pick more than one user
+{
+    self.pactParticipants = contacts;  // add users to users property array
+    NSLog(@"contacts are: %@", self.pactParticipants);
+    
+}
 /*
 #pragma mark - Navigation
 
