@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-@interface CreatePactViewController : UIViewController
+@interface CreatePactViewController : UIViewController<UIPickerViewDataSource, UIPickerViewDelegate>
+
+
 
 @end
