@@ -15,11 +15,13 @@
 #import "JDDDataSource.h"
 #import "UserPactCellView.h"
 #import "PactDetailViewController.h"
+#import "LoginViewController.h"
 
 @interface UserPactsViewController () <UITableViewDataSource, UITableViewDelegate>
 @property (weak, nonatomic) IBOutlet FZAccordionTableView *tableView;
 @property (nonatomic, strong) JDDDataSource *dataSource;
 @property (nonatomic, strong) JDDUser * currentUser;
+@property (nonatomic, strong) NSString *pactOAUTH;
 
 @end
 
@@ -49,7 +51,15 @@
     [self.tableView registerNib:[UINib nibWithNibName:@"UserPactCellView" bundle:nil] forCellReuseIdentifier:@"basicCell"];
     [self.tableView registerNib:[UINib nibWithNibName:@"PactAccordionHeaderView" bundle:nil] forHeaderFooterViewReuseIdentifier:accordionHeaderReuseIdentifier];
     
+//    [self perform
+//     accessibilityElementDidBecomeFocused:@"login" sender:self];
 }
+//
+//-(void)displayLoginController:(LoginViewController *)login {
+//    [self addChildViewController:login];
+////    login.view.frame = [self frameForLoginViewController];
+//    
+//}
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return 550;
@@ -140,7 +150,8 @@
 }
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    
+    LoginViewController *login = segue.destinationViewController;
+    login.oauthtoken = self.pactOAUTH;
     
     
 }
