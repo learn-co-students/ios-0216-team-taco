@@ -177,4 +177,17 @@
     
 }
 
+
+-(void)createPactTapped
+{
+    
+}
+
+-(BOOL)pactIsReady
+{
+    
+    return NO;
+
+}
+
 @end
