@@ -1,14 +1,48 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="MPh-TJ-Hsx">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="eCV-OA-MNh">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--About To DeleteVC-->
+        <scene sceneID="ewV-xv-nEM">
+            <objects>
+                <viewController id="eCV-OA-MNh" customClass="aboutToDeleteVC" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="g3y-zp-Ds9"/>
+                        <viewControllerLayoutGuide type="bottom" id="D98-fF-ENf"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="F5k-oG-Hyj">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="alP-UD-CrZ">
+                                <rect key="frame" x="241" y="285" width="119" height="30"/>
+                                <state key="normal" title="Login W Firebase"/>
+                                <connections>
+                                    <action selector="loginWFirebasePressed:" destination="eCV-OA-MNh" eventType="touchUpInside" id="EEx-Xf-pV5"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="alP-UD-CrZ" firstAttribute="centerY" secondItem="F5k-oG-Hyj" secondAttribute="centerY" id="ITA-ui-GZF"/>
+                            <constraint firstItem="alP-UD-CrZ" firstAttribute="centerX" secondItem="F5k-oG-Hyj" secondAttribute="centerX" id="yVw-gE-eiR"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <segue destination="MPh-TJ-Hsx" kind="show" identifier="segueFromDeleteVCtoSmackTalkVC" id="I1g-V5-SWD"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="x9I-94-fTK" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1751" y="2040"/>
+        </scene>
+        <!--Smack Tack View Controller-->
         <scene sceneID="tRZ-Rw-5Qn">
             <objects>
-                <viewController id="MPh-TJ-Hsx" sceneMemberID="viewController">
+                <viewController id="MPh-TJ-Hsx" customClass="smackTackViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="6Cc-UE-D5A"/>
                         <viewControllerLayoutGuide type="bottom" id="QYL-y3-P0C"/>
@@ -21,7 +55,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dRU-Eh-DSq" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2656" y="2045"/>
+            <point key="canvasLocation" x="2659" y="2040"/>
         </scene>
     </scenes>
 </document>

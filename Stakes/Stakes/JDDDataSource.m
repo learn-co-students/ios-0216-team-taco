@@ -31,6 +31,24 @@
     
 }
 
+
+-(instancetype)init {
+    
+    self = [super init];
+    
+    if (self) {
+        
+//        [self generateFakeData];
+        
+//        [self setUpFireBaseRef];
+        
+        [self establishCurrentUser];
+        
+    }
+    
+    return self;
+}
+
 -(void)generateFakeData{
    
     JDDUser * dylan = [self createNewUser1];
@@ -39,8 +57,8 @@
     
     JDDPact *pact = [self createPact];
     JDDPact *pact1 = [self createPact1];
-    pact.users = @[dylan, dimitry, jeremy];
-    pact1.users = @[dylan, dimitry, jeremy];
+    [pact.users addObjectsFromArray: @[dylan, dimitry, jeremy]];
+    [pact1.users addObjectsFromArray: @[dylan, dimitry, jeremy]];
     
     [dylan.pacts addObjectsFromArray:@[pact,pact1]];
     [jeremy.pacts addObjectsFromArray:@[pact,pact1]];
@@ -77,6 +95,7 @@
     dylan.checkins = [[NSMutableArray alloc]init];
     dylan.twitterHandle= @"@DylanStraughan";
     dylan.userImage = [UIImage imageNamed:@"Dylan"];
+    dylan.userID = [NSString stringWithFormat:@"%d", 1000];
     
     return dylan;
     
@@ -94,6 +113,7 @@
     jeremy.pacts = [[NSMutableArray alloc]init];
     jeremy.checkins = [[NSMutableArray alloc]init];
     jeremy.userImage = [UIImage imageNamed:@"Jeremy"];
+    jeremy.userID = [NSString stringWithFormat:@"%d", 1001];
 
 
     jeremy.twitterHandle= @"@jfeld";
@@ -113,6 +133,7 @@
     dimitry.pacts = [[NSMutableArray alloc]init];
     dimitry.checkins = [[NSMutableArray alloc]init];
     dimitry.userImage = [UIImage imageNamed:@"Dimitry"];
+    dimitry.userID = [NSString stringWithFormat:@"%d", 1002];
 
     
     dimitry.twitterHandle= @"@dKaoiruek";
@@ -128,7 +149,7 @@
     pact.title = @"Gym with Boys";
     pact.pactDescription = @"Need to go to gym 3x a week";
     pact.stakes = @"Loser has to buy beer";
-    pact.users = [[NSArray alloc]init];
+    pact.users = [[NSMutableArray alloc]init];
     
     pact.checkInsPerTimeInterval = 3;
     pact.timeInterval = @"week";
@@ -137,7 +158,7 @@
     pact.allowsShaming = YES;
     pact.twitterPost = @"I didn't go to the gym so I suck";
     
-    pact.messages = nil;
+    pact.messages = [NSMutableArray new];
  
     return pact;
 }
@@ -149,7 +170,7 @@
     pact.title = @"Jump Like an idiot";
     pact.pactDescription = @"Jump 5 times a day";
     pact.stakes = @"Loser has to buy a pony";
-    pact.users = [[NSArray alloc]init];
+    pact.users = [[NSMutableArray alloc]init];
     
     pact.checkInsPerTimeInterval = 7;
     pact.timeInterval = @"week";
@@ -158,7 +179,7 @@
     pact.allowsShaming = YES;
     pact.twitterPost = @"Im jumping like a clown";
     
-    pact.messages = nil;
+    pact.messages = [NSMutableArray new];
     
     return pact;
 }
@@ -193,15 +214,28 @@
 
 -(void)setUpFireBaseRef {
     
-    self.firebaseRef = [[Firebase alloc]initWithUrl:@"https://stakesonstakesonstak.firebaseio.com/"];
+    self.firebaseRef = [[Firebase alloc]initWithUrl:@"https://chatstuffinstakes.firebaseio.com/"];
     
 }
 
+//-(void)createUserIDForNewUser {
+//    
+//    
+//    
+//}
 
-
-
-
-
-
+-(void)establishCurrentUser {
+    
+    [self generateFakeData];
+    
+    [self setUpFireBaseRef];
+    
+    self.currentUser = self.users[0];
+    
+    // logic that establishes userID based on oath tokens to firebase in the phones password saftey database thing
+    
+    // firebase method that takes JSON from firebase and creates self.currentUser so it can be used throughout the application.
+    
+}
 
 @end

@@ -8,16 +8,20 @@
 
 #import <Foundation/Foundation.h>
 #import "FireBase.h"
-
+#import "JDDUser.h"
 
 @interface JDDDataSource : NSObject
 
 @property (nonatomic, strong) NSMutableArray *users;
 @property (nonatomic, strong) Firebase * firebaseRef;
+@property (nonatomic, strong) JDDUser * currentUser;
 
 + (instancetype)sharedDataSource;
 
 -(void)generateFakeData;
+
+-(void)setUpFireBaseRef;
+
 
 
 @end

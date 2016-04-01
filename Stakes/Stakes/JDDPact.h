@@ -14,7 +14,7 @@
 @property (nonatomic, strong) NSString *title;
 @property (nonatomic, strong) NSString * pactDescription;
 @property (nonatomic, strong) NSString *stakes;
-@property (nonatomic, strong) NSArray *users;
+@property (nonatomic, strong) NSMutableArray *users;
 @property (nonatomic) NSUInteger *pactID; // this should be the unique identifier for a pact throughout the application - and what gets writted to firebase.
 
 //CheckIn Information
@@ -27,7 +27,7 @@
 @property (nonatomic, strong) NSString *twitterPost;
 
 //Message Stuff
-@property (nonatomic, strong) NSArray *messages;
+@property (nonatomic, strong) NSMutableArray *messages;
 
 #pragma methods
 

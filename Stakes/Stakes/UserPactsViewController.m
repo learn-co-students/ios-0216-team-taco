@@ -30,7 +30,7 @@
     
     self.dataSource= [JDDDataSource sharedDataSource];
     
-    [self.dataSource generateFakeData];
+//    [self.dataSource generateFakeData]; // shouldnt need this bc init in Datasource
     
     self.currentUser = self.dataSource.users[0];
     
