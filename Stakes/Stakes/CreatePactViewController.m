@@ -31,6 +31,7 @@
 
 
 - (void)viewDidLoad {
+    
     [super viewDidLoad];
     [self initializePickers];
     self.repeatSwitch.on = NO;
@@ -157,6 +158,8 @@
     NSLog(@"contacts are: %@", self.pactParticipants);
     
 }
+
+
 /*
 #pragma mark - Navigation
 
@@ -166,6 +169,8 @@
     // Pass the selected object to the new view controller.
 }
 */
+
+
 - (IBAction)cancelButtonPressed:(id)sender {
     
     [self dismissViewControllerAnimated:YES completion:nil];
