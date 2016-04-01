@@ -12,12 +12,14 @@
 #import "JDDPact.h"
 #import <FZAccordionTableView/FZAccordionTableView.h>
 #import "PactAccordionHeaderView.h"
+#import "JDDDataSource.h"
+#import "UserPactCellView.h"
+#import "PactDetailViewController.h"
 
 @interface UserPactsViewController () <UITableViewDataSource, UITableViewDelegate>
 @property (weak, nonatomic) IBOutlet FZAccordionTableView *tableView;
-@property (nonatomic, strong) JDDPact *pactone;
-@property (nonatomic, strong) JDDPact *pacttwo;
-@property (nonatomic, strong) JDDUser *jeremy;
+@property (nonatomic, strong) JDDDataSource *dataSource;
+@property (nonatomic, strong) JDDUser * currentUser;
 
 @end
 
@@ -26,60 +28,35 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.pactone = [[JDDPact alloc] init];
-    self.pactone.title = @"Gym with Boys";
-    self.pactone.pactDescription = @"Need to go to gym 3x a week";
-    self.pactone.stakes = @"Loser has to buy beer";
-    self.pactone.users = [[NSArray alloc]init];
+    self.dataSource= [JDDDataSource sharedDataSource];
     
-    self.pactone.checkInsPerTimeInterval = 3;
-    self.pactone.timeInterval = @"week";
-    self.pactone.repeating = YES;
+    [self.dataSource generateFakeData];
     
-    self.pactone.allowsShaming = YES;
-    self.pactone.twitterPost = @"I didn't go to the gym so I suck";
+    self.currentUser = self.dataSource.users[0];
     
-    self.pactone.messages = nil;
+    NSLog(@"%@",self.currentUser);
     
-    self.pacttwo = [[JDDPact alloc] init];
-    self.pacttwo.title = @"Get Up Early";
-    self.pacttwo.pactDescription = @"Stop Snoozing";
-    self.pacttwo.stakes = @"Loser has to buy coffee for next week";
-    self.pacttwo.users = [[NSArray alloc]init];
-    
-    self.pacttwo.checkInsPerTimeInterval = 1;
-    self.pacttwo.timeInterval = @"day";
-    self.pacttwo.repeating = YES;
-    
-    self.pacttwo.allowsShaming = YES;
-    self.pacttwo.twitterPost = @"I couldn't get out of bed today";
-    
-    self.pacttwo.messages = nil;
-
-    self.jeremy = [[JDDUser alloc] init];
-    self.jeremy.pacts = @[self.pactone, self.pacttwo];
-    NSLog(@"PACT COUNT FOR USER %lu", self.jeremy.pacts.count);
-    
+    NSLog(@"%lu",self.currentUser.pacts.count);
     
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
-    self.tableView.allowMultipleSectionsOpen = YES;
+    self.tableView.allowMultipleSectionsOpen = NO;
     self.tableView.keepOneSectionOpen = NO;
     self.tableView.initialOpenSections = [NSSet setWithObjects:@(0), nil];
     self.tableView.scrollEnabled = YES;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLineEtched;
-    [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"basicCell"];
+    
+    [self.tableView registerNib:[UINib nibWithNibName:@"UserPactCellView" bundle:nil] forCellReuseIdentifier:@"basicCell"];
     [self.tableView registerNib:[UINib nibWithNibName:@"PactAccordionHeaderView" bundle:nil] forHeaderFooterViewReuseIdentifier:accordionHeaderReuseIdentifier];
-
+    
 }
 
-
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 44;
+    return 550;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    return 88;
+    return 50;
 }
 
 -(BOOL)prefersStatusBarHidden
@@ -89,37 +66,58 @@
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"basicCell" forIndexPath:indexPath];
-    cell.textLabel.text = @"work you piece of shit";
+    UserPactCellView * cell = [tableView dequeueReusableCellWithIdentifier:@"basicCell" forIndexPath:indexPath];
+    
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    
+    cell.pact = self.currentUser.pacts[indexPath.section];
+
+//    UISwipeGestureRecognizer *swipe = [[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(setSwipeGestureRight)];
+//    
+//    [self.swipeGestureLeft setDirection:UISwipeGestureRecognizerDirectionLeft];
+//    
+//    [cell addGestureRecognizer:self.swipeGestureLeft];
+    
     return cell;
 }
 
-
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return self.jeremy.pacts.count;
+    return self.currentUser.pacts.count;
 }
 
-
+-(void)setSwipeGestureRight:(UISwipeGestureRecognizer *)swipeGestureRight{
+    
+    NSLog(@"this is happeneing!");
+}
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 4;
+    return 1;
 }
 
-//- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath {
-//    return [self tableView:tableView heightForRowAtIndexPath:indexPath];
-//}
-//
-//- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForHeaderInSection:(NSInteger)section {
-//    return [self tableView:tableView heightForHeaderInSection:section];
-//}
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    
     PactAccordionHeaderView *viewThing = [tableView dequeueReusableHeaderFooterViewWithIdentifier:accordionHeaderReuseIdentifier];
-    JDDPact *currentPact = self.jeremy.pacts[section];
+    
+    JDDPact *currentPact = self.currentUser.pacts[section];
+    
     viewThing.pact = currentPact;
+    
     return viewThing;
+    
+}
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    // get selected pact
+    // create pact message vc
+    // pass pact to message vc
+    // show message vc -
+    
+//    self showViewController:<#(nonnull UIViewController *)#> sender:<#(nullable id)#>
+    
 }
 
 
@@ -139,6 +137,21 @@
 
 - (void)tableView:(FZAccordionTableView *)tableView didCloseSection:(NSInteger)section withHeader:(UITableViewHeaderFooterView *)header {
     
+}
+
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    
+    
+    
+}
+
+-(void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    
+    if (scrollView.contentOffset.y < -(self.view.frame.size.height/6)) {
+        
+        [self performSegueWithIdentifier:@"segueToCreatePact" sender:self];
+        
+    }
 }
 
 

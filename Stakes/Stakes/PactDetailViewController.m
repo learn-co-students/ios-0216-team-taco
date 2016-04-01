@@ -9,6 +9,16 @@
 #import "PactDetailViewController.h"
 
 @interface PactDetailViewController ()
+@property (weak, nonatomic) IBOutlet UILabel *groupNameLabel;
+@property (weak, nonatomic) IBOutlet UILabel *stakeLabel;
+@property (weak, nonatomic) IBOutlet UITextField *pactDescriptionText;
+@property (weak, nonatomic) IBOutlet UITextField *tweeterPost;
+@property (weak, nonatomic) IBOutlet UILabel *memberName1;
+@property (weak, nonatomic) IBOutlet UILabel *memberName2;
+@property (weak, nonatomic) IBOutlet UILabel *memberName3;
+@property (weak, nonatomic) IBOutlet UIImageView *memberOneProfileImage;
+@property (weak, nonatomic) IBOutlet UIImageView *memberTwoProfileImage;
+@property (weak, nonatomic) IBOutlet UIImageView *memberThreeProfileImage;
 
 @end
 
