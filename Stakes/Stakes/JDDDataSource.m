@@ -180,4 +180,24 @@
     
 }
 
+//-(void)tweetMessageForUserWhoHasntCompletedPact {
+
+
+
+// For Twitter API
+// needs BOOL (completed or not completed) - NSDate, User and Pact
+// if User has not completed checkins in a specific NSdate (BOOL)
+// maybe this takes a NSNotification? that is called when a date hits
+
+
+
+//}
+
+
+
+
+
+
+
+
 @end

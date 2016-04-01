@@ -14,6 +14,7 @@
 #import "PactAccordionHeaderView.h"
 #import "JDDDataSource.h"
 #import "UserPactCellView.h"
+#import "PactDetailViewController.h"
 
 @interface UserPactsViewController () <UITableViewDataSource, UITableViewDelegate>
 @property (weak, nonatomic) IBOutlet FZAccordionTableView *tableView;
@@ -140,14 +141,17 @@
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     
-    // need to pass pact information over to next VC
+    
     
 }
 
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView {
     
-//    scrollView.contentOffset
-    
+    if (scrollView.contentOffset.y < -(self.view.frame.size.height/6)) {
+        
+        [self performSegueWithIdentifier:@"segueToCreatePact" sender:self];
+        
+    }
 }
 
 

@@ -60,7 +60,7 @@
         <!--Create Pact View Controller-->
         <scene sceneID="0B6-Dh-tZo">
             <objects>
-                <viewController id="i4d-Ov-NqA" customClass="CreatePactViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="createPactVC" id="i4d-Ov-NqA" customClass="CreatePactViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="O7d-SW-TVn"/>
                         <viewControllerLayoutGuide type="bottom" id="cdF-GR-QuQ"/>
@@ -201,6 +201,15 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Hne-Dh-8f5">
+                                <rect key="frame" x="20" y="570" width="48" height="30"/>
+                                <state key="normal" title="Cancel">
+                                    <color key="titleColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="cancelButtonPressed:" destination="i4d-Ov-NqA" eventType="touchUpInside" id="TEM-Ua-Fkl"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -210,6 +219,7 @@
                             <constraint firstItem="a5f-VN-aAU" firstAttribute="width" secondItem="Et9-hf-pi4" secondAttribute="width" multiplier="0.105" id="965-XJ-6qE"/>
                             <constraint firstItem="GlM-XX-YM4" firstAttribute="leading" secondItem="uyh-Ck-oSo" secondAttribute="trailing" constant="30" id="BG7-nl-149"/>
                             <constraint firstItem="GlM-XX-YM4" firstAttribute="top" secondItem="ykR-kl-pm0" secondAttribute="bottom" constant="5" id="DTW-mN-8yE"/>
+                            <constraint firstItem="Hne-Dh-8f5" firstAttribute="leading" secondItem="Et9-hf-pi4" secondAttribute="leadingMargin" id="Ghv-4s-Qfz"/>
                             <constraint firstItem="ykR-kl-pm0" firstAttribute="leading" secondItem="cKj-9W-khf" secondAttribute="leading" id="Gpa-Ay-aZH"/>
                             <constraint firstItem="uyh-Ck-oSo" firstAttribute="leading" secondItem="a5f-VN-aAU" secondAttribute="trailing" constant="20" id="HFM-S5-4gD"/>
                             <constraint firstItem="F1N-JR-b0z" firstAttribute="leading" secondItem="zO8-J3-gTy" secondAttribute="leading" id="Hsc-Br-CuF"/>
@@ -235,6 +245,7 @@
                             <constraint firstItem="ykR-kl-pm0" firstAttribute="top" secondItem="WWo-gp-5Ho" secondAttribute="bottom" constant="10" id="i05-dj-1XR"/>
                             <constraint firstItem="cdF-GR-QuQ" firstAttribute="top" secondItem="ACI-JZ-z8A" secondAttribute="bottom" constant="5" id="lQU-8i-Ssf"/>
                             <constraint firstItem="ZjD-Gz-bxB" firstAttribute="centerX" secondItem="WWo-gp-5Ho" secondAttribute="centerX" id="mDu-In-Qtq"/>
+                            <constraint firstItem="cdF-GR-QuQ" firstAttribute="top" secondItem="Hne-Dh-8f5" secondAttribute="bottom" id="nOe-2r-dlT"/>
                             <constraint firstItem="a5f-VN-aAU" firstAttribute="leading" secondItem="Et9-hf-pi4" secondAttribute="leading" id="p3R-5q-JBM"/>
                             <constraint firstItem="ACI-JZ-z8A" firstAttribute="width" secondItem="Et9-hf-pi4" secondAttribute="width" multiplier="0.3" id="pAb-vK-EUi"/>
                             <constraint firstItem="F1N-JR-b0z" firstAttribute="top" secondItem="zO8-J3-gTy" secondAttribute="bottom" constant="24" id="sJN-sZ-PTY"/>
