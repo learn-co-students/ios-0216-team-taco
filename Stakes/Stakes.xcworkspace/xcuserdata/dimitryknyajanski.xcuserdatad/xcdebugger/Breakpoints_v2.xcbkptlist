@@ -20,13 +20,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Stakes/CreatePactViewController.m"
-            timestampString = "481130926.486726"
+            timestampString = "481226489.579136"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "24"
-            endingLineNumber = "24"
-            landmarkName = "shameSwitch"
-            landmarkType = "19">
+            startingLineNumber = "205"
+            endingLineNumber = "205"
+            landmarkName = "-isGroupTitleSet"
+            landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

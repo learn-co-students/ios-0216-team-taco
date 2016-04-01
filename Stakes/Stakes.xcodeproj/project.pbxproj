@@ -10,6 +10,7 @@
 		10C87798DE0B6E0C995D1A83 /* Pods_Stakes.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 361C6FD6E5AC97F65E59E02D /* Pods_Stakes.framework */; };
 		3F52B0881CAB3EBC0031BF59 /* Israel.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3F52B0871CAB3EBC0031BF59 /* Israel.jpg */; };
 		AF2883481CAC12C6003FD3E2 /* JDDDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = AF2883471CAC12C6003FD3E2 /* JDDDataSource.m */; };
+		AF4835961CAECA1400AFB43A /* aboutToDeleteVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AF4835951CAECA1400AFB43A /* aboutToDeleteVC.m */; };
 		AFB5216A1CAC450800A993E8 /* smackTackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AFB521691CAC450800A993E8 /* smackTackViewController.m */; };
 		AFB5216D1CAC727600A993E8 /* JDDFireBaseAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = AFB5216C1CAC727600A993E8 /* JDDFireBaseAPI.m */; };
 		AFC0645B1CAD733900DBA069 /* UserPactCellView.xib in Resources */ = {isa = PBXBuildFile; fileRef = AFC0645A1CAD733900DBA069 /* UserPactCellView.xib */; };
@@ -66,6 +67,8 @@
 		79BEE4D5993F024270E6A571 /* Pods-Stakes.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Stakes.release.xcconfig"; path = "Pods/Target Support Files/Pods-Stakes/Pods-Stakes.release.xcconfig"; sourceTree = "<group>"; };
 		AF2883461CAC12C6003FD3E2 /* JDDDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JDDDataSource.h; sourceTree = "<group>"; };
 		AF2883471CAC12C6003FD3E2 /* JDDDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JDDDataSource.m; sourceTree = "<group>"; };
+		AF4835941CAECA1400AFB43A /* aboutToDeleteVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = aboutToDeleteVC.h; sourceTree = "<group>"; };
+		AF4835951CAECA1400AFB43A /* aboutToDeleteVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = aboutToDeleteVC.m; sourceTree = "<group>"; };
 		AFB521681CAC450800A993E8 /* smackTackViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = smackTackViewController.h; sourceTree = "<group>"; };
 		AFB521691CAC450800A993E8 /* smackTackViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = smackTackViewController.m; sourceTree = "<group>"; };
 		AFB5216B1CAC727600A993E8 /* JDDFireBaseAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JDDFireBaseAPI.h; sourceTree = "<group>"; };
@@ -200,15 +203,21 @@
 				CB8BC0391CAD75D0003A9D5E /* LoginViewController.m */,
 				AFB521681CAC450800A993E8 /* smackTackViewController.h */,
 				AFB521691CAC450800A993E8 /* smackTackViewController.m */,
+				CB8BC03E1CAD7E6A003A9D5E /* JDDTwitterAPIClient.h */,
+				CB8BC03F1CAD7E6A003A9D5E /* JDDTwitterAPIClient.m */,
 				AFC0645F1CAD8DA800DBA069 /* Group 2.png */,
 				AFC064601CAD8DA800DBA069 /* Pic 1.png */,
 				AFC064611CAD8DA800DBA069 /* Screen Shot 2016-03-28 at 4.13.09 PM.png */,
+				AFB521681CAC450800A993E8 /* smackTackViewController.h */,
+				AFB521691CAC450800A993E8 /* smackTackViewController.m */,
 				CBA985881CAAEE0900D1CC27 /* CreatePactViewController.h */,
 				CBA985891CAAEE0900D1CC27 /* CreatePactViewController.m */,
 				CBA985921CAAEE0900D1CC27 /* PactDetailViewController.h */,
 				CBA985931CAAEE0900D1CC27 /* PactDetailViewController.m */,
 				CBA985941CAAEE0900D1CC27 /* UserPactsViewController.h */,
 				CBA985951CAAEE0900D1CC27 /* UserPactsViewController.m */,
+				AF4835941CAECA1400AFB43A /* aboutToDeleteVC.h */,
+				AF4835951CAECA1400AFB43A /* aboutToDeleteVC.m */,
 				CBA9858A1CAAEE0900D1CC27 /* JDDCheckIn.h */,
 				CBA9858B1CAAEE0900D1CC27 /* JDDCheckIn.m */,
 				CBA9858C1CAAEE0900D1CC27 /* JDDMessage.h */,
@@ -464,6 +473,8 @@
 				AFB5216D1CAC727600A993E8 /* JDDFireBaseAPI.m in Sources */,
 				CBA985571CAAEC6D00D1CC27 /* AppDelegate.m in Sources */,
 				AFB5216A1CAC450800A993E8 /* smackTackViewController.m in Sources */,
+				CB8BC0401CAD7E6A003A9D5E /* JDDTwitterAPIClient.m in Sources */,
+				AF4835961CAECA1400AFB43A /* aboutToDeleteVC.m in Sources */,
 				AFC0645E1CAD736D00DBA069 /* UserPactCellView.m in Sources */,
 				CBA9859B1CAAEE0900D1CC27 /* PactDetailViewController.m in Sources */,
 				CBA985541CAAEC6D00D1CC27 /* main.m in Sources */,
