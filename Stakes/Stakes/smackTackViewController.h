@@ -8,12 +8,11 @@
 
 #import <UIKit/UIKit.h>
 #import <JSQMessagesViewController/JSQMessages.h>
-
-
 #import "JSQMessages.h"
 #import "JDDDataSource.h"
 #import "JDDMessage.h"
 #import "Firebase.h"
+#import "JDDPact.h"
 
 
 @class smackTackViewController;
@@ -27,8 +26,9 @@
 @interface smackTackViewController : JSQMessagesViewController <UIActionSheetDelegate, JSQMessagesComposerTextViewPasteDelegate>
 
 @property (weak, nonatomic) id <JSQDemoViewControllerDelegate> delegateModal;
-
-//@property (strong, nonatomic) DemoModelData *demoData; // need message data? take from datastore;
+@property (nonatomic, strong)NSMutableArray *messages;
+@property (nonatomic, strong) JDDDataSource *dataSource;
+@property (nonatomic, strong) JDDPact *currentPact; // this has to be sent over from UserPactsViewVC in a prepare for segue.
 
 - (void)receiveMessagePressed:(UIBarButtonItem *)sender;
 
