@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--create pact-->
@@ -67,7 +68,7 @@
         <!--login-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController title="login" id="BYZ-38-t0r" customClass="ViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="LoginViewController" title="login" useStoryboardIdentifierAsRestorationIdentifier="YES" id="BYZ-38-t0r" customClass="LoginViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -76,27 +77,44 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="v4E-Dd-3uu">
-                                <rect key="frame" x="252" y="176" width="97" height="30"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ixX-LT-33D">
-                                <rect key="frame" x="252" y="247" width="97" height="30"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8Mb-ES-n98">
-                                <rect key="frame" x="277" y="298" width="46" height="30"/>
-                                <state key="normal" title="login"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8Mb-ES-n98">
+                                <rect key="frame" x="221" y="286" width="158" height="28"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="158" id="7cY-0N-oZD"/>
+                                    <constraint firstAttribute="height" constant="28" id="SqN-Dd-wix"/>
+                                </constraints>
+                                <state key="normal" image="sign-in-with-twitter-gray"/>
+                                <connections>
+                                    <action selector="loginTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="PKe-yg-MQ8"/>
+                                </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cVd-l5-qca">
-                                <rect key="frame" x="265" y="336" width="71" height="30"/>
-                                <state key="normal" title="sign up"/>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="SB9-IY-jPa">
+                                <rect key="frame" x="111" y="481" width="433" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="X5z-nH-gEY">
+                                <rect key="frame" x="277" y="513" width="46" height="30"/>
+                                <state key="normal" title="Button"/>
+                                <connections>
+                                    <action selector="tweet:" destination="BYZ-38-t0r" eventType="touchUpInside" id="rA7-s4-pf6"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="SB9-IY-jPa" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="461" id="LtE-yS-Vex"/>
+                            <constraint firstItem="SB9-IY-jPa" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" id="b8f-Jo-1eH"/>
+                            <constraint firstItem="8Mb-ES-n98" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="bvx-i7-fhY"/>
+                            <constraint firstItem="X5z-nH-gEY" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="493" id="mbX-b1-6K6"/>
+                            <constraint firstItem="X5z-nH-gEY" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="257" id="qlJ-MV-M3f"/>
+                            <constraint firstItem="SB9-IY-jPa" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="91" id="qu0-lb-pFY"/>
+                            <constraint firstItem="8Mb-ES-n98" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="uq7-sN-aJF"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="tweetField" destination="SB9-IY-jPa" id="09F-1O-irr"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
@@ -155,6 +173,7 @@
                     </view>
                     <connections>
                         <outlet property="tableView" destination="lak-Xs-a7c" id="cLv-Js-L0P"/>
+                        <segue destination="BYZ-38-t0r" kind="presentation" identifier="login" id="q4Z-y9-X6p"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UO9-Ls-zX4" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -214,4 +233,7 @@
             <point key="canvasLocation" x="1164" y="327"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="sign-in-with-twitter-gray" width="158" height="28"/>
+    </resources>
 </document>

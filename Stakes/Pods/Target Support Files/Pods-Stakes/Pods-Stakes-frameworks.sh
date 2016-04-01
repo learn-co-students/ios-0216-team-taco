@@ -82,3 +82,18 @@ strip_invalid_archs() {
   fi
 }
 
+
+if [[ "$CONFIGURATION" == "Debug" ]]; then
+  install_framework "Pods-Stakes/FZAccordionTableView.framework"
+  install_framework "Pods-Stakes/Firebase.framework"
+  install_framework "Pods-Stakes/JSQMessagesViewController.framework"
+  install_framework "Pods-Stakes/JSQSystemSoundPlayer.framework"
+  install_framework "Pods-Stakes/STTwitter.framework"
+fi
+if [[ "$CONFIGURATION" == "Release" ]]; then
+  install_framework "Pods-Stakes/FZAccordionTableView.framework"
+  install_framework "Pods-Stakes/Firebase.framework"
+  install_framework "Pods-Stakes/JSQMessagesViewController.framework"
+  install_framework "Pods-Stakes/JSQSystemSoundPlayer.framework"
+  install_framework "Pods-Stakes/STTwitter.framework"
+fi
