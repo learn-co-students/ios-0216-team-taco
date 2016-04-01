@@ -7,8 +7,11 @@
 //
 
 #import "CreatePactViewController.h"
+#import "JDDDataSource.h"
+#import "JDDPact.h"
 @import Contacts;
 @import ContactsUI;
+
 
 
 @interface CreatePactViewController () <CNContactPickerDelegate> ;
@@ -18,6 +21,7 @@
 @property (weak, nonatomic) IBOutlet UIPickerView *frequencyPicker;
 @property (weak, nonatomic) IBOutlet UIPickerView *timeIntervalPicker;
 @property (weak, nonatomic) IBOutlet UITextField *twitterShamePost;
+@property (weak, nonatomic) IBOutlet UITextField *pactTitle;
 @property (strong, nonatomic)NSArray *FrequencyPickerDataSourceArray;
 @property (strong, nonatomic)NSArray *timeIntervalPickerDataSourceArray;
 @property (weak, nonatomic) IBOutlet UISwitch *repeatSwitch;
@@ -51,6 +55,16 @@
     self.stakesTextView.layer.cornerRadius = 5;
     self.stakesTextView.layer.borderWidth = 1.0f;
     self.stakesTextView.layer.borderColor = [UIColor blackColor].CGColor;
+}
+- (IBAction)createPactTapped:(id)sender {
+    
+    if ([self isPactReady]) {
+        
+        
+    
+        
+    }
+    
 }
 
 -(void)styleTwitterPost
@@ -178,16 +192,59 @@
 }
 
 
--(void)createPactTapped
-{
-    
-}
 
--(BOOL)pactIsReady
+-(BOOL)isPactReady
 {
+    if ([self isGroupTitleSet] && [self didInviteFriends] && [self isPactDecribed] && [self isStakeDecided]) {
+          NSLog(@"Pact is ready to go!!!");
+        return YES;
+    }
     
     return NO;
 
 }
+
+-(BOOL)isGroupTitleSet
+{
+    if (![self.pactTitle.text isEqualToString:@""] && self.pactTitle.text.length > 0 && self.pactTitle.text != nil) {
+        NSLog(@"Group name title is set");
+        return YES;
+    }
+    return NO;
+}
+
+-(BOOL)didInviteFriends
+{
+    if (self.pactParticipants.count >0){
+          NSLog(@"friends are invited");
+    
+        return YES;
+    }
+
+return  NO;
+}
+
+-(BOOL)isPactDecribed
+{
+    if (self.pactDescription.text.length > 0 && self.pactDescription.text != nil && ![self.pactDescription.text isEqual:@""]) {
+          NSLog(@"pact is described");
+        return YES;
+        
+    }
+    
+    return NO;
+}
+
+-(BOOL)isStakeDecided
+{
+    if (self.stakesTextView.text.length > 0 && self.stakesTextView.text != nil && ![self.stakesTextView.text isEqual:@""]) {
+          NSLog(@"Stakes are decided");
+        return YES;
+    }
+    
+    
+    return  NO;
+}
+
 
 @end
