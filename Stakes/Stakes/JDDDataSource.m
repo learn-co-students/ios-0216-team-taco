@@ -31,8 +31,6 @@
     
 }
 
-
-
 -(void)generateFakeData{
    
     JDDUser * dylan = [self createNewUser1];
@@ -192,6 +190,12 @@
 
 
 //}
+
+-(void)setUpFireBaseRef {
+    
+    self.firebaseRef = [[Firebase alloc]initWithUrl:@"https://stakesonstakesonstak.firebaseio.com/"];
+    
+}
 
 
 

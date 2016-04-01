@@ -8,3 +8,9 @@
 
 #import <Foundation/Foundation.h>
 
+@interface Secrets : NSObject
+extern NSString *const TWITTER_KEY;
+extern NSString *const TWITTER_SECRET;
+extern NSString *const TWITTER_OAUTH;
+@end
+

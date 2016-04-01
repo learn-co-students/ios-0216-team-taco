@@ -7,10 +7,12 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <FireBase.h>
 
 @interface JDDDataSource : NSObject
 
 @property (nonatomic, strong) NSMutableArray *users;
+@property (nonatomic, strong) Firebase * firebaseRef;
 
 + (instancetype)sharedDataSource;
 
