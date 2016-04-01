@@ -28,7 +28,8 @@
 @property (weak, nonatomic) IBOutlet UISwitch *shameSwitch;
 @property (weak, nonatomic) IBOutlet UIView *topView;
 @property (weak, nonatomic) IBOutlet UITextField *stakesTextView;
-@property (nonatomic, strong) NSArray *pactParticipants;
+@property (nonatomic, strong) NSMutableArray *pactParticipants;
+@property (nonatomic, assign) NSUInteger pactID;
 @end
 
 @implementation CreatePactViewController
@@ -61,7 +62,23 @@
     if ([self isPactReady]) {
         
         
-    
+        JDDPact *newPact = [[JDDPact alloc]init];
+        newPact.title = self.pactTitle.text;
+        newPact.pactDescription = self.pactDescription.text;
+        newPact.stakes = self.stakesTextView.text;
+        newPact.users = self.pactParticipants;
+        newPact.pactID = self.pactID;
+        newPact.twitterPost = self.twitterShamePost.text;
+        
+        [self.user.pacts addObject:newPact];
+        
+        
+        JDDDataSource *sharedData = [JDDDataSource sharedDataSource];
+        
+        
+        [sharedData.users addObject:self.user];
+        
+        
         
     }
     
@@ -195,7 +212,7 @@
 
 -(BOOL)isPactReady
 {
-    if ([self isGroupTitleSet] && [self didInviteFriends] && [self isPactDecribed] && [self isStakeDecided]) {
+    if ([self isGroupTitleSet] && [self didInviteFriends] && [self isPactDecribed] && [self isStakeDecided] && [self generatePactID]) {
           NSLog(@"Pact is ready to go!!!");
         return YES;
     }
@@ -246,5 +263,14 @@ return  NO;
     return  NO;
 }
 
+-(BOOL)generatePactID
+{
+     self.pactID = arc4random() % 9000 + 1000;
+//    if ([idArray containObject:self.pactID]) {
+//        [self generatePactID];
+//    }
+//    
+    return YES;
+}
 
 @end
