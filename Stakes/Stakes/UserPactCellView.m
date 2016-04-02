@@ -27,7 +27,7 @@
 @property (strong, nonatomic) IBOutlet UILabel *name2checkIns;
 @property (strong, nonatomic) IBOutlet UILabel *name3checkIns;
 @property (strong, nonatomic) IBOutlet UIButton *checkInButton;
-//@property (strong,nonatomic)    CLLocationManager *locationManager;
+@property (strong,nonatomic)    CLLocationManager *locationManager;
 
 
 @end
@@ -37,16 +37,20 @@
 - (IBAction)checkInButtonPressed:(id)sender {
     
 //    self.locationManager = [[CLLocationManager alloc]init];
+//    self.locationManager.delegate = self; // need to figure out if we bring this up to userPactVC with NSNotificationCenter
+//    self.locationManager.desiredAccuracy = kCLLocationAccuracyBest;
 //    
-//    
-//    
+//    [self.locationManager startUpdatingLocation]; // after creating JSQMEssageLocationData, call method below
+    
+//    [self.locationManager stopUpdatingLocation];
+//
+    //this should take a string (@"%@ this person just checkedIn here", and then create JSQMessage with JSQMessageLocationData and add it to the current self.pact.messages array
+    
 //    [self.locationManager startUpdatingLocation];
     // identify user w oath? phone number?
     // take location - add to messages.
     
 //    JDDCheckIn *checkin = [[JDDCheckIn alloc]init];
-    
-    
     
     NSLog(@"checkin Button Pressed");
     

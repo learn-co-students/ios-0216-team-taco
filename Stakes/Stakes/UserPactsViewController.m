@@ -37,6 +37,8 @@
     
     NSLog(@"%lu",self.dataSource.currentUser.pacts.count);
     
+    self.currentOpenPact = self.dataSource.currentUser.pacts[0];
+    
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     self.tableView.allowMultipleSectionsOpen = NO;
@@ -52,7 +54,9 @@
     
 //    [self perform
 //     accessibilityElementDidBecomeFocused:@"login" sender:self];
+    
 }
+
 //
 //-(void)displayLoginController:(LoginViewController *)login {
 //    [self addChildViewController:login];
@@ -156,6 +160,10 @@
 }
 
 - (void)tableView:(FZAccordionTableView *)tableView didOpenSection:(NSInteger)section withHeader:(UITableViewHeaderFooterView *)header {
+    
+    self.currentOpenPact = self.dataSource.currentUser.pacts[section];
+    
+    NSLog(@"did open section %@",self.currentOpenPact.title);
     
 }
 
