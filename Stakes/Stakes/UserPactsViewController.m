@@ -179,14 +179,14 @@
         
     }
     
+    // this is crashing the app... should this be here? - DVS
     
-    // I think this stuff should be in the viewDidLoad w/ alert controllers.
+    LoginViewController *login = segue.destinationViewController;
     
-//    LoginViewController *login = segue.destinationViewController;
-//    
-//    login.oauthtoken = self.pactOAUTH;
-//
-//    this is crashing the app... should this be here?
+    login.oauthtoken = self.pactOAUTH;
+    
+    // I think this stuff should be in the viewDidLoad w/ alert controllers. - DVS
+
     
 }
 
