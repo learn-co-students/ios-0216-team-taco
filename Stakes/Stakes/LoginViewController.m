@@ -14,7 +14,6 @@
 
 @interface LoginViewController ()
 @property (nonatomic, strong) STTwitterAPI *twitter;
-@property (nonatomic, strong) ACAccountStore *accountStore;
 @property (weak, nonatomic) IBOutlet UITextField *tweetField;
 @end
 
@@ -23,7 +22,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.accountStore = [[ACAccountStore alloc] init];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -51,6 +49,8 @@
     }];
     [self.twitter postAccessTokenRequestWithPIN:verifier successBlock:^(NSString *oauthToken, NSString *oauthTokenSecret, NSString *userID, NSString *screenName) {
         NSLog(@"WE HAVE AN ACCESS TOKEN --- %@", self.twitter.oauthAccessToken);
+        self.oauthtoken = self.twitter.oauthAccessToken;
+        NSLog(@"------------- %@ --------- PROPERTY FOR ACCESS TOKEN", self.oauthtoken);
     } errorBlock:^(NSError *error) {
         NSLog(@"-- %@", [error localizedDescription]);
     }];

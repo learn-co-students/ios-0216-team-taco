@@ -15,11 +15,14 @@
 #import "JDDDataSource.h"
 #import "UserPactCellView.h"
 #import "PactDetailViewController.h"
+#import "LoginViewController.h"
 
 @interface UserPactsViewController () <UITableViewDataSource, UITableViewDelegate>
 @property (weak, nonatomic) IBOutlet FZAccordionTableView *tableView;
 @property (nonatomic, strong) JDDDataSource *dataSource;
 @property (nonatomic, strong) JDDUser * currentUser;
+@property (nonatomic, strong) JDDPact * currentOpenPact;
+@property (nonatomic, strong) NSString *pactOAUTH;
 
 @end
 
@@ -30,13 +33,11 @@
     
     self.dataSource= [JDDDataSource sharedDataSource];
     
-//    [self.dataSource generateFakeData]; // shouldnt need this bc init in Datasource
+    NSLog(@"%@",self.dataSource.currentUser);
     
-    self.currentUser = self.dataSource.users[0];
+    NSLog(@"%lu",self.dataSource.currentUser.pacts.count);
     
-    NSLog(@"%@",self.currentUser);
-    
-    NSLog(@"%lu",self.currentUser.pacts.count);
+    self.currentOpenPact = self.dataSource.currentUser.pacts[0];
     
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
@@ -49,7 +50,47 @@
     [self.tableView registerNib:[UINib nibWithNibName:@"UserPactCellView" bundle:nil] forCellReuseIdentifier:@"basicCell"];
     [self.tableView registerNib:[UINib nibWithNibName:@"PactAccordionHeaderView" bundle:nil] forHeaderFooterViewReuseIdentifier:accordionHeaderReuseIdentifier];
     
+    [self setupSwipeGestureRecognizer];
+    
+//    [self perform
+//     accessibilityElementDidBecomeFocused:@"login" sender:self];
+    
 }
+
+//
+//-(void)displayLoginController:(LoginViewController *)login {
+//    [self addChildViewController:login];
+////    login.view.frame = [self frameForLoginViewController];
+//    
+//}
+
+#pragma gestureRecognizers for segues
+-(void)setupSwipeGestureRecognizer {
+    
+    UISwipeGestureRecognizer *swipe = [[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(swipeRightGestureHappened:)];
+    [swipe setDirection:UISwipeGestureRecognizerDirectionRight];
+    
+    [self.view addGestureRecognizer:swipe];
+}
+
+-(void)swipeRightGestureHappened:(UISwipeGestureRecognizer *)swipeGestureRight{
+    
+    NSLog(@"Right Gesture Recognizer is happeneing!");
+    
+    [self performSegueWithIdentifier:@"segueToSmackTalkVC" sender:self];
+
+}
+
+-(void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    
+    if (scrollView.contentOffset.y < -(self.view.frame.size.height/6)) {
+        
+        [self performSegueWithIdentifier:@"segueToCreatePact" sender:self];
+        
+    }
+}
+
+#pragma stuff for tableView
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return 550;
@@ -70,26 +111,18 @@
     
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
-    cell.pact = self.currentUser.pacts[indexPath.section];
-
-//    UISwipeGestureRecognizer *swipe = [[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(setSwipeGestureRight)];
-//    
-//    [self.swipeGestureLeft setDirection:UISwipeGestureRecognizerDirectionLeft];
-//    
-//    [cell addGestureRecognizer:self.swipeGestureLeft];
+    cell.pact = self.dataSource.currentUser.pacts[indexPath.section];
+    
+    
     
     return cell;
 }
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return self.currentUser.pacts.count;
+    return self.dataSource.currentUser.pacts.count;
 }
 
--(void)setSwipeGestureRight:(UISwipeGestureRecognizer *)swipeGestureRight{
-    
-    NSLog(@"this is happeneing!");
-}
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
@@ -101,7 +134,7 @@
     
     PactAccordionHeaderView *viewThing = [tableView dequeueReusableHeaderFooterViewWithIdentifier:accordionHeaderReuseIdentifier];
     
-    JDDPact *currentPact = self.currentUser.pacts[section];
+    JDDPact *currentPact = self.dataSource.currentUser.pacts[section];
     
     viewThing.pact = currentPact;
     
@@ -120,7 +153,6 @@
     
 }
 
-
 #pragma mark - <FZAccordionTableViewDelegate> -
 
 - (void)tableView:(FZAccordionTableView *)tableView willOpenSection:(NSInteger)section withHeader:(UITableViewHeaderFooterView *)header {
@@ -128,6 +160,10 @@
 }
 
 - (void)tableView:(FZAccordionTableView *)tableView didOpenSection:(NSInteger)section withHeader:(UITableViewHeaderFooterView *)header {
+    
+    self.currentOpenPact = self.dataSource.currentUser.pacts[section];
+    
+    NSLog(@"did open section %@",self.currentOpenPact.title);
     
 }
 
@@ -141,18 +177,27 @@
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     
+    if ([segue.identifier isEqualToString:@"segueToSmackTalkVC"]) {
+        
+        // identify open pact and send it to the next VC.
+        
+    } else if ([segue.identifier isEqualToString:@"segueToCreatePact"]) {
+        
+        // don't do anything
+        
+    }
     
+    // this is crashing the app... should this be here? - DVS
+    
+    LoginViewController *login = segue.destinationViewController;
+    
+    login.oauthtoken = self.pactOAUTH;
+    
+    // I think this stuff should be in the viewDidLoad w/ alert controllers. - DVS
+
     
 }
 
--(void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    
-    if (scrollView.contentOffset.y < -(self.view.frame.size.height/6)) {
-        
-        [self performSegueWithIdentifier:@"segueToCreatePact" sender:self];
-        
-    }
-}
 
 
 @end
