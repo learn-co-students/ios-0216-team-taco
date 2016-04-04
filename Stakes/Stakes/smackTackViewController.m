@@ -8,6 +8,7 @@
 
 #import "smackTackViewController.h"
 #import "Firebase.h"
+#import "JSQMessageAvatarImageDataSource.h"
 
 
 @interface smackTackViewController ()
@@ -22,12 +23,8 @@
 - (void)viewDidLoad {
     
     [super viewDidLoad];
-    
-    // Do any additional setup after loading the view.
-    
+        
     self.title = @"SmackTalk";
-    
-    // set up sender i.e. currentUser -- This is going to work anonomously for now. current user will get diff oath every time && therefore be seen as a different user in the chatroom;
     
     self.dataSource = [JDDDataSource sharedDataSource];
     
@@ -35,7 +32,6 @@
     self.senderDisplayName = self.dataSource.currentUser.firstName;
     
     [self setupBubbles];
-    
     
 }
 
@@ -72,19 +68,44 @@
 
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     
-    return self.messages.count;
+    return self.currentPact.messages.count;
+}
+
+-(id<JSQMessageAvatarImageDataSource>)collectionView:(JSQMessagesCollectionView *)collectionView avatarImageDataForItemAtIndexPath:(NSIndexPath *)indexPath {
+    
+    JSQMessage * message = self.currentPact.messages[indexPath.row];
+    
+    for (JDDUser * user in self.currentPact.users) {
+        
+        if ([message.senderId isEqualToString:user.userID]) {
+            
+            return [JSQMessagesAvatarImage avatarWithImage:user.userImage];
+            
+        }
+        
+    }
+    
+    return nil; 
+    
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
 }
 
-
-- (void)receiveMessagePressed:(UIBarButtonItem *)sender{
+-(void)addMessage:(NSString*)stringFromTextField{
+    
+    JSQMessage *message = [[JSQMessage alloc]initWithSenderId:self.dataSource.currentUser.userID senderDisplayName:self.dataSource.currentUser.firstName date:[NSDate date] text:stringFromTextField];
+    
+    [self.currentPact.messages addObject:message];
     
 }
 
-- (void)closePressed:(UIBarButtonItem *)sender{
+-(void)didPressSendButton:(UIButton *)button withMessageText:(NSString *)text senderId:(NSString *)senderId senderDisplayName:(NSString *)senderDisplayName date:(NSDate *)date {
+    
+    // need to finish this. git 
+    
+    [self finishSendingMessage];
     
 }
 
@@ -94,10 +115,12 @@
         // If there's an image in the pasteboard, construct a media item with that image and `send` it.
         JSQPhotoMediaItem *item = [[JSQPhotoMediaItem alloc] initWithImage:[UIPasteboard generalPasteboard].image];
         
+        
         JSQMessage *message = [[JSQMessage alloc] initWithSenderId:self.senderId
                                                  senderDisplayName:self.senderDisplayName
                                                               date:[NSDate date]
                                                              media:item];
+        
         [self.currentPact.messages addObject:message];
         
         [self finishSendingMessage];

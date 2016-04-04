@@ -7,9 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "JDDUser.h"
+#import "JDDDataSource.h"
 
-@interface CreatePactViewController : UIViewController<UIPickerViewDataSource, UIPickerViewDelegate>
 
 
+@interface CreatePactViewController : UIViewController<UIPickerViewDataSource, UIPickerViewDelegate >
+
+
+
+@property (nonatomic, strong) JDDDataSource *dataSource;
 
 @end
