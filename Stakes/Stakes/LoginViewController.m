@@ -80,6 +80,9 @@
         } else {
             // User successfully logged in
             NSLog(@"Logged in! AUTH DATA!!! %@", authData.auth);
+            
+            NSLog(@"Twitter data: %@", authData.providerData[@"cachedUserProfile"]);
+            
             NSDictionary *newUser = @{ @"uid" : authData.uid,
                                     @"displayName": authData.providerData[@"displayName"],
                                     @"profileImageURL" : authData.providerData[@"profileImageURL"],
@@ -88,7 +91,7 @@
                                       
             NSLog(@"NEW USER DICTIONARY: %@", newUser);
               //this will commit data to Firebase
-            [[[self.ref childByAppendingPath:@"users"] childByAppendingPath:authData.uid] setValue:newUser];
+//            [[[self.ref childByAppendingPath:@"users"] childByAppendingPath:authData.uid] setValue:newUser];
 
             [self loginWithiOSAccount:account];
         }
