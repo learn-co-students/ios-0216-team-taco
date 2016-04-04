@@ -30,7 +30,7 @@
 @property (strong, nonatomic) IBOutlet UILabel *name3checkIns;
 @property (strong, nonatomic) IBOutlet UIButton *checkInButton;
 
-@property (strong, nonatomic) JDDDataSource * dataSource;
+
 
 @end
 
@@ -38,6 +38,9 @@
 
 
 - (IBAction)checkInButtonPressed:(id)sender {
+       
+    NSLog(@"checkin Button Pressed");
+
     
     self.locationManager = [[CLLocationManager alloc]init];
 //    self.locationManager.delegate = self; // need to figure out if we bring this up to userPactVC with NSNotificationCenter
@@ -76,9 +79,18 @@
     }
     [self.locationManager startUpdatingLocation];
 
+    self.CheckIn = [[JDDCheckIn alloc]init];
+    NSDate *now = [NSDate date];
+
+    self.CheckIn.checkInDate = now;
+    self.CheckIn.checkInMessage = @"";
+    self.CheckIn.checkInLocation = @"";
+    self.CheckIn.user = self.sharedData.currentUser;
+    self.CheckIn.pact = self.pact;
     
-    NSLog(@"checkin Button Pressed");
     
+    
+    [self.sharedData.currentUser.checkins addObject:self.CheckIn];
     
 }
 
@@ -91,21 +103,24 @@
 
 -(void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
 {
-    NSLog(@"location info object=%@", [locations lastObject]);
-    NSString *latitude = [[NSString alloc]init];
-    NSString *longitude = [[NSString alloc]init];
+//    NSLog(@"location info object=%@", [locations lastObject]);
+    NSString *latitude = @"";
+    NSString *longitude = @"";
     CLLocation *crnLoc = [locations lastObject];
     latitude= [NSString stringWithFormat:@"%.8f",crnLoc.coordinate.latitude];
     longitude = [NSString stringWithFormat:@"%.8f",crnLoc.coordinate.longitude];
+     
     
     NSLog(@"The cordinates are %@ and %@",latitude,longitude);
+    [self.locationManager stopUpdatingLocation];
+
 }
 
 - (void)awakeFromNib {
     
     [super awakeFromNib];
     
-    self.dataSource = [JDDDataSource sharedDataSource];
+    self.sharedData = [JDDDataSource sharedDataSource];
 
 }
 

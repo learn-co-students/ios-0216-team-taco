@@ -16,6 +16,6 @@
 
 
 
-@property (nonatomic, strong) JDDUser *user;
+@property (nonatomic, strong) JDDDataSource *dataSource;
 
 @end
