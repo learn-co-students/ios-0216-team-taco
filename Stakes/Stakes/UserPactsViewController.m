@@ -57,18 +57,13 @@
 
 
     [self setupSwipeGestureRecognizer];
+    NSLog(@"------------- %@ --------- PROPERTY FOR ACCESS TOKEN, WE ARE IN USER PACTS", self.dataSource.currentUser.twitterOAuth);
     
 //    [self perform
 //     accessibilityElementDidBecomeFocused:@"login" sender:self];
     
 }
 
-//
-//-(void)displayLoginController:(LoginViewController *)login {
-//    [self addChildViewController:login];
-////    login.view.frame = [self frameForLoginViewController];
-//    
-//}
 
 
 -(void)viewWillAppear:(BOOL)animated {
@@ -192,16 +187,13 @@
         
         // don't do anything
     }
-    
-    // this is crashing the app... should this be here? - DVS
-    
-    // LoginViewController *login = segue.destinationViewController;
-    
-    // login.oauthtoken = self.pactOAUTH;
-    
-    // I think this stuff should be in the viewDidLoad w/ alert controllers. - DVS
+}
 
+
+- (IBAction)loginTapped:(id)sender {
+    [self performSegueWithIdentifier:@"login" sender:self];
     
+    //this is temporary, will eventually have a different login flow using container view
 }
 
 

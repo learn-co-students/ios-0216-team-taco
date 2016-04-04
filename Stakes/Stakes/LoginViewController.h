@@ -9,6 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface LoginViewController : UIViewController
-@property (nonatomic, strong) NSString *oauthtoken;
-- (void)setOAuthToken:(NSString *)token oauthVerifier:(NSString *)verfier;
+
 @end

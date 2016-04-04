@@ -41,6 +41,7 @@
 		CBA985A21CAB0AF700D1CC27 /* dimitrysStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CBA985A11CAB0AF700D1CC27 /* dimitrysStoryboard.storyboard */; };
 		CBA985E81CAC286400D1CC27 /* PactAccordionHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = CBA985E71CAC286400D1CC27 /* PactAccordionHeaderView.xib */; };
 		CBA985EB1CAC288000D1CC27 /* PactAccordionHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = CBA985EA1CAC288000D1CC27 /* PactAccordionHeaderView.m */; };
+		CBED55691CB2BFB0005F0D4E /* TwitterAuthHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = CBED55681CB2BFB0005F0D4E /* TwitterAuthHelper.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -86,7 +87,7 @@
 		CB8BC0471CAEC24A003A9D5E /* Secrets.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Secrets.m; sourceTree = "<group>"; };
 		CBA9854F1CAAEC6D00D1CC27 /* Stakes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Stakes.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CBA985531CAAEC6D00D1CC27 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		CBA985551CAAEC6D00D1CC27 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		CBA985551CAAEC6D00D1CC27 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = Stakes/AppDelegate.h; sourceTree = "<group>"; };
 		CBA985561CAAEC6D00D1CC27 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		CBA9855E1CAAEC6D00D1CC27 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CBA985611CAAEC6D00D1CC27 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -118,6 +119,8 @@
 		CBA985E71CAC286400D1CC27 /* PactAccordionHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PactAccordionHeaderView.xib; sourceTree = "<group>"; };
 		CBA985E91CAC288000D1CC27 /* PactAccordionHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PactAccordionHeaderView.h; sourceTree = "<group>"; };
 		CBA985EA1CAC288000D1CC27 /* PactAccordionHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PactAccordionHeaderView.m; sourceTree = "<group>"; };
+		CBED55671CB2BFB0005F0D4E /* TwitterAuthHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TwitterAuthHelper.h; sourceTree = "<group>"; };
+		CBED55681CB2BFB0005F0D4E /* TwitterAuthHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TwitterAuthHelper.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -174,6 +177,7 @@
 		CBA985461CAAEC6D00D1CC27 = {
 			isa = PBXGroup;
 			children = (
+				CBA985551CAAEC6D00D1CC27 /* AppDelegate.h */,
 				CBA985511CAAEC6D00D1CC27 /* Stakes */,
 				CBA9856B1CAAEC6D00D1CC27 /* StakesTests */,
 				CBA985761CAAEC6D00D1CC27 /* StakesUITests */,
@@ -196,12 +200,13 @@
 		CBA985511CAAEC6D00D1CC27 /* Stakes */ = {
 			isa = PBXGroup;
 			children = (
-				CBA985551CAAEC6D00D1CC27 /* AppDelegate.h */,
 				CBA985561CAAEC6D00D1CC27 /* AppDelegate.m */,
 				CBA985851CAAED4500D1CC27 /* Secrets.h */,
 				CB8BC0471CAEC24A003A9D5E /* Secrets.m */,
 				CB8BC0381CAD75D0003A9D5E /* LoginViewController.h */,
 				CB8BC0391CAD75D0003A9D5E /* LoginViewController.m */,
+				CBED55671CB2BFB0005F0D4E /* TwitterAuthHelper.h */,
+				CBED55681CB2BFB0005F0D4E /* TwitterAuthHelper.m */,
 				AFC0645F1CAD8DA800DBA069 /* Group 2.png */,
 				AFC064601CAD8DA800DBA069 /* Pic 1.png */,
 				AFC064611CAD8DA800DBA069 /* Screen Shot 2016-03-28 at 4.13.09 PM.png */,
@@ -473,6 +478,7 @@
 				CBA985541CAAEC6D00D1CC27 /* main.m in Sources */,
 				CBA985971CAAEE0900D1CC27 /* JDDCheckIn.m in Sources */,
 				CBA985EB1CAC288000D1CC27 /* PactAccordionHeaderView.m in Sources */,
+				CBED55691CB2BFB0005F0D4E /* TwitterAuthHelper.m in Sources */,
 				CBA985991CAAEE0900D1CC27 /* JDDPact.m in Sources */,
 				CBA985961CAAEE0900D1CC27 /* CreatePactViewController.m in Sources */,
 				CB8BC03A1CAD75D0003A9D5E /* LoginViewController.m in Sources */,
