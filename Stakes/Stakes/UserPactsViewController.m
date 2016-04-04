@@ -33,6 +33,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.dataSource = [JDDDataSource sharedDataSource];
     
     NSLog(@"%@",self.dataSource.currentUser);
     
@@ -52,16 +53,6 @@
     
     [self.tableView registerNib:[UINib nibWithNibName:@"UserPactCellView" bundle:nil] forCellReuseIdentifier:@"basicCell"];
     [self.tableView registerNib:[UINib nibWithNibName:@"PactAccordionHeaderView" bundle:nil] forHeaderFooterViewReuseIdentifier:accordionHeaderReuseIdentifier];
-    
-
-
-
-
-
-
-
-
-
 
     [self setupSwipeGestureRecognizer];
     
@@ -76,6 +67,12 @@
 ////    login.view.frame = [self frameForLoginViewController];
 //    
 //}
+
+
+-(void)viewWillAppear:(BOOL)animated {
+    
+    [self.tableView reloadData];
+}
 
 #pragma gestureRecognizers for segues
 -(void)setupSwipeGestureRecognizer {
@@ -104,7 +101,6 @@
 }
 
 #pragma stuff for tableView
->>>>>>> master
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return 550;
