@@ -23,6 +23,7 @@
 
 //App Info
 @property (nonatomic, strong) NSString *userID;
+@property (nonatomic, strong) NSString *twitterOAuth;
 
 //Pacts
 @property (nonatomic, strong) NSMutableArray *pacts;
