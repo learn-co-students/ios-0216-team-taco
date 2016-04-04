@@ -10,7 +10,11 @@
 #import "JDDUser.h"
 #import "JDDDataSource.h"
 
-@interface CreatePactViewController : UIViewController<UIPickerViewDataSource, UIPickerViewDelegate>
+
+
+@interface CreatePactViewController : UIViewController<UIPickerViewDataSource, UIPickerViewDelegate >
+
+
 
 @property (nonatomic, strong) JDDUser *user;
 

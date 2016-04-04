@@ -16,10 +16,12 @@
 #import "UserPactCellView.h"
 #import "PactDetailViewController.h"
 
+
 @interface UserPactsViewController () <UITableViewDataSource, UITableViewDelegate>
 @property (weak, nonatomic) IBOutlet FZAccordionTableView *tableView;
 @property (nonatomic, strong) JDDDataSource *dataSource;
 @property (nonatomic, strong) JDDUser * currentUser;
+
 
 @end
 
@@ -28,7 +30,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.dataSource= [JDDDataSource sharedDataSource];
     
 //    [self.dataSource generateFakeData]; // shouldnt need this bc init in Datasource
     
@@ -37,6 +38,8 @@
     NSLog(@"%@",self.currentUser);
     
     NSLog(@"%lu",self.currentUser.pacts.count);
+    
+    
     
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
@@ -49,7 +52,21 @@
     [self.tableView registerNib:[UINib nibWithNibName:@"UserPactCellView" bundle:nil] forCellReuseIdentifier:@"basicCell"];
     [self.tableView registerNib:[UINib nibWithNibName:@"PactAccordionHeaderView" bundle:nil] forHeaderFooterViewReuseIdentifier:accordionHeaderReuseIdentifier];
     
+    
+    
+    
+    
 }
+
+
+
+
+
+
+
+
+
+
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return 550;

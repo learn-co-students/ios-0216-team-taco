@@ -10,9 +10,13 @@
 #import "JDDPact.h"
 #import "JDDUser.h"
 #import "JDDCheckIn.h"
+@import CoreLocation;
 
-@interface UserPactCellView : UITableViewCell
 
+
+@interface UserPactCellView : UITableViewCell <CLLocationManagerDelegate>
 @property (nonatomic) JDDPact *pact;
+@property(nonatomic, strong) CLLocationManager *locationManager;
+
 
 @end

@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <CoreLocation/CoreLocation.h>
 
-@interface UserPactsViewController : UIViewController
+
+@interface UserPactsViewController : UIViewController 
+
 
 @end

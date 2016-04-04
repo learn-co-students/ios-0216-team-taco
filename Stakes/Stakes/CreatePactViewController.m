@@ -9,8 +9,10 @@
 #import "CreatePactViewController.h"
 #import "JDDDataSource.h"
 #import "JDDPact.h"
+
 @import Contacts;
 @import ContactsUI;
+
 
 
 
@@ -30,6 +32,9 @@
 @property (weak, nonatomic) IBOutlet UITextField *stakesTextView;
 @property (nonatomic, strong) NSMutableArray *pactParticipants;
 @property (nonatomic, assign) NSUInteger pactID;
+
+
+
 @end
 
 @implementation CreatePactViewController
@@ -49,14 +54,29 @@
     [self styleStakesView];
     self.profileImage.hidden = YES;
     self.userNameLabel.hidden = YES;
+  
     
+
+
+
 }
+
+
+
+    
 -(void)styleStakesView
 {
     self.stakesTextView.layer.cornerRadius = 5;
     self.stakesTextView.layer.borderWidth = 1.0f;
     self.stakesTextView.layer.borderColor = [UIColor blackColor].CGColor;
 }
+//-(void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error{
+//    UIAlertView *errorAlert = [[UIAlertView alloc]initWithTitle:@"Error" message:@"There was an error retrieving your location" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+//    [errorAlert show];
+//    NSLog(@"Error: %@",error.description);
+//}
+
+
 - (IBAction)createPactTapped:(id)sender {
     
     if ([self isPactReady]) {
