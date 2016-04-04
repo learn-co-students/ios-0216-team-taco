@@ -27,6 +27,7 @@
 
 //Pacts
 @property (nonatomic, strong) NSMutableArray *pacts;
+@property (nonatomic, strong) NSMutableArray *pendingPacts;
 @property (nonatomic, strong) NSMutableArray *checkins;
 
 #pragma methods

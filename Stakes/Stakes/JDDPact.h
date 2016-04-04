@@ -31,7 +31,7 @@
 
 #pragma methods
 
-
+//-(BOOL)determineIfPactIsActive;
 
 @end
 
