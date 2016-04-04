@@ -20,6 +20,8 @@
 @property (nonatomic, strong) Firebase *ref;
 @property (nonatomic, strong) FAuthData *firebaseUser;
 @property (nonatomic, strong) TwitterAuthHelper *helper;
+@property (nonatomic, strong) ACAccountStore *accountStore;
+@property (nonatomic, strong) NSArray *iOSAccounts;
 
 @end
 
@@ -31,55 +33,6 @@
     self.dataSource= [JDDDataSource sharedDataSource];
     
     self.ref = self.dataSource.firebaseRef;
-    NSLog(@"is self.ref a thing? %@", self.ref);
-    
-    
-//    self.helper = [[TwitterAuthHelper alloc] initWithFirebaseRef:self.ref apiKey:TWITTER_KEY];
-//    [self.helper selectTwitterAccountWithCallback:^(NSError *error, NSArray *accounts) {
-//        if (error) {
-//            // Error retrieving Twitter accounts
-//        } else if ([accounts count] == 0) {
-//            // No Twitter accounts found on device
-//        } else {
-//            // Select an account. Here we pick the first one for simplicity
-//            ACAccount *account = [accounts firstObject];
-//            [self.helper authenticateAccount:account withCallback:^(NSError *error, FAuthData *authData) {
-//                if (error) {
-//                    // Error authenticating account
-//                } else {
-//                    // User logged in!
-//                    
-//                    NSLog(@"ARE WE LoGGED IN uSING HELPER>@>@");
-//                }
-//            }];
-//        }
-//    }];
-//    
-    
-    [self.ref observeAuthEventWithBlock:^(FAuthData *authData) {
-        if (authData) {
-            // user authenticated
-            
-            NSLog(@"have firebase auth %@!", authData);
-            
-//            NSDictionary *newUser = @{
-//                                      @"uid" : authData.uid,
-//                                      @"displayName": authData.providerData[@"displayName"],
-//                                      @"profileImageURL" : authData.providerData[@"profileImageURL"],
-//                                      @"twitterHandle" : authData.providerData[@"username"],
-//                                      };
-//            
-//            NSLog(@"NEW USER DICTIONARY: %@", newUser);
-//            
-//            [[[self.ref childByAppendingPath:@"users"]
-//              childByAppendingPath:authData.uid] setValue:newUser];
-//            
-//            NSLog(@"VIEW DID LOAD %@", authData);
-        } else {
-            NSLog(@"user is not logged in");
-            // No user is signed in
-        }
-    }];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -88,119 +41,78 @@
 }
 
 - (IBAction)loginTapped:(id)sender {
-    
-//    self.twitter = [STTwitterAPI twitterAPIWithOAuthConsumerKey:TWITTER_KEY
-//                                                 consumerSecret:TWITTER_SECRET];
-//    [self.twitter postTokenRequest:^(NSURL *url, NSString *oauthToken) {
-//        [[UIApplication sharedApplication] openURL:url];
-//    } authenticateInsteadOfAuthorize:NO
-//                        forceLogin:@(YES)
-//                        screenName:nil
-//                     oauthCallback:@"jdd-stakes-groupapp://twitter_access_tokens/"
-//                        errorBlock:^(NSError *error) {
-//        NSLog(@"-- error: %@", error);
-//    }];
-    
-    
     self.helper = [[TwitterAuthHelper alloc] initWithFirebaseRef:self.ref apiKey:TWITTER_KEY];
     [self.helper selectTwitterAccountWithCallback:^(NSError *error, NSArray *accounts) {
         if (error) {
-            // Error retrieving Twitter accounts
-        } else if ([accounts count] == 0) {
+            NSString *message = [NSString stringWithFormat:@"There was an error logging into Twitter: %@", [error localizedDescription]];
+            //show alert with message
+        }
+        else if ([accounts count] == 0) {
             // No Twitter accounts found on device
-        } else {
-            // Select an account. Here we pick the first one for simplicity
-            ACAccount *account = [accounts firstObject];
-            
-            [self.helper authenticateAccount:account withCallback:^(NSError *error, FAuthData *authData) {
-                if (error) {
-                    NSLog(@"error in authenticateAccount: %@", error);
-                    // Error authenticating account
-                } else {
-                    // User logged in!
-                    
-                    NSLog(@"ARE WE LoGGED IN uSING HELPER>@>@");
-                }
-            }];
+        }
+        else {
+            [self handleMultipleTwitterAccounts:accounts];
         }
     }];
 }
 
--(void)setOAuthToken:(NSString *)token oauthVerifier:(NSString *)verifier {
-    
-    
-    
-    return;
-    
-    [self.twitter postAccessTokenRequestWithPIN:verifier successBlock:^(NSString *oauthToken, NSString *oauthTokenSecret, NSString *userID, NSString *screenName) {
-
-        self.dataSource.currentUser.twitterOAuth = self.twitter.oauthAccessToken;
-        NSLog(@"in loginVC, setOAuthToken method have the oauth token --- %@", self.dataSource.currentUser.twitterOAuth);
-
-        
-        NSLog(@"auth data???? %@", self.ref.authData);
-        
-//        NSDictionary *oauthParams = @{ @"oauth_token": self.twitter.oauthAccessToken,
-//                                       @"oauth_token_secret": self.twitter.oauthAccessTokenSecret,
-//                                       @"user_id": self.twitter.userID };
-//        
-//        [self.ref authWithOAuthProvider:@"twitter" parameters:oauthParams withCompletionBlock:^(NSError *error, FAuthData *authData) {
-//            if(error) {
-//                NSLog(@"Error authing with Twitter: %@", error);
-//                return;
-//            }
-//            
-//            NSLog(@"Firebase auth data: %@", authData);
-//        }];
-        
-//        [self.ref observeAuthEventWithBlock:^(FAuthData *authData) {
-//            if (authData) {
-//    
-//                NSLog(@"have firebase auth %@", authData);
-//                
-//                NSDictionary *newUser = @{
-//                                          @"uid" : authData.uid,
-//                                          @"displayName": authData.providerData[@"displayName"],
-//                                          @"profileImageURL" : authData.providerData[@"profileImageURL"],
-//                                          @"twitterHandle" : authData.providerData[@"username"],
-//                                          };
-//                
-//                NSLog(@"NEW USER DICTIONARY: %@", newUser);
-//                
-//                [[[self.ref childByAppendingPath:@"users"]
-//                  childByAppendingPath:authData.uid] setValue:newUser];
-//        
-////                NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-////                [defaults setObject:authData.uid forKey:@"uid"];
-////                [defaults setObject:authData.providerData[@"displayName"] forKey:@"name"];
-////                [defaults setObject:authData.providerData[@"profileImageURL"] forKey:@"profileImageURL"];
-////                [defaults setObject:authData.providerData[@"username"] forKey:@"twitterHandle"];
-////                [defaults setObject:self.twitter.oauthAccessToken forKey:@"oauthAccessToken"];
-////                [defaults synchronize];
-////                
-////                
-////                JDDUser *newPerson = [[JDDUser alloc]init];
-////                
-////                newPerson.firstName = authData.providerData[@"displayName"];
-////                newPerson.emailAddress= @"";
-////                newPerson.phoneNumber= @"";
-////                newPerson.userID= authData.providerData[@"username"];
-////                newPerson.pacts = [[NSMutableArray alloc]init];
-////                newPerson.checkins = [[NSMutableArray alloc]init];
-////                newPerson.userImage = [UIImage imageNamed:@"Jeremy"];
-//                
-////                NSLog(@"newPerson check id: %@", newPerson.userID);
-//
-//            } else {
-//                // THERE WAS AN ERROR
-//            }
-//        }];
-        
-    } errorBlock:^(NSError *error) {
-        NSLog(@"-- %@", [error localizedDescription]);
-    }];
-    
+- (void) handleMultipleTwitterAccounts:(NSArray *)accounts {
+    switch ([accounts count]) {
+        case 0:
+            // No account on device.
+            break;
+        case 1:
+            // Single user system, go straight to login
+            [self authenticateWithTwitterAccount:[accounts firstObject]];
+            [self loginWithiOSAccount:[accounts firstObject]];
+            break;
+        default:
+            // Handle multiple users
+            [self selectTwitterAccount:accounts];
+            break;
+    }
 }
+
+- (void) authenticateWithTwitterAccount:(ACAccount *)account {
+    [self.helper authenticateAccount:account withCallback:^(NSError *error, FAuthData *authData) {
+        if (error) {
+            // Error authenticating account with Firebase
+        } else {
+            // User successfully logged in
+            NSLog(@"Logged in! AUTH DATA!!! %@", authData.auth);
+            NSDictionary *newUser = @{ @"uid" : authData.uid,
+                                    @"displayName": authData.providerData[@"displayName"],
+                                    @"profileImageURL" : authData.providerData[@"profileImageURL"],
+                                    @"twitterHandle" : authData.providerData[@"username"],
+                                    };
+                                      
+            NSLog(@"NEW USER DICTIONARY: %@", newUser);
+              //this will commit data to Firebase
+            [[[self.ref childByAppendingPath:@"users"] childByAppendingPath:authData.uid] setValue:newUser];
+
+            [self loginWithiOSAccount:account];
+        }
+    }];
+}
+- (void) selectTwitterAccount:(NSArray *)accounts {
+    UIAlertController *selectUser = [UIAlertController alertControllerWithTitle:@"Select Twitter Account" message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+    
+    for (ACAccount *account in accounts) {
+        UIAlertAction *action = [UIAlertAction actionWithTitle:account.username style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            [self authenticateWithTwitterAccount:account];
+        }];
+        [selectUser addAction:action];
+    }
+    UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+        [self dismissViewControllerAnimated:YES completion:nil];
+    }];
+    [selectUser addAction:cancel];
+    [self presentViewController:selectUser animated:YES completion:^{
+        //
+    }];
+}
+
+
 - (IBAction)tweet:(id)sender {
     NSString *tweet = self.tweetField.text;
     [self.twitter postStatusUpdate:tweet
@@ -223,6 +135,20 @@
 
 - (IBAction)logoutTapped:(id)sender {
 //    [self.ref unauth];
+}
+
+-(void)loginWithiOSAccount:(ACAccount *)account {
+    //STTwitter
+    self.twitter = nil;
+    self.twitter = [STTwitterAPI twitterAPIOSWithAccount:account delegate:self];
+    
+    [self.twitter verifyCredentialsWithUserSuccessBlock:^(NSString *username, NSString *userID) {
+        
+        NSLog(@"ALSO VERIFIED IN STTWITTER!!!!!");
+
+    } errorBlock:^(NSError *error) {
+        NSLog(@"%@", error);
+    }];
 }
 
 @end

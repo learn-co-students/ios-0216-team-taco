@@ -38,40 +38,6 @@
         // call -[STTwitter verifyCredentialsWithSuccessBlock:errorBlock:] after that.
     
     }
-    
-    
-    
-    return YES;
-}
-
-- (NSDictionary *)parametersDictionaryFromQueryString:(NSString *)queryString {
-    
-    NSMutableDictionary *dictionary = [NSMutableDictionary dictionary];
-    NSArray *queryComponents = [queryString componentsSeparatedByString:@"&"];
-    for(NSString *string in queryComponents) {
-        NSArray *pair = [string componentsSeparatedByString:@"="];
-        if([pair count] != 2) continue;
-        NSString *key = pair[0];
-        NSString *value = pair[1];
-        dictionary[key] = value;
-    }
-    return dictionary;
-}
-
-- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url
-  sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
-
-    if ([[url scheme] isEqualToString:@"jdd-stakes-groupapp"] == NO) return NO;
-    
-    NSDictionary *tokenDictionary = [self parametersDictionaryFromQueryString:[url query]];
-    self.dataSource.currentUser.twitterOAuth = tokenDictionary[@"oauth_token"];
-    NSLog(@"datasource current user twitteroauth %@", self.dataSource.currentUser.twitterOAuth);
-    NSString *verifier = tokenDictionary[@"oauth_verifier"];
-    NSLog(@"verifier: %@", verifier);
-    
-    LoginViewController *vc = (LoginViewController *)[[self window] rootViewController];
-    [vc setOAuthToken:self.dataSource.currentUser.twitterOAuth oauthVerifier:verifier];
-    
     return YES;
 }
 
@@ -90,12 +56,7 @@
     
     //verify credentials!!!!!!!!!
 #warning verify
-    
-    
-    
-    
-    
-    
+      
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
