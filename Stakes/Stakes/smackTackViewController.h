@@ -17,21 +17,14 @@
 
 @class smackTackViewController;
 
-@protocol JSQDemoViewControllerDelegate <NSObject>
-
-- (void)didDismissJSQDemoViewController:(smackTackViewController *)vc;
-
-@end
-
 @interface smackTackViewController : JSQMessagesViewController <UIActionSheetDelegate, JSQMessagesComposerTextViewPasteDelegate>
 
-@property (weak, nonatomic) id <JSQDemoViewControllerDelegate> delegateModal;
 @property (nonatomic, strong)NSMutableArray *messages;
 @property (nonatomic, strong) JDDDataSource *dataSource;
 @property (nonatomic, strong) JDDPact *currentPact; // this has to be sent over from UserPactsViewVC in a prepare for segue.
 
-- (void)receiveMessagePressed:(UIBarButtonItem *)sender;
-
-- (void)closePressed:(UIBarButtonItem *)sender;
+//- (void)receiveMessagePressed:(UIBarButtonItem *)sender;
+//
+//- (void)closePressed:(UIBarButtonItem *)sender;
 
 @end

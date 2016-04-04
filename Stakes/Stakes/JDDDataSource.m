@@ -207,15 +207,9 @@
 
 -(void)setUpFireBaseRef {
     
-    self.firebaseRef = [[Firebase alloc]initWithUrl:@"https://chatstuffinstakes.firebaseio.com/"];
+    self.firebaseRef = [[Firebase alloc]initWithUrl:@"https://jddstakes.firebaseio.com/"];
     
 }
-
-//-(void)createUserIDForNewUser {
-//    
-//    
-//    
-//}
 
 -(void)establishCurrentUser {
     

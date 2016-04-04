@@ -26,19 +26,7 @@
 - (IBAction)loginWFirebasePressed:(id)sender {
     
     
-    [self.dataSource.firebaseRef authAnonymouslyWithCompletionBlock:^(NSError *error, FAuthData *authData) {
-        
-        if (error != nil) {
-            
-            NSLog(@"%@", error.description);
-            
-            
-        } else {
-            
-            [self performSegueWithIdentifier:@"segueFromDeleteVCtoSmackTalkVC" sender:self];
-            NSLog(@"%@", authData.description);
 
-        }
         
     }];
 

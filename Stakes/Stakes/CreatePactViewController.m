@@ -9,8 +9,10 @@
 #import "CreatePactViewController.h"
 #import "JDDDataSource.h"
 #import "JDDPact.h"
+
 @import Contacts;
 @import ContactsUI;
+
 
 
 
@@ -28,7 +30,11 @@
 @property (weak, nonatomic) IBOutlet UISwitch *shameSwitch;
 @property (weak, nonatomic) IBOutlet UIView *topView;
 @property (weak, nonatomic) IBOutlet UITextField *stakesTextView;
-@property (nonatomic, strong) NSArray *pactParticipants;
+@property (nonatomic, strong) NSMutableArray *pactParticipants;
+@property (nonatomic, assign) NSUInteger pactID;
+
+
+
 @end
 
 @implementation CreatePactViewController
@@ -48,23 +54,72 @@
     [self styleStakesView];
     self.profileImage.hidden = YES;
     self.userNameLabel.hidden = YES;
-    
+  
+    self.dataSource = [JDDDataSource sharedDataSource];
+
+
 }
+
+
+
+    
 -(void)styleStakesView
 {
     self.stakesTextView.layer.cornerRadius = 5;
     self.stakesTextView.layer.borderWidth = 1.0f;
     self.stakesTextView.layer.borderColor = [UIColor blackColor].CGColor;
 }
+//-(void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error{
+//    UIAlertView *errorAlert = [[UIAlertView alloc]initWithTitle:@"Error" message:@"There was an error retrieving your location" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+//    [errorAlert show];
+//    NSLog(@"Error: %@",error.description);
+//}
+
+
 - (IBAction)createPactTapped:(id)sender {
     
     if ([self isPactReady]) {
         
         
-    
+        JDDPact *newPact = [[JDDPact alloc]init];
+        newPact.title = self.pactTitle.text;
+        newPact.pactDescription = self.pactDescription.text;
+        newPact.stakes = self.stakesTextView.text;
+        newPact.users = self.pactParticipants;
+        newPact.pactID = self.pactID;
+        newPact.twitterPost = self.twitterShamePost.text;
         
+        [self.dataSource.currentUser.pacts addObject:newPact];
+            
+        NSLog(@"dataStore user is %@",self.dataSource.currentUser.pacts[1]);
+        [self dismissViewControllerAnimated:YES completion:nil];
+
+        
+    } else {
+        
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Oops!" message:@"Please finish filling your pact" preferredStyle:UIAlertControllerStyleAlert];
+        
+        UIAlertAction* ok = [UIAlertAction
+                             actionWithTitle:@"OK"
+                             style:UIAlertActionStyleDefault
+                             handler:^(UIAlertAction * action)
+                             {
+                                 [alert dismissViewControllerAnimated:YES completion:nil];
+                                 
+                             }];
+        
+        [alert addAction: ok];
+        
+        [self presentViewController:alert animated:YES completion:nil];
     }
     
+
+    
+}
+
+-(void)viewWillAppear:(BOOL)animated {
+    
+    NSLog(@"we are here!");
 }
 
 -(void)styleTwitterPost
@@ -168,8 +223,39 @@
 
 - (void)contactPicker:(CNContactPickerViewController *)picker didSelectContacts:(NSArray<CNContact*> *)contacts// delgate to pick more than one user
 {
-    self.pactParticipants = contacts;  // add users to users property array
-    NSLog(@"contacts are: %@", self.pactParticipants);
+    for(CNContact *contact in contacts){
+        // create a JDDUser
+        JDDUser *newUser = [[JDDUser alloc]init];
+        
+        newUser.firstName = contact.givenName;
+        NSLog(@"given name %@", newUser.firstName);
+        
+        newUser.lastName = contact.familyName;
+        NSLog(@"familyName  %@", newUser.lastName);
+
+        
+        NSArray <CNLabeledValue<CNPhoneNumber *> *> *phoneNumbers = contact.phoneNumbers;
+        CNLabeledValue<CNPhoneNumber *> *firstPhone = [phoneNumbers firstObject];
+        CNPhoneNumber *phoneNumber = firstPhone.value;
+
+        newUser.phoneNumber = phoneNumber.stringValue;
+        NSLog(@"phone: %@", newUser.phoneNumber);
+
+        
+        
+        NSInteger randomID =arc4random() % 9000 + 1000;
+
+        newUser.userID = [NSString stringWithFormat:@"%li",randomID];
+        NSLog(@"ID: %@", newUser.userID);
+
+        newUser.pacts = nil;
+        newUser.checkins = nil;
+        self.pactParticipants = [[NSMutableArray alloc]init];
+        [self.pactParticipants addObject:newUser];
+        [self.dataSource.users addObject:newUser];
+        NSLog(@"contacts are: %@", self.dataSource.users);
+
+    }
     
 }
 
@@ -195,7 +281,7 @@
 
 -(BOOL)isPactReady
 {
-    if ([self isGroupTitleSet] && [self didInviteFriends] && [self isPactDecribed] && [self isStakeDecided]) {
+    if ([self isGroupTitleSet] && [self didInviteFriends] && [self isPactDecribed] && [self isStakeDecided] && [self generatePactID]) {
           NSLog(@"Pact is ready to go!!!");
         return YES;
     }
@@ -246,5 +332,34 @@ return  NO;
     return  NO;
 }
 
+-(BOOL)generatePactID
+{
+     self.pactID = arc4random() % 9000 + 1000;
+//    if ([idArray containObject:self.pactID]) {
+//        [self generatePactID];
+//    }
+//    
+    return YES;
+}
+- (IBAction)dismissStakeKeyboard:(id)sender {
+    self.stakesTextView = (UITextField*) sender;
+    [self.stakesTextView resignFirstResponder];
+}
+
+- (IBAction)dismissDiscriptionKeyboard:(id)sender {
+    self.pactDescription = (UITextField*) sender;
+    [self.pactDescription resignFirstResponder];
+}
+
+- (IBAction)dismissTitleKeyboard:(id)sender {
+    self.pactTitle = (UITextField*) sender;
+    [self.pactTitle resignFirstResponder];
+}
+
+
+- (IBAction)dismissShameKeboard:(id)sender {
+    self.twitterShamePost = (UITextField*) sender;
+    [self.twitterShamePost resignFirstResponder];
+}
 
 @end

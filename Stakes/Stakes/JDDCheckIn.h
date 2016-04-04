@@ -9,11 +9,12 @@
 #import <Foundation/Foundation.h>
 #import "JDDPact.h"
 #import "JDDUser.h"
+@import CoreLocation;
 
 @interface JDDCheckIn : NSObject
 
 @property (nonatomic) NSDate *checkInDate;
-@property (nonatomic, strong) NSString *checkInLocation;
+@property (nonatomic, strong) CLLocation *checkInLocation;
 @property (nonatomic, strong) NSString *checkInMessage;
 
 @property (nonatomic) JDDUser * user;
