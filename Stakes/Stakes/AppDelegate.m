@@ -67,6 +67,7 @@
     self.dataSource.currentUser.twitterOAuth = tokenDictionary[@"oauth_token"];
     NSLog(@"datasource current user twitteroauth %@", self.dataSource.currentUser.twitterOAuth);
     NSString *verifier = tokenDictionary[@"oauth_verifier"];
+    NSLog(@"verifier: %@", verifier);
     
     LoginViewController *vc = (LoginViewController *)[[self window] rootViewController];
     [vc setOAuthToken:self.dataSource.currentUser.twitterOAuth oauthVerifier:verifier];
