@@ -9,6 +9,9 @@
 #import "UserPactCellView.h"
 #import <CoreLocation/CoreLocation.h>
 #import "JDDDataSource.h"
+#import "JDDCheckIn.h"
+#import "JSQMessage.h"
+#import "JSQLocationMediaItem.h"
 
 
 @interface UserPactCellView ()
@@ -28,6 +31,7 @@
 @property (strong, nonatomic) IBOutlet UILabel *name3checkIns;
 @property (strong, nonatomic) IBOutlet UIButton *checkInButton;
 @property (strong,nonatomic)    CLLocationManager *locationManager;
+@property (strong, nonatomic) JDDDataSource * dataSource;
 
 
 @end
@@ -36,21 +40,27 @@
 
 - (IBAction)checkInButtonPressed:(id)sender {
     
-//    self.locationManager = [[CLLocationManager alloc]init];
+    self.locationManager = [[CLLocationManager alloc]init];
 //    self.locationManager.delegate = self; // need to figure out if we bring this up to userPactVC with NSNotificationCenter
-//    self.locationManager.desiredAccuracy = kCLLocationAccuracyBest;
-//    
-//    [self.locationManager startUpdatingLocation]; // after creating JSQMEssageLocationData, call method below
+    self.locationManager.desiredAccuracy = kCLLocationAccuracyBest;
     
-//    [self.locationManager stopUpdatingLocation];
-//
-    //this should take a string (@"%@ this person just checkedIn here", and then create JSQMessage with JSQMessageLocationData and add it to the current self.pact.messages array
+    [self.locationManager startUpdatingLocation]; // after creating JSQMEssageLocationData, call method below
     
-//    [self.locationManager startUpdatingLocation];
-    // identify user w oath? phone number?
-    // take location - add to messages.
+    //need to create checkin - then add it to currentuser w/ pact info
+
+    JDDCheckIn *checkin = [[JDDCheckIn alloc]init];
     
-//    JDDCheckIn *checkin = [[JDDCheckIn alloc]init];
+    JSQLocationMediaItem *location = [[JSQLocationMediaItem alloc]initWithLocation:self.locationManager.location];
+
+    JSQMessage *locationMessage = [[JSQMessage alloc] initWithSenderId:self.dataSource.currentUser.userID senderDisplayName:self.dataSource.currentUser.firstName date:[NSDate date] media:location];
+    
+    [self.pact.messages addObject:locationMessage];
+    
+    [self.locationManager stopUpdatingLocation];
+    
+    JSQMessage * textMessage = [[JSQMessage alloc]initWithSenderId:self.dataSource.currentUser.userID senderDisplayName:self.dataSource.currentUser.firstName date:[NSDate date] text:[NSString stringWithFormat:@"%@ just checked in!",self.dataSource.currentUser.firstName]];
+    
+    [self.pact.messages addObject:textMessage];
     
     NSLog(@"checkin Button Pressed");
     
@@ -61,19 +71,19 @@
     
     [super awakeFromNib];
     
-//    
-//    self.locationManager.delegate = self;
-//    self.locationManager.desiredAccuracy = kCLLocationAccuracyBest;
-    
+    self.dataSource = [JDDDataSource sharedDataSource];
+
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
+    
     [super setSelected:selected animated:animated];
 
 }
 
 -(void)setPact:(JDDPact *)pact{
     _pact = pact;
+    
     [self setShitUp];
 }
 
@@ -82,8 +92,6 @@
     
     
     // here we are going to have to create new views programatically and add in users in the pact. (probably with a custom xib) This is a sloppy way of doing it for the MVP to get something on screen
-    
-//    self.pact = [[JDDPact alloc]init];
     
     for (JDDUser *user in self.pact.users) {
         

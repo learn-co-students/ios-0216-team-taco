@@ -211,12 +211,6 @@
     
 }
 
-//-(void)createUserIDForNewUser {
-//    
-//    
-//    
-//}
-
 -(void)establishCurrentUser {
     
     [self generateFakeData];
