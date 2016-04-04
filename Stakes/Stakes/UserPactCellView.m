@@ -84,11 +84,9 @@
 
     self.CheckIn.checkInDate = now;
     self.CheckIn.checkInMessage = @"";
-    self.CheckIn.checkInLocation = @"";
+    self.CheckIn.checkInLocation = [[CLLocation alloc]init];;
     self.CheckIn.user = self.sharedData.currentUser;
     self.CheckIn.pact = self.pact;
-    
-    
     
     [self.sharedData.currentUser.checkins addObject:self.CheckIn];
     

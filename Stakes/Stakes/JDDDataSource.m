@@ -182,7 +182,7 @@
     JDDCheckIn *checkIn = [[JDDCheckIn alloc]init];
     
     checkIn.checkInDate = [NSDate date];
-    checkIn.checkInLocation = @"thePlaceWithTheThing";
+    checkIn.checkInLocation = [[CLLocation alloc]init];
     checkIn.checkInMessage = @"I'm here mothafluppa";
     
     checkIn.user = user;
