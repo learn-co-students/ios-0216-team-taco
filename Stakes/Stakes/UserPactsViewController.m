@@ -16,6 +16,7 @@
 #import "UserPactCellView.h"
 #import "PactDetailViewController.h"
 #import "LoginViewController.h"
+#import "smackTackViewController.h"
 
 
 @interface UserPactsViewController () <UITableViewDataSource, UITableViewDelegate>
@@ -33,6 +34,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.dataSource = [JDDDataSource sharedDataSource];
     
     NSLog(@"%@",self.dataSource.currentUser);
     
@@ -53,14 +55,6 @@
     [self.tableView registerNib:[UINib nibWithNibName:@"UserPactCellView" bundle:nil] forCellReuseIdentifier:@"basicCell"];
     [self.tableView registerNib:[UINib nibWithNibName:@"PactAccordionHeaderView" bundle:nil] forHeaderFooterViewReuseIdentifier:accordionHeaderReuseIdentifier];
     
-
-
-
-
-
-
-
-
 
 
     [self setupSwipeGestureRecognizer];
@@ -88,7 +82,7 @@
 
 -(void)swipeRightGestureHappened:(UISwipeGestureRecognizer *)swipeGestureRight{
     
-    NSLog(@"Right Gesture Recognizer is happeneing!");
+    NSLog(@"Right Gesture Recognizer is happening!");
     
     [self performSegueWithIdentifier:@"segueToSmackTalkVC" sender:self];
 
@@ -104,7 +98,6 @@
 }
 
 #pragma stuff for tableView
->>>>>>> master
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return 550;
@@ -126,8 +119,6 @@
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
     cell.pact = self.dataSource.currentUser.pacts[indexPath.section];
-    
-    
     
     return cell;
 }
@@ -153,17 +144,6 @@
     viewThing.pact = currentPact;
     
     return viewThing;
-    
-}
-
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-    // get selected pact
-    // create pact message vc
-    // pass pact to message vc
-    // show message vc -
-    
-//    self showViewController:<#(nonnull UIViewController *)#> sender:<#(nullable id)#>
     
 }
 
@@ -193,12 +173,19 @@
     
     if ([segue.identifier isEqualToString:@"segueToSmackTalkVC"]) {
         
-        // identify open pact and send it to the next VC.
+        UINavigationController *destinationVC = segue.destinationViewController;
+        
+        smackTackViewController *thing = destinationVC.viewControllers[0];
+        
+        thing.currentPact = self.currentOpenPact;
         
     } else if ([segue.identifier isEqualToString:@"segueToCreatePact"]) {
         
         // don't do anything
         
+    } else if ([segue.identifier isEqualToString:@"segueToUserDetail"]) {
+        
+        // don't do anything
     }
     
     // this is crashing the app... should this be here? - DVS

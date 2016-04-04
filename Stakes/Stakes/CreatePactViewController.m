@@ -95,7 +95,6 @@
         
         JDDDataSource *sharedData = [JDDDataSource sharedDataSource];
         
-        
         [sharedData.users addObject:self.user];
         
         
