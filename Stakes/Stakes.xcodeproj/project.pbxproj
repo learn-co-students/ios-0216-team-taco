@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		10C87798DE0B6E0C995D1A83 /* Pods_Stakes.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 361C6FD6E5AC97F65E59E02D /* Pods_Stakes.framework */; };
+		3F4DDABC1CB033890000ACE2 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F4DDABB1CB033890000ACE2 /* CoreLocation.framework */; };
 		3F52B0881CAB3EBC0031BF59 /* Israel.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3F52B0871CAB3EBC0031BF59 /* Israel.jpg */; };
 		AF2883481CAC12C6003FD3E2 /* JDDDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = AF2883471CAC12C6003FD3E2 /* JDDDataSource.m */; };
 		AF4835961CAECA1400AFB43A /* aboutToDeleteVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AF4835951CAECA1400AFB43A /* aboutToDeleteVC.m */; };
@@ -63,6 +64,7 @@
 /* Begin PBXFileReference section */
 		1BAF31EC1AA215C0D2845783 /* Pods-Stakes.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Stakes.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Stakes/Pods-Stakes.debug.xcconfig"; sourceTree = "<group>"; };
 		361C6FD6E5AC97F65E59E02D /* Pods_Stakes.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Stakes.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		3F4DDABB1CB033890000ACE2 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		3F52B0871CAB3EBC0031BF59 /* Israel.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = Israel.jpg; sourceTree = "<group>"; };
 		79BEE4D5993F024270E6A571 /* Pods-Stakes.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Stakes.release.xcconfig"; path = "Pods/Target Support Files/Pods-Stakes/Pods-Stakes.release.xcconfig"; sourceTree = "<group>"; };
 		AF2883461CAC12C6003FD3E2 /* JDDDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JDDDataSource.h; sourceTree = "<group>"; };
@@ -126,6 +128,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3F4DDABC1CB033890000ACE2 /* CoreLocation.framework in Frameworks */,
 				CB8BC0461CADB3BA003A9D5E /* Twitter.framework in Frameworks */,
 				CB8BC0441CADB3B2003A9D5E /* Social.framework in Frameworks */,
 				CB8BC0421CADB3AB003A9D5E /* Accounts.framework in Frameworks */,
@@ -162,6 +165,7 @@
 		6C6F824C7D6EF54D90814EFB /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				3F4DDABB1CB033890000ACE2 /* CoreLocation.framework */,
 				CB8BC0451CADB3BA003A9D5E /* Twitter.framework */,
 				CB8BC0431CADB3B2003A9D5E /* Social.framework */,
 				CB8BC0411CADB3AB003A9D5E /* Accounts.framework */,

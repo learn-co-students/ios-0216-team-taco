@@ -7,14 +7,13 @@
 //
 
 #import "UserPactCellView.h"
-#import <CoreLocation/CoreLocation.h>
 #import "JDDDataSource.h"
 #import "JDDCheckIn.h"
 #import "JSQMessage.h"
 #import "JSQLocationMediaItem.h"
 
 
-@interface UserPactCellView ()
+@interface UserPactCellView () 
 
 @property (strong, nonatomic) IBOutlet UILabel *name1;
 @property (strong, nonatomic) IBOutlet UILabel *name2;
@@ -30,13 +29,15 @@
 @property (strong, nonatomic) IBOutlet UILabel *name2checkIns;
 @property (strong, nonatomic) IBOutlet UILabel *name3checkIns;
 @property (strong, nonatomic) IBOutlet UIButton *checkInButton;
-@property (strong,nonatomic)    CLLocationManager *locationManager;
+
 @property (strong, nonatomic) JDDDataSource * dataSource;
 
 
 @end
 
+
 @implementation UserPactCellView
+
 
 - (IBAction)checkInButtonPressed:(id)sender {
     
@@ -48,23 +49,61 @@
     
     //need to create checkin - then add it to currentuser w/ pact info
 
-    JDDCheckIn *checkin = [[JDDCheckIn alloc]init];
+//    JDDCheckIn *checkin = [[JDDCheckIn alloc]init];
     
-    JSQLocationMediaItem *location = [[JSQLocationMediaItem alloc]initWithLocation:self.locationManager.location];
+//    JSQLocationMediaItem *location = [[JSQLocationMediaItem alloc]initWithLocation:self.locationManager.location];
+//
+//    JSQMessage *locationMessage = [[JSQMessage alloc] initWithSenderId:self.dataSource.currentUser.userID senderDisplayName:self.dataSource.currentUser.firstName date:[NSDate date] media:location];
+//    
+//    [self.pact.messages addObject:locationMessage];
+//    
+//    [self.locationManager stopUpdatingLocation];
+//    
+//    JSQMessage * textMessage = [[JSQMessage alloc]initWithSenderId:self.dataSource.currentUser.userID senderDisplayName:self.dataSource.currentUser.firstName date:[NSDate date] text:[NSString stringWithFormat:@"%@ just checked in!",self.dataSource.currentUser.firstName]];
+//    
+//    [self.pact.messages addObject:textMessage];
+    
+//     identify user w oath? phone number?
+//     take location - add to messages.
+//    JDDCheckIn *checkin = [[JDDCheckIn alloc]init];
+    
+    _locationManager = [[CLLocationManager alloc] init];
+    self.locationManager.delegate = self;
+  
+    [self.locationManager requestWhenInUseAuthorization];
+    
+    if ([self.locationManager respondsToSelector:@selector
+         (requestWhenInUseAuthorization)]) {
+        [self.locationManager requestWhenInUseAuthorization];
+    }
+    [self.locationManager startUpdatingLocation];
 
-    JSQMessage *locationMessage = [[JSQMessage alloc] initWithSenderId:self.dataSource.currentUser.userID senderDisplayName:self.dataSource.currentUser.firstName date:[NSDate date] media:location];
-    
-    [self.pact.messages addObject:locationMessage];
-    
-    [self.locationManager stopUpdatingLocation];
-    
-    JSQMessage * textMessage = [[JSQMessage alloc]initWithSenderId:self.dataSource.currentUser.userID senderDisplayName:self.dataSource.currentUser.firstName date:[NSDate date] text:[NSString stringWithFormat:@"%@ just checked in!",self.dataSource.currentUser.firstName]];
-    
-    [self.pact.messages addObject:textMessage];
     
     NSLog(@"checkin Button Pressed");
     
     
+}
+
+- (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error {
+    // The location "unknown" error simply means the manager is currently unable to get the location.
+    if ([error code] != kCLErrorLocationUnknown) {
+        //        [self stopUpdatingLocationWithMessage:NSLocalizedString(@"Error", @"Error")];
+    }
+}
+
+
+
+
+-(void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
+{
+    NSLog(@"location info object=%@", [locations lastObject]);
+    NSString *latitude = [[NSString alloc]init];
+    NSString *longitude = [[NSString alloc]init];
+    CLLocation *crnLoc = [locations lastObject];
+    latitude= [NSString stringWithFormat:@"%.8f",crnLoc.coordinate.latitude];
+    longitude = [NSString stringWithFormat:@"%.8f",crnLoc.coordinate.longitude];
+    
+    NSLog(@"The cordinates are %@ and %@",latitude,longitude);
 }
 
 - (void)awakeFromNib {
@@ -156,7 +195,6 @@
     }
 
 
-    
     
     
 }

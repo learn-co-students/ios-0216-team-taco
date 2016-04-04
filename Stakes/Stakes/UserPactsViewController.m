@@ -17,12 +17,14 @@
 #import "PactDetailViewController.h"
 #import "LoginViewController.h"
 
+
 @interface UserPactsViewController () <UITableViewDataSource, UITableViewDelegate>
 @property (weak, nonatomic) IBOutlet FZAccordionTableView *tableView;
 @property (nonatomic, strong) JDDDataSource *dataSource;
 @property (nonatomic, strong) JDDUser * currentUser;
 @property (nonatomic, strong) JDDPact * currentOpenPact;
 @property (nonatomic, strong) NSString *pactOAUTH;
+
 
 @end
 
@@ -31,13 +33,14 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.dataSource= [JDDDataSource sharedDataSource];
     
     NSLog(@"%@",self.dataSource.currentUser);
     
     NSLog(@"%lu",self.dataSource.currentUser.pacts.count);
     
     self.currentOpenPact = self.dataSource.currentUser.pacts[0];
+    
+    
     
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
@@ -50,6 +53,16 @@
     [self.tableView registerNib:[UINib nibWithNibName:@"UserPactCellView" bundle:nil] forCellReuseIdentifier:@"basicCell"];
     [self.tableView registerNib:[UINib nibWithNibName:@"PactAccordionHeaderView" bundle:nil] forHeaderFooterViewReuseIdentifier:accordionHeaderReuseIdentifier];
     
+
+
+
+
+
+
+
+
+
+
     [self setupSwipeGestureRecognizer];
     
 //    [self perform
@@ -91,6 +104,7 @@
 }
 
 #pragma stuff for tableView
+>>>>>>> master
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return 550;
@@ -189,9 +203,9 @@
     
     // this is crashing the app... should this be here? - DVS
     
-    LoginViewController *login = segue.destinationViewController;
+    // LoginViewController *login = segue.destinationViewController;
     
-    login.oauthtoken = self.pactOAUTH;
+    // login.oauthtoken = self.pactOAUTH;
     
     // I think this stuff should be in the viewDidLoad w/ alert controllers. - DVS
 
