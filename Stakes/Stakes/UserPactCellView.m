@@ -28,6 +28,8 @@
 @property (strong, nonatomic) IBOutlet UIButton *checkInButton;
 
 
+@property (strong,nonatomic)    CLLocationManager *locationManager;
+
 
 @end
 
@@ -36,8 +38,7 @@
 
 
 - (IBAction)checkInButtonPressed:(id)sender {
-    
-   
+       
 //     identify user w oath? phone number?
 //     take location - add to messages.
 //    JDDCheckIn *checkin = [[JDDCheckIn alloc]init];
@@ -51,6 +52,7 @@
         [self.locationManager requestWhenInUseAuthorization];
     }
     [self.locationManager startUpdatingLocation];
+
     
     NSLog(@"checkin Button Pressed");
     

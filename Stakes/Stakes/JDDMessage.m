@@ -7,18 +7,16 @@
 //
 
 #import "JDDMessage.h"
-#import "JDDUser.h"
-#import "JDDPact.h"
+
 
 @interface JDDMessage ()
 
-@property (nonatomic, strong) NSDate * messageSendTime;
-@property (nonatomic, strong) NSString *messageContent;
-@property (nonatomic, strong) JDDUser *userSender;
-@property (nonatomic, strong) JDDPact *pact;
 
 @end
 
 @implementation JDDMessage
+
+
+// need to have a method that takes message info and turns it into a JSQMessage. (or do we? maybe we just use JSQmessage and scrap this entire class).
 
 @end

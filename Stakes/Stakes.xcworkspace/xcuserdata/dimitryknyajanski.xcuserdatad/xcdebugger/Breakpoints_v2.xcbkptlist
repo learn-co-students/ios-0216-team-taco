@@ -25,7 +25,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "226"
             endingLineNumber = "226"
-            landmarkName = "-cancelButtonPressed:"
+            landmarkName = "-isGroupTitleSet"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -40,9 +40,7 @@
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "278"
-            endingLineNumber = "278"
-            landmarkName = "-isStakeDecided"
-            landmarkType = "5">
+            endingLineNumber = "278">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy

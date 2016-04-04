@@ -38,10 +38,6 @@
     
     if (self) {
         
-//        [self generateFakeData];
-        
-//        [self setUpFireBaseRef];
-        
         [self establishCurrentUser];
         
     }
@@ -72,9 +68,6 @@
     [dylan.checkins addObject:[self createCheckInWtihPact:pact1 user:dylan]];
     [jeremy.checkins addObject:[self createCheckInWtihPact:pact1 user:jeremy]];
     [dimitry.checkins addObject:[self createCheckInWtihPact:pact1 user:dimitry]];
-    
-    NSLog(@"checkins: %lu",dylan.checkins.count);
-    NSLog(@"checkins: %@",dylan.checkins);
     
     self.users = [[NSMutableArray alloc]init];
     

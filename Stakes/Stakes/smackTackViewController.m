@@ -20,7 +20,9 @@
 @implementation smackTackViewController
 
 - (void)viewDidLoad {
+    
     [super viewDidLoad];
+    
     // Do any additional setup after loading the view.
     
     self.title = @"SmackTalk";
@@ -32,11 +34,30 @@
     self.senderId = self.dataSource.currentUser.userID;
     self.senderDisplayName = self.dataSource.currentUser.firstName;
     
+    [self setupBubbles];
+    
+    
 }
 
 - (id<JSQMessageData>)collectionView:(JSQMessagesCollectionView *)collectionView messageDataForItemAtIndexPath:(NSIndexPath *)indexPath {
     
     return self.messages[indexPath.item];
+    
+}
+
+-(id<JSQMessageBubbleImageDataSource>)collectionView:(JSQMessagesCollectionView *)collectionView messageBubbleImageDataForItemAtIndexPath:(NSIndexPath *)indexPath {
+    
+    JSQMessage *message =  self.messages[indexPath.item];
+
+    if (message.senderId == self.dataSource.currentUser.userID) {
+        
+        return self.outgoingBubbleImageView;
+
+    } else {
+        
+        return self.incomingBubbleImageView;
+
+    }
     
 }
 
