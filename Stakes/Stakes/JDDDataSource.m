@@ -31,7 +31,6 @@
     
 }
 
-
 -(instancetype)init {
     
     self = [super init];
@@ -208,6 +207,13 @@
         
 }
 
+-(void)updateUserStuff{
+    
+    
+    
+    
+}
+
 -(void)establishCurrentUser {
     
 //    [self generateFakeData];
@@ -215,7 +221,9 @@
     [self setUpFireBaseRef];
     
     self.currentUser = [[JDDUser alloc]init];
-        
+    
+    self.currentUser.firstName = @"dima";
+    
     // logic that establishes userID based on oath tokens to firebase in the phones password saftey database thing
     
     // firebase method that takes JSON from firebase and creates self.currentUser so it can be used throughout the application.

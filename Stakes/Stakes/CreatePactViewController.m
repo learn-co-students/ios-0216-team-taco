@@ -90,9 +90,7 @@
 //        [self.dataSource.currentUser.pacts addObject:self.createdPact];
         
         [self sendMessageToInvites];
-        
-        NSLog(@"dataStore user is %@",self.dataSource.currentUser.pacts[1]);
-        
+            
         [self sendPactToFirebase];
         
         [self dismissViewControllerAnimated:YES completion:nil];
