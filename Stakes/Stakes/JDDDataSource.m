@@ -81,7 +81,6 @@
     
     dylan.firstName = @"Dylan";
     dylan.lastName = @"Straughan";
-    dylan.emailAddress= @"Dylanvs19@gmail.com";
     dylan.phoneNumber= @"3015128925";
     dylan.userID= @"1278619234798";
     dylan.pacts = [[NSMutableArray alloc]init];
@@ -100,7 +99,6 @@
     
     jeremy.firstName = @"Jeremy";
     jeremy.lastName = @"Feld";
-    jeremy.emailAddress= @"Jeremy@gmail.com";
     jeremy.phoneNumber= @"3011111112";
     jeremy.userID= @"1278619234799";
     jeremy.pacts = [[NSMutableArray alloc]init];
@@ -120,7 +118,6 @@
     
     dimitry.firstName = @"Dimitry";
     dimitry.lastName = @"Kruyakla;fnkdmal;fd";
-    dimitry.emailAddress= @"Dimitry@gmail.com";
     dimitry.phoneNumber= @"3011111113";
     dimitry.userID= @"1278619234799";
     dimitry.pacts = [[NSMutableArray alloc]init];
@@ -218,6 +215,7 @@
     [self setUpFireBaseRef];
     
     self.currentUser = self.users[0];
+    
     
     // logic that establishes userID based on oath tokens to firebase in the phones password saftey database thing
     

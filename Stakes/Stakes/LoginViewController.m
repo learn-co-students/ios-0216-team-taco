@@ -22,6 +22,9 @@
 @property (nonatomic, strong) TwitterAuthHelper *helper;
 @property (nonatomic, strong) ACAccountStore *accountStore;
 @property (nonatomic, strong) NSArray *iOSAccounts;
+@property (strong, nonatomic) IBOutlet UITextField *firstNameTextField;
+@property (strong, nonatomic) IBOutlet UITextField *lastNameTextField;
+@property (strong, nonatomic) IBOutlet UITextField *phoneNumberTextField;
 
 @end
 
@@ -70,23 +73,6 @@
     }];
 }
 
-//- (void) handleMultipleTwitterAccounts:(NSArray *)accounts {
-//    switch ([accounts count]) {
-//        case 0:
-//            // No account on device.
-//            break;
-//        case 1:
-//            // Single user system, go straight to login
-//            [self authenticateWithTwitterAccount:[accounts firstObject]];
-////            [self loginWithiOSAccount:[accounts firstObject]];
-//            break;
-//        default:
-//            // Handle multiple users
-//            [self selectTwitterAccount:accounts];
-//            break;
-//    }
-//}
-
 - (void) authenticateWithTwitterAccount:(ACAccount *)account {
     [self.helper authenticateAccount:account withCallback:^(NSError *error, FAuthData *authData) {
         if (error) {
@@ -101,8 +87,16 @@
                                     @"displayName": authData.providerData[@"displayName"],
                                     @"profileImageURL" : authData.providerData[@"profileImageURL"],
                                     @"twitterHandle" : authData.providerData[@"username"],
+                                       @"firstName" : @"",
+                                       @"lastName" : @"",
+                                       @"phoneNumber" : @""
                                     };
-                                      
+            self.dataSource.currentUser.userID = authData.uid;
+            self.dataSource.currentUser.twitterHandle = authData.providerData[@"username"];
+            self.dataSource.currentUser.userImage = [UIImage imageNamed:@""];
+            self.dataSource.currentUser.firstName = @"";
+            self.dataSource.currentUser.lastName = @"";
+            self.dataSource.currentUser.phoneNumber = @"";
             NSLog(@"NEW USER DICTIONARY: %@", newUser);
 //              this will commit data to Firebase
 //            [[[self.ref childByAppendingPath:@"users"] childByAppendingPath:authData.uid] setValue:newUser];
@@ -169,7 +163,7 @@
         NSLog(@"ALSO VERIFIED IN STTWITTER!!!!!");
         
         //here is where we want to launch into the pact screen, once verified in both
-
+        self.dataSource.twitter = self.twitter;
     } errorBlock:^(NSError *error) {
         NSLog(@"%@", error.localizedDescription);
         NSString *message = [NSString stringWithFormat:@"Please don't put this in your review, but there was an error signing in to Twitter: %@", error.localizedDescription];

@@ -16,14 +16,12 @@
 @property (nonatomic, strong) NSString *lastName;
 
 //Contact Info
-@property (nonatomic, strong) NSString *emailAddress;
 @property (nonatomic, strong) NSString *phoneNumber;
 @property (nonatomic, strong) NSString *twitterHandle;
 @property (nonatomic, strong) UIImage * userImage;
 
 //App Info
 @property (nonatomic, strong) NSString *userID;
-@property (nonatomic, strong) NSString *twitterOAuth;
 
 //Pacts
 @property (nonatomic, strong) NSMutableArray *pacts;
