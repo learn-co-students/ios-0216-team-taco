@@ -16,7 +16,7 @@
 @property (nonatomic, strong) NSString *stakes;
 @property (nonatomic, strong) NSMutableArray *users;
 @property (nonatomic, assign) NSUInteger pactID; // this should be the unique identifier for a pact throughout the application - and what gets writted to firebase.
-
+@property (nonatomic, assign) NSDate *dateOfCreation;
 //CheckIn Information
 @property (nonatomic) NSUInteger checkInsPerTimeInterval;
 @property (nonatomic, strong) NSString *timeInterval;
@@ -31,7 +31,7 @@
 
 #pragma methods
 
-
+//-(BOOL)determineIfPactIsActive;
 
 @end
 
