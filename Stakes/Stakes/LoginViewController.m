@@ -34,7 +34,6 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.dataSource= [JDDDataSource sharedDataSource];
-    
     self.ref = self.dataSource.firebaseRef;
 }
 
@@ -43,62 +42,71 @@
     // Dispose of any resources that can be recreated.
 }
 
+-(void)generateAndPresentAlertWithMessage:(NSString *)errorMessage
+{
+    UIAlertController *errorAlert = [UIAlertController alertControllerWithTitle:@"Well this is awkward..." message:errorMessage preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *ok = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        [errorAlert dismissViewControllerAnimated:YES completion:nil];
+    }];
+    [errorAlert addAction:ok];
+    [self presentViewController:errorAlert animated:YES completion:nil];
+    
+}
+
 - (IBAction)loginTapped:(id)sender {
     self.helper = [[TwitterAuthHelper alloc] initWithFirebaseRef:self.ref apiKey:TWITTER_KEY];
     [self.helper selectTwitterAccountWithCallback:^(NSError *error, NSArray *accounts) {
         if (error) {
-            NSString *message = [NSString stringWithFormat:@"There was an error logging into Twitter: %@", [error localizedDescription]];
-            //show alert with message
+            NSString *message = [NSString stringWithFormat:@"Please don't put this in your review, but there was an error logging into Twitter: %@", error.localizedDescription];
+            [self generateAndPresentAlertWithMessage:message];
         }
-        else if ([accounts count] == 0) {
-            // No Twitter accounts found on device
+        else if (accounts.count == 0) {
+            NSString *message = @"No Twitter accounts found.  Please add an account in your phone's settings.";
+            [self generateAndPresentAlertWithMessage:message];
+        }
+        else if (accounts.count == 1 ) {
+            [self authenticateWithTwitterAccount:[accounts firstObject]];
         }
         else {
-            [self handleMultipleTwitterAccounts:accounts];
+            [self selectTwitterAccount:accounts];
         }
     }];
-}
-
-- (void) handleMultipleTwitterAccounts:(NSArray *)accounts {
-    switch ([accounts count]) {
-        case 0:
-            // No account on device.
-            break;
-        case 1:
-            // Single user system, go straight to login
-            [self authenticateWithTwitterAccount:[accounts firstObject]];
-            [self loginWithiOSAccount:[accounts firstObject]];
-            break;
-        default:
-            // Handle multiple users
-            [self selectTwitterAccount:accounts];
-            break;
-    }
 }
 
 - (void) authenticateWithTwitterAccount:(ACAccount *)account {
     [self.helper authenticateAccount:account withCallback:^(NSError *error, FAuthData *authData) {
         if (error) {
             // Error authenticating account with Firebase
+            NSString *message = [NSString stringWithFormat:@"Please don't put this in your review, but there was an error authenticating your account: %@", error.localizedDescription];
+            [self generateAndPresentAlertWithMessage:message];
         } else {
             // User successfully logged in
             NSLog(@"Logged in! AUTH DATA!!! %@", authData.auth);
+            
             NSDictionary *newUser = @{ @"uid" : authData.uid,
                                     @"displayName": authData.providerData[@"displayName"],
                                     @"profileImageURL" : authData.providerData[@"profileImageURL"],
                                     @"twitterHandle" : authData.providerData[@"username"],
+                                       @"firstName" : @"",
+                                       @"lastName" : @"",
+                                       @"phoneNumber" : @""
                                     };
-                                      
+            self.dataSource.currentUser.userID = authData.uid;
+            self.dataSource.currentUser.twitterHandle = authData.providerData[@"username"];
+            self.dataSource.currentUser.userImage = [UIImage imageNamed:@""];
+            self.dataSource.currentUser.firstName = @"";
+            self.dataSource.currentUser.lastName = @"";
+            self.dataSource.currentUser.phoneNumber = @"";
             NSLog(@"NEW USER DICTIONARY: %@", newUser);
-              //this will commit data to Firebase
-            [[[self.ref childByAppendingPath:@"users"] childByAppendingPath:authData.uid] setValue:newUser];
+//              this will commit data to Firebase
+//            [[[self.ref childByAppendingPath:@"users"] childByAppendingPath:authData.uid] setValue:newUser];
 
             [self loginWithiOSAccount:account];
         }
     }];
 }
 - (void) selectTwitterAccount:(NSArray *)accounts {
-    UIAlertController *selectUser = [UIAlertController alertControllerWithTitle:@"Select Twitter Account" message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+    UIAlertController *selectUser = [UIAlertController alertControllerWithTitle:@"Please select a Twitter Account" message:nil preferredStyle:UIAlertControllerStyleActionSheet];
     
     for (ACAccount *account in accounts) {
         UIAlertAction *action = [UIAlertAction actionWithTitle:account.username style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
@@ -129,6 +137,8 @@
                      NSLog(@"SUCCESSFUL TWEET");
                  } errorBlock:^(NSError *error) {
                      NSLog(@"THERE WAS AN ERROR TWEETING");
+                     NSString *message = [NSString stringWithFormat:@"You didn't really want to send that, did you? There was an error sending your Tweet: %@", error.localizedDescription];
+                     [self generateAndPresentAlertWithMessage:message];
                  }];
 }
 
@@ -137,7 +147,10 @@
 }
 
 - (IBAction)logoutTapped:(id)sender {
-//    [self.ref unauth];
+    [self.ref unauth];
+    NSLog(@"logged out of Firebase");
+    self.twitter = nil;
+    NSLog(@"logged out of STTwitter");
 }
 
 -(void)loginWithiOSAccount:(ACAccount *)account {
@@ -148,9 +161,13 @@
     [self.twitter verifyCredentialsWithUserSuccessBlock:^(NSString *username, NSString *userID) {
         
         NSLog(@"ALSO VERIFIED IN STTWITTER!!!!!");
-
+        
+        //here is where we want to launch into the pact screen, once verified in both
+        self.dataSource.twitter = self.twitter;
     } errorBlock:^(NSError *error) {
-        NSLog(@"%@", error);
+        NSLog(@"%@", error.localizedDescription);
+        NSString *message = [NSString stringWithFormat:@"Please don't put this in your review, but there was an error signing in to Twitter: %@", error.localizedDescription];
+        [self generateAndPresentAlertWithMessage:message];
     }];
 }
 

@@ -12,11 +12,11 @@
 
 @import Contacts;
 @import ContactsUI;
+@import MessageUI;
 
 
 
-
-@interface CreatePactViewController () <CNContactPickerDelegate> ;
+@interface CreatePactViewController () <CNContactPickerDelegate, MFMessageComposeViewControllerDelegate> ;
 @property (weak, nonatomic) IBOutlet UILabel *userNameLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *profileImage;
 @property (weak, nonatomic) IBOutlet UITextField *pactDescription;
@@ -34,7 +34,7 @@
 @property (nonatomic,strong) NSMutableArray* timeInterval;
 @property (nonatomic,strong) NSString* timeIntervalString;
 @property (nonatomic,strong) NSString* frequanctString;
-
+@property (nonatomic, strong) NSMutableArray* contacts;
 
 
 @end
@@ -63,19 +63,13 @@
 }
 
 
-
+-(void)viewWillAppear:(BOOL)animated {
     
--(void)styleStakesView
-{
-    self.stakesTextView.layer.cornerRadius = 5;
-    self.stakesTextView.layer.borderWidth = 1.0f;
-    self.stakesTextView.layer.borderColor = [UIColor blackColor].CGColor;
+    NSLog(@"we are here!");
 }
-//-(void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error{
-//    UIAlertView *errorAlert = [[UIAlertView alloc]initWithTitle:@"Error" message:@"There was an error retrieving your location" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
-//    [errorAlert show];
-//    NSLog(@"Error: %@",error.description);
-//}
+
+
+
 
 
 - (IBAction)createPactTapped:(id)sender {
@@ -97,36 +91,35 @@
         newPact.dateOfCreation = currentDate;
         
         [self.dataSource.currentUser.pacts addObject:newPact];
-            
+        
+        [self sendMessageToInvites];
+        
         NSLog(@"dataStore user is %@",self.dataSource.currentUser.pacts[1]);
         [self dismissViewControllerAnimated:YES completion:nil];
 
         
     } else {
         
-        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Oops!" message:@"Please finish filling your pact" preferredStyle:UIAlertControllerStyleAlert];
-        
-        UIAlertAction* ok = [UIAlertAction
-                             actionWithTitle:@"OK"
-                             style:UIAlertActionStyleDefault
-                             handler:^(UIAlertAction * action)
-                             {
-                                 [alert dismissViewControllerAnimated:YES completion:nil];
-                                 
-                             }];
-        
-        [alert addAction: ok];
-        
-        [self presentViewController:alert animated:YES completion:nil];
+        [self alertPactNotReady];
     }
     
 
     
 }
 
--(void)viewWillAppear:(BOOL)animated {
-    
-    NSLog(@"we are here!");
+
+
+
+
+// Styling of the pact form
+//========================================================================================================================================
+
+
+-(void)styleStakesView
+{
+    self.stakesTextView.layer.cornerRadius = 5;
+    self.stakesTextView.layer.borderWidth = 1.0f;
+    self.stakesTextView.layer.borderColor = [UIColor blackColor].CGColor;
 }
 
 -(void)styleTwitterPost
@@ -173,10 +166,41 @@
     self.frequencyPicker.dataSource =self;
     
 }
+
+//========================================================================================================================================
+
+
+
+
+
+
+//buttons, contacts, and alerts
+//========================================================================================================================================
+
+-(void)alertPactNotReady
+{
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Oops!" message:@"Please finish filling your pact" preferredStyle:UIAlertControllerStyleAlert];
+    
+    UIAlertAction* ok = [UIAlertAction
+                         actionWithTitle:@"OK"
+                         style:UIAlertActionStyleDefault
+                         handler:^(UIAlertAction * action)
+                         {
+                             [alert dismissViewControllerAnimated:YES completion:nil];
+                             
+                         }];
+    
+    [alert addAction: ok];
+    
+    [self presentViewController:alert animated:YES completion:nil];
+}
+
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
 
 -(NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView
 {
@@ -233,9 +257,11 @@
 
 - (void)contactPicker:(CNContactPickerViewController *)picker didSelectContacts:(NSArray<CNContact*> *)contacts// delgate to pick more than one user
 {
+    JDDUser *newUser = [[JDDUser alloc]init];
+    self.contacts = [[NSMutableArray alloc]init];
+
     for(CNContact *contact in contacts){
         // create a JDDUser
-        JDDUser *newUser = [[JDDUser alloc]init];
         
         newUser.firstName = contact.givenName;
         NSLog(@"given name %@", newUser.firstName);
@@ -249,9 +275,13 @@
         CNPhoneNumber *phoneNumber = firstPhone.value;
 
         newUser.phoneNumber = phoneNumber.stringValue;
-        NSLog(@"phone: %@", newUser.phoneNumber);
-
         
+        [self.contacts addObject: newUser.phoneNumber];
+        NSLog(@"contacts to send message are:%li",self.contacts.count);
+
+        NSLog(@"phone: %@", newUser.phoneNumber);
+    }
+    
         
         NSInteger randomID =arc4random() % 9000 + 1000;
 
@@ -265,20 +295,10 @@
         [self.dataSource.users addObject:newUser];
         NSLog(@"contacts are: %@", self.dataSource.users);
 
-    }
+    
     
 }
 
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 
 - (IBAction)cancelButtonPressed:(id)sender {
@@ -287,8 +307,16 @@
     
 }
 
+//========================================================================================================================================
 
 
+
+
+
+
+
+// methods to check if all text fields are ready in the pact creation
+//========================================================================================================================================
 -(BOOL)isPactReady
 {
     if ([self isGroupTitleSet] && [self didInviteFriends] && [self isPactDecribed] && [self isStakeDecided] && [self generatePactID]) {
@@ -351,6 +379,14 @@ return  NO;
 //    
     return YES;
 }
+//========================================================================================================================================
+
+
+
+
+// Dismiss keboards
+//========================================================================================================================================
+
 - (IBAction)dismissStakeKeyboard:(id)sender {
     self.stakesTextView = (UITextField*) sender;
     [self.stakesTextView resignFirstResponder];
@@ -370,6 +406,33 @@ return  NO;
 - (IBAction)dismissShameKeboard:(id)sender {
     self.twitterShamePost = (UITextField*) sender;
     [self.twitterShamePost resignFirstResponder];
+}
+//========================================================================================================================================
+
+
+
+
+
+-(void)sendMessageToInvites
+{
+    if (![MFMessageComposeViewController canSendText]) {
+        NSLog(@"Message services are not available.");
+    }
+    
+    MFMessageComposeViewController* composeVC = [[MFMessageComposeViewController alloc] init];
+    composeVC.messageComposeDelegate = self;
+    
+    // Configure the fields of the interface.
+    composeVC.recipients = self.contacts;
+    composeVC.body = @"Hey Guys I created a pact to hit the gym download the app to keep tracking our progress";
+    
+    // Present the view controller modally.
+    [self presentViewController:composeVC animated:YES completion:nil];
+}
+
+-(void)messageComposeViewController:(MFMessageComposeViewController *)controller didFinishWithResult:(MessageComposeResult)result
+{
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 @end
