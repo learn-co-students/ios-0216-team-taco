@@ -12,7 +12,6 @@
 		3F52B0881CAB3EBC0031BF59 /* Israel.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3F52B0871CAB3EBC0031BF59 /* Israel.jpg */; };
 		AF2883481CAC12C6003FD3E2 /* JDDDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = AF2883471CAC12C6003FD3E2 /* JDDDataSource.m */; };
 		AFB5216A1CAC450800A993E8 /* smackTackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AFB521691CAC450800A993E8 /* smackTackViewController.m */; };
-		AFB5216D1CAC727600A993E8 /* JDDFireBaseAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = AFB5216C1CAC727600A993E8 /* JDDFireBaseAPI.m */; };
 		AFC0645B1CAD733900DBA069 /* UserPactCellView.xib in Resources */ = {isa = PBXBuildFile; fileRef = AFC0645A1CAD733900DBA069 /* UserPactCellView.xib */; };
 		AFC0645E1CAD736D00DBA069 /* UserPactCellView.m in Sources */ = {isa = PBXBuildFile; fileRef = AFC0645D1CAD736D00DBA069 /* UserPactCellView.m */; };
 		AFC064621CAD8DA800DBA069 /* Group 2.png in Resources */ = {isa = PBXBuildFile; fileRef = AFC0645F1CAD8DA800DBA069 /* Group 2.png */; };
@@ -72,8 +71,6 @@
 		AF2883471CAC12C6003FD3E2 /* JDDDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JDDDataSource.m; sourceTree = "<group>"; };
 		AFB521681CAC450800A993E8 /* smackTackViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = smackTackViewController.h; sourceTree = "<group>"; };
 		AFB521691CAC450800A993E8 /* smackTackViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = smackTackViewController.m; sourceTree = "<group>"; };
-		AFB5216B1CAC727600A993E8 /* JDDFireBaseAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JDDFireBaseAPI.h; sourceTree = "<group>"; };
-		AFB5216C1CAC727600A993E8 /* JDDFireBaseAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JDDFireBaseAPI.m; sourceTree = "<group>"; };
 		AFC0645A1CAD733900DBA069 /* UserPactCellView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UserPactCellView.xib; sourceTree = "<group>"; };
 		AFC0645C1CAD736D00DBA069 /* UserPactCellView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserPactCellView.h; sourceTree = "<group>"; };
 		AFC0645D1CAD736D00DBA069 /* UserPactCellView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserPactCellView.m; sourceTree = "<group>"; };
@@ -231,8 +228,6 @@
 				CBA9858F1CAAEE0900D1CC27 /* JDDPact.m */,
 				CBA985901CAAEE0900D1CC27 /* JDDUser.h */,
 				CBA985911CAAEE0900D1CC27 /* JDDUser.m */,
-				AFB5216B1CAC727600A993E8 /* JDDFireBaseAPI.h */,
-				AFB5216C1CAC727600A993E8 /* JDDFireBaseAPI.m */,
 				AF2883461CAC12C6003FD3E2 /* JDDDataSource.h */,
 				AF2883471CAC12C6003FD3E2 /* JDDDataSource.m */,
 				CBA9859D1CAAEE7500D1CC27 /* Main.storyboard */,
@@ -349,7 +344,7 @@
 				TargetAttributes = {
 					CBA9854E1CAAEC6D00D1CC27 = {
 						CreatedOnToolsVersion = 7.3;
-						DevelopmentTeam = 6JWFNK8C5B;
+						DevelopmentTeam = R2XL2EPM9B;
 					};
 					CBA985671CAAEC6D00D1CC27 = {
 						CreatedOnToolsVersion = 7.3;
@@ -475,7 +470,6 @@
 				CBA9859C1CAAEE0900D1CC27 /* UserPactsViewController.m in Sources */,
 				CBA9859A1CAAEE0900D1CC27 /* JDDUser.m in Sources */,
 				AF2883481CAC12C6003FD3E2 /* JDDDataSource.m in Sources */,
-				AFB5216D1CAC727600A993E8 /* JDDFireBaseAPI.m in Sources */,
 				CBA985571CAAEC6D00D1CC27 /* AppDelegate.m in Sources */,
 				AFB5216A1CAC450800A993E8 /* smackTackViewController.m in Sources */,
 				AFC0645E1CAD736D00DBA069 /* UserPactCellView.m in Sources */,
@@ -627,7 +621,7 @@
 				INFOPLIST_FILE = Stakes/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = JDD.Stakes;
+				PRODUCT_BUNDLE_IDENTIFIER = JDDStakes;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 			};
@@ -643,7 +637,7 @@
 				INFOPLIST_FILE = Stakes/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = JDD.Stakes;
+				PRODUCT_BUNDLE_IDENTIFIER = JDDStakes;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 			};

@@ -3,6 +3,8 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
     <scenes>
         <!--Smack Tack View Controller-->
@@ -53,19 +55,67 @@
                     <view key="view" contentMode="scaleToFill" id="nvu-zd-h5N">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="HxI-bg-Vyh">
+                                <rect key="frame" x="240" y="30" width="120" height="120"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="HxI-bg-Vyh" secondAttribute="height" multiplier="1:1" id="rQ5-r9-SBy"/>
+                                </constraints>
+                            </imageView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Axs-wB-V8J">
+                                <rect key="frame" x="600" y="0.0" width="0.0" height="600"/>
+                                <subviews>
+                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="rJx-Cz-lNd">
+                                        <rect key="frame" x="0.0" y="0.0" width="0.0" height="600"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    </tableView>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstItem="rJx-Cz-lNd" firstAttribute="leading" secondItem="Axs-wB-V8J" secondAttribute="leading" id="4Z7-Qi-wbe"/>
+                                    <constraint firstAttribute="trailing" secondItem="rJx-Cz-lNd" secondAttribute="trailing" id="FYC-4P-w1k"/>
+                                    <constraint firstItem="rJx-Cz-lNd" firstAttribute="top" secondItem="Axs-wB-V8J" secondAttribute="top" id="Sh8-lT-rbW"/>
+                                    <constraint firstAttribute="bottom" secondItem="rJx-Cz-lNd" secondAttribute="bottom" id="kO6-7c-Gs1"/>
+                                </constraints>
+                            </view>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="HxI-bg-Vyh" firstAttribute="centerX" secondItem="nvu-zd-h5N" secondAttribute="centerX" id="1ld-ma-Qwx"/>
+                            <constraint firstAttribute="trailing" secondItem="Axs-wB-V8J" secondAttribute="trailing" id="32R-4U-JLF"/>
+                            <constraint firstItem="Axs-wB-V8J" firstAttribute="height" secondItem="nvu-zd-h5N" secondAttribute="height" id="KJy-SY-VC2"/>
+                            <constraint firstItem="Axs-wB-V8J" firstAttribute="width" secondItem="nvu-zd-h5N" secondAttribute="width" multiplier="0.001" id="Rtx-vd-l6C"/>
+                            <constraint firstItem="HxI-bg-Vyh" firstAttribute="height" secondItem="nvu-zd-h5N" secondAttribute="height" multiplier="0.2" id="Yg6-ED-lmJ"/>
+                            <constraint firstItem="Axs-wB-V8J" firstAttribute="centerY" secondItem="nvu-zd-h5N" secondAttribute="centerY" id="hhl-5J-59H"/>
+                            <constraint firstItem="HxI-bg-Vyh" firstAttribute="centerY" secondItem="nvu-zd-h5N" secondAttribute="centerY" multiplier="0.3" id="qfy-Mj-9TS"/>
+                        </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Item" id="Nwa-Ot-ug0"/>
                     <toolbarItems>
-                        <barButtonItem width="126" style="plain" systemItem="fixedSpace" id="gye-gp-cA3"/>
-                        <barButtonItem title="Item" id="Ba5-KI-gst"/>
-                        <barButtonItem width="101" style="plain" systemItem="fixedSpace" id="BwG-C3-xvM"/>
-                        <barButtonItem title="Item" id="ZRN-AS-5qB"/>
+                        <barButtonItem width="98" style="plain" systemItem="fixedSpace" id="gye-gp-cA3"/>
+                        <barButtonItem title="Person" id="Ba5-KI-gst">
+                            <connections>
+                                <action selector="personButtonPressed:" destination="7EE-oX-gio" id="2GE-zU-XUo"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem width="88" style="plain" systemItem="fixedSpace" id="BwG-C3-xvM"/>
+                        <barButtonItem title="Pending" id="ZRN-AS-5qB">
+                            <connections>
+                                <action selector="pendingButtonPressed:" destination="7EE-oX-gio" id="JTV-Wg-Sp7"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem width="92" style="plain" systemItem="fixedSpace" id="9Ax-Jd-VSR"/>
-                        <barButtonItem title="Item" id="ASj-Tk-jpS"/>
-                        <barButtonItem width="131" style="plain" systemItem="fixedSpace" id="PmT-kD-fIU"/>
+                        <barButtonItem title="History" id="ASj-Tk-jpS">
+                            <connections>
+                                <action selector="historyButtonPressed:" destination="7EE-oX-gio" id="ced-Rc-zI3"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem width="98" style="plain" systemItem="fixedSpace" id="PmT-kD-fIU"/>
                     </toolbarItems>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="tableViewViewWidthConstraint" destination="Rtx-vd-l6C" id="amM-mW-tTM"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YKR-B3-NUg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

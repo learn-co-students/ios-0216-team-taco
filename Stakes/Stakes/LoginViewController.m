@@ -83,7 +83,7 @@
             // User successfully logged in
             NSLog(@"Logged in! AUTH DATA!!! %@", authData.auth);
             
-            NSDictionary *newUser = @{ @"uid" : authData.uid,
+            NSDictionary *newUser = @{ @"userID" : authData.uid,
                                     @"displayName": authData.providerData[@"displayName"],
                                     @"profileImageURL" : authData.providerData[@"profileImageURL"],
                                     @"twitterHandle" : authData.providerData[@"username"],
@@ -91,7 +91,8 @@
                                        @"lastName" : @"",
                                        @"phoneNumber" : @""
                                     };
-            self.dataSource.currentUser.userID = authData.uid;
+            self.dataSource.currentUser.userID = self.phoneNumberTextField
+            .text;
             self.dataSource.currentUser.twitterHandle = authData.providerData[@"username"];
             self.dataSource.currentUser.userImage = [UIImage imageNamed:@""];
             self.dataSource.currentUser.firstName = @"";
@@ -99,7 +100,7 @@
             self.dataSource.currentUser.phoneNumber = @"";
             NSLog(@"NEW USER DICTIONARY: %@", newUser);
 //              this will commit data to Firebase
-//            [[[self.ref childByAppendingPath:@"users"] childByAppendingPath:authData.uid] setValue:newUser];
+            [[[self.ref childByAppendingPath:@"users"] childByAppendingPath:authData.uid] setValue:newUser];
 
             [self loginWithiOSAccount:account];
         }
@@ -170,5 +171,8 @@
         [self generateAndPresentAlertWithMessage:message];
     }];
 }
+
+
+
 
 @end
