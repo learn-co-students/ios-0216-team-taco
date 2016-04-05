@@ -24,14 +24,16 @@
 @property (weak, nonatomic) IBOutlet UIPickerView *timeIntervalPicker;
 @property (weak, nonatomic) IBOutlet UITextField *twitterShamePost;
 @property (weak, nonatomic) IBOutlet UITextField *pactTitle;
-@property (strong, nonatomic)NSArray *FrequencyPickerDataSourceArray;
-@property (strong, nonatomic)NSArray *timeIntervalPickerDataSourceArray;
 @property (weak, nonatomic) IBOutlet UISwitch *repeatSwitch;
 @property (weak, nonatomic) IBOutlet UISwitch *shameSwitch;
 @property (weak, nonatomic) IBOutlet UIView *topView;
 @property (weak, nonatomic) IBOutlet UITextField *stakesTextView;
 @property (nonatomic, strong) NSMutableArray *pactParticipants;
 @property (nonatomic, assign) NSUInteger pactID;
+@property (nonatomic,strong) NSMutableArray* FrequencyPickerDataSourceArray;
+@property (nonatomic,strong) NSMutableArray* timeInterval;
+@property (nonatomic,strong) NSString* timeIntervalString;
+@property (nonatomic,strong) NSString* frequanctString;
 
 
 
@@ -79,7 +81,7 @@
 - (IBAction)createPactTapped:(id)sender {
     
     if ([self isPactReady]) {
-        
+        NSDate *currentDate = [NSDate date];
         
         JDDPact *newPact = [[JDDPact alloc]init];
         newPact.title = self.pactTitle.text;
@@ -88,6 +90,11 @@
         newPact.users = self.pactParticipants;
         newPact.pactID = self.pactID;
         newPact.twitterPost = self.twitterShamePost.text;
+        newPact.allowsShaming = self.shameSwitch.on;
+        newPact.repeating = self.repeatSwitch.on;
+        newPact.timeInterval = self.timeIntervalString;
+        newPact.checkInsPerTimeInterval = [self.frequanctString integerValue];
+        newPact.dateOfCreation = currentDate;
         
         [self.dataSource.currentUser.pacts addObject:newPact];
         
@@ -152,13 +159,14 @@
 
 
 -(void)initializePickers {
-    NSMutableArray *frequencyPicker = [NSMutableArray new];
+    self.timeInterval = [NSMutableArray new];
+    self.FrequencyPickerDataSourceArray = [NSMutableArray new];
     for (NSUInteger i = 1; i<51; i++) {
         NSString *number = [NSString stringWithFormat:@"%lu",i];
-        [frequencyPicker addObject:number];
+        [self.FrequencyPickerDataSourceArray addObject:number];
     }
-    self.FrequencyPickerDataSourceArray = frequencyPicker;
-    self.timeIntervalPickerDataSourceArray = @[@"Day",@"Week",@"Month",@"Year"];
+    
+    self.timeInterval = [@[@"Day",@"Week",@"Month",@"Year"] mutableCopy];
     self.timeIntervalPicker.delegate =self;
     self.timeIntervalPicker.dataSource = self;
     self.frequencyPicker.delegate = self;
@@ -181,7 +189,7 @@
     if (pickerView == self.frequencyPicker) {
         return self.FrequencyPickerDataSourceArray.count;
     } else {
-        return self.timeIntervalPickerDataSourceArray.count;
+        return self.timeInterval.count;
     }
     return 2;
 }
@@ -189,9 +197,11 @@
 - (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component
 {
     if (pickerView == self.frequencyPicker) {
+        self.frequanctString = self.FrequencyPickerDataSourceArray[row];
         return self.FrequencyPickerDataSourceArray[row];
     } else {
-        return self.timeIntervalPickerDataSourceArray[row];
+        self.timeIntervalString = self.timeInterval[row];
+        return self.timeInterval[row];
     }
 
     return nil;
