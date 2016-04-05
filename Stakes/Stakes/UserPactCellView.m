@@ -32,9 +32,7 @@
 
 
 
-
 @end
-
 
 @implementation UserPactCellView
 
@@ -86,11 +84,9 @@
 
     self.CheckIn.checkInDate = now;
     self.CheckIn.checkInMessage = @"";
-    self.CheckIn.checkInLocation = @"";
+    self.CheckIn.checkInLocation = [[CLLocation alloc]init];;
     self.CheckIn.user = self.sharedData.currentUser;
     self.CheckIn.pact = self.pact;
-    
-    
     
     [self.sharedData.currentUser.checkins addObject:self.CheckIn];
     
@@ -102,9 +98,6 @@
         //        [self stopUpdatingLocationWithMessage:NSLocalizedString(@"Error", @"Error")];
     }
 }
-
-
-
 
 -(void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
 {
@@ -144,7 +137,6 @@
 
 -(void)setShitUp {
     
-    
     // here we are going to have to create new views programatically and add in users in the pact. (probably with a custom xib) This is a sloppy way of doing it for the MVP to get something on screen
     
     for (JDDUser *user in self.pact.users) {
@@ -166,6 +158,7 @@
                 self.name1checkIns.text = [NSString stringWithFormat:@"%lu",goodCount.count];
 
             }
+            
         } else if ([user isEqual:self.pact.users[1]]) {
             
             self.name2.text = user.firstName;
@@ -183,6 +176,7 @@
                 self.name2checkIns.text = [NSString stringWithFormat:@"%lu",goodCount.count];
                 
             }
+            
         } else if ([user isEqual:self.pact.users[2]]) {
             
             self.name3.text = user.firstName;
@@ -208,9 +202,6 @@
         self.stakesDetail.text = self.pact.stakes;
         
     }
-
-
-    
     
 }
 

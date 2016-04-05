@@ -10,9 +10,13 @@
 #import "Secrets.h"
 #import <STTwitter/STTwitter.h>
 #import "LoginViewController.h"
+#import "JDDDataSource.h"
 
 @interface AppDelegate ()
-@property (nonatomic, strong) NSString *token;
+@property (nonatomic, strong) STTwitterAPI *twitter;
+@property (nonatomic, strong) NSString *oauthToken;
+@property (nonatomic, strong) JDDDataSource *dataSource;
+
 @end
 
 @implementation AppDelegate
@@ -20,8 +24,9 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     //verify credentials!!!!!
+    self.dataSource = [JDDDataSource sharedDataSource];
     
-    if (!self.token) {
+    if (!self.oauthToken) {
 //        NSString *board = @"Main";
 //        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:board bundle: nil];
 //        LoginViewController *login = [storyboard instantiateViewControllerWithIdentifier:@"LoginViewController"];
@@ -33,49 +38,8 @@
         // call -[STTwitter verifyCredentialsWithSuccessBlock:errorBlock:] after that.
     
     }
-    
-    
-    
     return YES;
 }
-
-- (NSDictionary *)parametersDictionaryFromQueryString:(NSString *)queryString {
-    
-    NSMutableDictionary *dictionary = [NSMutableDictionary dictionary];
-    
-    NSArray *queryComponents = [queryString componentsSeparatedByString:@"&"];
-    
-    for(NSString *string in queryComponents) {
-        NSArray *pair = [string componentsSeparatedByString:@"="];
-        if([pair count] != 2) continue;
-        
-        NSString *key = pair[0];
-        NSString *value = pair[1];
-        
-        dictionary[key] = value;
-    }
-    
-    return dictionary;
-}
-
-- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url
-  sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
-    
-    NSLog(@"token IS WHAT NOW %@", self.token);
-    
-    if ([[url scheme] isEqualToString:@"jdd-stakes-groupapp"] == NO) return NO;
-    
-    NSDictionary *tokenDictionary = [self parametersDictionaryFromQueryString:[url query]];
-    
-    self.token = tokenDictionary[@"oauth_token"];
-    NSString *verifier = tokenDictionary[@"oauth_verifier"];
-    NSLog(@"token IS WHAT NOW %@", self.token);
-    LoginViewController *vc = (LoginViewController *)[[self window] rootViewController];
-    [vc setOAuthToken:self.token oauthVerifier:verifier];
-    
-    return YES;
-}
-
 
 - (void)applicationWillResignActive:(UIApplication *)application {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
@@ -91,13 +55,7 @@
     // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
     
     //verify credentials!!!!!!!!!
-#warning verify
-    
-    
-    
-    
-    
-    
+
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {

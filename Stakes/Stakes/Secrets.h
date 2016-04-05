@@ -12,5 +12,6 @@
 extern NSString *const TWITTER_KEY;
 extern NSString *const TWITTER_SECRET;
 extern NSString *const TWITTER_OAUTH;
+extern NSString *const kFirebaseURL;
 @end
 

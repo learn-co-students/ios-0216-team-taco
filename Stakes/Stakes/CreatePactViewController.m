@@ -97,13 +97,13 @@
         newPact.dateOfCreation = currentDate;
         
         [self.dataSource.currentUser.pacts addObject:newPact];
-        
-    
+            
         NSLog(@"dataStore user is %@",self.dataSource.currentUser.pacts[1]);
         [self dismissViewControllerAnimated:YES completion:nil];
 
         
     } else {
+        
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Oops!" message:@"Please finish filling your pact" preferredStyle:UIAlertControllerStyleAlert];
         
         UIAlertAction* ok = [UIAlertAction
