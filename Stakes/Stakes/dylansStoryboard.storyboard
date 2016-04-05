@@ -27,7 +27,7 @@
         <!--Navigation Controller-->
         <scene sceneID="8P1-yf-uKM">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="v6e-dC-oUV" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="navBarToSmackTalkVC" automaticallyAdjustsScrollViewInsets="NO" id="v6e-dC-oUV" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="z6q-YK-HFH">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -41,6 +41,52 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="KDU-Gt-amw" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2659" y="2040"/>
+        </scene>
+        <!--Item-->
+        <scene sceneID="iUk-We-miD">
+            <objects>
+                <viewController id="7EE-oX-gio" customClass="UserDetailViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="GRH-a7-NMP"/>
+                        <viewControllerLayoutGuide type="bottom" id="8jm-it-Aef"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="nvu-zd-h5N">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Item" id="Nwa-Ot-ug0"/>
+                    <toolbarItems>
+                        <barButtonItem width="126" style="plain" systemItem="fixedSpace" id="gye-gp-cA3"/>
+                        <barButtonItem title="Item" id="Ba5-KI-gst"/>
+                        <barButtonItem width="101" style="plain" systemItem="fixedSpace" id="BwG-C3-xvM"/>
+                        <barButtonItem title="Item" id="ZRN-AS-5qB"/>
+                        <barButtonItem width="92" style="plain" systemItem="fixedSpace" id="9Ax-Jd-VSR"/>
+                        <barButtonItem title="Item" id="ASj-Tk-jpS"/>
+                        <barButtonItem width="131" style="plain" systemItem="fixedSpace" id="PmT-kD-fIU"/>
+                    </toolbarItems>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="YKR-B3-NUg" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3471" y="2727"/>
+        </scene>
+        <!--Tab Bar Controller-->
+        <scene sceneID="AyZ-IO-ZPp">
+            <objects>
+                <tabBarController storyboardIdentifier="tabBarToUserDetailVC" automaticallyAdjustsScrollViewInsets="NO" id="fv0-zE-MWt" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <tabBar key="tabBar" contentMode="scaleToFill" id="c02-wO-VM1">
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="7EE-oX-gio" kind="relationship" relationship="viewControllers" id="Cjh-0W-sDk"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="4zC-zm-cGV" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2659" y="2727"/>
         </scene>
     </scenes>
 </document>

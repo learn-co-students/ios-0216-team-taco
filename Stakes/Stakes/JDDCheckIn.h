@@ -16,6 +16,7 @@
 @property (nonatomic) NSDate *checkInDate;
 @property (nonatomic, strong) CLLocation *checkInLocation;
 @property (nonatomic, strong) NSString *checkInMessage;
+@property (nonatomic, strong) NSString *checkInID;
 
 @property (nonatomic) JDDUser * user;
 @property (nonatomic) JDDPact * pact;

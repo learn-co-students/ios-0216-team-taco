@@ -216,6 +216,7 @@
     
     self.currentUser = self.users[0];
     
+    
     // logic that establishes userID based on oath tokens to firebase in the phones password saftey database thing
     
     // firebase method that takes JSON from firebase and creates self.currentUser so it can be used throughout the application.

@@ -22,6 +22,9 @@
 @property (nonatomic, strong) TwitterAuthHelper *helper;
 @property (nonatomic, strong) ACAccountStore *accountStore;
 @property (nonatomic, strong) NSArray *iOSAccounts;
+@property (strong, nonatomic) IBOutlet UITextField *firstNameTextField;
+@property (strong, nonatomic) IBOutlet UITextField *lastNameTextField;
+@property (strong, nonatomic) IBOutlet UITextField *phoneNumberTextField;
 
 @end
 
