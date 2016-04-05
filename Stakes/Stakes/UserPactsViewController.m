@@ -57,7 +57,6 @@
 
 
     [self setupSwipeGestureRecognizer];
-    NSLog(@"------------- %@ --------- PROPERTY FOR ACCESS TOKEN, WE ARE IN USER PACTS", self.dataSource.currentUser.twitterOAuth);
     
 //    [self perform
 //     accessibilityElementDidBecomeFocused:@"login" sender:self];

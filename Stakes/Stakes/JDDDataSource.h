@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "FireBase.h"
 #import "JDDUser.h"
+#import <STTwitter/STTwitter.h>
 
 @interface JDDDataSource : NSObject
 
