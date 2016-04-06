@@ -11,6 +11,8 @@
 #import "LoginViewController.h"
 #import "Secrets.h"
 #import "TwitterAuthHelper.h"
+#import <Foundation/Foundation.h>
+#import <Security/Security.h>
 
 @interface LoginViewController ()
 
@@ -78,6 +80,7 @@
     }];
 }
 
+
 - (void)authenticateWithTwitterAccount:(ACAccount *)account
 {
     NSLog(@"in authenticate account method)");
@@ -102,11 +105,13 @@
 
             new.twitterHandle = authData.providerData[@"username"];
 //            new.userImage = [UIImage imageNamed:@""];
-            new.firstName = authData.providerData[@"displayName"];
+            new.displayName = authData.providerData[@"displayName"];
             new.phoneNumber = self.phoneNumberTextField.text;
             NSLog(@"new user created %@", new);
             self.dataSource.currentUser = new;
+            
             NSLog(@"current user is now: %@", self.dataSource.currentUser.userID);
+
             NSLog(@"NEW USER DICTIONARY: %@", newUser);
             
 //              this will commit data to Firebase
@@ -117,11 +122,14 @@
 
             [self loginWithiOSAccount:account];
             
-            NSLog(@"current user is: %@", self.dataSource.currentUser.firstName);
-
+            NSUserDefaults * userDefaults = [NSUserDefaults standardUserDefaults];
+            [userDefaults setObject:self.phoneNumberTextField.text forKey:@"stakesUserID"];
+            NSLog(@"userDefaults for stakesID is %@",[userDefaults stringForKey:@"stakesUserID"]);
+            
         }
     }];
 }
+
 
 - (void)selectTwitterAccount:(NSArray *)accounts
 {

@@ -12,13 +12,13 @@
 @interface JDDUser : NSObject
 
 //Name
-@property (nonatomic, strong) NSString *firstName;
-@property (nonatomic, strong) NSString *lastName;
+@property (nonatomic, strong) NSString *displayName;
 
 //Contact Info
 @property (nonatomic, strong) NSString *phoneNumber;
 @property (nonatomic, strong) NSString *twitterHandle;
-@property (nonatomic, strong) UIImage * userImage;
+@property (nonatomic, strong) UIImage *userImage;
+@property (nonatomic, strong) NSString *userImageURL;
 
 //App Info
 @property (nonatomic, strong) NSString *userID;
@@ -26,6 +26,7 @@
 //Pacts
 @property (nonatomic, strong) NSMutableArray *pacts;
 @property (nonatomic, strong) NSMutableArray *pendingPacts;
+@property (nonatomic, strong) NSMutableArray *pactHistory;
 @property (nonatomic, strong) NSMutableArray *checkins;
 
 #pragma methods

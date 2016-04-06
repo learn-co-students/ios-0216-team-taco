@@ -49,12 +49,12 @@
     self.dataSource = [JDDDataSource sharedDataSource];
     self.ref = self.dataSource.firebaseRef;
     
-    NSLog(@"%@",self.dataSource.currentUser.firstName);
+    NSLog(@"%@",self.dataSource.currentUser.displayName);
     NSLog(@"%@",self.dataSource.currentUser.twitterHandle);
+
+    NSLog(@"%lu",self.dataSource.currentUser.pacts.count);
     
-//    self.currentUser = self.dataSource.currentUser;
-    
-    self.currentOpenPact = self.dataSource.currentUser.pacts[0];
+//    self.currentOpenPact = self.dataSource.currentUserPacts[0];
     
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
@@ -69,12 +69,9 @@
 
 
     [self setupSwipeGestureRecognizer];
-    
-//    [self perform
-//     accessibilityElementDidBecomeFocused:@"login" sender:self];
+
     NSLog(@"TWITTER %@", self.dataSource.twitter);
     NSLog(@"view did load account: %@", [self.dataSource.accountStore.accounts firstObject]);
-
 }
 
 
@@ -131,14 +128,14 @@
     
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
-    cell.pact = self.dataSource.currentUser.pacts[indexPath.section];
+    cell.pact = self.dataSource.currentUserPacts[indexPath.section];
     
     return cell;
 }
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return self.dataSource.currentUser.pacts.count;
+    return self.dataSource.currentUserPacts.count;
 }
 
 
@@ -152,7 +149,7 @@
     
     PactAccordionHeaderView *viewThing = [tableView dequeueReusableHeaderFooterViewWithIdentifier:accordionHeaderReuseIdentifier];
     
-    JDDPact *currentPact = self.dataSource.currentUser.pacts[section];
+    JDDPact *currentPact = self.dataSource.currentUserPacts[section];
     
     viewThing.pact = currentPact;
     
@@ -168,7 +165,7 @@
 
 - (void)tableView:(FZAccordionTableView *)tableView didOpenSection:(NSInteger)section withHeader:(UITableViewHeaderFooterView *)header {
     
-    self.currentOpenPact = self.dataSource.currentUser.pacts[section];
+    self.currentOpenPact = self.dataSource.currentUserPacts[section];
     
     NSLog(@"did open section %@",self.currentOpenPact.title);
     
