@@ -37,7 +37,7 @@
     self.dataSource = [JDDDataSource sharedDataSource];
     
     NSLog(@"%@",self.dataSource.currentUser);
-    
+    NSLog(@"%@",self.dataSource.currentUser.twitterHandle);
     NSLog(@"%lu",self.dataSource.currentUser.pacts.count);
     
     self.currentOpenPact = self.dataSource.currentUser.pacts[0];

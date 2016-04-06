@@ -17,6 +17,6 @@
 @implementation JDDMessage
 
 
-// need to have a method that takes message info and turns it into a JSQMessage. (or do we? maybe we just use JSQmessage and scrap this entire class).
+// need to have a method that takes message info and turns it into a JSQMessage. (or d0o we? maybe we just use JSQmessage and scrap this entire class).
 
 @end
