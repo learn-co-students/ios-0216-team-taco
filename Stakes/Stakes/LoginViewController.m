@@ -12,6 +12,8 @@
 #import "Secrets.h"
 #import "JDDDataSource.h"
 #import "TwitterAuthHelper.h"
+#import <Foundation/Foundation.h>
+#import <Security/Security.h>
 
 @interface LoginViewController ()
 @property (nonatomic, strong) STTwitterAPI *twitter;
@@ -35,8 +37,7 @@
     // Do any additional setup after loading the view.
     self.dataSource= [JDDDataSource sharedDataSource];
     self.ref = self.dataSource.firebaseRef;
-    
-    NSLog(@"current user is: %@", self.dataSource.currentUser.firstName);
+        
 }
 
 - (void)didReceiveMemoryWarning {
@@ -75,7 +76,9 @@
     }];
 }
 
+
 - (void) authenticateWithTwitterAccount:(ACAccount *)account {
+    
     [self.helper authenticateAccount:account withCallback:^(NSError *error, FAuthData *authData) {
         if (error) {
             // Error authenticating account with Firebase
@@ -85,20 +88,23 @@
             // User successfully logged in
             NSLog(@"Logged in! AUTH DATA!!! %@", authData.auth);
             
+            JDDPact *pact = [self.dataSource createPactForFirstTimeUser];
+            
             NSDictionary *newUser = @{ @"userID" : self.phoneNumberTextField.text,
-                                    @"profileImageURL" : authData.providerData[@"profileImageURL"],
-                                    @"twitterHandle" : authData.providerData[@"username"],
+                                       @"profileImageURL" : authData.providerData[@"profileImageURL"],
+                                       @"twitterHandle" : authData.providerData[@"username"],
                                        @"firstName" : self.firstNameTextField.text,
                                        @"lastName" : self.lastNameTextField.text,
-                                       @"phoneNumber" : self.phoneNumberTextField.text
+                                       @"phoneNumber" : self.phoneNumberTextField.text,
                                     };
+            
             self.dataSource.currentUser.userID = self.phoneNumberTextField
             .text;
             self.dataSource.currentUser.twitterHandle = authData.providerData[@"username"];
             self.dataSource.currentUser.userImage = [UIImage imageNamed:@""];
-            self.dataSource.currentUser.firstName = self.firstNameTextField.text;
-            self.dataSource.currentUser.lastName = self.lastNameTextField.text;
+            self.dataSource.currentUser.displayName = self.firstNameTextField.text;
             self.dataSource.currentUser.phoneNumber = self.phoneNumberTextField.text;
+            [self.dataSource.currentUser.pacts addObject:pact];
             
             NSLog(@"NEW USER DICTIONARY: %@", newUser);
             
@@ -108,11 +114,14 @@
 
             [self loginWithiOSAccount:account];
             
-            NSLog(@"current user is: %@", self.dataSource.currentUser.firstName);
-
+            NSUserDefaults * userDefaults = [NSUserDefaults standardUserDefaults];
+            [userDefaults setObject:self.phoneNumberTextField.text forKey:@"stakesUserID"];
+            NSLog(@"userDefaults for stakesID is %@",[userDefaults stringForKey:@"stakesUserID"]);
+            
         }
     }];
 }
+
 - (void) selectTwitterAccount:(NSArray *)accounts {
     UIAlertController *selectUser = [UIAlertController alertControllerWithTitle:@"Please select a Twitter Account" message:nil preferredStyle:UIAlertControllerStyleActionSheet];
     
@@ -130,7 +139,6 @@
         //
     }];
 }
-
 
 - (IBAction)tweet:(id)sender {
     NSString *tweet = self.tweetField.text;
