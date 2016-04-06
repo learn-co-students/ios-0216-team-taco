@@ -18,6 +18,8 @@
 		AFC064631CAD8DA800DBA069 /* Pic 1.png in Resources */ = {isa = PBXBuildFile; fileRef = AFC064601CAD8DA800DBA069 /* Pic 1.png */; };
 		AFC064641CAD8DA800DBA069 /* Screen Shot 2016-03-28 at 4.13.09 PM.png in Resources */ = {isa = PBXBuildFile; fileRef = AFC064611CAD8DA800DBA069 /* Screen Shot 2016-03-28 at 4.13.09 PM.png */; };
 		AFEBE6891CB334FF00FBE107 /* UserDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AFEBE6881CB334FF00FBE107 /* UserDetailViewController.m */; };
+		CB4F71CC1CB552E300F44FE6 /* MainApplicationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB4F71CB1CB552E300F44FE6 /* MainApplicationViewController.m */; };
+		CB4F71CF1CB5540400F44FE6 /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = CB4F71CE1CB5540400F44FE6 /* Constants.m */; };
 		CB8BC03A1CAD75D0003A9D5E /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB8BC0391CAD75D0003A9D5E /* LoginViewController.m */; };
 		CB8BC0421CADB3AB003A9D5E /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB8BC0411CADB3AB003A9D5E /* Accounts.framework */; };
 		CB8BC0441CADB3B2003A9D5E /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB8BC0431CADB3B2003A9D5E /* Social.framework */; };
@@ -79,6 +81,10 @@
 		AFC064611CAD8DA800DBA069 /* Screen Shot 2016-03-28 at 4.13.09 PM.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Screen Shot 2016-03-28 at 4.13.09 PM.png"; path = "Assets.xcassets/Screen Shot 2016-03-28 at 4.13.09 PM.png"; sourceTree = "<group>"; };
 		AFEBE6871CB334FF00FBE107 /* UserDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserDetailViewController.h; sourceTree = "<group>"; };
 		AFEBE6881CB334FF00FBE107 /* UserDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserDetailViewController.m; sourceTree = "<group>"; };
+		CB4F71CA1CB552E300F44FE6 /* MainApplicationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainApplicationViewController.h; sourceTree = "<group>"; };
+		CB4F71CB1CB552E300F44FE6 /* MainApplicationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainApplicationViewController.m; sourceTree = "<group>"; };
+		CB4F71CD1CB5540400F44FE6 /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
+		CB4F71CE1CB5540400F44FE6 /* Constants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Constants.m; sourceTree = "<group>"; };
 		CB8BC0381CAD75D0003A9D5E /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		CB8BC0391CAD75D0003A9D5E /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		CB8BC0411CADB3AB003A9D5E /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
@@ -203,8 +209,12 @@
 				CBA985561CAAEC6D00D1CC27 /* AppDelegate.m */,
 				CBA985851CAAED4500D1CC27 /* Secrets.h */,
 				CB8BC0471CAEC24A003A9D5E /* Secrets.m */,
+				CB4F71CD1CB5540400F44FE6 /* Constants.h */,
+				CB4F71CE1CB5540400F44FE6 /* Constants.m */,
 				CB8BC0381CAD75D0003A9D5E /* LoginViewController.h */,
 				CB8BC0391CAD75D0003A9D5E /* LoginViewController.m */,
+				CB4F71CA1CB552E300F44FE6 /* MainApplicationViewController.h */,
+				CB4F71CB1CB552E300F44FE6 /* MainApplicationViewController.m */,
 				CBED55671CB2BFB0005F0D4E /* TwitterAuthHelper.h */,
 				CBED55681CB2BFB0005F0D4E /* TwitterAuthHelper.m */,
 				AFC0645F1CAD8DA800DBA069 /* Group 2.png */,
@@ -344,7 +354,7 @@
 				TargetAttributes = {
 					CBA9854E1CAAEC6D00D1CC27 = {
 						CreatedOnToolsVersion = 7.3;
-						DevelopmentTeam = R2XL2EPM9B;
+						DevelopmentTeam = KXY9EDFTF5;
 					};
 					CBA985671CAAEC6D00D1CC27 = {
 						CreatedOnToolsVersion = 7.3;
@@ -480,9 +490,11 @@
 				CBED55691CB2BFB0005F0D4E /* TwitterAuthHelper.m in Sources */,
 				CBA985991CAAEE0900D1CC27 /* JDDPact.m in Sources */,
 				CBA985961CAAEE0900D1CC27 /* CreatePactViewController.m in Sources */,
+				CB4F71CC1CB552E300F44FE6 /* MainApplicationViewController.m in Sources */,
 				CB8BC03A1CAD75D0003A9D5E /* LoginViewController.m in Sources */,
 				AFEBE6891CB334FF00FBE107 /* UserDetailViewController.m in Sources */,
 				CB8BC0481CAEC24A003A9D5E /* Secrets.m in Sources */,
+				CB4F71CF1CB5540400F44FE6 /* Constants.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -621,9 +633,7 @@
 				INFOPLIST_FILE = Stakes/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-
 				PRODUCT_BUNDLE_IDENTIFIER = JDDStakes;
-
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 			};
@@ -639,9 +649,7 @@
 				INFOPLIST_FILE = Stakes/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-
 				PRODUCT_BUNDLE_IDENTIFIER = JDDStakes;
-
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 			};

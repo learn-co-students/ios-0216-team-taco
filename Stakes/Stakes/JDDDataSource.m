@@ -220,9 +220,11 @@
     
     [self setUpFireBaseRef];
     
+    self.twitter = [[STTwitterAPI alloc]init];
+    
     self.currentUser = [[JDDUser alloc]init];
     
-    self.currentUser.firstName = @"dima";
+//    self.currentUser.firstName = @"dima";
     
     // logic that establishes userID based on oath tokens to firebase in the phones password saftey database thing
     
