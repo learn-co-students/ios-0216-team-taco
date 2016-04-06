@@ -228,6 +228,9 @@
     
     // firebase method that takes JSON from firebase and creates self.currentUser so it can be used throughout the application.
     
+//    [self.firebaseRef observeEventType:<#(FEventType)#> withBlock:<#^(FDataSnapshot *snapshot)block#>]
+//    
+
 }
 
 @end
