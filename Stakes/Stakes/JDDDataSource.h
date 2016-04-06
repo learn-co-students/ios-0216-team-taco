@@ -16,8 +16,8 @@
 @interface JDDDataSource : NSObject
 
 @property (nonatomic, strong) NSMutableArray *users;
-@property (nonatomic, strong) Firebase * firebaseRef;
-@property (nonatomic, strong) JDDUser * currentUser;
+@property (nonatomic, strong) Firebase *firebaseRef;
+@property (nonatomic, strong) JDDUser *currentUser;
 @property (nonatomic, strong) STTwitterAPI *twitter;
 @property (nonatomic, strong) NSMutableArray * currentUserPacts;
 
