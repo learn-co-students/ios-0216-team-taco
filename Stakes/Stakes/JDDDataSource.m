@@ -31,7 +31,6 @@
     
 }
 
-
 -(instancetype)init {
     
     self = [super init];
@@ -205,22 +204,33 @@
 -(void)setUpFireBaseRef {
     
     self.firebaseRef = [[Firebase alloc]initWithUrl:@"https://jddstakes.firebaseio.com/"];
+        
+}
+
+-(void)updateUserStuff{
+    
+    
+    
     
 }
 
 -(void)establishCurrentUser {
     
-    [self generateFakeData];
+//    [self generateFakeData];
     
     [self setUpFireBaseRef];
     
-    self.currentUser = self.users[0];
+    self.currentUser = [[JDDUser alloc]init];
     
+    self.currentUser.firstName = @"dima";
     
     // logic that establishes userID based on oath tokens to firebase in the phones password saftey database thing
     
     // firebase method that takes JSON from firebase and creates self.currentUser so it can be used throughout the application.
     
+//    [self.firebaseRef observeEventType:<#(FEventType)#> withBlock:<#^(FDataSnapshot *snapshot)block#>]
+//    
+
 }
 
 @end

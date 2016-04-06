@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "FireBase.h"
+#import "Firebase.h"
 #import "JDDUser.h"
 #import <STTwitter/STTwitter.h>
 

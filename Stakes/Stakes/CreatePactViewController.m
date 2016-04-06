@@ -29,12 +29,14 @@
 @property (weak, nonatomic) IBOutlet UIView *topView;
 @property (weak, nonatomic) IBOutlet UITextField *stakesTextView;
 @property (nonatomic, strong) NSMutableArray *pactParticipants;
-@property (nonatomic, assign) NSUInteger pactID;
+@property (nonatomic, assign) NSString * pactID;
 @property (nonatomic,strong) NSMutableArray* FrequencyPickerDataSourceArray;
 @property (nonatomic,strong) NSMutableArray* timeInterval;
 @property (nonatomic,strong) NSString* timeIntervalString;
 @property (nonatomic,strong) NSString* frequanctString;
 @property (nonatomic, strong) NSMutableArray* contacts;
+@property (nonatomic, strong) Firebase *pactReference;
+@property (nonatomic, strong) JDDPact *createdPact;
 
 
 @end
@@ -65,49 +67,101 @@
 
 -(void)viewWillAppear:(BOOL)animated {
     
-    NSLog(@"we are here!");
 }
-
-
-
-
 
 - (IBAction)createPactTapped:(id)sender {
     
     if ([self isPactReady]) {
+        
         NSDate *currentDate = [NSDate date];
         
-        JDDPact *newPact = [[JDDPact alloc]init];
-        newPact.title = self.pactTitle.text;
-        newPact.pactDescription = self.pactDescription.text;
-        newPact.stakes = self.stakesTextView.text;
-        newPact.users = self.pactParticipants;
-        newPact.pactID = self.pactID;
-        newPact.twitterPost = self.twitterShamePost.text;
-        newPact.allowsShaming = self.shameSwitch.on;
-        newPact.repeating = self.repeatSwitch.on;
-        newPact.timeInterval = self.timeIntervalString;
-        newPact.checkInsPerTimeInterval = [self.frequanctString integerValue];
-        newPact.dateOfCreation = currentDate;
+        self.createdPact = [[JDDPact alloc]init];
+        self.createdPact.title = self.pactTitle.text;
+        self.createdPact.pactDescription = self.pactDescription.text;
+        self.createdPact.stakes = self.stakesTextView.text;
+        self.createdPact.users = self.pactParticipants;
+        self.createdPact.twitterPost = self.twitterShamePost.text;
+        self.createdPact.allowsShaming = self.shameSwitch.on;
+        self.createdPact.repeating = self.repeatSwitch.on;
+        self.createdPact.timeInterval = self.timeIntervalString;
+        self.createdPact.checkInsPerTimeInterval = [self.frequanctString integerValue];
+        self.createdPact.dateOfCreation = currentDate;
         
-        [self.dataSource.currentUser.pacts addObject:newPact];
+//        [self.dataSource.currentUser.pacts addObject:self.createdPact];
         
         [self sendMessageToInvites];
+            
+        [self sendPactToFirebase];
         
-        NSLog(@"dataStore user is %@",self.dataSource.currentUser.pacts[1]);
         [self dismissViewControllerAnimated:YES completion:nil];
+
+        [self sendMessageToInvites];
 
         
     } else {
         
         [self alertPactNotReady];
+        
     }
-    
-
     
 }
 
+-(void)sendPactToFirebase{
+    
+    self.pactReference = [self.dataSource.firebaseRef childByAppendingPath:@"pacts"];
+    
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
+    [dateFormatter setDateFormat:@"yyyy'-'MM'-'dd'"];
+    
+    NSMutableDictionary * users = [[NSMutableDictionary alloc]initWithDictionary:@{}];
+    
+    for (JDDUser *user in self.pactParticipants) {
+        
+        user.phoneNumber = [[user.phoneNumber componentsSeparatedByCharactersInSet:
+                             [[NSCharacterSet decimalDigitCharacterSet] invertedSet]]
+                            componentsJoinedByString:@""];
+        
+        [users setValue:user.phoneNumber forKey:user.phoneNumber];
+        
+    }
+    
+    [users addEntriesFromDictionary:@{self.dataSource.currentUser.phoneNumber:self.dataSource.currentUser.phoneNumber}];
+    
+    NSLog(@"%@",users);
+    
+    NSDictionary *dictionary = @{@"title":self.createdPact.title,
+                                 @"pactDescription":self.createdPact.pactDescription,
+                                 @"stakes":self.createdPact.stakes,
+                                 @"twitterPost" :self.createdPact.twitterPost,
+                                 @"allowsShaming":[NSNumber numberWithBool:self.createdPact.allowsShaming],
+                                 @"repeating":[NSNumber numberWithBool:self.createdPact.repeating],
+                                 @"timeInterval":self.createdPact.timeInterval,
+                                 @"checkInsPerTimeInterval":[NSNumber numberWithInteger: self.createdPact.checkInsPerTimeInterval],
+                                 @"dateOfCreation":[dateFormatter stringFromDate: self.createdPact.dateOfCreation],
+                                 @"users":users
+                                };
+    
+   Firebase *love = [self.pactReference childByAutoId];
+    
+    self.createdPact.pactID = [love.description stringByReplacingOccurrencesOfString:@"https://jddstakes.firebaseio.com/pacts/" withString:@""];
+    
+    NSLog(@"%@", self.createdPact.pactID);
+    
+    [love setValue:dictionary];
+    
+    self.pactReference = [self.dataSource.firebaseRef childByAppendingPath:@"pacts"];
+    
+    [self sendPacttoCurrentUser];
+    
+}
 
+-(void)sendPacttoCurrentUser{
+    
+    Firebase *firebase = [[[self.dataSource.firebaseRef childByAppendingPath:@"users"]childByAppendingPath:self.dataSource.currentUser.userID]childByAppendingPath:@"pacts"];
+    
+    [firebase setValue:@{self.createdPact.pactID:self.createdPact.pactID}];
+    
+}
 
 
 
@@ -269,7 +323,6 @@
         newUser.lastName = contact.familyName;
         NSLog(@"familyName  %@", newUser.lastName);
 
-        
         NSArray <CNLabeledValue<CNPhoneNumber *> *> *phoneNumbers = contact.phoneNumbers;
         CNLabeledValue<CNPhoneNumber *> *firstPhone = [phoneNumbers firstObject];
         CNPhoneNumber *phoneNumber = firstPhone.value;
@@ -281,24 +334,15 @@
 
         NSLog(@"phone: %@", newUser.phoneNumber);
     }
-    
-        
-        NSInteger randomID =arc4random() % 9000 + 1000;
-
-        newUser.userID = [NSString stringWithFormat:@"%li",randomID];
+        newUser.userID = [NSString stringWithFormat:@"%@",newUser.phoneNumber];
         NSLog(@"ID: %@", newUser.userID);
 
         newUser.pacts = nil;
         newUser.checkins = nil;
         self.pactParticipants = [[NSMutableArray alloc]init];
         [self.pactParticipants addObject:newUser];
-        [self.dataSource.users addObject:newUser];
-        NSLog(@"contacts are: %@", self.dataSource.users);
-
-    
     
 }
-
 
 
 - (IBAction)cancelButtonPressed:(id)sender {
@@ -309,17 +353,12 @@
 
 //========================================================================================================================================
 
-
-
-
-
-
-
 // methods to check if all text fields are ready in the pact creation
 //========================================================================================================================================
 -(BOOL)isPactReady
 {
-    if ([self isGroupTitleSet] && [self didInviteFriends] && [self isPactDecribed] && [self isStakeDecided] && [self generatePactID]) {
+    if ([self isGroupTitleSet] && [self didInviteFriends] && [self isPactDecribed] && [self isStakeDecided]) {
+        
           NSLog(@"Pact is ready to go!!!");
         return YES;
     }
@@ -370,15 +409,6 @@ return  NO;
     return  NO;
 }
 
--(BOOL)generatePactID
-{
-     self.pactID = arc4random() % 9000 + 1000;
-//    if ([idArray containObject:self.pactID]) {
-//        [self generatePactID];
-//    }
-//    
-    return YES;
-}
 //========================================================================================================================================
 
 
@@ -411,7 +441,8 @@ return  NO;
 
 
 
-
+//Messaging stuff
+//========================================================================================================================================
 
 -(void)sendMessageToInvites
 {
@@ -427,12 +458,30 @@ return  NO;
     composeVC.body = @"Hey Guys I created a pact to hit the gym download the app to keep tracking our progress";
     
     // Present the view controller modally.
-    [self presentViewController:composeVC animated:YES completion:nil];
+//    [self presentViewController:composeVC animated:YES completion:nil];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [self presentViewController:composeVC animated:YES completion:nil];
+    });
 }
 
 -(void)messageComposeViewController:(MFMessageComposeViewController *)controller didFinishWithResult:(MessageComposeResult)result
 {
+    if(result == MessageComposeResultSent) {
+        // ...
+    }
+    
     [self dismissViewControllerAnimated:YES completion:nil];
+
 }
+
+//    NSMutableDictionary *newUser = [[NSMutableDictionary alloc]initWithDictionary:
+//                            @{ @"uid" : @"",
+//                               @"displayName": @"",
+//                               @"profileImageURL" : @"",
+//                               @"twitterHandle" : @"",
+//                               @"firstName" : @"",
+//                               @"lastName" : @"",
+//                               @"phoneNumber" : @""
+//                               }];
 
 @end

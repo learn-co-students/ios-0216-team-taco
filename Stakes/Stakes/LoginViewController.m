@@ -33,6 +33,8 @@
     [super viewDidLoad];
     self.dataSource = [JDDDataSource sharedDataSource];
     self.ref = self.dataSource.firebaseRef;
+    
+    NSLog(@"current user is: %@", self.dataSource.currentUser.firstName);
 }
 
 - (void)generateAndPresentAlertWithMessage:(NSString *)errorMessage
@@ -87,28 +89,32 @@
             // User successfully logged in
             NSLog(@"Logged in! AUTH DATA!!! %@", authData.auth);
             
-            NSDictionary *newUser = @{@"uid" : authData.uid,
-                                      @"displayName" : authData.providerData[@"displayName"],
-                                      @"profileImageURL" : authData.providerData[@"profileImageURL"],
-                                      @"twitterHandle" : authData.providerData[@"username"],
-                                      @"firstName" : self.firstNameTextField.text,
-                                      @"lastName" : self.lastNameTextField.text,
-                                      @"phoneNumber" : self.phoneNumberTextField.text
-                                      };
-            
-//            JDDUser *user = [[JDDUserManage sharedManager] currentUser];
-            
-            self.dataSource.currentUser.userID = authData.uid;
+            NSDictionary *newUser = @{ @"userID" : self.phoneNumberTextField.text,
+                                    @"profileImageURL" : authData.providerData[@"profileImageURL"],
+                                    @"twitterHandle" : authData.providerData[@"username"],
+                                       @"firstName" : self.firstNameTextField.text,
+                                       @"lastName" : self.lastNameTextField.text,
+                                       @"phoneNumber" : self.phoneNumberTextField.text
+                                    };
+            self.dataSource.currentUser.userID = self.phoneNumberTextField
+            .text;
+
             self.dataSource.currentUser.twitterHandle = authData.providerData[@"username"];
             self.dataSource.currentUser.userImage = [UIImage imageNamed:@""];
             self.dataSource.currentUser.firstName = self.firstNameTextField.text;
             self.dataSource.currentUser.lastName = self.lastNameTextField.text;
             self.dataSource.currentUser.phoneNumber = self.phoneNumberTextField.text;
+
             NSLog(@"NEW USER DICTIONARY: %@", newUser);
+            
 //              this will commit data to Firebase
-//            [[[self.ref childByAppendingPath:@"users"] childByAppendingPath:authData.uid] setValue:newUser];
+            
+            [[[self.ref childByAppendingPath:@"users"] childByAppendingPath:self.phoneNumberTextField.text] setValue:newUser];
 
             [self loginWithiOSAccount:account];
+            
+            NSLog(@"current user is: %@", self.dataSource.currentUser.firstName);
+
         }
     }];
 }
@@ -188,5 +194,8 @@
         [self generateAndPresentAlertWithMessage:message];
     }];
 }
+
+
+
 
 @end
