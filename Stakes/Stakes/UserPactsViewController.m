@@ -5,7 +5,7 @@
 //  Created by Jeremy Feld on 3/29/16.
 //  Copyright © 2016 Jeremy Feld. All rights reserved.
 //
-
+#import <Accounts/Accounts.h>
 #import "UserPactsViewController.h"
 #import "JDDDataSource.h"
 #import "JDDUser.h"
@@ -17,7 +17,7 @@
 #import "PactDetailViewController.h"
 #import "LoginViewController.h"
 #import "smackTackViewController.h"
-
+#import "Constants.h"
 
 @interface UserPactsViewController () <UITableViewDataSource, UITableViewDelegate>
 @property (weak, nonatomic) IBOutlet FZAccordionTableView *tableView;
@@ -25,19 +25,33 @@
 @property (nonatomic, strong) JDDUser * currentUser;
 @property (nonatomic, strong) JDDPact * currentOpenPact;
 @property (nonatomic, strong) NSString *pactOAUTH;
+@property (nonatomic, strong) ACAccountStore *accountStore;
+@property (weak, nonatomic) IBOutlet UITextField *tweetTextField;
 
-
+@property (nonatomic, strong) Firebase *ref;
+@property (nonatomic, strong) STTwitterAPI *twitter;
 @end
 
 @implementation UserPactsViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    NSLog(@"view did load in user pacts");
+    
+    /*
+     
+     WE NEED TO STORE USER ID IN NSUSERDEFAULTS, HAVE FIREBASE OBSERVE EVENT FOR THAT USER ID
+     
+     WHAT IS GOING TO PERSIST TO KEEP USER LOGGED IN
+     */
+    
     
     self.dataSource = [JDDDataSource sharedDataSource];
+    self.ref = self.dataSource.firebaseRef;
     
-    NSLog(@"%@",self.dataSource.currentUser);
+    NSLog(@"%@",self.dataSource.currentUser.displayName);
     NSLog(@"%@",self.dataSource.currentUser.twitterHandle);
+
     NSLog(@"%lu",self.dataSource.currentUser.pacts.count);
     
 //    self.currentOpenPact = self.dataSource.currentUserPacts[0];
@@ -55,7 +69,9 @@
 
 
     [self setupSwipeGestureRecognizer];
-    
+
+    NSLog(@"TWITTER %@", self.dataSource.twitter);
+    NSLog(@"view did load account: %@", [self.dataSource.accountStore.accounts firstObject]);
 }
 
 
@@ -190,6 +206,36 @@
     //this is temporary, will eventually have a different login flow using container view
 }
 
+- (IBAction)logoutTapped:(id)sender
+{
+    [self.ref unauth];
+    NSLog(@"logged out of Firebase");
+    self.dataSource.twitter = nil;
+    NSLog(@"logged out of STTwitter");
+    [[NSNotificationCenter defaultCenter] postNotificationName:UserDidLogOutNotificationName object:nil];
 
+}
+
+- (IBAction)tweetTapped:(id)sender
+{
+    
+    
+    NSLog(@"trying to send a tweet");
+    NSString *tweet = self.tweetTextField.text;
+    [self.dataSource.twitter postStatusUpdate:tweet
+                            inReplyToStatusID:nil
+                                     latitude:nil
+                                    longitude:nil
+                                      placeID:nil
+                           displayCoordinates:nil
+                                     trimUser:nil
+                                 successBlock:^(NSDictionary *status) {
+                                     NSLog(@"SUCCESSFUL TWEET");
+                                 } errorBlock:^(NSError *error) {
+                                     NSLog(@"THERE WAS AN ERROR TWEETING");
+                                     NSString *message = [NSString stringWithFormat:@"You didn't really want to send that, did you? There was an error sending your Tweet: %@", error.localizedDescription];
+                                     NSLog(@"ERROR TWEETING: %@", error.localizedDescription);
+                                 }];
+}
 
 @end

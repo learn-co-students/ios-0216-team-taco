@@ -274,6 +274,11 @@
     user.displayName = snapshot.value[@"userID"];
     user.phoneNumber = snapshot.value[@"phoneNumber"];
     
+    self.twitter = [[STTwitterAPI alloc]init];
+    
+    self.currentUser = [[JDDUser alloc]init];
+    
+
     if(snapshot.value[@"pacts"]) {
         
         user.pacts = snapshot.value[@"pacts"];

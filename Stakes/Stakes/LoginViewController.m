@@ -6,7 +6,7 @@
 //  Copyright © 2016 JDD. All rights reserved.
 //
 #import <STTwitter/STTwitter.h>
-
+#import "Constants.h"
 #import "JDDDataSource.h"
 #import "LoginViewController.h"
 #import "Secrets.h"
@@ -22,8 +22,6 @@
 @property (nonatomic, strong) TwitterAuthHelper *helper;
 @property (nonatomic, strong) ACAccountStore *accountStore;
 @property (weak, nonatomic) IBOutlet UITextField *tweetField;
-@property (strong, nonatomic) IBOutlet UITextField *firstNameTextField;
-@property (strong, nonatomic) IBOutlet UITextField *lastNameTextField;
 @property (strong, nonatomic) IBOutlet UITextField *phoneNumberTextField;
 
 @end
@@ -35,8 +33,12 @@
     [super viewDidLoad];
     self.dataSource = [JDDDataSource sharedDataSource];
     self.ref = self.dataSource.firebaseRef;
-        
+    
+    NSLog(@"current user is: %@", self.dataSource.currentUser.userID);
+    self.accountStore = [[ACAccountStore alloc] init];
+    NSLog(@"view did load account: %@", [self.accountStore.accounts firstObject]);
 }
+
 
 - (void)generateAndPresentAlertWithMessage:(NSString *)errorMessage
 {
@@ -56,10 +58,11 @@
 
 - (IBAction)loginTapped:(id)sender
 {
+    NSLog(@"login tappeD");
     self.helper = [[TwitterAuthHelper alloc] initWithFirebaseRef:self.ref apiKey:TWITTER_KEY];
     
     [self.helper selectTwitterAccountWithCallback:^(NSError *error, NSArray *accounts) {
-        
+        NSLog(@"in helper");
         NSString *message;
         
         if (error) {
@@ -70,10 +73,8 @@
             message = @"No Twitter accounts found.  Please add an account in your phone's settings.";
             [self generateAndPresentAlertWithMessage:message];
             
-        } else if (accounts.count == 1 ) {
-            [self authenticateWithTwitterAccount:[accounts firstObject]];
-            
-        } else {
+        }
+        else {
             [self selectTwitterAccount:accounts];
         }
     }];
@@ -82,6 +83,7 @@
 
 - (void)authenticateWithTwitterAccount:(ACAccount *)account
 {
+    NSLog(@"in authenticate account method)");
     [self.helper authenticateAccount:account withCallback:^(NSError *error, FAuthData *authData) {
         if (error) {
             // Error authenticating account with Firebase
@@ -94,23 +96,28 @@
             NSDictionary *newUser = @{ @"userID" : self.phoneNumberTextField.text,
                                        @"profileImageURL" : authData.providerData[@"profileImageURL"],
                                        @"twitterHandle" : authData.providerData[@"username"],
-                                       @"firstName" : self.firstNameTextField.text,
-                                       @"lastName" : self.lastNameTextField.text,
-                                       @"phoneNumber" : self.phoneNumberTextField.text,
-                                    };
+                                       @"displayName" : authData.providerData[@"displayName"],
+                                       @"phoneNumber" : self.phoneNumberTextField.text
+                                       };
             
-            self.dataSource.currentUser.userID = self.phoneNumberTextField
-            .text;
+            JDDUser *new = [[JDDUser alloc] init];
+            new.userID = self.phoneNumberTextField.text;
 
-            self.dataSource.currentUser.twitterHandle = authData.providerData[@"username"];
-            self.dataSource.currentUser.userImage = [UIImage imageNamed:@""];
-            self.dataSource.currentUser.displayName = self.firstNameTextField.text;
-            self.dataSource.currentUser.phoneNumber = self.phoneNumberTextField.text;
+            new.twitterHandle = authData.providerData[@"username"];
+//            new.userImage = [UIImage imageNamed:@""];
+            new.displayName = authData.providerData[@"displayName"];
+            new.phoneNumber = self.phoneNumberTextField.text;
+            NSLog(@"new user created %@", new);
+            self.dataSource.currentUser = new;
+            
+            NSLog(@"current user is now: %@", self.dataSource.currentUser.userID);
 
             NSLog(@"NEW USER DICTIONARY: %@", newUser);
             
 //              this will commit data to Firebase
+    //if we have a registered user, then just update
             
+            //if its not a registered user, then setvalue
             [[[self.ref childByAppendingPath:@"users"] childByAppendingPath:self.phoneNumberTextField.text] setValue:newUser];
 
             [self loginWithiOSAccount:account];
@@ -134,6 +141,7 @@
         UIAlertAction *action = [UIAlertAction actionWithTitle:account.username
                                                          style:UIAlertActionStyleDefault
                                                        handler:^(UIAlertAction * _Nonnull action) {
+                                                           NSLog(@"NOW IS WHEN WE SHOULD GO TO AUTHENITCATE ACOUNT");
                                                            [self authenticateWithTwitterAccount:account];
                                                        }];
         [selectUser addAction:action];
@@ -157,9 +165,21 @@
     [self.twitter verifyCredentialsWithUserSuccessBlock:^(NSString *username, NSString *userID) {
         
         NSLog(@"ALSO VERIFIED IN STTWITTER!!!!!");
-        
-        //here is where we want to launch into the pact screen, once verified in both
         self.dataSource.twitter = self.twitter;
+        //here is where we want to launch into the pact screen, once verified in both
+        
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:LoggedInUserDefaultsKey];
+        
+        [[NSNotificationCenter defaultCenter] postNotificationName:UserDidLogInNotificationName object:nil];
+        
+        [self.accountStore saveAccount:account withCompletionHandler:^(BOOL success, NSError *error) {
+            NSLog(@"account saved");
+            NSLog(@"account identifier: %@", account.identifier);
+            [[NSUserDefaults standardUserDefaults] setObject:account.identifier forKey:AccountIdentifierKey];
+            self.accountStore = self.dataSource.accountStore;
+            
+        }];
+        
     } errorBlock:^(NSError *error) {
         NSLog(@"%@", error.localizedDescription);
         NSString *message = [NSString stringWithFormat:@"Please don't put this in your review, but there was an error signing in to Twitter: %@", error.localizedDescription];
