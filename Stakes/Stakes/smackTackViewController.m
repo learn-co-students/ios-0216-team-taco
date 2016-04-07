@@ -96,9 +96,9 @@
     [super didReceiveMemoryWarning];
 }
 
--(void)addMessage:(NSString*)stringFromTextField{
+-(void)addMessage:(NSString*)stringFromTextField withUser: (NSString *)userID andDisplayName:(NSString *)displayName{
     
-    JSQMessage *message = [[JSQMessage alloc]initWithSenderId:self.dataSource.currentUser.userID senderDisplayName:self.dataSource.currentUser.displayName
+    JSQMessage *message = [[JSQMessage alloc]initWithSenderId:userID senderDisplayName:displayName
                                                          date:[NSDate date] text:stringFromTextField];
     
     [self.currentPact.messages addObject:message];
@@ -111,7 +111,7 @@
     
     NSDictionary * message = @{ @"text": text,
                                 @"userID":self.dataSource.currentUser.userID,
-                                @"twitterHandle": self.dataSource.currentUser.twitterHandle,
+                                @"displayName": self.dataSource.currentUser.displayName,
 //                                @"pactID":self.currentPact.pactID
                                 };
     
@@ -120,6 +120,25 @@
     [self finishSendingMessage];
     
 }
+
+-(void)observeMessages {
+    
+    FQuery *query = [self.messageRef queryLimitedToLast:25];
+    
+    [query observeEventType:FEventTypeChildAdded withBlock:^(FDataSnapshot *snapshot) {
+        
+        NSString *userID = snapshot.value[@"userID"];
+        NSString *text = snapshot.value[@"text"];
+        NSString *displayName = snapshot.value[@"displayName"];
+        
+        [self addMessage:text withUser:userID andDisplayName:displayName];
+        
+        [self finishReceivingMessage];
+        
+    }];
+    
+}
+
 
 - (BOOL)composerTextView:(JSQMessagesComposerTextView *)textView shouldPasteWithSender:(id)sender
 {

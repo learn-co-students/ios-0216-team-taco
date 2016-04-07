@@ -15,7 +15,7 @@ PODS:
   - AFNetworking/UIKit (3.1.0):
     - AFNetworking/NSURLSession
   - Firebase (2.5.1)
-  - FZAccordionTableView (0.1.2)
+  - FZAccordionTableView (0.1.3)
   - JSQMessagesViewController (7.2.0):
     - JSQSystemSoundPlayer (~> 2.0.1)
   - JSQSystemSoundPlayer (2.0.1)
@@ -31,7 +31,7 @@ DEPENDENCIES:
 SPEC CHECKSUMS:
   AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
   Firebase: 3565ea88b830f28f2c77ecc524622bc71a20d085
-  FZAccordionTableView: 26b58f5634effce3d8b81e0b2701dbdfd79daf61
+  FZAccordionTableView: 028b53ea3a208a5b3591650edb055444749c530b
   JSQMessagesViewController: 73cab48aa92fc2d512f3b6724f3425cc47a19eb5
   JSQSystemSoundPlayer: c5850e77a4363ffd374cd851154b9af93264ed8d
   STTwitter: 77386cb6f1807fbfc0e321b9233bdecc9786195d

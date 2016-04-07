@@ -10,6 +10,8 @@
 #import "Constants.h"
 #import "LoginViewController.h"
 #import "UserPactsViewController.h"
+#import "JDDDataSource.h"
+#import "Firebase.h"
 
 @interface MainApplicationViewController ()
 @property (weak, nonatomic) IBOutlet UIView *containerView;
@@ -21,10 +23,18 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    JDDDataSource *datasource = [JDDDataSource sharedDataSource];
+    
+    Firebase *newRef = [datasource.firebaseRef childByAppendingPath:@"users"];
+    
+    newRef setValue:<#(id)#>
+    
     //BOOL userIsRegistered =
      BOOL userIsLoggedIn = [[NSUserDefaults standardUserDefaults] boolForKey:LoggedInUserDefaultsKey];
     
     if(userIsLoggedIn) {
+        
+        
         [self showUserPactsViewController];
     }
     else {

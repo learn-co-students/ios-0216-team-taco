@@ -38,7 +38,6 @@
 @property (nonatomic, strong) Firebase *pactReference;
 @property (nonatomic, strong) JDDPact *createdPact;
 
-
 @end
 
 @implementation CreatePactViewController

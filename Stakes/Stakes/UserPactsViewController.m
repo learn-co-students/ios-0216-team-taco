@@ -43,6 +43,7 @@
      WE NEED TO STORE USER ID IN NSUSERDEFAULTS, HAVE FIREBASE OBSERVE EVENT FOR THAT USER ID
      
      WHAT IS GOING TO PERSIST TO KEEP USER LOGGED IN
+     
      */
     
     
@@ -78,7 +79,8 @@
 
 -(void)viewWillAppear:(BOOL)animated {
     
-    [self.tableView reloadData];
+    
+    
 }
 
 #pragma gestureRecognizers for segues

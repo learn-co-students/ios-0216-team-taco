@@ -8,15 +8,16 @@
 
 #import <Foundation/Foundation.h>
 #import "Firebase.h"
-#import "JDDUser.h"
+#import "JDDUser.h"git
 #import "JDDPact.h"
 #import <STTwitter/STTwitter.h>
 #import <Accounts/Accounts.h>
+#import <AFNetworking/AFNetworking.h>
+#import <AFOAuth2Manager/AFOAuth2Manager.h>
 
 
 @interface JDDDataSource : NSObject
 
-@property (nonatomic, strong) NSMutableArray *users;
 @property (nonatomic, strong) Firebase *firebaseRef;
 @property (nonatomic, strong) JDDUser *currentUser;
 @property (nonatomic, strong) STTwitterAPI *twitter;
@@ -27,7 +28,7 @@
 
 -(void)setUpFireBaseRef;
 
--(JDDPact*)createPactForFirstTimeUser;git
+-(JDDPact*)createDemoPact;
 
 @end
 
