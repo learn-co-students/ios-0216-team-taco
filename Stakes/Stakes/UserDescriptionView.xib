@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="UserDescriptionView">
+            <connections>
+                <outlet property="contentView" destination="iN0-l3-epB" id="M7e-Ek-1MT"/>
+                <outlet property="countOfCheckInsLabel" destination="nYO-zu-Y2V" id="wCd-5U-nFA"/>
+                <outlet property="intialsLabel" destination="djV-sx-i9R" id="6sH-eQ-6iq"/>
+                <outlet property="userNameLabel" destination="U54-ea-yf7" id="JQc-Tk-Uwb"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="263" height="315"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="845 542 1203" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="U54-ea-yf7">
+                    <rect key="frame" x="98" y="137" width="109" height="21"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tom OMalley" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nYO-zu-Y2V">
+                    <rect key="frame" x="98" y="168" width="100" height="21"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="djV-sx-i9R">
+                    <rect key="frame" x="98" y="93" width="68" height="34"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="28"/>
+                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <color key="backgroundColor" red="0.7243308424949646" green="0.95268422365188599" blue="0.13677030801773071" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="djV-sx-i9R" firstAttribute="leading" secondItem="U54-ea-yf7" secondAttribute="leading" id="8wg-ab-dWe"/>
+                <constraint firstItem="nYO-zu-Y2V" firstAttribute="leading" secondItem="U54-ea-yf7" secondAttribute="leading" id="Dmp-mJ-YZU"/>
+                <constraint firstItem="djV-sx-i9R" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" multiplier="0.7" id="QyN-Uq-Iyh"/>
+                <constraint firstItem="U54-ea-yf7" firstAttribute="top" secondItem="djV-sx-i9R" secondAttribute="bottom" constant="10" id="WTk-vj-tsd"/>
+                <constraint firstItem="nYO-zu-Y2V" firstAttribute="top" secondItem="U54-ea-yf7" secondAttribute="bottom" constant="10" id="gGS-77-WGS"/>
+                <constraint firstItem="djV-sx-i9R" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="lhc-5U-lcp"/>
+            </constraints>
+            <nil key="simulatedStatusBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="156.5" y="153.5"/>
+        </view>
+    </objects>
+</document>

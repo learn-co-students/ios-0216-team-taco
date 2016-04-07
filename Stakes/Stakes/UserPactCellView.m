@@ -11,30 +11,41 @@
 #import "JDDCheckIn.h"
 #import "JSQMessage.h"
 #import "JSQLocationMediaItem.h"
+#import "UserDescriptionView.h"
 
 
 @interface UserPactCellView () 
 
-@property (strong, nonatomic) IBOutlet UILabel *name1;
-@property (strong, nonatomic) IBOutlet UILabel *name2;
-@property (strong, nonatomic) IBOutlet UILabel *name3;
+//@property (strong, nonatomic) IBOutlet UILabel *name1;
+//@property (strong, nonatomic) IBOutlet UILabel *name2;
+//@property (strong, nonatomic) IBOutlet UILabel *name3;
+
+@property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
+@property (weak, nonatomic) IBOutlet UIStackView *stackView;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *stackViewWidth;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *stackViewHeight;
 @property (strong, nonatomic) IBOutlet UILabel *pactTitle;
 @property (strong, nonatomic) IBOutlet UILabel *pactDetail;
 @property (strong, nonatomic) IBOutlet UILabel *stakesTitle;
 @property (strong, nonatomic) IBOutlet UILabel *stakesDetail;
-@property (strong, nonatomic) IBOutlet UIImageView *name1Image;
-@property (strong, nonatomic) IBOutlet UIImageView *name2Image;
-@property (strong, nonatomic) IBOutlet UIImageView *name3Image;
-@property (strong, nonatomic) IBOutlet UILabel *name1checkIns;
-@property (strong, nonatomic) IBOutlet UILabel *name2checkIns;
-@property (strong, nonatomic) IBOutlet UILabel *name3checkIns;
-@property (strong, nonatomic) IBOutlet UIButton *checkInButton;
+//@property (strong, nonatomic) IBOutlet UIImageView *name1Image;
+//@property (strong, nonatomic) IBOutlet UIImageView *name2Image;
+//@property (strong, nonatomic) IBOutlet UIImageView *name3Image;
+//@property (strong, nonatomic) IBOutlet UILabel *name1checkIns;
+//@property (strong, nonatomic) IBOutlet UILabel *name2checkIns;
+//@property (strong, nonatomic) IBOutlet UILabel *name3checkIns;
+//@property (strong, nonatomic) IBOutlet UIButton *checkInButton;
 
 
 
 @end
 
 @implementation UserPactCellView
+
+//=============================================================================================================================
+
+
+
 
 
 - (IBAction)checkInButtonPressed:(id)sender {
@@ -113,6 +124,14 @@
     [self.locationManager stopUpdatingLocation];
 
 }
+//===================================================================================================================
+
+
+
+
+
+
+
 
 - (void)awakeFromNib {
     
@@ -136,73 +155,115 @@
 
 
 -(void)setShitUp {
-    
-    // here we are going to have to create new views programatically and add in users in the pact. (probably with a custom xib) This is a sloppy way of doing it for the MVP to get something on screen
-    
-    for (JDDUser *user in self.pact.users) {
-        
-        if ([user isEqual:self.pact.users[0]]) {
+    if (self.sharedData.users == nil) {
+        if (self.stackViewWidth.constant == 0) {
+            CGFloat userViewWidth = 100;//self.scrollView.bounds.size.width / 2;
+            CGFloat userViewHeight = self.scrollView.bounds.size.height;
+            NSUInteger count = 5;
+            CGFloat stackViewWidth = userViewWidth * count;
+            self.stackViewWidth.constant = stackViewWidth;
             
-            self.name1.text = user.firstName;
-            self.name1Image.image = user.userImage;
-            
-            for (JDDCheckIn * checkIn in user.checkins) {
+            for (NSUInteger i = 0; i < count; i++) {
+                UserDescriptionView *view = [[UserDescriptionView alloc] initWithFrame:CGRectMake(0, 0, userViewWidth, userViewHeight)];
                 
-                NSMutableArray *goodCount = [[NSMutableArray alloc]init];
-                
-                if ([checkIn.pact isEqual:self.pact]) {
-                    
-                    [goodCount addObject:checkIn];
-
-                }
-                self.name1checkIns.text = [NSString stringWithFormat:@"%lu",goodCount.count];
-
-            }
-            
-        } else if ([user isEqual:self.pact.users[1]]) {
-            
-            self.name2.text = user.firstName;
-            self.name2Image.image = user.userImage;
-            
-            for (JDDCheckIn * checkIn in user.checkins) {
-                
-                NSMutableArray *goodCount = [[NSMutableArray alloc]init];
-                
-                if ([checkIn.pact isEqual:self.pact]) {
-                    
-                    [goodCount addObject:checkIn];
-                    
-                }
-                self.name2checkIns.text = [NSString stringWithFormat:@"%lu",goodCount.count];
-                
-            }
-            
-        } else if ([user isEqual:self.pact.users[2]]) {
-            
-            self.name3.text = user.firstName;
-            self.name3Image.image = user.userImage;
-            
-            for (JDDCheckIn * checkIn in user.checkins) {
-                
-                NSMutableArray *goodCount = [[NSMutableArray alloc]init];
-                
-                if ([checkIn.pact isEqual:self.pact]) {
-                    
-                    [goodCount addObject:checkIn];
-                    
-                }
-                self.name3checkIns.text = [NSString stringWithFormat:@"%lu",goodCount.count];
-                
+                [self.stackView addArrangedSubview:view];
             }
         }
+    } else {
+    
+    if (self.stackViewWidth.constant == 0) {
+        CGFloat userViewWidth = 100;//self.scrollView.bounds.size.width / 2;
+        CGFloat userViewHeight = self.scrollView.bounds.size.height;
+        NSUInteger count = self.sharedData.users.count;
+        CGFloat stackViewWidth = userViewWidth * count;
+        self.stackViewWidth.constant = stackViewWidth;
         
-        self.pactTitle.text = @"Pact";
-        self.pactDetail.text = self.pact.pactDescription;
-        self.stakesTitle.text = @"Stakes";
-        self.stakesDetail.text = self.pact.stakes;
-        
+        for (NSUInteger i = 0; i < count; i++) {
+            UserDescriptionView *view = [[UserDescriptionView alloc] initWithFrame:CGRectMake(0, 0, userViewWidth, userViewHeight)];
+            JDDUser *user = [[JDDUser alloc]init];
+            user = self.sharedData.users[i];
+            [view setUser:user];
+            
+            [self.stackView addArrangedSubview:view];
+            NSLog(@"view name is %@", view.userNameLabel.text);
+        }
     }
     
+        
+    }
 }
+
+    // here we are going to have to create new views programatically and add in users in the pact. (probably with a custom xib) This is a sloppy way of doing it for the MVP to get something on screen
+    
+//    for (JDDUser *user in self.pact.users) {
+//        
+//        if ([user isEqual:self.pact.users[0]]) {
+//            
+//            self.name1.text = user.firstName;
+//            self.name1Image.image = user.userImage;
+//            
+//            for (JDDCheckIn * checkIn in user.checkins) {
+//                
+//                NSMutableArray *goodCount = [[NSMutableArray alloc]init];
+//                
+//                if ([checkIn.pact isEqual:self.pact]) {
+//                    
+//                    [goodCount addObject:checkIn];
+//
+//                }
+//                self.name1checkIns.text = [NSString stringWithFormat:@"%lu",goodCount.count];
+//
+//            }
+//            
+//        } else if ([user isEqual:self.pact.users[1]]) {
+//            
+//            self.name2.text = user.firstName;
+//            self.name2Image.image = user.userImage;
+//            
+//            for (JDDCheckIn * checkIn in user.checkins) {
+//                
+//                NSMutableArray *goodCount = [[NSMutableArray alloc]init];
+//                
+//                if ([checkIn.pact isEqual:self.pact]) {
+//                    
+//                    [goodCount addObject:checkIn];
+//                    
+//                }
+//                self.name2checkIns.text = [NSString stringWithFormat:@"%lu",goodCount.count];
+//                
+//            }
+//            
+//        } else if ([user isEqual:self.pact.users[2]]) {
+//            
+//            self.name3.text = user.firstName;
+//            self.name3Image.image = user.userImage;
+//            
+//            for (JDDCheckIn * checkIn in user.checkins) {
+//                
+//                NSMutableArray *goodCount = [[NSMutableArray alloc]init];
+//                
+//                if ([checkIn.pact isEqual:self.pact]) {
+//                    
+//                    [goodCount addObject:checkIn];
+//                    
+//                }
+//                self.name3checkIns.text = [NSString stringWithFormat:@"%lu",goodCount.count];
+//                
+//            }
+//        }
+//
+//    
+//    for (NSUInteger i = 0; i<self.sharedData.users.count; i++) {
+//        UserDescriptionView *userView = [[UserDescriptionView alloc] init];
+//        
+//        [self.stackView addArrangedSubview:userView];
+//    }
+//        self.pactTitle.text = @"Pact";
+//        self.pactDetail.text = self.pact.pactDescription;
+//        self.stakesTitle.text = @"Stakes";
+//        self.stakesDetail.text = @"";
+    
+    
+
 
 @end

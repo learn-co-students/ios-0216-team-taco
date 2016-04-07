@@ -216,13 +216,14 @@
 
 -(void)establishCurrentUser {
     
-//    [self generateFakeData];
+    [self generateFakeData];
     
     [self setUpFireBaseRef];
     
     self.currentUser = [[JDDUser alloc]init];
     
-    self.currentUser.firstName = @"dima";
+    self.currentUser = self.users[0];
+    
     
     // logic that establishes userID based on oath tokens to firebase in the phones password saftey database thing
     

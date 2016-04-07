@@ -22,4 +22,5 @@
 @property (nonatomic, strong) JDDDataSource *sharedData;
 @property (nonatomic, strong) JDDCheckIn *CheckIn;
 
+
 @end

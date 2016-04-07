@@ -56,13 +56,19 @@
     [self.tableView registerNib:[UINib nibWithNibName:@"PactAccordionHeaderView" bundle:nil] forHeaderFooterViewReuseIdentifier:accordionHeaderReuseIdentifier];
 
 
-    [self setupSwipeGestureRecognizer];
+//    [self setupSwipeGestureRecognizer];
     
 //    [self perform
 //     accessibilityElementDidBecomeFocused:@"login" sender:self];
     
 }
 
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    NSLog(@"selectedCell:%ld", indexPath.section);
+    UserPactCellView *thisCell = [self.tableView cellForRowAtIndexPath:indexPath];
+//    [thisCell.scrollView setContentOffset:CGPointMake(arc4random_uniform(thisCell.scrollView.frame.size.width), 0) animated:YES];
+
+}
 
 
 -(void)viewWillAppear:(BOOL)animated {
@@ -145,6 +151,7 @@
     return viewThing;
     
 }
+
 
 #pragma mark - <FZAccordionTableViewDelegate> -
 
