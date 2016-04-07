@@ -60,8 +60,7 @@
     self.userNameLabel.hidden = YES;
   
     self.dataSource = [JDDDataSource sharedDataSource];
-
-
+    
 }
 
 
@@ -87,7 +86,6 @@
         self.createdPact.checkInsPerTimeInterval = [self.frequanctString integerValue];
         self.createdPact.dateOfCreation = currentDate;
         
-        [self.dataSource.currentUser.pacts addObject:self.createdPact];
         
         [self sendMessageToInvites];
             
@@ -146,10 +144,8 @@
     self.createdPact.pactID = [love.description stringByReplacingOccurrencesOfString:@"https://jddstakes.firebaseio.com/pacts/" withString:@""];
     
     NSLog(@"%@", self.createdPact.pactID);
-    
+  
     [love setValue:dictionary];
-    
-    self.pactReference = [self.dataSource.firebaseRef childByAppendingPath:@"pacts"];
     
     [self sendPacttoCurrentUser];
     
@@ -159,7 +155,7 @@
     
     Firebase *firebase = [[[self.dataSource.firebaseRef childByAppendingPath:@"users"]childByAppendingPath:self.dataSource.currentUser.userID]childByAppendingPath:@"pacts"];
     
-    [firebase setValue:@{self.createdPact.pactID:self.createdPact.pactID}];
+    [firebase updateChildValues:@{self.createdPact.pactID:self.createdPact.pactID}];
     
 }
 
@@ -317,11 +313,9 @@
     for(CNContact *contact in contacts){
         // create a JDDUser
         
-        newUser.firstName = contact.givenName;
-        NSLog(@"given name %@", newUser.firstName);
-        
-        newUser.lastName = contact.familyName;
-        NSLog(@"familyName  %@", newUser.lastName);
+        newUser.displayName = contact.givenName;
+        NSLog(@"given name %@", newUser.displayName);
+    
 
         NSArray <CNLabeledValue<CNPhoneNumber *> *> *phoneNumbers = contact.phoneNumbers;
         CNLabeledValue<CNPhoneNumber *> *firstPhone = [phoneNumbers firstObject];
@@ -473,15 +467,5 @@ return  NO;
     [self dismissViewControllerAnimated:YES completion:nil];
 
 }
-
-//    NSMutableDictionary *newUser = [[NSMutableDictionary alloc]initWithDictionary:
-//                            @{ @"uid" : @"",
-//                               @"displayName": @"",
-//                               @"profileImageURL" : @"",
-//                               @"twitterHandle" : @"",
-//                               @"firstName" : @"",
-//                               @"lastName" : @"",
-//                               @"phoneNumber" : @""
-//                               }];
 
 @end

@@ -15,6 +15,7 @@
 
 @property (nonatomic, strong)JSQMessagesBubbleImage *outgoingBubbleImageView;
 @property (nonatomic, strong)JSQMessagesBubbleImage *incomingBubbleImageView;
+@property (nonatomic, strong)Firebase * messageRef;
 
 @end
 
@@ -29,7 +30,9 @@
     self.dataSource = [JDDDataSource sharedDataSource];
     
     self.senderId = self.dataSource.currentUser.userID;
-    self.senderDisplayName = self.dataSource.currentUser.firstName;
+    self.senderDisplayName = self.dataSource.currentUser.displayName;
+    
+    self.messageRef = [self.dataSource.firebaseRef childByAppendingPath:@"messages"];
     
     [self setupBubbles];
     
@@ -95,7 +98,8 @@
 
 -(void)addMessage:(NSString*)stringFromTextField{
     
-    JSQMessage *message = [[JSQMessage alloc]initWithSenderId:self.dataSource.currentUser.userID senderDisplayName:self.dataSource.currentUser.firstName date:[NSDate date] text:stringFromTextField];
+    JSQMessage *message = [[JSQMessage alloc]initWithSenderId:self.dataSource.currentUser.userID senderDisplayName:self.dataSource.currentUser.displayName
+                                                         date:[NSDate date] text:stringFromTextField];
     
     [self.currentPact.messages addObject:message];
     
@@ -103,7 +107,15 @@
 
 -(void)didPressSendButton:(UIButton *)button withMessageText:(NSString *)text senderId:(NSString *)senderId senderDisplayName:(NSString *)senderDisplayName date:(NSDate *)date {
     
-    // need to finish this. git 
+    Firebase *itemRef = [self.messageRef childByAutoId];
+    
+    NSDictionary * message = @{ @"text": text,
+                                @"userID":self.dataSource.currentUser.userID,
+                                @"twitterHandle": self.dataSource.currentUser.twitterHandle,
+//                                @"pactID":self.currentPact.pactID
+                                };
+    
+    [itemRef setValue:message];
     
     [self finishSendingMessage];
     

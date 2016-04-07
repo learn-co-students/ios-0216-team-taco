@@ -96,8 +96,8 @@
     self.CheckIn.checkInDate = now;
     self.CheckIn.checkInMessage = @"";
     self.CheckIn.checkInLocation = [[CLLocation alloc]init];;
-    self.CheckIn.user = self.sharedData.currentUser;
-    self.CheckIn.pact = self.pact;
+    self.CheckIn.userID = self.sharedData.currentUser.userID;
+    self.CheckIn.pactID = self.pact.pactID;
     
     [self.sharedData.currentUser.checkins addObject:self.CheckIn];
     
@@ -150,7 +150,7 @@
 -(void)setPact:(JDDPact *)pact{
     _pact = pact;
     
-    [self setShitUp];
+//    [self setShitUp];
 }
 
 
@@ -192,6 +192,7 @@
         
     }
 }
+
 
     // here we are going to have to create new views programatically and add in users in the pact. (probably with a custom xib) This is a sloppy way of doing it for the MVP to get something on screen
     
