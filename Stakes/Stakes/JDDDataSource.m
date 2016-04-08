@@ -97,7 +97,7 @@
     if(snapshot.value[@"pacts"]) {
         
         user.pacts = snapshot.value[@"pacts"];
-        
+    
     }
     
     if(snapshot.value[@"pactHistory"]) {
@@ -126,13 +126,13 @@
     pact.pactDescription = snapshot.value[@"pactDescription"];
     pact.title = snapshot.value[@"title"];
     pact.stakes = snapshot.value[@"stakes"];
-    pact.users = snapshot.value[@"users"];
     pact.repeating = [snapshot.value[@"repeating"] boolValue];
     pact.allowsShaming = [snapshot.value[@"allowsShaming"] boolValue];
     pact.checkInsPerTimeInterval = [snapshot.value[@"allowsShaming"] integerValue];
     pact.twitterPost = snapshot.value[@"twitterPost"];
     pact.dateOfCreation = [dateFormatter dateFromString:snapshot.value[@"dateOfCreation"]];
-    
+    pact.users = snapshot.value[@"users"];
+
     return pact;
 
 }

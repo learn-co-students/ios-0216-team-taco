@@ -57,7 +57,6 @@
     [self.tableView registerNib:[UINib nibWithNibName:@"UserPactCellView" bundle:nil] forCellReuseIdentifier:@"basicCell"];
     [self.tableView registerNib:[UINib nibWithNibName:@"PactAccordionHeaderView" bundle:nil] forHeaderFooterViewReuseIdentifier:accordionHeaderReuseIdentifier];
     
-    
     [self setupSwipeGestureRecognizer];
     
     [self observeEventFromFirebaseWithCompletionBlock:^(BOOL completionBlock) {
@@ -68,11 +67,12 @@
                 
                 [self.tableView reloadData];
                 
+                // fire off user thing.
             }];
             
         }
+        
     }];
-    
     
 }
 
@@ -83,31 +83,48 @@
     // this observe event will give back snapshot value of @{pactID: BOOL-isActive}
     [[self.dataSource.firebaseRef childByAppendingPath:[NSString stringWithFormat:@"users/%@/pacts",self.currentUserID]] observeEventType:FEventTypeValue withBlock:^(FDataSnapshot *snapshotForUser) {
         
-        NSLog(@"snapshotForUser.value: %@", snapshotForUser );
-        
         for (NSString *pactID in [snapshotForUser.value allKeys]) {
             
             [[self.dataSource.firebaseRef childByAppendingPath:[NSString stringWithFormat:@"pacts/%@",pactID]] observeEventType:FEventTypeValue withBlock:^(FDataSnapshot *snapshotForPacts) {
                 
                 [self.pacts addObject:[self.dataSource useSnapShotAndCreatePact:snapshotForPacts]];
                 
-                NSLog(@"snapshotForPacts.value: %@", snapshotForPacts.value );
-
                 completionBlock(YES);
 
             }];
+            
+           
         
         }
         
-
     } withCancelBlock:^(NSError *error) {
         NSLog(@"this shit didnt happen: %@", error.description );
     }];
     
-    
     NSLog(@"self.pacts %@",self.pacts);
     
 }
+//
+//-(void)observeEventForUsersFromFirebaseWithCompletionBlock:(void(^)(BOOL))completionBlock {
+//
+//    for (JDDPact *pact in self.pacts) {
+//        
+//        pact.users //  NSString : BOOL
+//        
+//            
+//            [[self.dataSource.firebaseRef childByAppendingPath:[NSString stringWithFormat:@"users/%@",userID]]observeEventType:FEventTypeValue withBlock:^(FDataSnapshot *snapshot) {
+//                
+//                [self.dataSource useSnapShotAndCreateUser:snapshot];
+//                
+//                
+//                
+//            }];
+//            
+//        
+//        
+//    }
+//
+//}
 
 
 #pragma gestureRecognizers for segues

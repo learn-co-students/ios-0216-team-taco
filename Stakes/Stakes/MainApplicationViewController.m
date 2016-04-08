@@ -31,20 +31,7 @@
     
     if(userIsLoggedIn) {
         
-        
         [self showUserPactsViewController];
-        
-//        NSString * userID = [[NSUserDefaults standardUserDefaults] objectForKey: UserIDKey];
-//        Firebase *newRef = [self.datasource.firebaseRef childByAppendingPath:[NSString stringWithFormat:@"users/%@",userID]];
-        
-//        [newRef observeEventType:FEventTypeChildAdded withBlock:^(FDataSnapshot *snapshot) {
-//        
-//            self.datasource.currentUser = [self.datasource useSnapShotAndCreateUser:snapshot];
-//            
-//            NSLog(@"/n/n/n/n/n/n/n/%@/n/n/n/n/n/n/n/n/",self.datasource.currentUser.displayName);
-//            
-//        }];
-
     }
     
     else {
