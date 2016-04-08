@@ -228,7 +228,7 @@
     
     Firebase *newRef = [self.firebaseRef childByAppendingPath:[NSString stringWithFormat:@"users/%@",currentUserID]];
     
-    [newRef observeEventType:FEventTypeValue withBlock:^(FDataSnapshot *snapshot) {
+    [newRef observeEventType:FEventTypeValue withBlock:^(FDataSnapshot *snapshot) { //Happens only when a change to firebase happens
         
         self.currentUser = [self takeSnapShotAndCreateUser:snapshot];
         

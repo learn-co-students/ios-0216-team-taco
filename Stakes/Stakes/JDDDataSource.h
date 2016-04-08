@@ -27,7 +27,7 @@
 
 -(void)setUpFireBaseRef;
 
--(JDDPact*)createPactForFirstTimeUser;git
+-(JDDPact*)createPactForFirstTimeUser;
 
 @end
 

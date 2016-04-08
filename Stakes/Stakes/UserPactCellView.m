@@ -12,7 +12,7 @@
 #import "JSQMessage.h"
 #import "JSQLocationMediaItem.h"
 #import "UserDescriptionView.h"
-
+#import "Firebase.h"
 
 @interface UserPactCellView () 
 
@@ -53,42 +53,21 @@
     NSLog(@"checkin Button Pressed");
 
     
-    self.locationManager = [[CLLocationManager alloc]init];
-//    self.locationManager.delegate = self; // need to figure out if we bring this up to userPactVC with NSNotificationCenter
-    self.locationManager.desiredAccuracy = kCLLocationAccuracyBest;
-    
-    [self.locationManager startUpdatingLocation]; // after creating JSQMEssageLocationData, call method below
-    
-    //need to create checkin - then add it to currentuser w/ pact info
-
-//    JDDCheckIn *checkin = [[JDDCheckIn alloc]init];
-    
-//    JSQLocationMediaItem *location = [[JSQLocationMediaItem alloc]initWithLocation:self.locationManager.location];
-//
-//    JSQMessage *locationMessage = [[JSQMessage alloc] initWithSenderId:self.dataSource.currentUser.userID senderDisplayName:self.dataSource.currentUser.firstName date:[NSDate date] media:location];
+//    self.locationManager = [[CLLocationManager alloc]init];
+//    self.locationManager.desiredAccuracy = kCLLocationAccuracyBest;
 //    
-//    [self.pact.messages addObject:locationMessage];
+//    [self.locationManager startUpdatingLocation]; // after creating JSQMEssageLocationData, call method below
 //    
-//    [self.locationManager stopUpdatingLocation];
+//    _locationManager = [[CLLocationManager alloc] init];
+//    self.locationManager.delegate = self;
+//  
+//    [self.locationManager requestWhenInUseAuthorization];
 //    
-//    JSQMessage * textMessage = [[JSQMessage alloc]initWithSenderId:self.dataSource.currentUser.userID senderDisplayName:self.dataSource.currentUser.firstName date:[NSDate date] text:[NSString stringWithFormat:@"%@ just checked in!",self.dataSource.currentUser.firstName]];
-//    
-//    [self.pact.messages addObject:textMessage];
-    
-//     identify user w oath? phone number?
-//     take location - add to messages.
-//    JDDCheckIn *checkin = [[JDDCheckIn alloc]init];
-    
-    _locationManager = [[CLLocationManager alloc] init];
-    self.locationManager.delegate = self;
-  
-    [self.locationManager requestWhenInUseAuthorization];
-    
-    if ([self.locationManager respondsToSelector:@selector
-         (requestWhenInUseAuthorization)]) {
-        [self.locationManager requestWhenInUseAuthorization];
-    }
-    [self.locationManager startUpdatingLocation];
+//    if ([self.locationManager respondsToSelector:@selector
+//         (requestWhenInUseAuthorization)]) {
+//        [self.locationManager requestWhenInUseAuthorization];
+//    }
+//    [self.locationManager startUpdatingLocation];
 
     self.CheckIn = [[JDDCheckIn alloc]init];
     NSDate *now = [NSDate date];
@@ -150,11 +129,13 @@
 -(void)setPact:(JDDPact *)pact{
     _pact = pact;
     
-//    [self setShitUp];
+    [self setShitUp];
 }
 
 
 -(void)setShitUp {
+    
+    
     if (self.sharedData.users == nil) {
         if (self.stackViewWidth.constant == 0) {
             CGFloat userViewWidth = 100;//self.scrollView.bounds.size.width / 2;
@@ -162,6 +143,11 @@
             NSUInteger count = 5;
             CGFloat stackViewWidth = userViewWidth * count;
             self.stackViewWidth.constant = stackViewWidth;
+            
+            [self.sharedData.firebaseRef observeEventType:FEventTypeValue withBlock:^(FDataSnapshot *snapshot) {
+                NSLog(@"users %@",snapshot.value[@"users"][self.sharedData.currentUser.userID]);
+                       self.sharedData.currentUser.
+                       } ];
             
             for (NSUInteger i = 0; i < count; i++) {
                 UserDescriptionView *view = [[UserDescriptionView alloc] initWithFrame:CGRectMake(0, 0, userViewWidth, userViewHeight)];
@@ -172,7 +158,7 @@
     } else {
     
     if (self.stackViewWidth.constant == 0) {
-        CGFloat userViewWidth = 100;//self.scrollView.bounds.size.width / 2;
+        CGFloat userViewWidth = 100;
         CGFloat userViewHeight = self.scrollView.bounds.size.height;
         NSUInteger count = self.sharedData.users.count;
         CGFloat stackViewWidth = userViewWidth * count;

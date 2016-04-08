@@ -82,9 +82,10 @@
 
 -(void)updateUI
 {
+    
+    
     if (self.userNameLabel.text != nil) {
-    self.userNameLabel.text = self.user.firstName;
-        NSLog(@"userNameLabel IS:%@", self.user.firstName);
+    self.userNameLabel.text =@"Dani";
     self.countOfCheckInsLabel.text = @"";
     self.intialsLabel.text = @"DK";
     } else {
