@@ -7,7 +7,7 @@
 //
 
 #import "JDDDataSource.h"
-#import "UIImageView+AFNetworking.h"
+#import <UIImageView+AFNetworking.h>
 
 @import UIKit;
 
@@ -35,6 +35,7 @@
     if (self) {
         
         [self setUpFireBaseRef];
+        self.currentUser = [[JDDUser alloc]init];
         
     }
     
@@ -74,11 +75,8 @@
     
     JDDUser *user = [[JDDUser alloc]init];
     
-    UIImageView * image = [[UIImageView alloc]init];
-    [image setImageWithURL:[NSURL URLWithString:snapshot.value[@"profileImageURL"]]];
+    
     user.userID = snapshot.value[@"userID"];
-    user.userImage = image.image;
-    user.twitterHandle = snapshot.value[@"twitterHandle"];
     user.displayName = snapshot.value[@"userID"];
     user.phoneNumber = snapshot.value[@"phoneNumber"];
     
@@ -86,6 +84,19 @@
     
     self.currentUser = [[JDDUser alloc]init];
     
+    if (snapshot.value[@"profileImageURL"]) {
+        
+        UIImageView * image = [[UIImageView alloc]init];
+        [image setImageWithURL:[NSURL URLWithString:snapshot.value[@"profileImageURL"]]];
+        user.userImage = image.image;
+
+    }
+    
+    if (snapshot.value[@"twitterHandle"]){
+        
+        user.twitterHandle = snapshot.value[@"twitterHandle"];
+        
+    }
 
     if(snapshot.value[@"pacts"]) {
         
@@ -118,7 +129,6 @@
     pact.pactID = snapshot.value[@"pactID"];
     pact.pactDescription = snapshot.value[@"pactDescription"];
     pact.title = snapshot.value[@"title"];
-
     pact.stakes = snapshot.value[@"stakes"];
     pact.users = snapshot.value[@"users"];
     pact.repeating = [snapshot.value[@"repeating"] boolValue];
@@ -203,9 +213,7 @@
                                       @"repeating" : [NSNumber numberWithBool: pact.repeating],
                                       @"allowsShaming" : [NSNumber numberWithBool: pact.allowsShaming],
                                       @"checkInsPerTimeInterval" :[NSNumber numberWithUnsignedInteger:pact.checkInsPerTimeInterval],
-                                      @"twitterPost" : pact.twitterPost,
                                       @"dateOfCreation" : [dateFormatter stringFromDate: pact.dateOfCreation],
-                                      @"chatRoomID" : pact.pactID,
                                       
                               };
     
@@ -228,6 +236,18 @@
         }
         
         [dictionary setValue:checkinDictionary forKey:@"checkIns"];
+    }
+    
+    if (pact.chatRoomID) {
+        
+        [dictionary setValue:pact.pactID forKey:@"chatRoomID"];
+
+    }
+    
+    if (pact.twitterPost) {
+        
+        [dictionary setValue:pact.twitterPost forKey:@"twitterPost"];
+        
     }
     
     return dictionary;

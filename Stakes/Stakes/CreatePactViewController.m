@@ -14,8 +14,6 @@
 @import ContactsUI;
 @import MessageUI;
 
-
-
 @interface CreatePactViewController () <CNContactPickerDelegate, MFMessageComposeViewControllerDelegate> ;
 @property (weak, nonatomic) IBOutlet UILabel *userNameLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *profileImage;
@@ -41,7 +39,6 @@
 @end
 
 @implementation CreatePactViewController
-
 
 - (void)viewDidLoad {
     
@@ -81,14 +78,11 @@
         self.createdPact.users = self.contactsToShow;
         
         [self sendMessageToInvites];
-            
+        
         [self sendPactToFirebase];
         
         [self dismissViewControllerAnimated:YES completion:nil];
-
-        [self sendMessageToInvites];
-
-        
+                
     } else {
         
         [self alertPactNotReady];
@@ -102,40 +96,46 @@
     self.pactReference = [self.dataSource.firebaseRef childByAppendingPath:@"pacts"];
     
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
-    [dateFormatter setDateFormat:@"yyyy'-'MM'-'dd'"];
+    [dateFormatter setDateFormat:@"yyyy'-'MM'-'dd'-'hh:mm'"];
     
-    NSMutableDictionary * users = [[NSMutableDictionary alloc]initWithDictionary:@{}];
+    // this dictionary is creating with the users that will be added into the pact when it is created in firebase
+        // this data is structured as such @{userID : NSNumber as BOOL whether they have accepted the pact or not}
+    
+    NSMutableDictionary * usersInPact = [[NSMutableDictionary alloc]initWithDictionary:@{}];
     
     for (JDDUser *user in self.contactsToShow) {
         
         if (user.userID == self.dataSource.currentUser.userID) {
-
-        [users setValue:[NSNumber numberWithBool:YES] forKey:user.phoneNumber];
-        
-         } else {
-             
-        [users setValue:[NSNumber numberWithBool:YES] forKey:user.phoneNumber];
-             
-         }
+            
+            [usersInPact setValue:[NSNumber numberWithBool:YES] forKey:user.userID];
+            
+        } else {
+            
+            [usersInPact setValue:[NSNumber numberWithBool:NO] forKey:user.userID];
+            
+        }
     }
     
-    [users addEntriesFromDictionary:@{self.dataSource.currentUser.phoneNumber:self.dataSource.currentUser.phoneNumber}];
+    NSLog(@"%@",usersInPact);
     
-    NSLog(@"%@",users);
+    // creating the pact to be sent to Firebase using createDict method
+    NSDictionary *finalPactDictionary = [self.dataSource createDictionaryToSendToFirebaseWithJDDPact:self.createdPact];
     
-    NSDictionary *dictionary = [self.dataSource createDictionaryToSendToFirebasefromJDDPact:self.createdPact];
-    
-    [dictionary setValue:users forKey:@"users"];
+    // adding users
+    [finalPactDictionary setValue:usersInPact forKey:@"users"];
     
     // creation of the pactID
+    Firebase *newPact = [self.pactReference childByAutoId];
     
-    Firebase *love = [self.pactReference childByAutoId];
-    
-    self.createdPact.pactID = [love.description stringByReplacingOccurrencesOfString:@"https://jddstakes.firebaseio.com/pacts/" withString:@""];
+    // parsing pact url to get pactID
+    self.createdPact.pactID = [newPact.description stringByReplacingOccurrencesOfString:@"https://jddstakes.firebaseio.com/pacts/" withString:@""];
     
     NSLog(@"%@", self.createdPact.pactID);
-  
-    [love setValue:dictionary];
+    
+    // adding chatroom for pact to JDDStakes
+    [[self.dataSource.firebaseRef childByAppendingPath:@"chatrooms"]setValue:self.createdPact.pactID];
+    
+    [newPact setValue:finalPactDictionary];
     
     [self sendPacttoUsers];
     
@@ -146,10 +146,10 @@
     for (JDDUser *user in self.contactsToShow) {
         
         if (user.userID == self.dataSource.currentUser.userID) {
-        
-        Firebase *firebase = [self.dataSource.firebaseRef childByAppendingPath:[NSString stringWithFormat:@"users/%@/pacts",user.userID]];
-        
-        [firebase updateChildValues:@{self.createdPact.pactID:[NSNumber numberWithBool:YES]}];
+            
+            Firebase *firebase = [self.dataSource.firebaseRef childByAppendingPath:[NSString stringWithFormat:@"users/%@/pacts",user.userID]];
+            
+            [firebase updateChildValues:@{self.createdPact.pactID:[NSNumber numberWithBool:YES]}];
             
         } else {
             
@@ -162,8 +162,7 @@
     
 }
 
-
-
+//========================================================================================================================================
 // Styling of the pact form
 //========================================================================================================================================
 
@@ -221,12 +220,6 @@
 }
 
 //========================================================================================================================================
-
-
-
-
-
-
 //buttons, contacts, and alerts
 //========================================================================================================================================
 
@@ -298,7 +291,9 @@
 - (IBAction)repeateToggleTapped:(id)sender {
 
 }
+
 - (IBAction)shameToggleTapped:(id)sender {
+    
     if (self.shameSwitch.on) {
         self.twitterShamePost.hidden = NO;
     } else {
@@ -307,16 +302,19 @@
     }
 }
 
+
+// this is the method that gets fired when user hits done in contact picker.
 -(void)contactPicker:(CNContactPickerViewController *)picker didSelectContacts:(NSArray<CNContact *> *)contacts {
     
     [self.contactsToShow addObject:self.dataSource.currentUser];
     
-    // for contacts in the CNContact array I want to check firebase to see if they exist. If YES, pull down info & create JDDUser. If no create JDDUser
+    // OBJECTIVE : for contacts in the CNContact array I want to check firebase to see if they exist. If YES, pull down info & create JDDUser. If no create JDDUser
     
+    //may need an if statement to make sure this doesn't fire if contacts.count == 0
     for(CNContact *contact in contacts){
         
         NSString *contactIPhone = [[NSString alloc]init];
-
+        
         for (CNLabeledValue<CNPhoneNumber*>* labeledValue in contact.phoneNumbers) {
             
             if ([labeledValue.label isEqualToString:CNLabelPhoneNumberMobile])
@@ -324,36 +322,37 @@
                 contactIPhone = labeledValue.value.stringValue;
                 
                 contactIPhone = [[contactIPhone componentsSeparatedByCharactersInSet:[[NSCharacterSet decimalDigitCharacterSet] invertedSet]]
-            componentsJoinedByString:@""]; // clean  iPhone
+                                 componentsJoinedByString:@""]; // clean iPhone number
                 
             }
         }
         
-        // query Firebase
+        // query Firebase to see if the contactIphone exists
+        
         Firebase *userRef = [self.dataSource.firebaseRef childByAppendingPath:@"users"];
         
-        [[userRef queryEqualToValue:contactIPhone] observeSingleEventOfType:FEventTypeValue withBlock:^(FDataSnapshot *snapshot) {//exists
+        [[userRef queryEqualToValue:contactIPhone] observeSingleEventOfType:FEventTypeValue withBlock:^(FDataSnapshot *snapshot) {
             
-            if ([snapshot hasChild:contactIPhone]) { // user is in Firebase
+            if ([snapshot hasChild:contactIPhone]) { // number exists in Firebase
                 
                 [self.contactsToShow addObject:[self.dataSource takeSnapShotAndCreateUser:snapshot]];
                 
             } else {
                 
                 // need to create JDDUser
-                JDDUser *newUser = [[JDDUser alloc]init];
                 
+                JDDUser *newUser = [[JDDUser alloc]init];
                 newUser.userID = contactIPhone;
                 newUser.displayName = contact.givenName;
                 newUser.phoneNumber = contactIPhone;
                 
-                NSMutableDictionary * dictionary = [self.dataSource createDictionaryToSendToFirebasefromJDDUser:newUser];
+                NSMutableDictionary * dictionary = [self.dataSource createDictionaryToSendToFirebaseWithJDDUser:newUser];
                 
-                [userRef setValue:dictionary forKey:contactIPhone];
+                [[userRef childByAppendingPath:contactIPhone]setValue:dictionary]; //create user in Firebase
                 
-                [self.contactsToShow addObject: newUser];
+                [self.contactsToShow addObject: newUser]; // add user to contacts to show
                 
-                 }
+            }
             
             [NSNotification notificationWithName:@"contactsReadyForCreatePactView" object:nil];
             
@@ -370,9 +369,9 @@
 }
 
 //========================================================================================================================================
-
 // methods to check if all text fields are ready in the pact creation
 //========================================================================================================================================
+
 -(BOOL)isPactReady
 {
     if ([self isGroupTitleSet] && [self didInviteFriends] && [self isPactDecribed] && [self isStakeDecided]) {
@@ -396,7 +395,7 @@
 
 -(BOOL)didInviteFriends
 {
-    if (self.contactsToShow.count >0){
+    if (self.contactsToShow.count > 0){
           NSLog(@"friends are invited");
     
         return YES;
@@ -428,10 +427,6 @@ return  NO;
 }
 
 //========================================================================================================================================
-
-
-
-
 // Dismiss keboards
 //========================================================================================================================================
 
@@ -455,15 +450,12 @@ return  NO;
     self.twitterShamePost = (UITextField*) sender;
     [self.twitterShamePost resignFirstResponder];
 }
+
 //========================================================================================================================================
-
-
-
 //Messaging stuff
 //========================================================================================================================================
 
--(void)sendMessageToInvites
-{
+-(void)sendMessageToInvites{
     if (![MFMessageComposeViewController canSendText]) {
         NSLog(@"Message services are not available.");
     }

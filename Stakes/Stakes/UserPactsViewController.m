@@ -22,7 +22,6 @@
 @interface UserPactsViewController () <UITableViewDataSource, UITableViewDelegate>
 @property (weak, nonatomic) IBOutlet FZAccordionTableView *tableView;
 @property (nonatomic, strong) JDDDataSource *dataSource;
-@property (nonatomic, strong) JDDUser * currentUser;
 @property (nonatomic, strong) JDDPact * currentOpenPact;
 @property (nonatomic, strong) NSString *pactOAUTH;
 @property (nonatomic, strong) ACAccountStore *accountStore;
@@ -38,25 +37,9 @@
     [super viewDidLoad];
     NSLog(@"view did load in user pacts");
     
-    /*
-     
-     WE NEED TO STORE USER ID IN NSUSERDEFAULTS, HAVE FIREBASE OBSERVE EVENT FOR THAT USER ID
-     
-     WHAT IS GOING TO PERSIST TO KEEP USER LOGGED IN
-     
-     */
-    
-    
     self.dataSource = [JDDDataSource sharedDataSource];
     self.ref = self.dataSource.firebaseRef;
-    
-    NSLog(@"%@",self.dataSource.currentUser.displayName);
-    NSLog(@"%@",self.dataSource.currentUser.twitterHandle);
 
-    NSLog(@"%lu",self.dataSource.currentUser.pacts.count);
-    
-//    self.currentOpenPact = self.dataSource.currentUserPacts[0];
-    
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     self.tableView.allowMultipleSectionsOpen = NO;
@@ -75,15 +58,8 @@
     NSLog(@"view did load account: %@", [self.dataSource.accountStore.accounts firstObject]);
 }
 
-
-
--(void)viewWillAppear:(BOOL)animated {
-    
-    
-    
-}
-
 #pragma gestureRecognizers for segues
+
 -(void)setupSwipeGestureRecognizer {
     
     UISwipeGestureRecognizer *swipe = [[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(swipeRightGestureHappened:)];
@@ -105,7 +81,6 @@
     if (scrollView.contentOffset.y < -(self.view.frame.size.height/6)) {
         
         [self performSegueWithIdentifier:@"segueToCreatePact" sender:self];
-        
     }
 }
 
@@ -210,6 +185,7 @@
 
 - (IBAction)logoutTapped:(id)sender
 {
+    
     [self.ref unauth];
     NSLog(@"logged out of Firebase");
     self.dataSource.twitter = nil;
@@ -220,7 +196,6 @@
 
 - (IBAction)tweetTapped:(id)sender
 {
-    
     
     NSLog(@"trying to send a tweet");
     NSString *tweet = self.tweetTextField.text;

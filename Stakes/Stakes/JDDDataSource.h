@@ -37,9 +37,9 @@
 
 -(JDDCheckIn *)takeSnapShotAndCreateCheckIn:(FDataSnapshot*)snapshot;
 
--(NSMutableDictionary*)createDictionaryToSendToFirebasefromJDDUser:(JDDUser*)user;
+-(NSMutableDictionary*)createDictionaryToSendToFirebaseWithJDDUser:(JDDUser*)user;
 
--(NSMutableDictionary*)createDictionaryToSendToFirebasefromJDDPact:(JDDPact*)pact;
+-(NSMutableDictionary*)createDictionaryToSendToFirebaseWithJDDPact:(JDDPact*)pact;
 
 
 @end

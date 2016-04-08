@@ -12,9 +12,7 @@
 
 
 
-@interface CreatePactViewController : UIViewController<UIPickerViewDataSource, UIPickerViewDelegate >
-
-
+@interface CreatePactViewController : UIViewController <UIPickerViewDataSource, UIPickerViewDelegate>
 
 @property (nonatomic, strong) JDDDataSource *dataSource;
 
