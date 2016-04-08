@@ -7,7 +7,7 @@
 //
 
 #import "JDDDataSource.h"
-#import <UIImageView+AFNetworking.h>
+#import "UIImageView+AFNetworking.h"
 
 @import UIKit;
 
@@ -36,7 +36,8 @@
         
         [self setUpFireBaseRef];
         self.currentUser = [[JDDUser alloc]init];
-        
+        self.twitter = [[STTwitterAPI alloc]init];
+
     }
     
     return self;
@@ -71,19 +72,14 @@
         
 }
 
--(JDDUser *)takeSnapShotAndCreateUser:(FDataSnapshot *)snapshot {
+-(JDDUser *)useSnapShotAndCreateUser:(FDataSnapshot *)snapshot {
     
     JDDUser *user = [[JDDUser alloc]init];
     
-    
     user.userID = snapshot.value[@"userID"];
-    user.displayName = snapshot.value[@"userID"];
+    user.displayName = snapshot.value[@"displayName"];
     user.phoneNumber = snapshot.value[@"phoneNumber"];
-    
-    self.twitter = [[STTwitterAPI alloc]init];
-    
-    self.currentUser = [[JDDUser alloc]init];
-    
+        
     if (snapshot.value[@"profileImageURL"]) {
         
         UIImageView * image = [[UIImageView alloc]init];
@@ -119,7 +115,7 @@
     return user;
 }
 
--(JDDPact *)takeSnapShotAndCreatePact:(FDataSnapshot*)snapshot {
+-(JDDPact *)useSnapShotAndCreatePact:(FDataSnapshot*)snapshot {
     
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
     [dateFormatter setDateFormat:@"yyyy'-'MM'-'dd'"];
@@ -136,13 +132,12 @@
     pact.checkInsPerTimeInterval = [snapshot.value[@"allowsShaming"] integerValue];
     pact.twitterPost = snapshot.value[@"twitterPost"];
     pact.dateOfCreation = [dateFormatter dateFromString:snapshot.value[@"dateOfCreation"]];
-    pact.chatRoomID = snapshot.value[@"chatroomID"];
     
     return pact;
 
 }
 
--(JDDCheckIn *)takeSnapShotAndCreateCheckIn:(FDataSnapshot*)snapshot {
+-(JDDCheckIn *)useSnapShotAndCreateCheckIn:(FDataSnapshot*)snapshot {
 
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
     [dateFormatter setDateFormat:@"yyyy'-'MM'-'dd'-'hh:mm'-'ss'"];
@@ -172,10 +167,11 @@
         }
     }
     
-    NSDictionary *person = @{ @"userID" : user.userID,
+    NSMutableDictionary *person = [[NSMutableDictionary alloc] initWithDictionary:@{ @"userID" : user.userID,
                               @"displayName" : user.displayName,
                               @"phoneNumber" : user.phoneNumber,
-                               };
+                               }];
+    
     if (user.userImageURL) {
         
         [person setValue:user.userImageURL forKey:@"profileImageURL"];
@@ -206,7 +202,8 @@
     
  
     
-    NSDictionary *pactDictionary = @{ @"pactID" : pact.pactID,
+    NSMutableDictionary *pactDictionary = [[NSMutableDictionary alloc]initWithDictionary:
+                                @{
                                       @"title" : pact.title,
                                       @"pactDescription" :pact.pactDescription,
                                       @"stakes" : pact.stakes,
@@ -215,11 +212,17 @@
                                       @"checkInsPerTimeInterval" :[NSNumber numberWithUnsignedInteger:pact.checkInsPerTimeInterval],
                                       @"dateOfCreation" : [dateFormatter stringFromDate: pact.dateOfCreation],
                                       
-                              };
+                              }];
     
     NSMutableDictionary *dictionary = [[NSMutableDictionary alloc]initWithDictionary:pactDictionary];
     
     NSMutableDictionary *checkinDictionary = [[NSMutableDictionary alloc]init];
+    
+    if (pact.pactID) {
+        
+        [dictionary setValue:pact.pactID forKey:@"pactID"];
+        
+    }
     
     if (pact.checkIns.count != 0) {
         

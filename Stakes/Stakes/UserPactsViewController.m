@@ -23,10 +23,11 @@
 @property (weak, nonatomic) IBOutlet FZAccordionTableView *tableView;
 @property (nonatomic, strong) JDDDataSource *dataSource;
 @property (nonatomic, strong) JDDPact * currentOpenPact;
+@property (nonatomic, strong) NSMutableArray *pacts;
 @property (nonatomic, strong) NSString *pactOAUTH;
 @property (nonatomic, strong) ACAccountStore *accountStore;
 @property (weak, nonatomic) IBOutlet UITextField *tweetTextField;
-
+@property (nonatomic,strong)NSString *currentUserID;
 @property (nonatomic, strong) Firebase *ref;
 @property (nonatomic, strong) STTwitterAPI *twitter;
 @end
@@ -39,7 +40,12 @@
     
     self.dataSource = [JDDDataSource sharedDataSource];
     self.ref = self.dataSource.firebaseRef;
-
+    self.pacts = [[NSMutableArray alloc]init];
+    
+    self.dataSource.currentUser.userID = [[NSUserDefaults standardUserDefaults] objectForKey: UserIDKey];
+    self.currentUserID = self.dataSource.currentUser.userID;
+    NSLog(@"currentUserIs %@",self.currentUserID);
+    
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     self.tableView.allowMultipleSectionsOpen = NO;
@@ -50,13 +56,59 @@
     
     [self.tableView registerNib:[UINib nibWithNibName:@"UserPactCellView" bundle:nil] forCellReuseIdentifier:@"basicCell"];
     [self.tableView registerNib:[UINib nibWithNibName:@"PactAccordionHeaderView" bundle:nil] forHeaderFooterViewReuseIdentifier:accordionHeaderReuseIdentifier];
-
-
+    
+    
     [self setupSwipeGestureRecognizer];
-
-    NSLog(@"TWITTER %@", self.dataSource.twitter);
-    NSLog(@"view did load account: %@", [self.dataSource.accountStore.accounts firstObject]);
+    
+    [self observeEventFromFirebaseWithCompletionBlock:^(BOOL completionBlock) {
+        
+        if (completionBlock == YES) {
+            
+            [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                
+                [self.tableView reloadData];
+                
+            }];
+            
+        }
+    }];
+    
+    
 }
+
+#pragma method that populates the view from Firebase
+
+-(void)observeEventFromFirebaseWithCompletionBlock:(void(^)(BOOL))completionBlock {
+    
+    // this observe event will give back snapshot value of @{pactID: BOOL-isActive}
+    [[self.dataSource.firebaseRef childByAppendingPath:[NSString stringWithFormat:@"users/%@/pacts",self.currentUserID]] observeEventType:FEventTypeValue withBlock:^(FDataSnapshot *snapshotForUser) {
+        
+        NSLog(@"snapshotForUser.value: %@", snapshotForUser );
+        
+        for (NSString *pactID in [snapshotForUser.value allKeys]) {
+            
+            [[self.dataSource.firebaseRef childByAppendingPath:[NSString stringWithFormat:@"pacts/%@",pactID]] observeEventType:FEventTypeValue withBlock:^(FDataSnapshot *snapshotForPacts) {
+                
+                [self.pacts addObject:[self.dataSource useSnapShotAndCreatePact:snapshotForPacts]];
+                
+                NSLog(@"snapshotForPacts.value: %@", snapshotForPacts.value );
+
+                completionBlock(YES);
+
+            }];
+        
+        }
+        
+
+    } withCancelBlock:^(NSError *error) {
+        NSLog(@"this shit didnt happen: %@", error.description );
+    }];
+    
+    
+    NSLog(@"self.pacts %@",self.pacts);
+    
+}
+
 
 #pragma gestureRecognizers for segues
 
@@ -105,14 +157,14 @@
     
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
-    cell.pact = self.dataSource.currentUserPacts[indexPath.section];
+    cell.pact = self.pacts[indexPath.section];
     
     return cell;
 }
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return self.dataSource.currentUserPacts.count;
+    return self.pacts.count;
 }
 
 
@@ -126,7 +178,7 @@
     
     PactAccordionHeaderView *viewThing = [tableView dequeueReusableHeaderFooterViewWithIdentifier:accordionHeaderReuseIdentifier];
     
-    JDDPact *currentPact = self.dataSource.currentUserPacts[section];
+    JDDPact *currentPact = self.pacts[section];
     
     viewThing.pact = currentPact;
     
@@ -142,7 +194,7 @@
 
 - (void)tableView:(FZAccordionTableView *)tableView didOpenSection:(NSInteger)section withHeader:(UITableViewHeaderFooterView *)header {
     
-    self.currentOpenPact = self.dataSource.currentUserPacts[section];
+    self.currentOpenPact = self.pacts[section];
     
     NSLog(@"did open section %@",self.currentOpenPact.title);
     

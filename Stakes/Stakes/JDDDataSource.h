@@ -31,11 +31,11 @@
 
 -(JDDPact*)createDemoPact;
 
--(JDDUser *)takeSnapShotAndCreateUser:(FDataSnapshot *)snapshot;
+-(JDDUser *)useSnapShotAndCreateUser:(FDataSnapshot *)snapshot;
     
--(JDDPact *)takeSnapShotAndCreatePact:(FDataSnapshot*)snapshot;
+-(JDDPact *)useSnapShotAndCreatePact:(FDataSnapshot*)snapshot;
 
--(JDDCheckIn *)takeSnapShotAndCreateCheckIn:(FDataSnapshot*)snapshot;
+-(JDDCheckIn *)useSnapShotAndCreateCheckIn:(FDataSnapshot*)snapshot;
 
 -(NSMutableDictionary*)createDictionaryToSendToFirebaseWithJDDUser:(JDDUser*)user;
 

@@ -57,6 +57,10 @@
   
     self.dataSource = [JDDDataSource sharedDataSource];
     
+    NSLog( @" current user is %@",self.dataSource.currentUser);
+    
+    self.contactsToShow = [[NSMutableArray alloc]init];
+    
 }
 
 - (IBAction)createPactTapped:(id)sender {
@@ -103,9 +107,15 @@
     
     NSMutableDictionary * usersInPact = [[NSMutableDictionary alloc]initWithDictionary:@{}];
     
+    NSLog(@"contacts to show are %@",self.contactsToShow);
+    
     for (JDDUser *user in self.contactsToShow) {
         
-        if (user.userID == self.dataSource.currentUser.userID) {
+        NSLog(@"contacts to show are %@",user.userID);
+        
+        if ([user.userID isEqualToString:self.dataSource.currentUser.userID]) {
+            
+            NSLog(@"%@ should be equal to %@",self.dataSource.currentUser.userID,user.userID);
             
             [usersInPact setValue:[NSNumber numberWithBool:YES] forKey:user.userID];
             
@@ -118,12 +128,6 @@
     
     NSLog(@"%@",usersInPact);
     
-    // creating the pact to be sent to Firebase using createDict method
-    NSDictionary *finalPactDictionary = [self.dataSource createDictionaryToSendToFirebaseWithJDDPact:self.createdPact];
-    
-    // adding users
-    [finalPactDictionary setValue:usersInPact forKey:@"users"];
-    
     // creation of the pactID
     Firebase *newPact = [self.pactReference childByAutoId];
     
@@ -134,6 +138,12 @@
     
     // adding chatroom for pact to JDDStakes
     [[self.dataSource.firebaseRef childByAppendingPath:@"chatrooms"]setValue:self.createdPact.pactID];
+    
+    // creating the pact to be sent to Firebase using createDict method
+    NSDictionary *finalPactDictionary = [self.dataSource createDictionaryToSendToFirebaseWithJDDPact:self.createdPact];
+    
+    // adding users
+    [finalPactDictionary setValue:usersInPact forKey:@"users"];
     
     [newPact setValue:finalPactDictionary];
     
@@ -306,52 +316,63 @@
 // this is the method that gets fired when user hits done in contact picker.
 -(void)contactPicker:(CNContactPickerViewController *)picker didSelectContacts:(NSArray<CNContact *> *)contacts {
     
-    [self.contactsToShow addObject:self.dataSource.currentUser];
+    if (![self.contactsToShow containsObject:self.dataSource.currentUser]) {
+        
+        [self.contactsToShow addObject:self.dataSource.currentUser];
+        
+    }
+    
     
     // OBJECTIVE : for contacts in the CNContact array I want to check firebase to see if they exist. If YES, pull down info & create JDDUser. If no create JDDUser
     
     //may need an if statement to make sure this doesn't fire if contacts.count == 0
     for(CNContact *contact in contacts){
         
-        NSString *contactIPhone = [[NSString alloc]init];
+        NSString *contactPhone = [[NSString alloc]init];
         
-        for (CNLabeledValue<CNPhoneNumber*>* labeledValue in contact.phoneNumbers) {
-            
-            if ([labeledValue.label isEqualToString:CNLabelPhoneNumberMobile])
-            {
-                contactIPhone = labeledValue.value.stringValue;
-                
-                contactIPhone = [[contactIPhone componentsSeparatedByCharactersInSet:[[NSCharacterSet decimalDigitCharacterSet] invertedSet]]
-                                 componentsJoinedByString:@""]; // clean iPhone number
-                
-            }
-        }
+        CNLabeledValue<CNPhoneNumber*>* oneWeWant = [contact.phoneNumbers firstObject];
+        
+        contactPhone = oneWeWant.value.stringValue;
+        
+        contactPhone = [[contactPhone componentsSeparatedByCharactersInSet:[[NSCharacterSet decimalDigitCharacterSet] invertedSet]]
+                        componentsJoinedByString:@""]; // clean iPhone number
+        
         
         // query Firebase to see if the contactIphone exists
-        
         Firebase *userRef = [self.dataSource.firebaseRef childByAppendingPath:@"users"];
         
-        [[userRef queryEqualToValue:contactIPhone] observeSingleEventOfType:FEventTypeValue withBlock:^(FDataSnapshot *snapshot) {
+        [userRef observeSingleEventOfType:FEventTypeValue withBlock:^(FDataSnapshot *snapshot) {
             
-            if ([snapshot hasChild:contactIPhone]) { // number exists in Firebase
+            if ([snapshot hasChild:contactPhone]) { // number exists in Firebase
                 
-                [self.contactsToShow addObject:[self.dataSource takeSnapShotAndCreateUser:snapshot]];
+                NSLog(@"user is : %@",snapshot.value);
                 
+                JDDUser *contactToAdd =[self.dataSource useSnapShotAndCreateUser:snapshot];
+                
+                NSLog(@"user is : %@",contactToAdd.userID);
+
+                [self.contactsToShow addObject:contactToAdd];
+                
+                JDDUser *contact =[self.contactsToShow lastObject];
+                NSLog(@"contactsToShow : %@",contact.phoneNumber);
+
             } else {
                 
                 // need to create JDDUser
                 
                 JDDUser *newUser = [[JDDUser alloc]init];
-                newUser.userID = contactIPhone;
+                newUser.userID = contactPhone;
                 newUser.displayName = contact.givenName;
-                newUser.phoneNumber = contactIPhone;
+                newUser.phoneNumber = contactPhone;
                 
                 NSMutableDictionary * dictionary = [self.dataSource createDictionaryToSendToFirebaseWithJDDUser:newUser];
                 
-                [[userRef childByAppendingPath:contactIPhone]setValue:dictionary]; //create user in Firebase
+                [[userRef childByAppendingPath:contactPhone]setValue:dictionary]; //create user in Firebase
                 
                 [self.contactsToShow addObject: newUser]; // add user to contacts to show
                 
+                NSLog(@"contactsToShowNewUser : %@",self.contactsToShow);
+
             }
             
             [NSNotification notificationWithName:@"contactsReadyForCreatePactView" object:nil];
@@ -390,6 +411,7 @@
         NSLog(@"Group name title is set");
         return YES;
     }
+    
     return NO;
 }
 
