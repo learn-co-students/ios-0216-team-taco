@@ -27,17 +27,19 @@
     
     Firebase *newRef = [datasource.firebaseRef childByAppendingPath:@"users"];
     
-    newRef setValue:<#(id)#>
     
     //BOOL userIsRegistered =
-     BOOL userIsLoggedIn = [[NSUserDefaults standardUserDefaults] boolForKey:LoggedInUserDefaultsKey];
+    BOOL userIsLoggedIn = [[NSUserDefaults standardUserDefaults] boolForKey:LoggedInUserDefaultsKey];
     
     if(userIsLoggedIn) {
         
         
         [self showUserPactsViewController];
+        
     }
+    
     else {
+        
         [self showLoginViewController];
         
     }

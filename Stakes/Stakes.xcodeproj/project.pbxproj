@@ -10,6 +10,7 @@
 		10C87798DE0B6E0C995D1A83 /* Pods_Stakes.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 361C6FD6E5AC97F65E59E02D /* Pods_Stakes.framework */; };
 		3F4DDABC1CB033890000ACE2 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F4DDABB1CB033890000ACE2 /* CoreLocation.framework */; };
 		3F52B0881CAB3EBC0031BF59 /* Israel.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3F52B0871CAB3EBC0031BF59 /* Israel.jpg */; };
+		AF27C4DB1CB6FC92001AA278 /* JDDChatRoom.m in Sources */ = {isa = PBXBuildFile; fileRef = AF27C4DA1CB6FC92001AA278 /* JDDChatRoom.m */; };
 		AF2883481CAC12C6003FD3E2 /* JDDDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = AF2883471CAC12C6003FD3E2 /* JDDDataSource.m */; };
 		AFB5216A1CAC450800A993E8 /* smackTackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AFB521691CAC450800A993E8 /* smackTackViewController.m */; };
 		AFC0645B1CAD733900DBA069 /* UserPactCellView.xib in Resources */ = {isa = PBXBuildFile; fileRef = AFC0645A1CAD733900DBA069 /* UserPactCellView.xib */; };
@@ -33,7 +34,6 @@
 		CBA985781CAAEC6D00D1CC27 /* StakesUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = CBA985771CAAEC6D00D1CC27 /* StakesUITests.m */; };
 		CBA985961CAAEE0900D1CC27 /* CreatePactViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CBA985891CAAEE0900D1CC27 /* CreatePactViewController.m */; };
 		CBA985971CAAEE0900D1CC27 /* JDDCheckIn.m in Sources */ = {isa = PBXBuildFile; fileRef = CBA9858B1CAAEE0900D1CC27 /* JDDCheckIn.m */; };
-		CBA985981CAAEE0900D1CC27 /* JDDMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = CBA9858D1CAAEE0900D1CC27 /* JDDMessage.m */; };
 		CBA985991CAAEE0900D1CC27 /* JDDPact.m in Sources */ = {isa = PBXBuildFile; fileRef = CBA9858F1CAAEE0900D1CC27 /* JDDPact.m */; };
 		CBA9859A1CAAEE0900D1CC27 /* JDDUser.m in Sources */ = {isa = PBXBuildFile; fileRef = CBA985911CAAEE0900D1CC27 /* JDDUser.m */; };
 		CBA9859B1CAAEE0900D1CC27 /* PactDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CBA985931CAAEE0900D1CC27 /* PactDetailViewController.m */; };
@@ -69,6 +69,8 @@
 		3F4DDABB1CB033890000ACE2 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		3F52B0871CAB3EBC0031BF59 /* Israel.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = Israel.jpg; sourceTree = "<group>"; };
 		79BEE4D5993F024270E6A571 /* Pods-Stakes.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Stakes.release.xcconfig"; path = "Pods/Target Support Files/Pods-Stakes/Pods-Stakes.release.xcconfig"; sourceTree = "<group>"; };
+		AF27C4D91CB6FC92001AA278 /* JDDChatRoom.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JDDChatRoom.h; sourceTree = "<group>"; };
+		AF27C4DA1CB6FC92001AA278 /* JDDChatRoom.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JDDChatRoom.m; sourceTree = "<group>"; };
 		AF2883461CAC12C6003FD3E2 /* JDDDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JDDDataSource.h; sourceTree = "<group>"; };
 		AF2883471CAC12C6003FD3E2 /* JDDDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JDDDataSource.m; sourceTree = "<group>"; };
 		AFB521681CAC450800A993E8 /* smackTackViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = smackTackViewController.h; sourceTree = "<group>"; };
@@ -109,8 +111,6 @@
 		CBA985891CAAEE0900D1CC27 /* CreatePactViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreatePactViewController.m; sourceTree = "<group>"; };
 		CBA9858A1CAAEE0900D1CC27 /* JDDCheckIn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JDDCheckIn.h; sourceTree = "<group>"; };
 		CBA9858B1CAAEE0900D1CC27 /* JDDCheckIn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JDDCheckIn.m; sourceTree = "<group>"; };
-		CBA9858C1CAAEE0900D1CC27 /* JDDMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JDDMessage.h; sourceTree = "<group>"; };
-		CBA9858D1CAAEE0900D1CC27 /* JDDMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JDDMessage.m; sourceTree = "<group>"; };
 		CBA9858E1CAAEE0900D1CC27 /* JDDPact.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JDDPact.h; sourceTree = "<group>"; };
 		CBA9858F1CAAEE0900D1CC27 /* JDDPact.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JDDPact.m; sourceTree = "<group>"; };
 		CBA985901CAAEE0900D1CC27 /* JDDUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JDDUser.h; sourceTree = "<group>"; };
@@ -232,14 +232,14 @@
 				AFEBE6881CB334FF00FBE107 /* UserDetailViewController.m */,
 				CBA9858A1CAAEE0900D1CC27 /* JDDCheckIn.h */,
 				CBA9858B1CAAEE0900D1CC27 /* JDDCheckIn.m */,
-				CBA9858C1CAAEE0900D1CC27 /* JDDMessage.h */,
-				CBA9858D1CAAEE0900D1CC27 /* JDDMessage.m */,
 				CBA9858E1CAAEE0900D1CC27 /* JDDPact.h */,
 				CBA9858F1CAAEE0900D1CC27 /* JDDPact.m */,
 				CBA985901CAAEE0900D1CC27 /* JDDUser.h */,
 				CBA985911CAAEE0900D1CC27 /* JDDUser.m */,
 				AF2883461CAC12C6003FD3E2 /* JDDDataSource.h */,
 				AF2883471CAC12C6003FD3E2 /* JDDDataSource.m */,
+				AF27C4D91CB6FC92001AA278 /* JDDChatRoom.h */,
+				AF27C4DA1CB6FC92001AA278 /* JDDChatRoom.m */,
 				CBA9859D1CAAEE7500D1CC27 /* Main.storyboard */,
 				AFC0645C1CAD736D00DBA069 /* UserPactCellView.h */,
 				AFC0645D1CAD736D00DBA069 /* UserPactCellView.m */,
@@ -476,7 +476,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CBA985981CAAEE0900D1CC27 /* JDDMessage.m in Sources */,
 				CBA9859C1CAAEE0900D1CC27 /* UserPactsViewController.m in Sources */,
 				CBA9859A1CAAEE0900D1CC27 /* JDDUser.m in Sources */,
 				AF2883481CAC12C6003FD3E2 /* JDDDataSource.m in Sources */,
@@ -488,6 +487,7 @@
 				CBA985971CAAEE0900D1CC27 /* JDDCheckIn.m in Sources */,
 				CBA985EB1CAC288000D1CC27 /* PactAccordionHeaderView.m in Sources */,
 				CBED55691CB2BFB0005F0D4E /* TwitterAuthHelper.m in Sources */,
+				AF27C4DB1CB6FC92001AA278 /* JDDChatRoom.m in Sources */,
 				CBA985991CAAEE0900D1CC27 /* JDDPact.m in Sources */,
 				CBA985961CAAEE0900D1CC27 /* CreatePactViewController.m in Sources */,
 				CB4F71CC1CB552E300F44FE6 /* MainApplicationViewController.m in Sources */,

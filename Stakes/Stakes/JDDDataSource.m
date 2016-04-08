@@ -7,12 +7,7 @@
 //
 
 #import "JDDDataSource.h"
-#import "JDDUser.h"
-#import "JDDCheckIn.h"
-#import "JDDMessage.h"
 #import "UIImageView+AFNetworking.h"
-#import "JSQMessage.h"
-
 
 @import UIKit;
 
@@ -39,7 +34,7 @@
     
     if (self) {
         
-        [self establishCurrentUser];
+        [self setUpFireBaseRef];
         
     }
     
@@ -64,7 +59,7 @@
     
     pact.users = [[NSMutableArray alloc]init];
     
-    pact.messages = [NSMutableArray new];
+    pact.chatRoomID = [[NSString alloc]init];
  
     return pact;
 }
@@ -73,77 +68,6 @@
     
     self.firebaseRef = [[Firebase alloc]initWithUrl:@"https://jddstakes.firebaseio.com/"];
         
-}
-
--(void)establishCurrentUserWithBlock:(void(^)(BOOL))completionBlock{
-    
-    [self setUpFireBaseRef];
-
-    AFOAuthCredential *credential = [AFOAuthCredential retrieveCredentialWithIdentifier:@"githubauth"];
-    
-    if (!credential) {
-        
-        completionBlock(NO);
-        
-    } else if (credential) {
-        
-        Firebase *ref = [self.firebaseRef 
-        
-    }
-    
-    
-    
-}
-
--(void)establishCurrentUser{
-    
-    [self setUpFireBaseRef];
-    
-    self.currentUser = [[JDDUser alloc]init];
-    self.currentUserPacts = [[NSMutableArray alloc]init];
-    
-//this is taking value in the phone and checking it vs the database
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    NSLog(@"userDefaults for stakesID is %@",[defaults stringForKey:@"stakesUserID"]);
-    NSString *currentUserID = [defaults stringForKey:@"stakesUserID"];
-    
-// pulling value from NSUserDefaults from firebase
-    
-    if ([defaults stringForKey:@"stakesUserID"]) {
-    
-    Firebase *newRef = [self.firebaseRef childByAppendingPath:[NSString stringWithFormat:@"users/%@",currentUserID]];
-    
-    [newRef observeEventType:FEventTypeValue withBlock:^(FDataSnapshot *snapshot) {
-        
-        self.currentUser = [self takeSnapShotAndCreateUser:snapshot];
-        
-        NSLog(@"snapshot %@", snapshot.value);
-        NSLog(@"this is the current user %@", self.currentUser);
-        
-// pulling pacts from currentUser from firebase
-        
-        for (NSString *pactID in self.currentUser.pacts) {
-            
-            Firebase *pactRef = [self.firebaseRef childByAppendingPath:[NSString stringWithFormat:@"pacts/%@",pactID]];
-            
-            [pactRef observeEventType:FEventTypeValue withBlock:^(FDataSnapshot *snapshot2) {
-                
-                [self.currentUserPacts addObject:[self takeSnapShotAndCreatePact:snapshot2]];
-                
-                NSLog(@"this is the pact getting added to self.currentUserPacts %@", snapshot2.value);
-                NSLog(@"currentUserPacts: %@", self.currentUserPacts);
-                
-            }];
-            
-        }
-        
-    } withCancelBlock:^(NSError *error) {
-        
-        NSLog(@"snapshot value %@", error.description);
-        
-    }];
-        
-    }
 }
 
 -(JDDUser *)takeSnapShotAndCreateUser:(FDataSnapshot *)snapshot {
@@ -195,19 +119,14 @@
     pact.pactDescription = snapshot.value[@"pactDescription"];
     pact.title = snapshot.value[@"title"];
 
-    pact.stakes = snapshot.value[@"twitterHandle"];
+    pact.stakes = snapshot.value[@"stakes"];
     pact.users = snapshot.value[@"users"];
     pact.repeating = [snapshot.value[@"repeating"] boolValue];
     pact.allowsShaming = [snapshot.value[@"allowsShaming"] boolValue];
     pact.checkInsPerTimeInterval = [snapshot.value[@"allowsShaming"] integerValue];
     pact.twitterPost = snapshot.value[@"twitterPost"];
     pact.dateOfCreation = [dateFormatter dateFromString:snapshot.value[@"dateOfCreation"]];
-    
-    if(snapshot.value[@"messages"]) {
-        
-        pact.messages = snapshot.value[@"messages"];
-        
-    }
+    pact.chatRoomID = snapshot.value[@"chatroomID"];
     
     return pact;
 
@@ -222,28 +141,102 @@
     
     checkIn.checkInID = snapshot.value[@"checkInID"];
     checkIn.checkInDate = [dateFormatter dateFromString:snapshot.value[@"checkInDate"]];
-    checkIn.checkInMessage = snapshot.value[@"checkInMessage"];
     
     checkIn.userID = snapshot.value[@"userID"];
-    checkIn.pactID = snapshot.value[@"pactID"];
     
     return checkIn;
 }
 
--(NSMutableDictionary*)createDictionaryToSendToFirebasefromJDDUser:(JDDUser*)user {
+
+
+
+-(NSMutableDictionary*)createDictionaryToSendToFirebaseWithJDDUser:(JDDUser*)user {
     
-    NSDictionary *newUser = @{ @"userID" : user.userID,
-                               @"profileImageURL" : user.userImageURL,
-                               @"twitterHandle" : user.twitterHandle,
-                               @"firstName" : user.displayName,
-                               @"phoneNumber" : user.phoneNumber
-                               
+    NSMutableDictionary *pactDictionary = [[NSMutableDictionary alloc]init];
+    
+    if (user.pacts.count != 0) {
+        
+        for (JDDPact*pact in user.pacts) {
+            
+            [pactDictionary setValue:[NSNumber numberWithBool: pact.isActive] forKey:pact.pactID];
+        }
+    }
+    
+    NSDictionary *person = @{ @"userID" : user.userID,
+                              @"displayName" : user.displayName,
+                              @"phoneNumber" : user.phoneNumber,
                                };
+    if (user.userImageURL) {
+        
+        [person setValue:user.userImageURL forKey:@"profileImageURL"];
+    }
+    if (user.twitterHandle) {
+        
+        [person setValue:user.twitterHandle forKey:@"twitterHandle"];
+    }
+    if (pactDictionary) {
+        
+        [person setValue: pactDictionary forKey:@"pacts"];
+    }
+
     
-    NSMutableDictionary *dictionary = [[NSMutableDictionary alloc]initWithDictionary:newUser];
+    NSMutableDictionary *dictionary = [[NSMutableDictionary alloc]initWithDictionary:person];
     
     return dictionary;
     
 }
+
+-(NSMutableDictionary*)createDictionaryToSendToFirebaseWithJDDPact:(JDDPact*)pact {
+    
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
+    [dateFormatter setDateFormat:@"yyyy'-'MM'-'dd'"];
+    
+    NSDateFormatter *checkInDateFormatter = [[NSDateFormatter alloc]init];
+    [checkInDateFormatter setDateFormat:@"yyyy'-'MM'-'dd'-'hh:mm'"];
+    
+ 
+    
+    NSDictionary *pactDictionary = @{ @"pactID" : pact.pactID,
+                                      @"title" : pact.title,
+                                      @"pactDescription" :pact.pactDescription,
+                                      @"stakes" : pact.stakes,
+                                      @"repeating" : [NSNumber numberWithBool: pact.repeating],
+                                      @"allowsShaming" : [NSNumber numberWithBool: pact.allowsShaming],
+                                      @"checkInsPerTimeInterval" :[NSNumber numberWithUnsignedInteger:pact.checkInsPerTimeInterval],
+                                      @"twitterPost" : pact.twitterPost,
+                                      @"dateOfCreation" : [dateFormatter stringFromDate: pact.dateOfCreation],
+                                      @"chatRoomID" : pact.pactID,
+                                      
+                              };
+    
+    NSMutableDictionary *dictionary = [[NSMutableDictionary alloc]initWithDictionary:pactDictionary];
+    
+    NSMutableDictionary *checkinDictionary = [[NSMutableDictionary alloc]init];
+    
+    if (pact.checkIns.count != 0) {
+        
+        for (JDDCheckIn *checkin in pact.checkIns) {
+            
+            NSDictionary * checkinItemDict = @{
+                                               @"checkInID" :checkin.checkInID,
+                                               @"checkInDate" : checkin.checkInDate,
+                                               @"userID" : checkin.userID
+                                               };
+            
+            [checkinDictionary setValue:checkinItemDict forKey:checkin.checkInID];
+            
+        }
+        
+        [dictionary setValue:checkinDictionary forKey:@"checkIns"];
+    }
+    
+    return dictionary;
+    
+}
+
+
+
+
+
 
 @end

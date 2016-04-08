@@ -6,14 +6,16 @@
 //  Copyright © 2016 JDD. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
-#import "Firebase.h"
-#import "JDDUser.h"git
+
+#import "JDDUser.h"
 #import "JDDPact.h"
+#import "JDDCheckIn.h"
+#import "JSQMessage.h"
 #import <STTwitter/STTwitter.h>
+#import <Foundation/Foundation.h>
+#import <Firebase/Firebase.h>
 #import <Accounts/Accounts.h>
-#import <AFNetworking/AFNetworking.h>
-#import <AFOAuth2Manager/AFOAuth2Manager.h>
+#import "AFNetworking.h"
 
 
 @interface JDDDataSource : NSObject
@@ -22,13 +24,23 @@
 @property (nonatomic, strong) JDDUser *currentUser;
 @property (nonatomic, strong) STTwitterAPI *twitter;
 @property (nonatomic, strong) ACAccountStore *accountStore;
-@property (nonatomic, strong) NSMutableArray * currentUserPacts;
 
 + (instancetype)sharedDataSource;
 
 -(void)setUpFireBaseRef;
 
 -(JDDPact*)createDemoPact;
+
+-(JDDUser *)takeSnapShotAndCreateUser:(FDataSnapshot *)snapshot;
+    
+-(JDDPact *)takeSnapShotAndCreatePact:(FDataSnapshot*)snapshot;
+
+-(JDDCheckIn *)takeSnapShotAndCreateCheckIn:(FDataSnapshot*)snapshot;
+
+-(NSMutableDictionary*)createDictionaryToSendToFirebasefromJDDUser:(JDDUser*)user;
+
+-(NSMutableDictionary*)createDictionaryToSendToFirebasefromJDDPact:(JDDPact*)pact;
+
 
 @end
 

@@ -82,13 +82,13 @@
     self.CheckIn = [[JDDCheckIn alloc]init];
     NSDate *now = [NSDate date];
 
-    self.CheckIn.checkInDate = now;
-    self.CheckIn.checkInMessage = @"";
-    self.CheckIn.checkInLocation = [[CLLocation alloc]init];;
-    self.CheckIn.userID = self.sharedData.currentUser.userID;
-    self.CheckIn.pactID = self.pact.pactID;
-    
-    [self.sharedData.currentUser.checkins addObject:self.CheckIn];
+//    self.CheckIn.checkInDate = now;
+//    self.CheckIn.checkInMessage = @"";
+//    self.CheckIn.checkInLocation = [[CLLocation alloc]init];;
+//    self.CheckIn.userID = self.sharedData.currentUser.userID;
+//    self.CheckIn.pactID = self.pact.pactID;
+//    
+//    [self.sharedData.currentUser.checkins addObject:self.CheckIn];
     
 }
 

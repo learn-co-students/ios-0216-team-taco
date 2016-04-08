@@ -14,12 +14,9 @@
 @interface JDDCheckIn : NSObject
 
 @property (nonatomic) NSDate *checkInDate;
-@property (nonatomic, strong) CLLocation *checkInLocation;
-@property (nonatomic, strong) NSString *checkInMessage;
 @property (nonatomic, strong) NSString *checkInID;
 
 @property (nonatomic) NSString * userID;
-@property (nonatomic) NSString * pactID;
 
 
 @end
