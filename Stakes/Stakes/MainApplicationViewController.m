@@ -15,6 +15,7 @@
 
 @interface MainApplicationViewController ()
 @property (weak, nonatomic) IBOutlet UIView *containerView;
+@property (nonatomic, strong) JDDDataSource *datasource;
 
 @end
 
@@ -23,10 +24,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    JDDDataSource *datasource = [JDDDataSource sharedDataSource];
-    
-    Firebase *newRef = [datasource.firebaseRef childByAppendingPath:@"users"];
-    
+    self.datasource = [JDDDataSource sharedDataSource];
     
     //BOOL userIsRegistered =
     BOOL userIsLoggedIn = [[NSUserDefaults standardUserDefaults] boolForKey:LoggedInUserDefaultsKey];
@@ -36,6 +34,17 @@
         
         [self showUserPactsViewController];
         
+//        NSString * userID = [[NSUserDefaults standardUserDefaults] objectForKey: UserIDKey];
+//        Firebase *newRef = [self.datasource.firebaseRef childByAppendingPath:[NSString stringWithFormat:@"users/%@",userID]];
+        
+//        [newRef observeEventType:FEventTypeChildAdded withBlock:^(FDataSnapshot *snapshot) {
+//        
+//            self.datasource.currentUser = [self.datasource useSnapShotAndCreateUser:snapshot];
+//            
+//            NSLog(@"/n/n/n/n/n/n/n/%@/n/n/n/n/n/n/n/n/",self.datasource.currentUser.displayName);
+//            
+//        }];
+
     }
     
     else {
@@ -51,6 +60,7 @@
 
 - (void)handleUserLoggedInNotification:(NSNotification *)notification
 {
+    
     [self showUserPactsViewController];
 }
 

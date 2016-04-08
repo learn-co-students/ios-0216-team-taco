@@ -24,8 +24,4 @@
 @property (nonatomic, strong) JDDChatRoom *chatroom;
 @property (nonatomic, strong) JDDPact *currentPact;
 
-//- (void)receiveMessagePressed:(UIBarButtonItem *)sender;
-//
-//- (void)closePressed:(UIBarButtonItem *)sender;
-
 @end

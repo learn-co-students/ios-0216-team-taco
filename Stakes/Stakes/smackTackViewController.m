@@ -30,7 +30,6 @@
     self.dataSource = [JDDDataSource sharedDataSource];
     
     self.senderId = self.dataSource.currentUser.userID;
-    self.senderDisplayName = self.dataSource.currentUser.displayName;
     
     self.messageRef = [self.dataSource.firebaseRef childByAppendingPath:[NSString stringWithFormat:@"chatRoom/%@",self.currentPact.pactID]];
     

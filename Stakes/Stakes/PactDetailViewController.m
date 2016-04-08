@@ -20,8 +20,6 @@
 @property (weak, nonatomic) IBOutlet UIImageView *memberTwoProfileImage;
 @property (weak, nonatomic) IBOutlet UIImageView *memberThreeProfileImage;
 
-
-
 @end
 
 @implementation PactDetailViewController

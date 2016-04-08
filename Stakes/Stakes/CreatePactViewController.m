@@ -57,8 +57,6 @@
   
     self.dataSource = [JDDDataSource sharedDataSource];
     
-    NSLog( @" current user is %@",self.dataSource.currentUser);
-    
     self.contactsToShow = [[NSMutableArray alloc]init];
     
 }
@@ -79,9 +77,10 @@
         self.createdPact.timeInterval = self.timeIntervalString;
         self.createdPact.checkInsPerTimeInterval = [self.frequanctString integerValue];
         self.createdPact.dateOfCreation = currentDate;
+        
         self.createdPact.users = self.contactsToShow;
         
-        [self sendMessageToInvites];
+//        [self sendMessageToInvites];
         
         [self sendPactToFirebase];
         
@@ -137,8 +136,10 @@
     NSLog(@"%@", self.createdPact.pactID);
     
     // adding chatroom for pact to JDDStakes
-    [[self.dataSource.firebaseRef childByAppendingPath:@"chatrooms"]setValue:self.createdPact.pactID];
-    
+   [[self.dataSource.firebaseRef childByAppendingPath:@"chatrooms"]updateChildValues:@{
+                                                                              [NSString stringWithFormat:@"%@",self.createdPact.pactID]:[NSNumber numberWithBool:YES]
+                                                                              }];
+
     // creating the pact to be sent to Firebase using createDict method
     NSDictionary *finalPactDictionary = [self.dataSource createDictionaryToSendToFirebaseWithJDDPact:self.createdPact];
     
@@ -339,22 +340,23 @@
         
         
         // query Firebase to see if the contactIphone exists
-        Firebase *userRef = [self.dataSource.firebaseRef childByAppendingPath:@"users"];
+        Firebase *usersRef = [self.dataSource.firebaseRef childByAppendingPath:@"users"];
         
-        [userRef observeSingleEventOfType:FEventTypeValue withBlock:^(FDataSnapshot *snapshot) {
+        [usersRef observeSingleEventOfType:FEventTypeValue withBlock:^(FDataSnapshot *snapshot) {
             
             if ([snapshot hasChild:contactPhone]) { // number exists in Firebase
                 
-                NSLog(@"user is : %@",snapshot.value);
-                
-                JDDUser *contactToAdd =[self.dataSource useSnapShotAndCreateUser:snapshot];
-                
-                NSLog(@"user is : %@",contactToAdd.userID);
+                [[usersRef childByAppendingPath:[NSString stringWithFormat:@"%@",contactPhone]] observeSingleEventOfType:FEventTypeValue withBlock:^(FDataSnapshot *snapshot) {
+                    
+                    JDDUser *contactToAdd =[self.dataSource useSnapShotAndCreateUser:snapshot];
+                    
+                    NSLog(@"user is: %@",contactToAdd.userID);
+                    
+                    [self.contactsToShow addObject:contactToAdd];
+                    
+                    NSLog(@"contactToShow: %@",self.contactsToShow);
 
-                [self.contactsToShow addObject:contactToAdd];
-                
-                JDDUser *contact =[self.contactsToShow lastObject];
-                NSLog(@"contactsToShow : %@",contact.phoneNumber);
+                }];
 
             } else {
                 
@@ -367,7 +369,7 @@
                 
                 NSMutableDictionary * dictionary = [self.dataSource createDictionaryToSendToFirebaseWithJDDUser:newUser];
                 
-                [[userRef childByAppendingPath:contactPhone]setValue:dictionary]; //create user in Firebase
+                [[usersRef childByAppendingPath:contactPhone]setValue:dictionary]; //create user in Firebase
                 
                 [self.contactsToShow addObject: newUser]; // add user to contacts to show
                 
@@ -477,33 +479,33 @@ return  NO;
 //Messaging stuff
 //========================================================================================================================================
 
--(void)sendMessageToInvites{
-    if (![MFMessageComposeViewController canSendText]) {
-        NSLog(@"Message services are not available.");
-    }
-    
-    MFMessageComposeViewController* composeVC = [[MFMessageComposeViewController alloc] init];
-    composeVC.messageComposeDelegate = self;
-    
-    // Configure the fields of the interface.
-    composeVC.recipients = self.contacts;
-    composeVC.body = @"Hey Guys I created a pact to hit the gym download the app to keep tracking our progress";
-    
-    // Present the view controller modally.
-//    [self presentViewController:composeVC animated:YES completion:nil];
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [self presentViewController:composeVC animated:YES completion:nil];
-    });
-}
-
--(void)messageComposeViewController:(MFMessageComposeViewController *)controller didFinishWithResult:(MessageComposeResult)result
-{
-    if(result == MessageComposeResultSent) {
-        // ...
-    }
-    
-    [self dismissViewControllerAnimated:YES completion:nil];
-
-}
+//-(void)sendMessageToInvites{
+//    if (![MFMessageComposeViewController canSendText]) {
+//        NSLog(@"Message services are not available.");
+//    }
+//    
+//    MFMessageComposeViewController* composeVC = [[MFMessageComposeViewController alloc] init];
+//    composeVC.messageComposeDelegate = self;
+//    
+//    // Configure the fields of the interface.
+//    composeVC.recipients = self.contacts;
+//    composeVC.body = @"Hey Guys I created a pact to hit the gym download the app to keep tracking our progress";
+//    
+//    // Present the view controller modally.
+////    [self presentViewController:composeVC animated:YES completion:nil];
+//    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//        [self presentViewController:composeVC animated:YES completion:nil];
+//    });
+//}
+//
+//-(void)messageComposeViewController:(MFMessageComposeViewController *)controller didFinishWithResult:(MessageComposeResult)result
+//{
+//    if(result == MessageComposeResultSent) {
+//        // ...
+//    }
+//    
+//    [self dismissViewControllerAnimated:YES completion:nil];
+//
+//}
 
 @end
