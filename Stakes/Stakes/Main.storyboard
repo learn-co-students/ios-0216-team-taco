@@ -52,56 +52,88 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view alpha="0.40000000000000002" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NRs-3V-2dd">
-                                <rect key="frame" x="0.0" y="313" width="375" height="100"/>
+                            <view alpha="0.40000000000000002" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NRs-3V-2dd">
+                                <rect key="frame" x="0.0" y="292" width="375" height="83"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RlZ-du-fW8">
+                                        <rect key="frame" x="158" y="20" width="59" height="44"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="44" id="bvu-tp-E7y"/>
+                                            <constraint firstAttribute="width" constant="59" id="ruF-oC-fTo"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="24"/>
+                                        <state key="normal" title="Login">
+                                            <color key="titleColor" red="0.0" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="loginTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Lbv-lA-IAe"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstItem="RlZ-du-fW8" firstAttribute="centerX" secondItem="NRs-3V-2dd" secondAttribute="centerX" id="NV1-wf-6Lb"/>
+                                    <constraint firstItem="RlZ-du-fW8" firstAttribute="centerY" secondItem="NRs-3V-2dd" secondAttribute="centerY" id="PyS-wk-Lh4"/>
+                                </constraints>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RlZ-du-fW8">
-                                <rect key="frame" x="0.0" y="313" width="375" height="100"/>
-                                <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="24"/>
-                                <state key="normal" title="Login">
-                                    <color key="titleColor" red="0.0" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                </state>
-                                <connections>
-                                    <action selector="loginTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Lbv-lA-IAe"/>
-                                </connections>
-                            </button>
-                            <textField opaque="NO" clipsSubviews="YES" alpha="0.40000000000000002" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="hlr-fx-vps" userLabel="PhoneNumberTextField">
-                                <rect key="frame" x="19" y="237" width="338" height="26"/>
+                            <textField opaque="NO" clipsSubviews="YES" alpha="0.40000000000000002" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="hlr-fx-vps" userLabel="PhoneNumberTextField">
+                                <rect key="frame" x="113" y="237" width="150" height="26"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="150" id="C4U-fG-f1Z"/>
+                                    <constraint firstAttribute="height" constant="26" id="fEd-L4-E9Z"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="20"/>
                                 <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <action selector="phoneNumberEditingChanged:" destination="BYZ-38-t0r" eventType="editingChanged" id="VQY-qF-dA9"/>
+                                    <action selector="phoneNumberEditingDidEnd:" destination="BYZ-38-t0r" eventType="editingDidEnd" id="T2d-uc-gri"/>
+                                </connections>
                             </textField>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Phone" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zLz-az-Jx6">
-                                <rect key="frame" x="163" y="211" width="49" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="5" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zLz-az-Jx6">
+                                <rect key="frame" x="19" y="133" width="338" height="96"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="96" id="61G-SU-9js"/>
+                                </constraints>
+                                <string key="text">Please enter your phone number (digits only).  We will use this to connect you to any pacts you were invited to, or to connect you to any pacts you invite your friends to.</string>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
-                        <color key="backgroundColor" red="0.12941176470588234" green="0.58823529411764708" blue="0.95294117647058818" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="0.42920679819949054" green="0.85611784829822235" blue="0.95294117647058818" alpha="1" colorSpace="calibratedRGB"/>
                         <gestureRecognizers/>
                         <constraints>
-                            <constraint firstItem="RlZ-du-fW8" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="FbM-T3-8GD"/>
-                            <constraint firstItem="zLz-az-Jx6" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="IUa-cu-RYx"/>
-                            <constraint firstItem="NRs-3V-2dd" firstAttribute="centerY" secondItem="RlZ-du-fW8" secondAttribute="centerY" id="LLe-rX-8SS"/>
-                            <constraint firstItem="hlr-fx-vps" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" multiplier="0.9" id="NUR-DQ-jBV"/>
-                            <constraint firstItem="RlZ-du-fW8" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" id="OcW-Hr-D3h"/>
-                            <constraint firstItem="NRs-3V-2dd" firstAttribute="width" secondItem="RlZ-du-fW8" secondAttribute="width" id="QdN-X0-eCd"/>
-                            <constraint firstItem="hlr-fx-vps" firstAttribute="top" secondItem="zLz-az-Jx6" secondAttribute="bottom" constant="5" id="Y4n-Nv-o1c"/>
-                            <constraint firstItem="NRs-3V-2dd" firstAttribute="height" secondItem="RlZ-du-fW8" secondAttribute="height" id="a5F-rc-YL2"/>
-                            <constraint firstItem="RlZ-du-fW8" firstAttribute="height" secondItem="8bC-Xf-vdC" secondAttribute="height" multiplier="0.15" id="iar-zp-Hdj"/>
-                            <constraint firstItem="hlr-fx-vps" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" multiplier="0.75" id="lyX-zf-6pP"/>
-                            <constraint firstItem="NRs-3V-2dd" firstAttribute="centerX" secondItem="RlZ-du-fW8" secondAttribute="centerX" id="rQy-Yf-9cx"/>
-                            <constraint firstItem="hlr-fx-vps" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="wIn-Xb-w2T"/>
+                            <constraint firstItem="NRs-3V-2dd" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="02V-5V-gL3"/>
+                            <constraint firstItem="hlr-fx-vps" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" multiplier="0.75" id="0YR-4i-CC2"/>
+                            <constraint firstItem="NRs-3V-2dd" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="P1i-Mu-ZFN"/>
+                            <constraint firstItem="zLz-az-Jx6" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" multiplier="0.9" id="akl-7B-owd"/>
+                            <constraint firstItem="NRs-3V-2dd" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" id="dR0-LR-Xbf"/>
+                            <constraint firstItem="hlr-fx-vps" firstAttribute="top" secondItem="zLz-az-Jx6" secondAttribute="bottom" constant="8" id="f13-34-WrP"/>
+                            <constraint firstItem="zLz-az-Jx6" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="h95-8E-yLd"/>
+                            <constraint firstItem="NRs-3V-2dd" firstAttribute="height" secondItem="8bC-Xf-vdC" secondAttribute="height" multiplier="0.125" id="kmk-U3-e5o"/>
+                            <constraint firstItem="hlr-fx-vps" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="qpS-n4-XVJ"/>
                         </constraints>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="WFh-zu-wrV" appends="YES" id="N2s-oU-ZGm"/>
+                        </connections>
                     </view>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <connections>
+                        <outlet property="loginButton" destination="RlZ-du-fW8" id="q0k-RO-kqf"/>
+                        <outlet property="loginContainer" destination="NRs-3V-2dd" id="Eiu-Xv-rkR"/>
+                        <outlet property="phoneNumberLabel" destination="zLz-az-Jx6" id="HZi-R1-rXk"/>
                         <outlet property="phoneNumberTextField" destination="hlr-fx-vps" id="6rZ-Ts-qkP"/>
+                        <outlet property="phoneNumberTextFieldWidth" destination="C4U-fG-f1Z" id="fqq-3r-IYd"/>
+                        <outlet property="tapGesture" destination="WFh-zu-wrV" id="yJq-uc-zz9"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="WFh-zu-wrV">
+                    <connections>
+                        <action selector="screenTapped:" destination="BYZ-38-t0r" id="3f4-uP-ja3"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="-194.5" y="1336.5"/>
         </scene>
