@@ -5,24 +5,33 @@
 //  Created by Jeremy Feld on 3/31/16.
 //  Copyright © 2016 JDD. All rights reserved.
 //
+#import <Foundation/Foundation.h>
+
+#import <AFNetworking/UIImageView+AFNetworking.h>
 #import <STTwitter/STTwitter.h>
+
 #import "Constants.h"
 #import "JDDDataSource.h"
 #import "LoginViewController.h"
 #import "Secrets.h"
 #import "TwitterAuthHelper.h"
-#import <Foundation/Foundation.h>
-#import <Security/Security.h>
 
 @interface LoginViewController ()
 
-@property (nonatomic, strong) STTwitterAPI *twitter;
-@property (nonatomic, strong) JDDDataSource *dataSource;
-@property (nonatomic, strong) Firebase *ref;
-@property (nonatomic, strong) TwitterAuthHelper *helper;
+@property (nonatomic, strong) STTwitterAPI *twitterClient;
+@property (nonatomic, strong) JDDDataSource *sharedData;
+@property (nonatomic, strong) Firebase *firebaseReference;
+@property (nonatomic, strong) TwitterAuthHelper *twitterAuthHelper;
 @property (nonatomic, strong) ACAccountStore *accountStore;
-@property (weak, nonatomic) IBOutlet UITextField *tweetField;
-@property (strong, nonatomic) IBOutlet UITextField *phoneNumberTextField;
+@property (nonatomic, strong) NSString *userQuery;
+@property (weak, nonatomic) IBOutlet UIButton *loginButton;
+@property (weak, nonatomic) IBOutlet UILabel *phoneNumberLabel;
+@property (weak, nonatomic) IBOutlet UIView *loginContainer;
+@property (nonatomic, strong) IBOutlet UITextField *phoneNumberTextField;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *phoneNumberTextFieldWidth;
+@property (nonatomic) BOOL userDidRegister;
+@property (nonatomic) BOOL userFoundInFirebase;
+@property (strong, nonatomic) IBOutlet UITapGestureRecognizer *tapGesture;
 
 @end
 
@@ -31,18 +40,193 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.dataSource = [JDDDataSource sharedDataSource];
-    self.ref = self.dataSource.firebaseRef;
-    
-    NSLog(@"current user is: %@", self.dataSource.currentUser.userID);
+    self.sharedData = [JDDDataSource sharedDataSource];
     self.accountStore = [[ACAccountStore alloc] init];
-    NSLog(@"view did load account: %@", [self.accountStore.accounts firstObject]);
+    self.firebaseReference = self.sharedData.firebaseRef;
+    self.userDidRegister = [[NSUserDefaults standardUserDefaults] boolForKey:UserDidRegisterKey];
+    
+    self.phoneNumberTextField.keyboardType = UIKeyboardTypeNumberPad;
+    self.loginButton.enabled = NO;
+    self.userFoundInFirebase = NO;
+    self.loginButton.alpha = 0.5;
+    self.loginContainer.alpha = 0.1;
+    
+    if (self.userDidRegister) {
+        self.phoneNumberTextField.hidden = YES;
+        self.phoneNumberLabel.hidden = YES;
+        [self enableLoginButton];
+    }
 }
 
+#pragma mark - Login and Authentication
 
-- (void)generateAndPresentAlertWithMessage:(NSString *)errorMessage
+- (IBAction)loginTapped:(id)sender
 {
-    UIAlertController *errorAlert = [UIAlertController alertControllerWithTitle:@"Well this is awkward..."
+    if (self.userDidRegister) {
+        self.userQuery = [[NSUserDefaults standardUserDefaults] objectForKey:UserIDKey];
+        [self startAuthProcess];
+    } else {
+        self.userQuery = self.phoneNumberTextField.text;
+        [self checkForUserInFirebase];
+    }
+}
+
+-(void)startAuthProcess
+{
+    self.twitterAuthHelper = [[TwitterAuthHelper alloc] initWithFirebaseRef:self.firebaseReference apiKey:TWITTER_KEY];
+    
+    [self.twitterAuthHelper selectTwitterAccountWithCallback:^(NSError *error, NSArray *accounts) {
+        NSString *message;
+        
+        if (error) {
+            message = [NSString stringWithFormat:@"There was an error logging into Twitter: %@", error.localizedDescription]; // That's cute
+            [self showAlertWithMessage:message];
+            
+        } else if (accounts.count == 0) {
+            message = @"No Twitter accounts found. Please add an account in your phone's settings.";
+            [self showAlertWithMessage:message];
+            
+        } else {
+            [self selectTwitterAccount:accounts];
+        }
+    }];
+}
+
+- (void)selectTwitterAccount:(NSArray *)accounts
+{
+    UIAlertController *selectAccount = [UIAlertController alertControllerWithTitle:@"Please sign-in with a Twitter account:"
+                                                                           message:nil
+                                                                    preferredStyle:UIAlertControllerStyleActionSheet];
+    for (ACAccount *account in accounts) {
+        UIAlertAction *action = [UIAlertAction actionWithTitle:[NSString stringWithFormat:@"@%@", account.username]
+                                                         style:UIAlertActionStyleDefault
+                                                       handler:^(UIAlertAction * _Nonnull action) {
+                                                           [self authenticateInFirebaseWithTwitterAccount:account];
+                                                       }];
+        [selectAccount addAction:action];
+    }
+    
+    UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+        [self dismissViewControllerAnimated:YES completion:nil];
+    }];
+    [selectAccount addAction:cancel];
+    
+    [self presentViewController:selectAccount animated:YES completion:nil];
+}
+
+- (void)authenticateInFirebaseWithTwitterAccount:(ACAccount *)account
+{
+    [self.twitterAuthHelper authenticateAccount:account withCallback:^(NSError *error, FAuthData *authData) {
+        if (error) {
+            NSString *message = [NSString stringWithFormat:@"There was an error authenticating your account: %@", error.localizedDescription];
+            [self showAlertWithMessage:message];
+        } else {
+            if (self.userDidRegister) {
+                [self loginWithiOSAccount:account];
+                
+            } else if (self.userFoundInFirebase){
+                NSDictionary *userDictionary = [self createUserDictionary:authData];
+                JDDUser *user = [self createUserFromData:authData];
+                
+                [[NSUserDefaults standardUserDefaults] setObject:user.userID forKey:UserIDKey];
+                NSLog(@"user exists...setting user default key for user ID: %@", user.userID);
+                
+                [[[self.firebaseReference childByAppendingPath:@"users"] childByAppendingPath:user.userID] updateChildValues:userDictionary];
+                
+                [self loginWithiOSAccount:account];
+                
+            } else {
+                NSDictionary *userDictionary = [self createUserDictionary:authData];
+                JDDUser *user = [self createUserFromData:authData];
+                
+                [[NSUserDefaults standardUserDefaults] setObject:user.userID forKey:UserIDKey];
+                NSLog(@"non-existent user... setting user default key for user ID: %@", user.userID);
+                
+                [[[self.firebaseReference childByAppendingPath:@"users"] childByAppendingPath:user.userID] setValue:userDictionary];
+                
+                [self loginWithiOSAccount:account];
+            }
+        }
+    }];
+}
+
+- (void)loginWithiOSAccount:(ACAccount *)account
+{
+    self.twitterClient = nil;
+    self.twitterClient = [STTwitterAPI twitterAPIOSWithAccount:account delegate:self];
+    
+    [self.twitterClient verifyCredentialsWithUserSuccessBlock:^(NSString *username, NSString *userID) {
+        
+        self.sharedData.twitter = self.twitterClient;
+        
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:LoggedInUserDefaultsKey];
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:UserDidRegisterKey];
+        
+        [[NSNotificationCenter defaultCenter] postNotificationName:UserDidLogInNotificationName object:nil];
+        
+        [self saveAccount:account];
+        
+    } errorBlock:^(NSError *error) {
+        NSLog(@"%@", error.localizedDescription);
+        NSString *message = [NSString stringWithFormat:@"There was an error signing in to Twitter: %@", error.localizedDescription];
+        [self showAlertWithMessage:message];
+    }];
+}
+
+-(void)saveAccount:(ACAccount *)account
+{
+    [self.accountStore saveAccount:account withCompletionHandler:^(BOOL success, NSError *error) {
+        NSLog(@"account saved - identifier: %@", account.identifier);
+        [[NSUserDefaults standardUserDefaults] setObject:account.identifier forKey:AccountIdentifierKey];
+        //        self.accountStore = self.sharedData.accountStore;
+        //dont think i need this ^^
+        
+    }];
+}
+
+#pragma mark - Firebase Methods
+
+-(void)checkForUserInFirebase
+{
+    [[self.firebaseReference childByAppendingPath:@"users"]
+     observeSingleEventOfType:FEventTypeValue withBlock:^(FDataSnapshot *snapshot) {
+         
+         self.userFoundInFirebase = [snapshot hasChild:self.userQuery];
+         NSLog(@"in snapshot thing %@", snapshot.key);
+         NSLog(@"test bool ----- %d", self.userFoundInFirebase);
+         
+         [self startAuthProcess];
+     }];
+    
+}
+
+-(JDDUser *)createUserFromData:(FAuthData *)data
+{
+    JDDUser *newUser = [[JDDUser alloc] init];
+    newUser.userID = self.phoneNumberTextField.text;
+    newUser.twitterHandle = data.providerData[@"username"];
+    newUser.userImageURL = data.providerData[@"profileImageURL"];
+    newUser.displayName = data.providerData[@"displayName"];
+    newUser.phoneNumber = self.phoneNumberTextField.text;
+    
+    return newUser;
+}
+
+-(NSDictionary *)createUserDictionary:(FAuthData *)data
+{
+    return  @{ @"userID" : self.phoneNumberTextField.text,
+               @"profileImageURL" : data.providerData[@"profileImageURL"],
+               @"twitterHandle" : data.providerData[@"username"],
+               @"displayName" : data.providerData[@"displayName"],
+               @"phoneNumber" : self.phoneNumberTextField.text
+               };
+}
+
+#pragma mark - Alerts & Button Enabling
+
+- (void)showAlertWithMessage:(NSString *)errorMessage
+{
+    UIAlertController *errorAlert = [UIAlertController alertControllerWithTitle:@"Uh-oh!"
                                                                         message:errorMessage
                                                                  preferredStyle:UIAlertControllerStyleAlert];
     
@@ -56,138 +240,67 @@
     [self presentViewController:errorAlert animated:YES completion:nil];
 }
 
-- (IBAction)loginTapped:(id)sender
+-(void)enableLoginButton
 {
-    NSLog(@"login tappeD");
-    self.helper = [[TwitterAuthHelper alloc] initWithFirebaseRef:self.ref apiKey:TWITTER_KEY];
-    
-    [self.helper selectTwitterAccountWithCallback:^(NSError *error, NSArray *accounts) {
-        NSLog(@"in helper");
-        NSString *message;
-        
-        if (error) {
-            message = [NSString stringWithFormat:@"Please don't put this in your review, but there was an error logging into Twitter: %@", error.localizedDescription];
-            [self generateAndPresentAlertWithMessage:message];
-            
-        } else if (accounts.count == 0) {
-            message = @"No Twitter accounts found.  Please add an account in your phone's settings.";
-            [self generateAndPresentAlertWithMessage:message];
-            
-        }
-        else {
-            [self selectTwitterAccount:accounts];
-        }
+    self.loginButton.enabled = YES;
+    [UIView animateWithDuration:0.5 animations:^{
+        self.loginContainer.alpha = 0.4;
+        self.loginButton.alpha = 1;
     }];
 }
 
-
-- (void)authenticateWithTwitterAccount:(ACAccount *)account
+-(BOOL)phoneNumberIsValid
 {
-    NSLog(@"in authenticate account method)");
-    [self.helper authenticateAccount:account withCallback:^(NSError *error, FAuthData *authData) {
-        if (error) {
-            // Error authenticating account with Firebase
-            NSString *message = [NSString stringWithFormat:@"Please don't put this in your review, but there was an error authenticating your account: %@", error.localizedDescription];
-            [self generateAndPresentAlertWithMessage:message];
-        } else {
-            // User successfully logged in
-            NSLog(@"Logged in! AUTH DATA!!! %@", authData.auth);
-            
-            NSDictionary *newUser = @{ @"userID" : self.phoneNumberTextField.text,
-                                       @"profileImageURL" : authData.providerData[@"profileImageURL"],
-                                       @"twitterHandle" : authData.providerData[@"username"],
-                                       @"displayName" : authData.providerData[@"displayName"],
-                                       @"phoneNumber" : self.phoneNumberTextField.text
-                                       };
-            
-            JDDUser *new = [[JDDUser alloc] init];
-            new.userID = self.phoneNumberTextField.text;
-
-            new.twitterHandle = authData.providerData[@"username"];
-//            new.userImage = [UIImage imageNamed:@""];
-            new.displayName = authData.providerData[@"displayName"];
-            new.phoneNumber = self.phoneNumberTextField.text;
-            NSLog(@"new user created %@", new);
-            self.dataSource.currentUser = new;
-            
-            NSLog(@"current user is now: %@", self.dataSource.currentUser.userID);
-
-            NSLog(@"NEW USER DICTIONARY: %@", newUser);
-            
-//              this will commit data to Firebase
-    //if we have a registered user, then just update
-            
-            //if its not a registered user, then setvalue
-            [[[self.ref childByAppendingPath:@"users"] childByAppendingPath:self.phoneNumberTextField.text] setValue:newUser];
-
-            [self loginWithiOSAccount:account];
-            
-            NSUserDefaults * userDefaults = [NSUserDefaults standardUserDefaults];
-            [userDefaults setObject:self.phoneNumberTextField.text forKey:@"stakesUserID"];
-            NSLog(@"userDefaults for stakesID is %@",[userDefaults stringForKey:@"stakesUserID"]);
-            
-        }
-    }];
-}
-
-
-- (void)selectTwitterAccount:(NSArray *)accounts
-{
-    UIAlertController *selectUser = [UIAlertController alertControllerWithTitle:@"Please select a Twitter Account"
-                                                                        message:nil
-                                                                 preferredStyle:UIAlertControllerStyleActionSheet];
-    
-    for (ACAccount *account in accounts) {
-        UIAlertAction *action = [UIAlertAction actionWithTitle:account.username
-                                                         style:UIAlertActionStyleDefault
-                                                       handler:^(UIAlertAction * _Nonnull action) {
-                                                           NSLog(@"NOW IS WHEN WE SHOULD GO TO AUTHENITCATE ACOUNT");
-                                                           [self authenticateWithTwitterAccount:account];
-                                                       }];
-        [selectUser addAction:action];
+    NSCharacterSet *numbers = [NSCharacterSet decimalDigitCharacterSet];
+    NSMutableCharacterSet *input = [[NSMutableCharacterSet alloc] init];
+    [input addCharactersInString:self.phoneNumberTextField.text];
+    if (self.phoneNumberTextField.text.length == 10 &&
+        [numbers isSupersetOfSet:input]) {
+        return YES;
     }
-    
-    UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-        [self dismissViewControllerAnimated:YES completion:nil];
-    }];
-    [selectUser addAction:cancel];
-    [self presentViewController:selectUser animated:YES completion:^{
-        //
-    }];
+    return NO;
 }
 
-- (void)loginWithiOSAccount:(ACAccount *)account
+- (IBAction)phoneNumberEditingChanged:(id)sender
 {
-    //STTwitter
-    self.twitter = nil;
-    self.twitter = [STTwitterAPI twitterAPIOSWithAccount:account delegate:self];
-    
-    [self.twitter verifyCredentialsWithUserSuccessBlock:^(NSString *username, NSString *userID) {
-        
-        NSLog(@"ALSO VERIFIED IN STTWITTER!!!!!");
-        self.dataSource.twitter = self.twitter;
-        //here is where we want to launch into the pact screen, once verified in both
-        
-        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:LoggedInUserDefaultsKey];
-        
-        [[NSNotificationCenter defaultCenter] postNotificationName:UserDidLogInNotificationName object:nil];
-        
-        [self.accountStore saveAccount:account withCompletionHandler:^(BOOL success, NSError *error) {
-            NSLog(@"account saved");
-            NSLog(@"account identifier: %@", account.identifier);
-            [[NSUserDefaults standardUserDefaults] setObject:account.identifier forKey:AccountIdentifierKey];
-            self.accountStore = self.dataSource.accountStore;
-            
+    if (self.phoneNumberTextField.text.length == 10 &&
+        ![self phoneNumberIsValid]) {
+        [UIView animateWithDuration:0.33 animations:^{
+            self.phoneNumberTextFieldWidth.constant += 100;
+            self.phoneNumberTextField.backgroundColor = [UIColor redColor];
+        } completion:^(BOOL finished) {
+            self.phoneNumberTextFieldWidth.constant -= 100;
+            self.phoneNumberTextField.backgroundColor = [UIColor whiteColor];
         }];
-        
-    } errorBlock:^(NSError *error) {
-        NSLog(@"%@", error.localizedDescription);
-        NSString *message = [NSString stringWithFormat:@"Please don't put this in your review, but there was an error signing in to Twitter: %@", error.localizedDescription];
-        [self generateAndPresentAlertWithMessage:message];
-    }];
+    }
+    if ([self phoneNumberIsValid]) {
+        [self enableLoginButton];
+    }
+    if (self.phoneNumberTextField.text.length >10 ||
+        self.phoneNumberTextField.text.length < 10) {
+        self.loginButton.enabled = NO;
+        self.userFoundInFirebase = NO;
+        self.loginContainer.alpha = 0.1;
+        self.loginButton.alpha = 0.5;
+    }
 }
 
+- (IBAction)phoneNumberEditingDidEnd:(id)sender
+{
+    if (![self phoneNumberIsValid]) {
+        [UIView animateWithDuration:0.4 animations:^{
+            self.phoneNumberTextFieldWidth.constant += 75;
+            self.phoneNumberTextField.backgroundColor = [UIColor redColor];
+        } completion:^(BOOL finished) {
+            self.phoneNumberTextFieldWidth.constant -= 75;
+            self.phoneNumberTextField.backgroundColor = [UIColor whiteColor];
+        }];
+    }
+}
 
-
+- (IBAction)screenTapped:(id)sender
+{
+    [self.phoneNumberTextField resignFirstResponder];
+}
 
 @end

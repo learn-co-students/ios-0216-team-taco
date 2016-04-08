@@ -17,3 +17,5 @@ extern NSString * const LoginViewControllerStoryboardID;
 extern NSString * const UserPactsViewControllerStoryboardID;
 
 extern NSString * const AccountIdentifierKey;
+extern NSString * const UserDidRegisterKey;
+extern NSString * const UserIDKey;

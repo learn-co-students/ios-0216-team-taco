@@ -17,3 +17,5 @@ NSString * const LoginViewControllerStoryboardID = @"LoginViewController";
 NSString * const UserPactsViewControllerStoryboardID = @"UserPactsViewController";
 
 NSString * const AccountIdentifierKey = @"AccountIdentifier";
+NSString * const UserDidRegisterKey = @"UserDidRegister";
+NSString * const UserIDKey = @"UserID";
