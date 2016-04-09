@@ -22,12 +22,12 @@
 @interface UserPactsViewController () <UITableViewDataSource, UITableViewDelegate>
 @property (weak, nonatomic) IBOutlet FZAccordionTableView *tableView;
 @property (nonatomic, strong) JDDDataSource *dataSource;
-@property (nonatomic, strong) JDDUser * currentUser;
 @property (nonatomic, strong) JDDPact * currentOpenPact;
+@property (nonatomic, strong) NSMutableArray *pacts;
 @property (nonatomic, strong) NSString *pactOAUTH;
 @property (nonatomic, strong) ACAccountStore *accountStore;
 @property (weak, nonatomic) IBOutlet UITextField *tweetTextField;
-
+@property (nonatomic,strong)NSString *currentUserID;
 @property (nonatomic, strong) Firebase *ref;
 @property (nonatomic, strong) STTwitterAPI *twitter;
 @end
@@ -38,16 +38,9 @@
     [super viewDidLoad];
     NSLog(@"view did load in user pacts");
     
-    /*
-     
-     WE NEED TO STORE USER ID IN NSUSERDEFAULTS, HAVE FIREBASE OBSERVE EVENT FOR THAT USER ID
-     
-     WHAT IS GOING TO PERSIST TO KEEP USER LOGGED IN
-     */
-    
-    
     self.dataSource = [JDDDataSource sharedDataSource];
     self.ref = self.dataSource.firebaseRef;
+    self.pacts = [[NSMutableArray alloc]init];
     
     NSLog(@"%@",self.dataSource.currentUser.displayName);
     NSLog(@"%@",self.dataSource.currentUser.twitterHandle);
@@ -56,6 +49,9 @@
     
 //    self.currentOpenPact = self.dataSource.currentUserPacts[0];
 //    self.currentOpenPact.title = @"test";
+    self.dataSource.currentUser.userID = [[NSUserDefaults standardUserDefaults] objectForKey: UserIDKey];
+    self.currentUserID = self.dataSource.currentUser.userID;
+    NSLog(@"currentUserIs %@",self.currentUserID);
     
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
@@ -75,10 +71,24 @@
 //     accessibilityElementDidBecomeFocused:@"login" sender:self];
     
 
+    
     [self setupSwipeGestureRecognizer];
-
-    NSLog(@"TWITTER %@", self.dataSource.twitter);
-    NSLog(@"view did load account: %@", [self.dataSource.accountStore.accounts firstObject]);
+    
+    [self observeEventFromFirebaseWithCompletionBlock:^(BOOL completionBlock) {
+        
+        if (completionBlock == YES) {
+            
+            [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                
+                [self.tableView reloadData];
+                
+                // fire off user thing.
+            }];
+            
+        }
+        
+    }];
+    
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -87,14 +97,59 @@
 //    [thisCell.scrollView setContentOffset:CGPointMake(arc4random_uniform(thisCell.scrollView.frame.size.width), 0) animated:YES];
 
 }
+#pragma method that populates the view from Firebase
 
-
--(void)viewWillAppear:(BOOL)animated {
+-(void)observeEventFromFirebaseWithCompletionBlock:(void(^)(BOOL))completionBlock {
     
-    [self.tableView reloadData];
+    // this observe event will give back snapshot value of @{pactID: BOOL-isActive}
+    [[self.dataSource.firebaseRef childByAppendingPath:[NSString stringWithFormat:@"users/%@/pacts",self.currentUserID]] observeEventType:FEventTypeValue withBlock:^(FDataSnapshot *snapshotForUser) {
+        
+        for (NSString *pactID in [snapshotForUser.value allKeys]) {
+            
+            [[self.dataSource.firebaseRef childByAppendingPath:[NSString stringWithFormat:@"pacts/%@",pactID]] observeEventType:FEventTypeValue withBlock:^(FDataSnapshot *snapshotForPacts) {
+                
+                [self.pacts addObject:[self.dataSource useSnapShotAndCreatePact:snapshotForPacts]];
+                
+                completionBlock(YES);
+
+            }];
+            
+           
+        
+        }
+        
+    } withCancelBlock:^(NSError *error) {
+        NSLog(@"this shit didnt happen: %@", error.description );
+    }];
+    
+    NSLog(@"self.pacts %@",self.pacts);
+    
 }
+//
+//-(void)observeEventForUsersFromFirebaseWithCompletionBlock:(void(^)(BOOL))completionBlock {
+//
+//    for (JDDPact *pact in self.pacts) {
+//        
+//        pact.users //  NSString : BOOL
+//        
+//            
+//            [[self.dataSource.firebaseRef childByAppendingPath:[NSString stringWithFormat:@"users/%@",userID]]observeEventType:FEventTypeValue withBlock:^(FDataSnapshot *snapshot) {
+//                
+//                [self.dataSource useSnapShotAndCreateUser:snapshot];
+//                
+//                
+//                
+//            }];
+//            
+//        
+//        
+//    }
+//
+//}
+
 
 #pragma gestureRecognizers for segues
+
 -(void)setupSwipeGestureRecognizer {
     
     UISwipeGestureRecognizer *swipe = [[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(swipeRightGestureHappened:)];
@@ -116,7 +171,6 @@
     if (scrollView.contentOffset.y < -(self.view.frame.size.height/6)) {
         
         [self performSegueWithIdentifier:@"segueToCreatePact" sender:self];
-        
     }
 }
 
@@ -141,14 +195,14 @@
     
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
-    cell.pact = self.dataSource.currentUserPacts[indexPath.section];
+    cell.pact = self.pacts[indexPath.section];
     
     return cell;
 }
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return self.dataSource.currentUserPacts.count;
+    return self.pacts.count;
 }
 
 
@@ -162,7 +216,7 @@
     
     PactAccordionHeaderView *viewThing = [tableView dequeueReusableHeaderFooterViewWithIdentifier:accordionHeaderReuseIdentifier];
     
-    JDDPact *currentPact = self.dataSource.currentUserPacts[section];
+    JDDPact *currentPact = self.pacts[section];
     
     viewThing.pact = currentPact;
     
@@ -179,7 +233,7 @@
 
 - (void)tableView:(FZAccordionTableView *)tableView didOpenSection:(NSInteger)section withHeader:(UITableViewHeaderFooterView *)header {
     
-    self.currentOpenPact = self.dataSource.currentUserPacts[section];
+    self.currentOpenPact = self.pacts[section];
     
     NSLog(@"did open section %@",self.currentOpenPact.title);
     
@@ -222,6 +276,7 @@
 
 - (IBAction)logoutTapped:(id)sender
 {
+    
     [self.ref unauth];
     NSLog(@"logged out of Firebase");
     self.dataSource.twitter = nil;
@@ -232,7 +287,6 @@
 
 - (IBAction)tweetTapped:(id)sender
 {
-    
     
     NSLog(@"trying to send a tweet");
     NSString *tweet = self.tweetTextField.text;

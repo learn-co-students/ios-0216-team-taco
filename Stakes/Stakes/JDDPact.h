@@ -22,13 +22,14 @@
 @property (nonatomic) NSUInteger checkInsPerTimeInterval;
 @property (nonatomic, strong) NSString *timeInterval;
 @property (nonatomic) BOOL repeating;
+@property (nonatomic, strong)NSMutableArray *checkIns;
 
 //Twitter Stuff
 @property (nonatomic) BOOL allowsShaming;
 @property (nonatomic, strong) NSString *twitterPost;
 
 //Message Stuff
-@property (nonatomic, strong) NSMutableArray *messages;
+@property (nonatomic,strong) NSString *chatRoomID;
 
 #pragma methods
 

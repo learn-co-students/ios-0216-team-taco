@@ -10,9 +10,12 @@
 #import "Constants.h"
 #import "LoginViewController.h"
 #import "UserPactsViewController.h"
+#import "JDDDataSource.h"
+#import "Firebase.h"
 
 @interface MainApplicationViewController ()
 @property (weak, nonatomic) IBOutlet UIView *containerView;
+@property (nonatomic, strong) JDDDataSource *datasource;
 
 @end
 
@@ -21,13 +24,18 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.datasource = [JDDDataSource sharedDataSource];
+    
     //BOOL userIsRegistered =
-     BOOL userIsLoggedIn = [[NSUserDefaults standardUserDefaults] boolForKey:LoggedInUserDefaultsKey];
+    BOOL userIsLoggedIn = [[NSUserDefaults standardUserDefaults] boolForKey:LoggedInUserDefaultsKey];
     
     if(userIsLoggedIn) {
+        
         [self showUserPactsViewController];
     }
+    
     else {
+        
         [self showLoginViewController];
         
     }
@@ -39,6 +47,7 @@
 
 - (void)handleUserLoggedInNotification:(NSNotification *)notification
 {
+    
     [self showUserPactsViewController];
 }
 

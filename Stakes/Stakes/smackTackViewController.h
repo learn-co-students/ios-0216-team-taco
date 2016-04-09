@@ -10,7 +10,7 @@
 #import <JSQMessagesViewController/JSQMessages.h>
 #import "JSQMessages.h"
 #import "JDDDataSource.h"
-#import "JDDMessage.h"
+#import "JDDChatRoom.h"
 #import "Firebase.h"
 #import "JDDPact.h"
 
@@ -21,10 +21,7 @@
 
 @property (nonatomic, strong)NSMutableArray *messages;
 @property (nonatomic, strong) JDDDataSource *dataSource;
-@property (nonatomic, strong) JDDPact *currentPact; // this has to be sent over from UserPactsViewVC in a prepare for segue.
-
-//- (void)receiveMessagePressed:(UIBarButtonItem *)sender;
-//
-//- (void)closePressed:(UIBarButtonItem *)sender;
+@property (nonatomic, strong) JDDChatRoom *chatroom;
+@property (nonatomic, strong) JDDPact *currentPact;
 
 @end

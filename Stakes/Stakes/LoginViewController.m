@@ -123,12 +123,18 @@
             NSString *message = [NSString stringWithFormat:@"There was an error authenticating your account: %@", error.localizedDescription];
             [self showAlertWithMessage:message];
         } else {
-            if (self.userDidRegister) {
+            if (self.userDidRegister) { // this person has registered the app at some point in time
+                
                 [self loginWithiOSAccount:account];
                 
-            } else if (self.userFoundInFirebase){
+                self.sharedData.currentUser = [self createUserFromData:authData];
+                
+            } else if (self.userFoundInFirebase){ // this person exists in firebase
+                
                 NSDictionary *userDictionary = [self createUserDictionary:authData];
                 JDDUser *user = [self createUserFromData:authData];
+                
+                self.sharedData.currentUser = user; // this is setting the current user
                 
                 [[NSUserDefaults standardUserDefaults] setObject:user.userID forKey:UserIDKey];
                 NSLog(@"user exists...setting user default key for user ID: %@", user.userID);
@@ -137,9 +143,12 @@
                 
                 [self loginWithiOSAccount:account];
                 
-            } else {
+            } else { // this is a totally new user
+                
                 NSDictionary *userDictionary = [self createUserDictionary:authData];
                 JDDUser *user = [self createUserFromData:authData];
+                
+                self.sharedData.currentUser = user; // this is setting the current user
                 
                 [[NSUserDefaults standardUserDefaults] setObject:user.userID forKey:UserIDKey];
                 NSLog(@"non-existent user... setting user default key for user ID: %@", user.userID);

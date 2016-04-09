@@ -14,14 +14,4 @@
 
 @implementation JDDPact
 
-//
-//-(BOOL)determineIfPactIsActive {
-//    
-//    
-//    
-//}
-
-//-(void)resetCheckinCount;
-//-(void)tweetShameMessage;
-
 @end

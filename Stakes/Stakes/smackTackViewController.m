@@ -30,9 +30,8 @@
     self.dataSource = [JDDDataSource sharedDataSource];
     
     self.senderId = self.dataSource.currentUser.userID;
-    self.senderDisplayName = self.dataSource.currentUser.displayName;
     
-    self.messageRef = [self.dataSource.firebaseRef childByAppendingPath:@"messages"];
+    self.messageRef = [self.dataSource.firebaseRef childByAppendingPath:[NSString stringWithFormat:@"chatRoom/%@",self.currentPact.pactID]];
     
     [self setupBubbles];
     
@@ -40,13 +39,13 @@
 
 - (id<JSQMessageData>)collectionView:(JSQMessagesCollectionView *)collectionView messageDataForItemAtIndexPath:(NSIndexPath *)indexPath {
     
-    return self.messages[indexPath.item];
+    return self.chatroom.messages[indexPath.item];
     
 }
 
 -(id<JSQMessageBubbleImageDataSource>)collectionView:(JSQMessagesCollectionView *)collectionView messageBubbleImageDataForItemAtIndexPath:(NSIndexPath *)indexPath {
     
-    JSQMessage *message =  self.messages[indexPath.item];
+    JSQMessage *message =  self.chatroom.messages[indexPath.item];
 
     if (message.senderId == self.dataSource.currentUser.userID) {
         
@@ -71,37 +70,38 @@
 
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     
-    return self.currentPact.messages.count;
+    return self.chatroom.messages.count;
+    return 1;
 }
 
--(id<JSQMessageAvatarImageDataSource>)collectionView:(JSQMessagesCollectionView *)collectionView avatarImageDataForItemAtIndexPath:(NSIndexPath *)indexPath {
-    
-    JSQMessage * message = self.currentPact.messages[indexPath.row];
-    
-    for (JDDUser * user in self.currentPact.users) {
-        
-        if ([message.senderId isEqualToString:user.userID]) {
-            
-            return [JSQMessagesAvatarImage avatarWithImage:user.userImage];
-            
-        }
-        
-    }
-    
-    return nil; 
-    
-}
+//-(id<JSQMessageAvatarImageDataSource>)collectionView:(JSQMessagesCollectionView *)collectionView avatarImageDataForItemAtIndexPath:(NSIndexPath *)indexPath {
+//    
+//    JSQMessage * message = self.currentPact.messages[indexPath.row];
+//    
+//    for (JDDUser * user in self.currentPact.users) {
+//        
+//        if ([message.senderId isEqualToString:user.userID]) {
+//            
+//            return [JSQMessagesAvatarImage avatarWithImage:user.userImage];
+//            
+//        }
+//        
+//    }
+//    
+//    return nil; 
+//    
+//}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
 }
 
--(void)addMessage:(NSString*)stringFromTextField{
+-(void)addMessage:(NSString*)stringFromTextField withUser: (NSString *)userID andDisplayName:(NSString *)displayName{
     
-    JSQMessage *message = [[JSQMessage alloc]initWithSenderId:self.dataSource.currentUser.userID senderDisplayName:self.dataSource.currentUser.displayName
+    JSQMessage *message = [[JSQMessage alloc]initWithSenderId:userID senderDisplayName:displayName
                                                          date:[NSDate date] text:stringFromTextField];
     
-    [self.currentPact.messages addObject:message];
+    [self.chatroom.messages addObject:message];
     
 }
 
@@ -111,8 +111,8 @@
     
     NSDictionary * message = @{ @"text": text,
                                 @"userID":self.dataSource.currentUser.userID,
-                                @"twitterHandle": self.dataSource.currentUser.twitterHandle,
-//                                @"pactID":self.currentPact.pactID
+                                @"displayName": self.dataSource.currentUser.displayName,
+                                @"pactID":self.currentPact.pactID
                                 };
     
     [itemRef setValue:message];
@@ -120,6 +120,25 @@
     [self finishSendingMessage];
     
 }
+
+-(void)observeMessages {
+    
+    FQuery *query = [self.messageRef queryLimitedToLast:25];
+    
+    [query observeEventType:FEventTypeChildAdded withBlock:^(FDataSnapshot *snapshot) {
+        
+        NSString *userID = snapshot.value[@"userID"];
+        NSString *text = snapshot.value[@"text"];
+        NSString *displayName = snapshot.value[@"displayName"];
+        
+        [self addMessage:text withUser:userID andDisplayName:displayName];
+        
+        [self finishReceivingMessage];
+        
+    }];
+    
+}
+
 
 - (BOOL)composerTextView:(JSQMessagesComposerTextView *)textView shouldPasteWithSender:(id)sender
 {
@@ -133,7 +152,7 @@
                                                               date:[NSDate date]
                                                              media:item];
         
-        [self.currentPact.messages addObject:message];
+        [self.chatroom.messages addObject:message];
         
         [self finishSendingMessage];
         

@@ -25,15 +25,8 @@
 
 //Pacts
 @property (nonatomic, strong) NSMutableArray *pacts;
-@property (nonatomic, strong) NSMutableArray *pendingPacts;
-@property (nonatomic, strong) NSMutableArray *pactHistory;
-@property (nonatomic, strong) NSMutableArray *checkins;
 
 #pragma methods
 
-//-(void)createNewPact;
-//-(void)checkInToPact:(JDDPact*)pact;
-//-(void)deletePact;
-//-(void)acceptPact;
 
 @end
