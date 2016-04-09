@@ -55,6 +55,7 @@
     NSLog(@"%lu",self.dataSource.currentUser.pacts.count);
     
 //    self.currentOpenPact = self.dataSource.currentUserPacts[0];
+//    self.currentOpenPact.title = @"test";
     
     self.tableView.delegate = self;
     self.tableView.dataSource = self;

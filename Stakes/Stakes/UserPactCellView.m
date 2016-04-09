@@ -13,6 +13,7 @@
 #import "JSQLocationMediaItem.h"
 #import "UserDescriptionView.h"
 #import "Firebase.h"
+#import "Constants.h"
 
 @interface UserPactCellView () 
 
@@ -82,6 +83,14 @@
     
 }
 
+
+
+
+
+
+
+//location geo delagates methods.
+//=====================================================================================================================
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error {
     // The location "unknown" error simply means the manager is currently unable to get the location.
     if ([error code] != kCLErrorLocationUnknown) {
@@ -136,18 +145,21 @@
 -(void)setShitUp {
     
     
+
     if (self.sharedData.users == nil) {
         if (self.stackViewWidth.constant == 0) {
             CGFloat userViewWidth = 100;//self.scrollView.bounds.size.width / 2;
             CGFloat userViewHeight = self.scrollView.bounds.size.height;
+//            self.sharedData.firebaseRef addListe
             NSUInteger count = 5;
             CGFloat stackViewWidth = userViewWidth * count;
             self.stackViewWidth.constant = stackViewWidth;
-            
-            [self.sharedData.firebaseRef observeEventType:FEventTypeValue withBlock:^(FDataSnapshot *snapshot) {
-                NSLog(@"users %@",snapshot.value[@"users"][self.sharedData.currentUser.userID]);
-                       self.sharedData.currentUser.
-                       } ];
+            [self.sharedData.firebaseRef observeEventType:FEventTypeChildAdded withBlock:^(FDataSnapshot *snapshot) {
+//                NSLog(@"users %@",snapshot.value[@"users"][]);
+                NSLog(@"pacts %@",snapshot.value[@"pacts"]);
+
+            }];
+//                       self.sharedData.currentUser.
             
             for (NSUInteger i = 0; i < count; i++) {
                 UserDescriptionView *view = [[UserDescriptionView alloc] initWithFrame:CGRectMake(0, 0, userViewWidth, userViewHeight)];
@@ -163,6 +175,10 @@
         NSUInteger count = self.sharedData.users.count;
         CGFloat stackViewWidth = userViewWidth * count;
         self.stackViewWidth.constant = stackViewWidth;
+        
+        NSString *currentUserIdString =[[NSUserDefaults standardUserDefaults] stringForKey:UserIDKey];
+        NSLog(@"User id is %@", currentUserIdString);
+
         
         for (NSUInteger i = 0; i < count; i++) {
             UserDescriptionView *view = [[UserDescriptionView alloc] initWithFrame:CGRectMake(0, 0, userViewWidth, userViewHeight)];

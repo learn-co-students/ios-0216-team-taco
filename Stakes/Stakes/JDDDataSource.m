@@ -271,7 +271,7 @@
     user.userID = snapshot.value[@"userID"];
     user.userImage = image.image;
     user.twitterHandle = snapshot.value[@"twitterHandle"];
-    user.displayName = snapshot.value[@"userID"];
+    user.displayName = snapshot.value[@"displayName"];
     user.phoneNumber = snapshot.value[@"phoneNumber"];
     
     self.twitter = [[STTwitterAPI alloc]init];

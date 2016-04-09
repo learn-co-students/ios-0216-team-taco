@@ -88,12 +88,11 @@
         
         
         [self sendMessageToInvites];
-            
+        
         [self sendPactToFirebase];
         
         [self dismissViewControllerAnimated:YES completion:nil];
 
-//        [self sendMessageToInvites];
 
         
     } else {

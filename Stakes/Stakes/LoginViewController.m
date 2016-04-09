@@ -22,6 +22,8 @@
 @property (nonatomic, strong) JDDDataSource *sharedData;
 @property (nonatomic, strong) Firebase *firebaseReference;
 @property (nonatomic, strong) TwitterAuthHelper *twitterAuthHelper;
+
+
 @property (nonatomic, strong) ACAccountStore *accountStore;
 @property (nonatomic, strong) NSString *userQuery;
 @property (weak, nonatomic) IBOutlet UIButton *loginButton;
