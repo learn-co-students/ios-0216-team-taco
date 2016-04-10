@@ -73,7 +73,22 @@
                 
                 [self.tableView reloadData];
                 
-                // fire off user thing.
+                [self observeEventForUsersFromFirebaseWithCompletionBlock:^(BOOL block) {
+                    
+                    if (completionBlock == YES) {
+                        
+                        [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                            
+                            [self.tableView reloadData];
+                            
+                            JDDPact *thingToShow = self.pacts[2];
+                            JDDUser *user = thingToShow.usersToShowInApp[0];
+                            NSLog(@"%@",thingToShow.usersToShowInApp);
+
+                        }];
+                    }
+                }];
+                
             }];
         }
     }];
@@ -93,9 +108,8 @@
                 }
             }];
             
-            
+
         }
-        
     }];
     
     
@@ -178,28 +192,46 @@
     
 //    NSLog(@"self.pacts %@",self.pacts);
     
+
+
 }
-//
-//-(void)observeEventForUsersFromFirebaseWithCompletionBlock:(void(^)(BOOL))completionBlock {
-//
-//    for (JDDPact *pact in self.pacts) {
-//        
-//        pact.users //  NSString : BOOL
-//        
-//            
-//            [[self.dataSource.firebaseRef childByAppendingPath:[NSString stringWithFormat:@"users/%@",userID]]observeEventType:FEventTypeValue withBlock:^(FDataSnapshot *snapshot) {
-//                
-//                [self.dataSource useSnapShotAndCreateUser:snapshot];
-//                
-//                
-//                
-//            }];
-//            
-//        
-//        
-//    }
-//
-//}
+
+// this method is populating the users in the pact so we can use Twitter info etc. in the UserPactVC. Everything is saved in
+-(void)observeEventForUsersFromFirebaseWithCompletionBlock:(void(^)(BOOL))completionBlock {
+
+    for (JDDPact *pact in self.pacts) {
+        pact.usersToShowInApp = [[NSMutableArray alloc] init];
+
+        // getting the userID information
+        for (NSString *user in pact.users) { // Q to ask Teachers = why is this returning a string not a dictionary?? This is weird.
+            
+            NSLog(@"The pact is %@ and the UserID is %@",pact.title, user);
+//            NSArray *things = [user allKeys];
+//            NSLog(@"\n\n\n\n\n\n\n%@\n\n\n\n\n\n", things);
+//            NSDictionary *stuff = @{ @"hello":@"stuff",
+//                                     @"mere":@"cat"};
+//            NSArray *stuffArray = [stuff allKeys];
+//            NSLog(@"\n\n\n\n\n\n\n%@\n\n\n\n\n\n", stuffArray);
+
+            // querying firebase and creating user
+            Firebase *ref = [self.dataSource.firebaseRef childByAppendingPath:[NSString stringWithFormat:@"users/%@",user]];
+            NSLog(@"%@",ref.description);
+            [ref observeEventType:FEventTypeValue  withBlock:^(FDataSnapshot *snapshot) {
+                
+                // create the user and then add to array that will power the userView
+                JDDUser *pactUser = [self.dataSource useSnapShotAndCreateUser:snapshot];
+                [pact.usersToShowInApp addObject:pactUser];
+                
+                NSLog(@"%@",pactUser.displayName);
+                
+                completionBlock(YES);
+            }];
+        
+        }
+        
+    }
+
+}
 
 
 #pragma gestureRecognizers for segues
