@@ -15,6 +15,7 @@
 
 @interface UserPactCellView () 
 
+@property (weak, nonatomic) IBOutlet UIButton *pendingButton;
 @property (strong, nonatomic) IBOutlet UILabel *name1;
 @property (strong, nonatomic) IBOutlet UILabel *name2;
 @property (strong, nonatomic) IBOutlet UILabel *name3;
@@ -131,78 +132,31 @@
 -(void)setPact:(JDDPact *)pact{
     _pact = pact;
     
-//    [self setShitUp];
+    [self setShitUp];
 }
 
 
-//-(void)setShitUp {
-//    
-//    // here we are going to have to create new views programatically and add in users in the pact. (probably with a custom xib) This is a sloppy way of doing it for the MVP to get something on screen
-//    
-//    for (JDDUser *user in self.pact.users) {
-//        
-//        if ([user isEqual:self.pact.users[0]]) {
-//            
-//            self.name1.text = user.firstName;
-//            self.name1Image.image = user.userImage;
-//            
-//            for (JDDCheckIn * checkIn in user.checkins) {
-//                
-//                NSMutableArray *goodCount = [[NSMutableArray alloc]init];
-//                
-//                if ([checkIn.pact isEqual:self.pact]) {
-//                    
-//                    [goodCount addObject:checkIn];
-//
-//                }
-//                self.name1checkIns.text = [NSString stringWithFormat:@"%lu",goodCount.count];
-//
-//            }
-//            
-//        } else if ([user isEqual:self.pact.users[1]]) {
-//            
-//            self.name2.text = user.firstName;
-//            self.name2Image.image = user.userImage;
-//            
-//            for (JDDCheckIn * checkIn in user.checkins) {
-//                
-//                NSMutableArray *goodCount = [[NSMutableArray alloc]init];
-//                
-//                if ([checkIn.pact isEqual:self.pact]) {
-//                    
-//                    [goodCount addObject:checkIn];
-//                    
-//                }
-//                self.name2checkIns.text = [NSString stringWithFormat:@"%lu",goodCount.count];
-//                
-//            }
-//            
-//        } else if ([user isEqual:self.pact.users[2]]) {
-//            
-//            self.name3.text = user.firstName;
-//            self.name3Image.image = user.userImage;
-//            
-//            for (JDDCheckIn * checkIn in user.checkins) {
-//                
-//                NSMutableArray *goodCount = [[NSMutableArray alloc]init];
-//                
-//                if ([checkIn.pact isEqual:self.pact]) {
-//                    
-//                    [goodCount addObject:checkIn];
-//                    
-//                }
-//                self.name3checkIns.text = [NSString stringWithFormat:@"%lu",goodCount.count];
-//                
-//            }
-//        }
-//        
-//        self.pactTitle.text = @"Pact";
-//        self.pactDetail.text = self.pact.pactDescription;
-//        self.stakesTitle.text = @"Stakes";
-//        self.stakesDetail.text = self.pact.stakes;
-//        
-//    }
-//    
-//}
+-(void)setShitUp {
+    
+    // here we are going to have to create new views programatically and add in users in the pact. (probably with a custom xib) This is a sloppy way of doing it for the MVP to get something on screen
+    
+        
+    
+            self.name1.text = @"wtf";
+//            self.name1Image.image = ;
+        self.name1checkIns.text = @"2";
+        self.pactTitle.text = @"Pact";
+        self.pactDetail.text = @"description";
+        self.stakesTitle.text = @"Stakes";
+        self.stakesDetail.text = @"stakes";
+        
+    
+}
+- (IBAction)pendingButtonTapped:(id)sender
+{
+    
+    NSLog(@"pending tappeD");
+    
+}
 
 @end

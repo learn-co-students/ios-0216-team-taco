@@ -20,16 +20,18 @@
 #import "Constants.h"
 
 @interface UserPactsViewController () <UITableViewDataSource, UITableViewDelegate>
+
 @property (weak, nonatomic) IBOutlet FZAccordionTableView *tableView;
 @property (nonatomic, strong) JDDDataSource *dataSource;
 @property (nonatomic, strong) JDDPact * currentOpenPact;
 @property (nonatomic, strong) NSMutableArray *pacts;
-@property (nonatomic, strong) NSString *pactOAUTH;
 @property (nonatomic, strong) ACAccountStore *accountStore;
 @property (weak, nonatomic) IBOutlet UITextField *tweetTextField;
 @property (nonatomic,strong)NSString *currentUserID;
 @property (nonatomic, strong) Firebase *ref;
 @property (nonatomic, strong) STTwitterAPI *twitter;
+@property (nonatomic, strong) NSMutableArray *allUserPactIDs;
+
 @end
 
 @implementation UserPactsViewController
@@ -37,11 +39,16 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     NSLog(@"view did load in user pacts");
-    
+    self.accountStore = [[ACAccountStore alloc] init];
+    ACAccount *account =  [self.accountStore accountWithIdentifier:AccountIdentifierKey];
+    [self.accountStore renewCredentialsForAccount:account completion:^(ACAccountCredentialRenewResult renewResult, NSError *error) {
+        NSLog(@"error renewing account credentials: %@", error.localizedDescription);
+    }];
+    self.twitter = [STTwitterAPI twitterAPIOSWithAccount:account delegate:self];
     self.dataSource = [JDDDataSource sharedDataSource];
     self.ref = self.dataSource.firebaseRef;
     self.pacts = [[NSMutableArray alloc]init];
-    
+    self.allUserPactIDs = [[NSMutableArray alloc]init];
     self.dataSource.currentUser.userID = [[NSUserDefaults standardUserDefaults] objectForKey: UserIDKey];
     self.currentUserID = self.dataSource.currentUser.userID;
     NSLog(@"currentUserIs %@",self.currentUserID);
@@ -59,9 +66,8 @@
     
     [self setupSwipeGestureRecognizer];
     
-    [self observeEventFromFirebaseWithCompletionBlock:^(BOOL completionBlock) {
-        
-        if (completionBlock == YES) {
+    [self updateCurrentUserDetailsWithCompletionBlock:^(BOOL completion) {
+        if (completion == YES) {
             
             [[NSOperationQueue mainQueue] addOperationWithBlock:^{
                 
@@ -69,11 +75,72 @@
                 
                 // fire off user thing.
             }];
+        }
+    }];
+    [self observeEventFromFirebaseWithCompletionBlock:^(BOOL completionBlock) {
+        
+        if (completionBlock == YES) {
+            
+            
+            [self updateAllUsersWithCompletionBlock:^(BOOL completionBlock) {
+                if (completionBlock == YES) {
+                    [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                        
+                        [self.tableView reloadData];
+                        
+                        // fire off user thing.
+                    }];
+                }
+            }];
+            
             
         }
         
     }];
     
+    
+}
+
+#pragma - observe events for user, user pacts, pacts/users
+
+-(void)updateCurrentUserDetailsWithCompletionBlock:(void(^)(BOOL))completionBlock
+{
+    [[self.dataSource.firebaseRef childByAppendingPath:self.currentUserID] observeEventType:FEventTypeChildChanged withBlock:^(FDataSnapshot *snapshot) {
+        NSLog(@"SNAPSHOT FOR THE CURRENT USER: %@", snapshot.value);
+        completionBlock(YES);
+    }];
+}
+
+-(void)updateAllUsersWithCompletionBlock:(void(^)(BOOL))completionBlock
+{
+    for (NSString *pactID in self.allUserPactIDs) {
+        
+        
+        [[[[self.dataSource.firebaseRef childByAppendingPath:@"pacts"]
+           childByAppendingPath:pactID]
+          childByAppendingPath:@"users"]
+         observeEventType:FEventTypeValue
+         withBlock:^(FDataSnapshot *snapshot) {
+             //get the users from a snapshot
+             //make an observe event for those users
+             
+             NSLog(@"getting other users: snapshot.value allKeys: %@", [snapshot.value allKeys]);
+             
+             for (NSString *userToMonitor in [snapshot.value allKeys]) {
+                 [[[self.dataSource.firebaseRef childByAppendingPath:@"users"] childByAppendingPath:userToMonitor] observeEventType:FEventTypeValue withBlock:^(FDataSnapshot *snapshotForOtherUsers) {
+                     
+      //we can monitor any changes to other users here if we pull them from firebase
+                     NSLog(@"OTHER USERS snapshot: %@", snapshotForOtherUsers.value);
+                     
+                     
+                     completionBlock(YES);
+                     
+                     
+                 }];
+             }
+         }];
+    }
+
 }
 
 #pragma method that populates the view from Firebase
@@ -83,25 +150,33 @@
     // this observe event will give back snapshot value of @{pactID: BOOL-isActive}
     [[self.dataSource.firebaseRef childByAppendingPath:[NSString stringWithFormat:@"users/%@/pacts",self.currentUserID]] observeEventType:FEventTypeValue withBlock:^(FDataSnapshot *snapshotForUser) {
         
-        for (NSString *pactID in [snapshotForUser.value allKeys]) {
+        if (snapshotForUser.value != [NSNull null]) {
+//            NSLog(@"GETTING USERS PACTS: HERE ARE ALLKEYS FOR SNAPSHOTFORUSER: %@", [snapshotForUser.value allKeys]);
+            for (NSString *pactID in [snapshotForUser.value allKeys]) {
+                [[self.dataSource.firebaseRef childByAppendingPath:[NSString stringWithFormat:@"pacts/%@",pactID]] observeEventType:FEventTypeValue withBlock:^(FDataSnapshot *snapshotForPacts) {
+//                    NSLog(@"WE ARE IN 2nd OBSERVE EVENT, HERE IS SNAPSHOT FOR EACH PACT: %@", snapshotForPacts.value);
+                    
+                    //making array of all pacts to set up observe events for the users in those pacts
+                    [self.allUserPactIDs addObject:pactID];
+                    NSLog(@"alluserpactids: %@", self.allUserPactIDs);
+                    
+                    
+                    [self.pacts addObject:[self.dataSource useSnapShotAndCreatePact:snapshotForPacts]];
+//                    NSLog(@"THIS IS THE LOCAL ARRAY OF PACTS: %@", self.pacts);
+                    completionBlock(YES);
+                    
+                    
+                }];
+            }
             
-            [[self.dataSource.firebaseRef childByAppendingPath:[NSString stringWithFormat:@"pacts/%@",pactID]] observeEventType:FEventTypeValue withBlock:^(FDataSnapshot *snapshotForPacts) {
-                
-                [self.pacts addObject:[self.dataSource useSnapShotAndCreatePact:snapshotForPacts]];
-                
-                completionBlock(YES);
-
-            }];
             
-           
-        
         }
         
     } withCancelBlock:^(NSError *error) {
         NSLog(@"this shit didnt happen: %@", error.description );
     }];
     
-    NSLog(@"self.pacts %@",self.pacts);
+//    NSLog(@"self.pacts %@",self.pacts);
     
 }
 //
@@ -268,7 +343,7 @@
     
     NSLog(@"trying to send a tweet");
     NSString *tweet = self.tweetTextField.text;
-    [self.dataSource.twitter postStatusUpdate:tweet
+    [self.twitter postStatusUpdate:tweet
                             inReplyToStatusID:nil
                                      latitude:nil
                                     longitude:nil
