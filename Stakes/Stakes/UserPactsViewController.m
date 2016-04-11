@@ -18,6 +18,7 @@
 #import "LoginViewController.h"
 #import "smackTackViewController.h"
 #import "Constants.h"
+#import <AFNetworking/UIImageView+AFNetworking.h>
 
 @interface UserPactsViewController () <UITableViewDataSource, UITableViewDelegate>
 
@@ -31,6 +32,7 @@
 @property (nonatomic, strong) Firebase *ref;
 @property (nonatomic, strong) STTwitterAPI *twitter;
 @property (nonatomic, strong) NSMutableArray *allUserPactIDs;
+@property (nonatomic) BOOL currentPactIsActive;
 
 @end
 
@@ -39,18 +41,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     NSLog(@"view did load in user pacts");
-    self.accountStore = [[ACAccountStore alloc] init];
-    ACAccount *account =  [self.accountStore accountWithIdentifier:AccountIdentifierKey];
-    [self.accountStore renewCredentialsForAccount:account completion:^(ACAccountCredentialRenewResult renewResult, NSError *error) {
-        NSLog(@"error renewing account credentials: %@", error.localizedDescription);
-    }];
-    self.twitter = [STTwitterAPI twitterAPIOSWithAccount:account delegate:self];
     self.dataSource = [JDDDataSource sharedDataSource];
     self.ref = self.dataSource.firebaseRef;
     self.pacts = [[NSMutableArray alloc]init];
     self.allUserPactIDs = [[NSMutableArray alloc]init];
-    self.dataSource.currentUser.userID = [[NSUserDefaults standardUserDefaults] objectForKey: UserIDKey];
-    self.currentUserID = self.dataSource.currentUser.userID;
+    self.currentUserID = [[NSUserDefaults standardUserDefaults] objectForKey: UserIDKey];
     NSLog(@"currentUserIs %@",self.currentUserID);
     
     self.tableView.delegate = self;
@@ -61,7 +56,7 @@
     self.tableView.scrollEnabled = YES;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLineEtched;
     
-    [self.tableView registerNib:[UINib nibWithNibName:@"UserPactCellView" bundle:nil] forCellReuseIdentifier:@"basicCell"];
+    [self.tableView registerNib:[UINib nibWithNibName:@"UserPactCellView" bundle:nil] forCellReuseIdentifier:@"userPact"];
     [self.tableView registerNib:[UINib nibWithNibName:@"PactAccordionHeaderView" bundle:nil] forHeaderFooterViewReuseIdentifier:accordionHeaderReuseIdentifier];
     
     [self setupSwipeGestureRecognizer];
@@ -75,7 +70,7 @@
                 
                 [self observeEventForUsersFromFirebaseWithCompletionBlock:^(BOOL block) {
                     
-                    if (completionBlock == YES) {
+                    if (completion == YES) {
                         
                         [[NSOperationQueue mainQueue] addOperationWithBlock:^{
                             
@@ -112,15 +107,24 @@
         }
     }];
     
-    
+//    self.accountStore = [[ACAccountStore alloc] init];
+//    NSLog(@"accountstore accounts %@", self.accountStore.accounts);
+//    ACAccount *account =  [[ACAccount alloc] init];
+//    account = [self.accountStore accountWithIdentifier:AccountIdentifierKey];
+//    [self.accountStore renewCredentialsForAccount:account completion:^(ACAccountCredentialRenewResult renewResult, NSError *error) {
+//        NSLog(@"error renewing account credentials: %@", error.localizedDescription);
+//    }];
+//    self.twitter = [STTwitterAPI twitterAPIOSWithAccount:account delegate:self];
+    self.currentPactIsActive = NO;
 }
 
 #pragma - observe events for user, user pacts, pacts/users
 
 -(void)updateCurrentUserDetailsWithCompletionBlock:(void(^)(BOOL))completionBlock
 {
-    [[self.dataSource.firebaseRef childByAppendingPath:self.currentUserID] observeEventType:FEventTypeChildChanged withBlock:^(FDataSnapshot *snapshot) {
+    [[self.dataSource.firebaseRef childByAppendingPath:[NSString stringWithFormat:@"users/%@", self.currentUserID ]] observeEventType:FEventTypeValue withBlock:^(FDataSnapshot *snapshot) {
         NSLog(@"SNAPSHOT FOR THE CURRENT USER: %@", snapshot.value);
+        self.dataSource.currentUser = [self.dataSource useSnapShotAndCreateUser:snapshot];
         completionBlock(YES);
     }];
 }
@@ -138,13 +142,13 @@
              //get the users from a snapshot
              //make an observe event for those users
              
-             NSLog(@"getting other users: snapshot.value allKeys: %@", [snapshot.value allKeys]);
+             NSLog(@"this gets all users for a pact, including current: snapshot.value allKeys: %@", [snapshot.value allKeys]);
              
              for (NSString *userToMonitor in [snapshot.value allKeys]) {
                  [[[self.dataSource.firebaseRef childByAppendingPath:@"users"] childByAppendingPath:userToMonitor] observeEventType:FEventTypeValue withBlock:^(FDataSnapshot *snapshotForOtherUsers) {
                      
       //we can monitor any changes to other users here if we pull them from firebase
-                     NSLog(@"OTHER USERS snapshot: %@", snapshotForOtherUsers.value);
+                     NSLog(@"all users snapshot: %@", snapshotForOtherUsers.value);
                      
                      
                      completionBlock(YES);
@@ -165,10 +169,10 @@
     [[self.dataSource.firebaseRef childByAppendingPath:[NSString stringWithFormat:@"users/%@/pacts",self.currentUserID]] observeEventType:FEventTypeValue withBlock:^(FDataSnapshot *snapshotForUser) {
         
         if (snapshotForUser.value != [NSNull null]) {
-//            NSLog(@"GETTING USERS PACTS: HERE ARE ALLKEYS FOR SNAPSHOTFORUSER: %@", [snapshotForUser.value allKeys]);
+            NSLog(@"GETTING USERS PACTS: HERE ARE ALLKEYS FOR SNAPSHOTFORUSER: %@", [snapshotForUser.value allKeys]);
             for (NSString *pactID in [snapshotForUser.value allKeys]) {
                 [[self.dataSource.firebaseRef childByAppendingPath:[NSString stringWithFormat:@"pacts/%@",pactID]] observeEventType:FEventTypeValue withBlock:^(FDataSnapshot *snapshotForPacts) {
-//                    NSLog(@"WE ARE IN 2nd OBSERVE EVENT, HERE IS SNAPSHOT FOR EACH PACT: %@", snapshotForPacts.value);
+                    NSLog(@"WE ARE IN 2nd OBSERVE EVENT, HERE IS SNAPSHOT FOR EACH PACT: %@", snapshotForPacts.value);
                     
                     //making array of all pacts to set up observe events for the users in those pacts
                     [self.allUserPactIDs addObject:pactID];
@@ -176,7 +180,7 @@
                     
                     
                     [self.pacts addObject:[self.dataSource useSnapShotAndCreatePact:snapshotForPacts]];
-//                    NSLog(@"THIS IS THE LOCAL ARRAY OF PACTS: %@", self.pacts);
+                    NSLog(@"THIS IS THE LOCAL ARRAY OF PACTS: %@", self.pacts);
                     completionBlock(YES);
                     
                     
@@ -263,7 +267,7 @@
 #pragma stuff for tableView
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 550;
+    return 400;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
@@ -277,13 +281,81 @@
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UserPactCellView * cell = [tableView dequeueReusableCellWithIdentifier:@"basicCell" forIndexPath:indexPath];
+    UserPactCellView * cell = [tableView dequeueReusableCellWithIdentifier:@"userPact"forIndexPath:indexPath];
+    
+//    if (!cell) {
+//        [tableView registerNib:[UINib nibWithNibName:@"UserPactCellView" bundle:nil] forCellReuseIdentifier:@"userPact"];
+//        cell = [tableView dequeueReusableCellWithIdentifier:@"userPact" forIndexPath:indexPath];
+//    }
     
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
+    
     cell.pact = self.pacts[indexPath.section];
     
+    [[self.ref childByAppendingPath:[NSString stringWithFormat:@"pacts/%@/users", cell.pact.pactID]] observeEventType:FEventTypeValue withBlock:^(FDataSnapshot *snapshot) {
+        NSLog(@"snapshot value for current user %@", snapshot.value[self.currentUserID]);
+        if ([snapshot.value[self.currentUserID] isEqualToNumber:@1]) {
+            
+            cell.pendingButton.hidden = YES;
+        }
+    }];
+    
+    cell.name1.text = self.dataSource.currentUser.displayName;
+    NSLog(@"\n\n\n\n\n\n\n\n\n %@", self.dataSource.currentUser.userImageURL);
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:self.dataSource.currentUser.userImageURL]];
+    [cell.name1Image setImageWithURLRequest:request placeholderImage:nil success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
+        NSLog(@"got an image");
+    } failure:nil];
+    //    cell.name1Image.image = image;
+    cell.name1checkIns.text = @"x";
+    cell.pactDetail.text = cell.pact.pactDescription;
+    cell.stakesDetail.text = cell.pact.stakes;
+    
+    cell.name2.text = @"test";
+    //    cell.name2Image.image = cell.pact.users[1].userImage;
+    cell.name2checkIns.text = @"x";
+    
+    cell.name3.text = @"";
+    //    cell.name3Image.image = @"";
+    cell.name3checkIns.text = @"";
+    
+    
+    
+    
     return cell;
+}
+
+-(void)tableView:(UITableView *)tableView willDisplayCell:(UserPactCellView *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+//    cell.pact = self.pacts[indexPath.section];
+//
+//    [[self.ref childByAppendingPath:[NSString stringWithFormat:@"pacts/%@/users", cell.pact.pactID]] observeEventType:FEventTypeValue withBlock:^(FDataSnapshot *snapshot) {
+//        NSLog(@"snapshot value for current user %@", snapshot.value[self.currentUserID]);
+//        if ([snapshot.value[self.currentUserID] isEqualToNumber:@1]) {
+//
+//            cell.pendingButton.hidden = YES;
+//        }
+//    }];
+//
+//    cell.name1.text = self.dataSource.currentUser.displayName;
+//    NSLog(@"\n\n\n\n\n\n\n\n\n %@", self.dataSource.currentUser.userImageURL);
+//    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:self.dataSource.currentUser.userImageURL]];
+//    [cell.name1Image setImageWithURLRequest:request placeholderImage:nil success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
+//        NSLog(@"got an image");
+//    } failure:nil];
+////    cell.name1Image.image = image;
+//    cell.name1checkIns.text = @"x";
+//    cell.pactDetail.text = cell.pact.pactDescription;
+//    cell.stakesDetail.text = cell.pact.stakes;
+//    
+//        cell.name2.text = @"test";
+//    //    cell.name2Image.image = cell.pact.users[1].userImage;
+//    cell.name2checkIns.text = @"x";
+//    
+//    cell.name3.text = @"";
+//    //    cell.name3Image.image = @"";
+//    cell.name3checkIns.text = @"";
 }
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -352,13 +424,6 @@
     }
 }
 
-
-- (IBAction)loginTapped:(id)sender {
-    [self performSegueWithIdentifier:@"login" sender:self];
-    
-    //this is temporary, will eventually have a different login flow using container view
-}
-
 - (IBAction)logoutTapped:(id)sender
 {
     
@@ -375,7 +440,7 @@
     
     NSLog(@"trying to send a tweet");
     NSString *tweet = self.tweetTextField.text;
-    [self.twitter postStatusUpdate:tweet
+    [self.dataSource.twitter postStatusUpdate:tweet
                             inReplyToStatusID:nil
                                      latitude:nil
                                     longitude:nil

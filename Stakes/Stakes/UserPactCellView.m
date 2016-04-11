@@ -15,24 +15,6 @@
 
 @interface UserPactCellView () 
 
-@property (weak, nonatomic) IBOutlet UIButton *pendingButton;
-@property (strong, nonatomic) IBOutlet UILabel *name1;
-@property (strong, nonatomic) IBOutlet UILabel *name2;
-@property (strong, nonatomic) IBOutlet UILabel *name3;
-@property (strong, nonatomic) IBOutlet UILabel *pactTitle;
-@property (strong, nonatomic) IBOutlet UILabel *pactDetail;
-@property (strong, nonatomic) IBOutlet UILabel *stakesTitle;
-@property (strong, nonatomic) IBOutlet UILabel *stakesDetail;
-@property (strong, nonatomic) IBOutlet UIImageView *name1Image;
-@property (strong, nonatomic) IBOutlet UIImageView *name2Image;
-@property (strong, nonatomic) IBOutlet UIImageView *name3Image;
-@property (strong, nonatomic) IBOutlet UILabel *name1checkIns;
-@property (strong, nonatomic) IBOutlet UILabel *name2checkIns;
-@property (strong, nonatomic) IBOutlet UILabel *name3checkIns;
-@property (strong, nonatomic) IBOutlet UIButton *checkInButton;
-
-
-
 @end
 
 @implementation UserPactCellView
@@ -132,30 +114,37 @@
 -(void)setPact:(JDDPact *)pact{
     _pact = pact;
     
-    [self setShitUp];
+    [self setUpCell];
 }
 
 
--(void)setShitUp {
+-(void)setUpCell {
     
     // here we are going to have to create new views programatically and add in users in the pact. (probably with a custom xib) This is a sloppy way of doing it for the MVP to get something on screen
+//    
+//    for (JDDUser *user in self.pact.users) {
+//        
+//        self.name1.text = self.pact.users[0].displayName;
+//        self.name1Image.image = self.pact.users[0].userImage;
+//        self.name1checkIns.text = @"1";
+//        self.pactTitle.text = @"Pact";
+//        self.pactDetail.text = self.pact.pactDescription;
+//        self.stakesTitle.text = @"Stakes";
+//        self.stakesDetail.text = self.pact.stakes;
+//        
+//        
+//    }
     
-        
-    
-            self.name1.text = @"wtf";
-//            self.name1Image.image = ;
-        self.name1checkIns.text = @"2";
         self.pactTitle.text = @"Pact";
-        self.pactDetail.text = @"description";
         self.stakesTitle.text = @"Stakes";
-        self.stakesDetail.text = @"stakes";
-        
-    
 }
+
 - (IBAction)pendingButtonTapped:(id)sender
 {
     
     NSLog(@"pending tappeD");
+    [[[[self.sharedData.firebaseRef childByAppendingPath:@"pacts"] childByAppendingPath:self.pact.pactID] childByAppendingPath:@"users"] updateChildValues:@{self.sharedData.currentUser.userID : [NSNumber numberWithBool:YES] }];
+    //update child value for //
     
 }
 

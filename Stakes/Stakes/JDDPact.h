@@ -7,6 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <Firebase/Firebase.h>
+#import "JDDUser.h"
 
 @interface JDDPact : NSObject
 
@@ -14,7 +16,7 @@
 @property (nonatomic, strong) NSString *title;
 @property (nonatomic, strong) NSString * pactDescription;
 @property (nonatomic, strong) NSString *stakes;
-@property (nonatomic, strong) NSMutableArray *users;
+@property (nonatomic, strong) NSMutableArray <JDDUser *> *users;
 @property (nonatomic, strong) NSMutableArray *usersToShowInApp;
 @property (nonatomic, assign) NSString *pactID; // this should be the unique identifier for a pact throughout the application - and what gets writted to firebase.
 @property (nonatomic, assign) NSDate *dateOfCreation;
@@ -34,7 +36,8 @@
 
 #pragma methods
 
-//-(BOOL)determineIfPactIsActive;
+//-(BOOL)isPact:(NSString *)pactID
+//activeForUser:(NSString *)userID;
 
 @end
 

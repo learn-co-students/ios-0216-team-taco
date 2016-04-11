@@ -85,7 +85,7 @@
         UIImageView * image = [[UIImageView alloc]init];
         [image setImageWithURL:[NSURL URLWithString:snapshot.value[@"profileImageURL"]]];
         user.userImage = image.image;
-
+        user.userImageURL = snapshot.value[@"profileImageURL"];
     }
     
     if (snapshot.value[@"twitterHandle"]){
