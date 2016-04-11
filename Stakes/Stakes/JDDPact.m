@@ -25,11 +25,11 @@
         _usersToShowInApp = [NSMutableArray new];
         _pactID = @"";
         _dateOfCreation = [NSDate date];
-        _timeInterval = @"";
+        _timeInterval = @"Week";
         _checkIns = [NSMutableArray new];
         _twitterPost = @"";
         _chatRoomID = @"";
-    
+        _checkInsPerTimeInterval = 2;
     }
     
     return self;

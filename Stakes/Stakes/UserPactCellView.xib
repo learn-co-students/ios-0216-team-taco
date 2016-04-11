@@ -35,6 +35,7 @@
                         <color key="backgroundColor" red="0.78513579840000003" green="0.78513579840000003" blue="0.78513579840000003" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="qnM-K3-FJV" firstAttribute="centerX" secondItem="lXg-mD-AyU" secondAttribute="centerX" id="DJb-YW-8KZ"/>
+                            <constraint firstAttribute="trailing" secondItem="Qh7-IN-dMW" secondAttribute="trailing" constant="253" id="PGC-Sq-GW1"/>
                             <constraint firstItem="Qh7-IN-dMW" firstAttribute="centerY" secondItem="lXg-mD-AyU" secondAttribute="centerY" id="TD7-6K-AOp"/>
                             <constraint firstItem="qnM-K3-FJV" firstAttribute="centerY" secondItem="lXg-mD-AyU" secondAttribute="centerY" multiplier="0.3" id="TIV-SZ-F6R"/>
                             <constraint firstItem="Qh7-IN-dMW" firstAttribute="centerX" secondItem="lXg-mD-AyU" secondAttribute="centerX" id="dsC-b9-0Ha"/>
@@ -90,7 +91,6 @@
                                 </constraints>
                             </scrollView>
                         </subviews>
-                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="DD1-Oy-i1H" secondAttribute="trailing" id="0g6-s7-hYy"/>
                             <constraint firstItem="DD1-Oy-i1H" firstAttribute="top" secondItem="INh-BL-tfG" secondAttribute="top" id="Nky-Pk-bwZ"/>
@@ -138,12 +138,16 @@
             <connections>
                 <outlet property="checkInButton" destination="fNE-ht-DP7" id="qda-J8-Igz"/>
                 <outlet property="pactDetail" destination="PDr-HD-w4Y" id="k2l-Ri-n7O"/>
+                <outlet property="pactDetailLabel" destination="PDr-HD-w4Y" id="R1Z-bJ-ih8"/>
                 <outlet property="pactTitle" destination="Rei-sv-p0M" id="3gG-os-veO"/>
+                <outlet property="pactTitleLabel" destination="Rei-sv-p0M" id="Udw-Wz-gQf"/>
                 <outlet property="scrollView" destination="DD1-Oy-i1H" id="E9i-GQ-Mwo"/>
                 <outlet property="stackView" destination="CaQ-jF-mQY" id="VUB-8x-LlW"/>
                 <outlet property="stackViewHeight" destination="zd9-el-EK2" id="ZU1-Js-Ay3"/>
                 <outlet property="stackViewWidth" destination="kpd-FM-p2U" id="abQ-w3-Zia"/>
                 <outlet property="stakesDetail" destination="Qh7-IN-dMW" id="7PP-gy-EBw"/>
+                <outlet property="stakesDetailLabel" destination="Qh7-IN-dMW" id="eSc-eq-foU"/>
+                <outlet property="stakesLabel" destination="qnM-K3-FJV" id="Aa4-TN-LkO"/>
                 <outlet property="stakesTitle" destination="qnM-K3-FJV" id="F7z-kS-99Z"/>
             </connections>
             <point key="canvasLocation" x="679" y="-225.5"/>
