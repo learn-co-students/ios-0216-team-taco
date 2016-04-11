@@ -9,7 +9,7 @@
 #import "JDDPact.h"
 
 @interface JDDPact ()
-
+@property (nonatomic, strong) Firebase *ref;
 @end
 
 @implementation JDDPact
@@ -34,5 +34,6 @@
     
     return self;
 }
+
 
 @end

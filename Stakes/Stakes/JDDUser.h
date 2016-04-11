@@ -20,12 +20,14 @@
 @property (nonatomic, strong) UIImage *userImage;
 @property (nonatomic, strong) NSString *userImageURL;
 
+
 //App Info
 @property (nonatomic, strong) NSString *userID;
 
 //Pacts
 @property (nonatomic, strong) NSMutableArray *pacts;
 @property (nonatomic, strong) NSMutableArray *pactsToShowInApp;
+@property (nonatomic, strong) NSMutableArray *checkIns;
 
 #pragma methods
 

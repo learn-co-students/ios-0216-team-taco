@@ -18,18 +18,20 @@
 #import "LoginViewController.h"
 #import "smackTackViewController.h"
 #import "Constants.h"
+#import <AFNetworking/UIImageView+AFNetworking.h>
+#import "UserDescriptionView.h"
 
 @interface UserPactsViewController () <UITableViewDataSource, UITableViewDelegate>
+
 @property (weak, nonatomic) IBOutlet FZAccordionTableView *tableView;
 @property (nonatomic, strong) JDDDataSource *dataSource;
 @property (nonatomic, strong) JDDPact * currentOpenPact;
-@property (nonatomic, strong) NSMutableArray *pacts;
-@property (nonatomic, strong) NSString *pactOAUTH;
 @property (nonatomic, strong) ACAccountStore *accountStore;
 @property (weak, nonatomic) IBOutlet UITextField *tweetTextField;
 @property (nonatomic,strong)NSString *currentUserID;
 @property (nonatomic, strong) Firebase *ref;
 @property (nonatomic, strong) STTwitterAPI *twitter;
+
 @end
 
 @implementation UserPactsViewController
@@ -37,13 +39,20 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     NSLog(@"view did load in user pacts");
-    
     self.dataSource = [JDDDataSource sharedDataSource];
     self.ref = self.dataSource.firebaseRef;
     self.pacts = [[NSMutableArray alloc]init];
+    self.allUserPactIDs = [[NSMutableArray alloc]init];
+    self.currentUserID = [[NSUserDefaults standardUserDefaults] objectForKey: UserIDKey];
     
-    NSLog(@"currentUserIs %@",self.dataSource.currentUser.userID);
+//    NSLog(@"%@",self.dataSource.currentUser.displayName);
+//    NSLog(@"%@",self.dataSource.currentUser.twitterHandle);
+//
+//    NSLog(@"%lu",self.dataSource.currentUser.pacts.count);
+//    
+//    NSLog(@"currentUserIs %@",self.dataSource.currentUser.userID);
     self.currentOpenPact = self.dataSource.currentUser.pactsToShowInApp[0];
+
 
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
@@ -53,14 +62,33 @@
     self.tableView.scrollEnabled = YES;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLineEtched;
     
-    [self.tableView registerNib:[UINib nibWithNibName:@"UserPactCellView" bundle:nil] forCellReuseIdentifier:@"basicCell"];
+    [self.tableView registerNib:[UINib nibWithNibName:@"UserPactCellView" bundle:nil] forCellReuseIdentifier:@"userPact"];
     [self.tableView registerNib:[UINib nibWithNibName:@"PactAccordionHeaderView" bundle:nil] forHeaderFooterViewReuseIdentifier:accordionHeaderReuseIdentifier];
     
     [self setupSwipeGestureRecognizer];
     
  }
 
+    self.accountStore = [[ACAccountStore alloc] init];
+    NSLog(@"accountstore accounts %@", self.accountStore.accounts);
+    NSString *accountKey = [[NSUserDefaults standardUserDefaults] objectForKey:AccountIdentifierKey];
+    ACAccount *account =  [self.accountStore accountWithIdentifier:accountKey];
+    NSLog(@"account %@", account);
+    self.twitter = [STTwitterAPI twitterAPIOSWithAccount:account delegate:self];
+    self.currentPactIsActive = NO;
+}
+
+#pragma - observe events for user, user pacts, pacts/users
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    NSLog(@"selectedCell:%ld", indexPath.section);
+    UserPactCellView *thisCell = [self.tableView cellForRowAtIndexPath:indexPath];
+
+}
+
 #pragma method that populates the view from Firebase
+
 
 
 #pragma gestureRecognizers for segues
@@ -92,7 +120,7 @@
 #pragma stuff for tableView
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 550;
+    return 400;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
@@ -101,12 +129,12 @@
 
 -(BOOL)prefersStatusBarHidden
 {
-    return YES;
+    return NO;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UserPactCellView * cell = [tableView dequeueReusableCellWithIdentifier:@"basicCell" forIndexPath:indexPath];
+    UserPactCellView * cell = [tableView dequeueReusableCellWithIdentifier:@"userPact"forIndexPath:indexPath];
     
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
@@ -114,6 +142,7 @@
     
     return cell;
 }
+
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
@@ -128,28 +157,29 @@
 
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-    
-    PactAccordionHeaderView *viewThing = [tableView dequeueReusableHeaderFooterViewWithIdentifier:accordionHeaderReuseIdentifier];
-    
     JDDPact *currentPact = self.dataSource.currentUser.pactsToShowInApp[section];
+
+    PactAccordionHeaderView *accordianHeaderView = [tableView dequeueReusableHeaderFooterViewWithIdentifier:accordionHeaderReuseIdentifier];
     
-    viewThing.pact = currentPact;
+
+    [accordianHeaderView setPact:currentPact];
     
-    return viewThing;
+    return accordianHeaderView;
     
 }
+
 
 #pragma mark - <FZAccordionTableViewDelegate> -
 
 - (void)tableView:(FZAccordionTableView *)tableView willOpenSection:(NSInteger)section withHeader:(UITableViewHeaderFooterView *)header {
-    
 }
 
 - (void)tableView:(FZAccordionTableView *)tableView didOpenSection:(NSInteger)section withHeader:(UITableViewHeaderFooterView *)header {
     
     self.currentOpenPact = self.dataSource.currentUser.pactsToShowInApp[section];
-    
-    NSLog(@"currentOpenPactIs %@",self.currentOpenPact.title);
+//    
+//
+//    header.textLabel.text = self.currentOpenPact.title;
     
 }
 
@@ -179,13 +209,6 @@
         
         // don't do anything
     }
-}
-
-
-- (IBAction)loginTapped:(id)sender {
-    [self performSegueWithIdentifier:@"login" sender:self];
-    
-    //this is temporary, will eventually have a different login flow using container view
 }
 
 - (IBAction)logoutTapped:(id)sender

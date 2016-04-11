@@ -21,5 +21,24 @@
 @property(nonatomic, strong) CLLocationManager *locationManager;
 @property (nonatomic, strong) JDDDataSource *sharedData;
 @property (nonatomic, strong) JDDCheckIn *CheckIn;
+@property (weak, nonatomic) IBOutlet UIStackView *stackView;
+
+-(void)setShitUp;
+
+@property (weak, nonatomic) IBOutlet UIButton *pendingButton;
+@property (strong, nonatomic) IBOutlet UILabel *name1;
+@property (strong, nonatomic) IBOutlet UILabel *name2;
+@property (strong, nonatomic) IBOutlet UILabel *name3;
+@property (strong, nonatomic) IBOutlet UILabel *pactTitle;
+@property (strong, nonatomic) IBOutlet UILabel *pactDetail;
+@property (strong, nonatomic) IBOutlet UILabel *stakesTitle;
+@property (strong, nonatomic) IBOutlet UILabel *stakesDetail;
+@property (strong, nonatomic) IBOutlet UIImageView *name1Image;
+@property (strong, nonatomic) IBOutlet UIImageView *name2Image;
+@property (strong, nonatomic) IBOutlet UIImageView *name3Image;
+@property (strong, nonatomic) IBOutlet UILabel *name1checkIns;
+@property (strong, nonatomic) IBOutlet UILabel *name2checkIns;
+@property (strong, nonatomic) IBOutlet UILabel *name3checkIns;
+@property (strong, nonatomic) IBOutlet UIButton *checkInButton;
 
 @end

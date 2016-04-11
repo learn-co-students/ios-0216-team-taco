@@ -8,6 +8,7 @@ pod 'FZAccordionTableView', '~> 0.1.2'
 pod 'Firebase', '>= 2.5.1'
 pod 'JSQMessagesViewController'
 pod 'STTwitter'
+pod 'Masonry'
 pod ‘AFNetworking’
 end
 

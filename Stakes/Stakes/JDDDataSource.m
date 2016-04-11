@@ -8,8 +8,9 @@
 
 #import "JDDDataSource.h"
 #import "UIImageView+AFNetworking.h"
-
+#import "Constants.h"
 @import UIKit;
+
 
 
 @implementation JDDDataSource
@@ -36,6 +37,7 @@
         
         [self setUpFireBaseRef];
         self.currentUser = [[JDDUser alloc]init];
+        self.User = [[JDDUser alloc]init];
         self.twitter = [[STTwitterAPI alloc]init];
 
     }
@@ -69,7 +71,7 @@
 -(void)setUpFireBaseRef {
     
     self.firebaseRef = [[Firebase alloc]initWithUrl:@"https://jddstakes.firebaseio.com/"];
-        
+
 }
 
 -(JDDUser *)useSnapShotAndCreateUser:(FDataSnapshot *)snapshot {
@@ -79,12 +81,13 @@
     user.userID = snapshot.value[@"userID"];
     user.displayName = snapshot.value[@"displayName"];
     user.phoneNumber = snapshot.value[@"phoneNumber"];
-        
+    
     if (snapshot.value[@"profileImageURL"]) {
         
         UIImageView * image = [[UIImageView alloc]init];
         [image setImageWithURL:[NSURL URLWithString:snapshot.value[@"profileImageURL"]]];
         user.userImage = image.image;
+        user.userImageURL = snapshot.value[@"profileImageURL"];
 
     }
     
@@ -93,11 +96,11 @@
         user.twitterHandle = snapshot.value[@"twitterHandle"];
         
     }
-
+    
     if(snapshot.value[@"pacts"]) {
         
         user.pacts = (NSMutableArray *)snapshot.value[@"pacts"];
-    
+
     }
     
     if(snapshot.value[@"pactHistory"]) {
@@ -114,6 +117,7 @@
     
     return user;
 }
+
 
 -(JDDPact *)useSnapShotAndCreatePact:(FDataSnapshot*)snapshot {
     
