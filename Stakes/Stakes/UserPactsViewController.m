@@ -72,6 +72,13 @@
     self.twitter = [STTwitterAPI twitterAPIOSWithAccount:account delegate:self];
 }
 
+-(void)viewWillAppear:(BOOL)animated{
+    
+    
+    [self.tableView reloadData];
+    
+}
+
 #pragma - observe events for user, user pacts, pacts/users
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -150,6 +157,7 @@
 
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    
     JDDPact *currentPact = self.dataSource.currentUser.pactsToShowInApp[section];
 
     PactAccordionHeaderView *accordianHeaderView = [tableView dequeueReusableHeaderFooterViewWithIdentifier:accordionHeaderReuseIdentifier];
@@ -170,9 +178,6 @@
 - (void)tableView:(FZAccordionTableView *)tableView didOpenSection:(NSInteger)section withHeader:(UITableViewHeaderFooterView *)header {
     
     self.currentOpenPact = self.dataSource.currentUser.pactsToShowInApp[section];
-//    
-//
-//    header.textLabel.text = self.currentOpenPact.title;
     
 }
 

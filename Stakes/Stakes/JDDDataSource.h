@@ -32,8 +32,6 @@
 
 -(void)setUpFireBaseRef;
 
--(JDDPact*)createPactForFirstTimeUser;
-
 -(JDDPact*)createDemoPact;
 
 -(JDDUser *)useSnapShotAndCreateUser:(FDataSnapshot *)snapshot;
@@ -46,6 +44,7 @@
 
 -(NSMutableDictionary*)createDictionaryToSendToFirebaseWithJDDPact:(JDDPact*)pact;
 
+-(NSMutableDictionary*)createDictionaryToSendToFirebaseWithJDDCheckIn:(JDDCheckIn*)checkin;
 
 @end
 

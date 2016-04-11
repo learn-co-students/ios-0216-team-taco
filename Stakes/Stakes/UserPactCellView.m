@@ -17,8 +17,6 @@
 
 @interface UserPactCellView () 
 
-
-
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (weak, nonatomic) IBOutlet UIStackView *stackView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *stackViewWidth;
@@ -31,55 +29,62 @@
 @property (weak, nonatomic) IBOutlet UILabel *stakesLabel;
 @property (weak, nonatomic) IBOutlet UILabel *stakesDetailLabel;
 
+
 @end
 
 @implementation UserPactCellView
 
 //=============================================================================================================================
 
-
-
-
-
 - (IBAction)checkInButtonPressed:(id)sender {
        
     NSLog(@"checkin Button Pressed");
+    self.pact.checkIns = [[NSMutableArray alloc]init];
 
+    self.checkIn = [[JDDCheckIn alloc]init];
+    NSDate * now = [NSDate date];
+    self.checkIn.userID = self.sharedData.currentUser.userID;
+    self.checkIn.checkInDate = now;
     
+    Firebase *checkinRef = [self.sharedData.firebaseRef childByAppendingPath:[NSString stringWithFormat:@"pacts/%@/checkins",self.pact.pactID]];
+    
+    Firebase *newCheckin = [checkinRef childByAutoId];
+    
+     self.checkIn.checkInID = [newCheckin.description stringByReplacingOccurrencesOfString:checkinRef.description withString:@""];
+    
+    NSMutableDictionary *finalCheckinDictionary = [self.sharedData createDictionaryToSendToFirebaseWithJDDCheckIn:self.checkIn];
+    
+    [newCheckin setValue:finalCheckinDictionary];
+    
+//    
 //    self.locationManager = [[CLLocationManager alloc]init];
 //    self.locationManager.desiredAccuracy = kCLLocationAccuracyBest;
-//    
-//    [self.locationManager startUpdatingLocation]; // after creating JSQMEssageLocationData, call method below
-//    
-//    _locationManager = [[CLLocationManager alloc] init];
 //    self.locationManager.delegate = self;
-//  
 //    [self.locationManager requestWhenInUseAuthorization];
-//    
 //    if ([self.locationManager respondsToSelector:@selector
 //         (requestWhenInUseAuthorization)]) {
 //        [self.locationManager requestWhenInUseAuthorization];
 //    }
-//    [self.locationManager startUpdatingLocation];
-
-    self.CheckIn = [[JDDCheckIn alloc]init];
-    NSDate *now = [NSDate date];
-
-//    self.CheckIn.checkInDate = now;
-//    self.CheckIn.checkInMessage = @"";
-//    self.CheckIn.checkInLocation = [[CLLocation alloc]init];;
-//    self.CheckIn.userID = self.sharedData.currentUser.userID;
-//    self.CheckIn.pactID = self.pact.pactID;
 //    
-//    [self.sharedData.currentUser.checkins addObject:self.CheckIn];
+//    [self.locationManager startUpdatingLocation];
+//
+//    Firebase *itemRef = [[self.sharedData.firebaseRef childByAppendingPath:[NSString stringWithFormat:@"chatrooms/%@",self.pact.pactID]] childByAutoId];
+//    
+//    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
+//    [dateFormatter setDateFormat:@"yyyy'-'MM'-'dd'-'hh:mm'"];
+//    
+//    NSDictionary *LocationToSendToFirebase = @{
+//                                               @"senderID" : self.sharedData.currentUser.userID,
+//                                               @"date" : [dateFormatter stringFromDate:[NSDate date]],
+//                                               @"longitude" : self.locationManager
+//                                               };
+//    
+//    
+//    
+//    [itemRef setValue:LocationToSendToFirebase];
     
+
 }
-
-
-
-
-
-
 
 //location geo delagates methods.
 //=====================================================================================================================
@@ -92,7 +97,6 @@
 
 -(void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
 {
-//    NSLog(@"location info object=%@", [locations lastObject]);
     NSString *latitude = @"";
     NSString *longitude = @"";
     CLLocation *crnLoc = [locations lastObject];
@@ -105,13 +109,6 @@
 
 }
 //===================================================================================================================
-
-
-
-
-
-
-
 
 - (void)awakeFromNib {
     
@@ -130,54 +127,8 @@
 -(void)setPact:(JDDPact *)pact{
     _pact = pact;
     [self setShitUp];
-//    [self setUpCell];
 }
 
-
-//-(void)setUpCell {
-//    
-//    // here we are going to have to create new views programatically and add in users in the pact. (probably with a custom xib) This is a sloppy way of doing it for the MVP to get something on screen
-//
-//        self.pactTitle.text = @"Pact";
-//        self.stakesTitle.text = @"Stakes";
-//    
-//    
-//    [[self.sharedData.firebaseRef childByAppendingPath:[NSString stringWithFormat:@"pacts/%@/users", self.pact.pactID]] observeEventType:FEventTypeValue withBlock:^(FDataSnapshot *snapshot) {
-//        NSLog(@"snapshot value for current user %@", snapshot.value[self.sharedData.currentUser.userID]);
-//        if ([snapshot.value[self.sharedData.currentUser.userID] isEqualToNumber:@1]) {
-//            self.pendingButton.hidden = YES;
-//        }
-//    }];
-//    
-//    
-//    
-//    NSLog(@"self.pact.users in userpactcellview %@", self.pact.users);
-//    //this is a dictionary and we only have phone numbers
-//
-//    self.name1.text = @"";
-//    //    cell.name1Image.image = image;
-//    self.name1checkIns.text = @"x";
-//    self.pactDetail.text = self.pact.pactDescription;
-//    self.stakesDetail.text = self.pact.stakes;
-//    
-//    self.name2.text = @"";
-//    //    cell.name2Image.image = cell.pact.users[1].userImage;
-//    self.name2checkIns.text = @"x";
-//    
-//    self.name3.text = @"";
-//    //    cell.name3Image.image = @"";
-//    self.name3checkIns.text = @"";
-//    
-//}
-
-- (IBAction)pendingButtonTapped:(id)sender
-{
-    
-    NSLog(@"pending tappeD");
-    [[[[self.sharedData.firebaseRef childByAppendingPath:@"pacts"] childByAppendingPath:self.pact.pactID] childByAppendingPath:@"users"] updateChildValues:@{self.sharedData.currentUser.userID : [NSNumber numberWithBool:YES] }];
-    //update child value for //
-
-}
 
 
 -(void)setShitUp {
@@ -209,6 +160,7 @@
     [self.stakesDetail sizeToFit];
     self.stakesDetail.text = [NSString stringWithFormat:@"%lu per %@ \n to keep the pact",self.pact.checkInsPerTimeInterval,self.pact.timeInterval];
     
+
 }
 
 @end

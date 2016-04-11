@@ -20,7 +20,9 @@
 @property (nonatomic) JDDPact *pact;
 @property(nonatomic, strong) CLLocationManager *locationManager;
 @property (nonatomic, strong) JDDDataSource *sharedData;
-@property (nonatomic, strong) JDDCheckIn *CheckIn;
+@property (nonatomic, strong) JDDCheckIn *checkIn;
+@property (weak, nonatomic) IBOutlet UIStackView *stackView;
+@property (nonatomic,strong) Firebase *firebase;
 
 
 -(void)setShitUp;
