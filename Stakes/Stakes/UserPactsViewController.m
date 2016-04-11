@@ -41,10 +41,7 @@
     NSLog(@"view did load in user pacts");
     self.dataSource = [JDDDataSource sharedDataSource];
     self.ref = self.dataSource.firebaseRef;
-    self.pacts = [[NSMutableArray alloc]init];
-    self.allUserPactIDs = [[NSMutableArray alloc]init];
-    self.currentUserID = [[NSUserDefaults standardUserDefaults] objectForKey: UserIDKey];
-    
+
 //    NSLog(@"%@",self.dataSource.currentUser.displayName);
 //    NSLog(@"%@",self.dataSource.currentUser.twitterHandle);
 //
@@ -66,8 +63,6 @@
     [self.tableView registerNib:[UINib nibWithNibName:@"PactAccordionHeaderView" bundle:nil] forHeaderFooterViewReuseIdentifier:accordionHeaderReuseIdentifier];
     
     [self setupSwipeGestureRecognizer];
-    
- }
 
     self.accountStore = [[ACAccountStore alloc] init];
     NSLog(@"accountstore accounts %@", self.accountStore.accounts);
@@ -75,7 +70,6 @@
     ACAccount *account =  [self.accountStore accountWithIdentifier:accountKey];
     NSLog(@"account %@", account);
     self.twitter = [STTwitterAPI twitterAPIOSWithAccount:account delegate:self];
-    self.currentPactIsActive = NO;
 }
 
 #pragma - observe events for user, user pacts, pacts/users
