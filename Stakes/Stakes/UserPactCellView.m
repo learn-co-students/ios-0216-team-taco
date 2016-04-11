@@ -140,7 +140,7 @@
 
 
 //-(void)setUpCell {
-//    
+//
 //    // here we are going to have to create new views programatically and add in users in the pact. (probably with a custom xib) This is a sloppy way of doing it for the MVP to get something on screen
 //
 //        self.pactTitle.text = @"Pact";
@@ -175,14 +175,7 @@
 //    
 //}
 
-- (IBAction)pendingButtonTapped:(id)sender
-{
-    
-    NSLog(@"pending tappeD");
-    [[[[self.sharedData.firebaseRef childByAppendingPath:@"pacts"] childByAppendingPath:self.pact.pactID] childByAppendingPath:@"users"] updateChildValues:@{self.sharedData.currentUser.userID : [NSNumber numberWithBool:YES] }];
-    //update child value for //
 
-}
 
 
 -(void)setShitUp {

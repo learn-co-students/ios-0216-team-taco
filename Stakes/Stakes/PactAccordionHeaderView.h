@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <FZAccordionTableView/FZAccordionTableView.h>
 #import "JDDPact.h"
+#import "JDDDataSource.h"
 
 static NSString *const accordionHeaderReuseIdentifier = @"AccordionHeaderViewReuseIdentifier";
 

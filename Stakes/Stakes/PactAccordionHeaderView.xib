@@ -13,26 +13,56 @@
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IIh-UQ-CM4" userLabel="containerView">
                     <rect key="frame" x="0.0" y="0.0" width="740" height="160"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kpp-cD-41a">
+                            <rect key="frame" x="8" y="58" width="30" height="45"/>
+                            <fontDescription key="fontDescription" name="AppleColorEmoji" family="Apple Color Emoji" pointSize="21"/>
+                            <state key="normal" title="✅">
+                                <color key="titleColor" red="0.0" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="titleShadowColor" red="0.0" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            </state>
+                            <connections>
+                                <action selector="acceptPactTapped:" destination="iN0-l3-epB" eventType="touchUpInside" id="xO0-tf-2KL"/>
+                            </connections>
+                        </button>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Test" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="D3q-1L-wcU" userLabel="pact title">
+                            <rect key="frame" x="352" y="65" width="37" height="29"/>
+                            <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="22"/>
+                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        </label>
+                    </subviews>
                     <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstItem="D3q-1L-wcU" firstAttribute="centerY" secondItem="IIh-UQ-CM4" secondAttribute="centerY" id="Tk4-Lc-y00"/>
+                        <constraint firstItem="kpp-cD-41a" firstAttribute="leading" secondItem="IIh-UQ-CM4" secondAttribute="leading" constant="8" id="YSf-rW-aGa"/>
+                        <constraint firstItem="kpp-cD-41a" firstAttribute="centerY" secondItem="IIh-UQ-CM4" secondAttribute="centerY" id="cXM-wI-3IN"/>
+                        <constraint firstItem="D3q-1L-wcU" firstAttribute="centerX" secondItem="IIh-UQ-CM4" secondAttribute="centerX" id="o0j-Rj-lpc"/>
+                    </constraints>
                 </view>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Test" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="D3q-1L-wcU" userLabel="pact title">
-                    <rect key="frame" x="357" y="70" width="26" height="20"/>
-                    <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="22"/>
-                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Pending" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dNs-Jr-nGt">
+                    <rect key="frame" x="672" y="70" width="60" height="20"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="60" id="26e-4L-IBT"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" name="Futura-MediumItalic" family="Futura" pointSize="15"/>
+                    <color key="textColor" red="1" green="0.0" blue="0.0" alpha="0.80463362068965516" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
                 </label>
             </subviews>
             <constraints>
+                <constraint firstItem="dNs-Jr-nGt" firstAttribute="leading" secondItem="IIh-UQ-CM4" secondAttribute="trailing" constant="-73" id="4K0-nj-K7f"/>
                 <constraint firstItem="IIh-UQ-CM4" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="F0d-Hq-Jjq"/>
-                <constraint firstItem="D3q-1L-wcU" firstAttribute="centerX" secondItem="IIh-UQ-CM4" secondAttribute="centerX" id="HiN-ec-rmz"/>
                 <constraint firstItem="IIh-UQ-CM4" firstAttribute="height" secondItem="iN0-l3-epB" secondAttribute="height" id="Q7d-jf-6Wh"/>
                 <constraint firstItem="IIh-UQ-CM4" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="ZzK-ox-Ga9"/>
-                <constraint firstItem="D3q-1L-wcU" firstAttribute="centerY" secondItem="IIh-UQ-CM4" secondAttribute="centerY" id="xPw-im-zrg"/>
+                <constraint firstItem="dNs-Jr-nGt" firstAttribute="centerY" secondItem="IIh-UQ-CM4" secondAttribute="centerY" id="q1C-1o-WtI"/>
                 <constraint firstItem="IIh-UQ-CM4" firstAttribute="width" secondItem="iN0-l3-epB" secondAttribute="width" id="yKN-KE-fOF"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
+                <outlet property="acceptPactButton" destination="kpp-cD-41a" id="PJ8-MN-fpy"/>
                 <outlet property="containerView" destination="IIh-UQ-CM4" id="Y4q-O6-Wj4"/>
+                <outlet property="pendingLabel" destination="dNs-Jr-nGt" id="vtB-nh-0x6"/>
                 <outlet property="title" destination="D3q-1L-wcU" id="Xeb-IW-gx5"/>
             </connections>
             <point key="canvasLocation" x="457" y="388"/>
