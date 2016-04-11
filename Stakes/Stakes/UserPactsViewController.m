@@ -75,10 +75,6 @@
                         [[NSOperationQueue mainQueue] addOperationWithBlock:^{
                             
                             [self.tableView reloadData];
-                            
-//                            JDDPact *thingToShow = self.pacts[2];
-//                            JDDUser *user = thingToShow.usersToShowInApp[0];
-//                            NSLog(@"%@",thingToShow.usersToShowInApp);
 
                         }];
                     }
@@ -100,6 +96,8 @@
         for (NSString *pactID in [snapshotForUser.value allKeys]) {
             
             [[self.dataSource.firebaseRef childByAppendingPath:[NSString stringWithFormat:@"pacts/%@",pactID]] observeEventType:FEventTypeValue withBlock:^(FDataSnapshot *snapshotForPacts) {
+                
+                // could put create user observe event here?
                 
                 [self.pacts addObject:[self.dataSource useSnapShotAndCreatePact:snapshotForPacts]];
                 
@@ -143,6 +141,7 @@
                     [pact.usersToShowInApp addObject:pactUser];
                     NSLog(@"the pact is %@ and the user is %@",pact.title ,pactUser.displayName);
                 }
+                
                 completionBlock(YES);
             }];
         
