@@ -163,6 +163,8 @@
             
             JDDPact *currentPact = [self.datasource useSnapShotAndCreatePact:snapshotForPacts];
             
+            NSLog(@"checkinsArray :%@",snapshotForPacts.value[@"checkins"]);
+            
             BOOL isUniquePact = YES;
             for (JDDPact *pact in self.datasource.currentUser.pactsToShowInApp) {
                 
