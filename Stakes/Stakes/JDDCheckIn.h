@@ -15,7 +15,6 @@
 
 @property (nonatomic) NSDate *checkInDate;
 @property (nonatomic, strong) NSString *checkInID;
-
 @property (nonatomic) NSString * userID;
 
 

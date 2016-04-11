@@ -98,8 +98,13 @@
         
     self.countOfCheckInsLabel.text = [NSString stringWithFormat:@"%li",self.user.checkIns.count];
     
-    self.intialsLabel.layer.cornerRadius = self.intialsLabel.frame.size.height/2;
+    [self.intialsLabel sizeToFit];
+    [self.intialsLabel setFont: [self.intialsLabel.font fontWithSize: 50]];
+    self.intialsLabel.layer.cornerRadius = self.intialsLabel.frame.size.width/2;
     self.intialsLabel.layer.borderWidth = 2;
+    [self.intialsLabel.layer setShadowColor:[UIColor blackColor].CGColor];
     
+    [self.intialsLabel.layer setShadowRadius:3.0];
+    [self.intialsLabel.layer setShadowOffset:CGSizeMake(2.0, 2.0)];
 }
 @end

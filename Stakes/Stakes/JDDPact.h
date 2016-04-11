@@ -36,9 +36,6 @@
 
 #pragma methods
 
-//-(BOOL)isPact:(NSString *)pactID
-//activeForUser:(NSString *)userID;
-
 - (instancetype)init;
 
 @end

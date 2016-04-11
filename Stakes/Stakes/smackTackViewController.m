@@ -109,6 +109,8 @@
     JSQMessage *message = [[JSQMessage alloc]initWithSenderId:userID senderDisplayName:displayName
                                                          date:[NSDate date] text:stringFromTextField];
     
+    // need to add JSQMessage that is for location
+    
     [self.chatroom.messages addObject:message];
     
 }
