@@ -75,6 +75,14 @@
         
         if (completionBlock) {
             
+            if (self.datasource.currentUser.pacts.count == 0) {
+                self.datasource.currentUser.pactsToShowInApp = [[NSMutableArray alloc]init];
+                
+                [self.datasource.currentUser.pactsToShowInApp addObject:[self.datasource createDemoPact]];
+                
+                [self setEmbeddedViewController:userPactsVC];
+            } else {
+            
             [self methodToPullDownPactsFromFirebaseWithCompletionBlock:^(BOOL completionBlock) {
                 
                 if (completionBlock) {
@@ -97,7 +105,7 @@
                 }
             }];
             
-            
+            }
         }
     }];
 }
@@ -156,6 +164,12 @@
     __block NSUInteger numberOfPactsInDataSource = self.datasource.currentUser.pacts.count;
     
     self.datasource.currentUser.pactsToShowInApp = [[NSMutableArray alloc]init];
+    
+//    if (self.datasource.currentUser.pacts.count == 0) {
+//        [self.datasource.currentUser.pactsToShowInApp addObject:[self.datasource createDemoPact]];
+//        
+//    } else {
+    
     
     for (NSString *pactID in self.datasource.currentUser.pacts) {
         

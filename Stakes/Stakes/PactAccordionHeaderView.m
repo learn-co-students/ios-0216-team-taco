@@ -80,12 +80,15 @@
     
     NSLog(@"self.sharedData.currentuser.userid: %@", self.sharedData.currentUser.userID);
     [[self.sharedData.firebaseRef childByAppendingPath:[NSString stringWithFormat:@"pacts/%@/users", self.pact.pactID]] observeEventType:FEventTypeValue withBlock:^(FDataSnapshot *snapshot) {
-       
-           if ([snapshot.value[self.sharedData.currentUser.userID] isEqualToNumber:@1]) {
-               completionBlock(YES);
-           } else {
-               completionBlock(NO);
-           }
+        if (snapshot.value == [NSNull null]) {
+            completionBlock(YES);
+            return;
+        }
+        if ([snapshot.value[self.sharedData.currentUser.userID] isEqualToNumber:@1]) {
+            completionBlock(YES);
+        } else {
+            completionBlock(NO);
+        }
 
     }];
     
@@ -95,8 +98,15 @@
 {
     [[self.sharedData.firebaseRef childByAppendingPath:[NSString stringWithFormat:@"pacts/%@/users", self.pact.pactID]] observeEventType:FEventTypeValue withBlock:^(FDataSnapshot *snapshot) {
         NSLog(@"snapshot value for current PACT \n\n\n\n\n\n\n %@", snapshot.value);
+        
+        if (snapshot.value == [NSNull null] ) {
+            hasPendingInvites(NO);
+            return;
+        }
+        
         NSArray *allUserValues = [snapshot.value allValues];
         NSLog(@"ALL USER VALUES ARRAY %@", allUserValues);
+
         for (NSNumber *num in allUserValues) {
             if ([num isEqualToNumber:@0]) {
                 hasPendingInvites(YES);
@@ -123,16 +133,19 @@
             [[NSOperationQueue mainQueue] addOperationWithBlock:^{
                 self.acceptPactButton.hidden = YES;
             }];
+            
+            [self updatePendingWithBlock:^(BOOL hasPendingInvites) {
+                if (hasPendingInvites) {
+                    [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                        self.pendingLabel.hidden = NO;
+                    }];
+                }
+            }];
+            
         }
     }];
     
-    [self updatePendingWithBlock:^(BOOL hasPendingInvites) {
-        if (hasPendingInvites) {
-            [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-                self.pendingLabel.hidden = NO;
-            }];
-        }
-    }];
+
     
 }
 
