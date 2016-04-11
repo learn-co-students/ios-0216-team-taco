@@ -19,6 +19,7 @@ PODS:
   - JSQMessagesViewController (7.2.0):
     - JSQSystemSoundPlayer (~> 2.0.1)
   - JSQSystemSoundPlayer (2.0.1)
+  - Masonry (1.0.0)
   - STTwitter (0.2.3)
 
 DEPENDENCIES:
@@ -26,6 +27,7 @@ DEPENDENCIES:
   - Firebase (>= 2.5.1)
   - FZAccordionTableView (~> 0.1.2)
   - JSQMessagesViewController
+  - Masonry
   - STTwitter
 
 SPEC CHECKSUMS:
@@ -34,6 +36,7 @@ SPEC CHECKSUMS:
   FZAccordionTableView: 028b53ea3a208a5b3591650edb055444749c530b
   JSQMessagesViewController: 73cab48aa92fc2d512f3b6724f3425cc47a19eb5
   JSQSystemSoundPlayer: c5850e77a4363ffd374cd851154b9af93264ed8d
+  Masonry: b529bb169217897b6354d4b56b1fada6d475b13d
   STTwitter: 77386cb6f1807fbfc0e321b9233bdecc9786195d
 
 COCOAPODS: 0.39.0

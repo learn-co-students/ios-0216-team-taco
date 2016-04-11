@@ -78,6 +78,8 @@
         self.createdPact.checkInsPerTimeInterval = [self.frequanctString integerValue];
         self.createdPact.dateOfCreation = currentDate;
         
+        
+        [self sendMessageToInvites];
         self.createdPact.users = self.contactsToShow;
         
 //        [self sendMessageToInvites];
@@ -85,6 +87,9 @@
         [self sendPactToFirebase];
         
         [self dismissViewControllerAnimated:YES completion:nil];
+
+
+        
                 
     } else {
         
@@ -479,6 +484,35 @@ return  NO;
 //Messaging stuff
 //========================================================================================================================================
 
+-(void)sendMessageToInvites
+{
+    if (![MFMessageComposeViewController canSendText]) {
+        NSLog(@"Message services are not available.");
+    } else {
+    
+    MFMessageComposeViewController* composeVC = [[MFMessageComposeViewController alloc] init];
+    composeVC.messageComposeDelegate = self;
+    
+    // Configure the fields of the interface.
+    composeVC.recipients = self.contacts;
+    composeVC.body = @"Hey Guys I created a pact to hit the gym download the app to keep tracking our progress";
+    
+    // Present the view controller modally.
+//    [self presentViewController:composeVC animated:YES completion:nil];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [self presentViewController:composeVC animated:YES completion:nil];
+    });}
+}
+
+-(void)messageComposeViewController:(MFMessageComposeViewController *)controller didFinishWithResult:(MessageComposeResult)result
+{
+    if(result == MessageComposeResultSent) {
+        // ...
+    }
+    
+    [self dismissViewControllerAnimated:YES completion:nil];
+
+}
 //-(void)sendMessageToInvites{
 //    if (![MFMessageComposeViewController canSendText]) {
 //        NSLog(@"Message services are not available.");

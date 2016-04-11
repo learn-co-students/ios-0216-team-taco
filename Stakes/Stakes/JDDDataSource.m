@@ -8,8 +8,9 @@
 
 #import "JDDDataSource.h"
 #import "UIImageView+AFNetworking.h"
-
+#import "Constants.h"
 @import UIKit;
+
 
 
 @implementation JDDDataSource
@@ -36,6 +37,7 @@
         
         [self setUpFireBaseRef];
         self.currentUser = [[JDDUser alloc]init];
+        self.User = [[JDDUser alloc]init];
         self.twitter = [[STTwitterAPI alloc]init];
 
     }
@@ -69,7 +71,20 @@
 -(void)setUpFireBaseRef {
     
     self.firebaseRef = [[Firebase alloc]initWithUrl:@"https://jddstakes.firebaseio.com/"];
-        
+    
+    //testing something to be deleted after
+//    [self.firebaseRef observeEventType:FEventTypeValue withBlock:^(FDataSnapshot *snapshot) {
+//        NSString *currentUserIdString =[[NSUserDefaults standardUserDefaults] stringForKey:UserIDKey];
+//        NSDictionary *pactID =[[NSDictionary alloc]init];
+//        pactID = snapshot.value[@"users"][currentUserIdString][@"pacts"];
+//        NSArray *pactIDString = [[NSArray alloc]init];
+//        pactIDString =  [pactID allKeys];
+//        NSLog(@"id is %@",snapshot.value[pactID]);
+//        //                NSLog(@"users %@",snapshot.value[currentUserIdString]);
+//        //                NSLog(@"pacts %@",snapshot.value[@"pacts"]);
+//        
+//    }];
+
 }
 
 -(JDDUser *)useSnapShotAndCreateUser:(FDataSnapshot *)snapshot {
@@ -79,13 +94,14 @@
     user.userID = snapshot.value[@"userID"];
     user.displayName = snapshot.value[@"displayName"];
     user.phoneNumber = snapshot.value[@"phoneNumber"];
-        
+    
     if (snapshot.value[@"profileImageURL"]) {
         
         UIImageView * image = [[UIImageView alloc]init];
         [image setImageWithURL:[NSURL URLWithString:snapshot.value[@"profileImageURL"]]];
         user.userImage = image.image;
         user.userImageURL = snapshot.value[@"profileImageURL"];
+
     }
     
     if (snapshot.value[@"twitterHandle"]){
@@ -93,11 +109,12 @@
         user.twitterHandle = snapshot.value[@"twitterHandle"];
         
     }
-
+    
     if(snapshot.value[@"pacts"]) {
         
         user.pacts = snapshot.value[@"pacts"];
-    
+        
+        
     }
     
     if(snapshot.value[@"pactHistory"]) {
@@ -115,6 +132,7 @@
     return user;
 }
 
+
 -(JDDPact *)useSnapShotAndCreatePact:(FDataSnapshot*)snapshot {
     
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
@@ -131,7 +149,7 @@
     pact.checkInsPerTimeInterval = [snapshot.value[@"allowsShaming"] integerValue];
     pact.twitterPost = snapshot.value[@"twitterPost"];
     pact.dateOfCreation = [dateFormatter dateFromString:snapshot.value[@"dateOfCreation"]];
-    pact.users = snapshot.value[@"users"];
+    pact.users = [[snapshot.value[@"users"]allKeys]mutableCopy];
 
     return pact;
 

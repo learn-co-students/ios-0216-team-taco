@@ -57,6 +57,7 @@
 
 -(void)updateUI;
 {
+    
     self.title.text = self.pact.title;
     
 }

@@ -19,6 +19,7 @@
 #import "smackTackViewController.h"
 #import "Constants.h"
 #import <AFNetworking/UIImageView+AFNetworking.h>
+#import "UserDescriptionView.h"
 
 @interface UserPactsViewController () <UITableViewDataSource, UITableViewDelegate>
 
@@ -46,6 +47,15 @@
     self.pacts = [[NSMutableArray alloc]init];
     self.allUserPactIDs = [[NSMutableArray alloc]init];
     self.currentUserID = [[NSUserDefaults standardUserDefaults] objectForKey: UserIDKey];
+    
+    NSLog(@"%@",self.dataSource.currentUser.displayName);
+    NSLog(@"%@",self.dataSource.currentUser.twitterHandle);
+
+    NSLog(@"%lu",self.dataSource.currentUser.pacts.count);
+    
+
+//    self.dataSource.currentUser.userID = [[NSUserDefaults standardUserDefaults] objectForKey: UserIDKey];
+//    self.currentUserID = self.dataSource.currentUser.userID;
     NSLog(@"currentUserIs %@",self.currentUserID);
     
     self.tableView.delegate = self;
@@ -58,6 +68,14 @@
     
     [self.tableView registerNib:[UINib nibWithNibName:@"UserPactCellView" bundle:nil] forCellReuseIdentifier:@"userPact"];
     [self.tableView registerNib:[UINib nibWithNibName:@"PactAccordionHeaderView" bundle:nil] forHeaderFooterViewReuseIdentifier:accordionHeaderReuseIdentifier];
+
+
+//    [self setupSwipeGestureRecognizer];
+    
+//    [self perform
+//     accessibilityElementDidBecomeFocused:@"login" sender:self];
+    
+
     
     [self setupSwipeGestureRecognizer];
     
@@ -159,6 +177,12 @@
 
 }
 
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    NSLog(@"selectedCell:%ld", indexPath.section);
+    UserPactCellView *thisCell = [self.tableView cellForRowAtIndexPath:indexPath];
+//    [thisCell.scrollView setContentOffset:CGPointMake(arc4random_uniform(thisCell.scrollView.frame.size.width), 0) animated:YES];
+
+}
 #pragma method that populates the view from Firebase
 
 -(void)observeEventFromFirebaseWithCompletionBlock:(void(^)(BOOL))completionBlock {
@@ -185,7 +209,29 @@
                 }];
             }
             
-            
+//            
+//           NSLog(@"snapshotForUser.value: %@", snapshotForUser );
+//        if ([snapshotForUser exists]) {
+//        for (NSString *pactID in [snapshotForUser.value allKeys]) {
+//            NSLog(@"PactID: %@", pactID);
+//            [[self.dataSource.firebaseRef childByAppendingPath:[NSString stringWithFormat:@"pacts/%@",pactID]] observeEventType:FEventTypeValue withBlock:^(FDataSnapshot *snapshotForPacts) {
+//                
+//                [self.pacts addObject:[self.dataSource useSnapShotAndCreatePact:snapshotForPacts]];
+//                 NSLog(@"pacts %@",[snapshotForUser.value allKeys]);
+//                
+//                NSDictionary *users = [[NSDictionary alloc]init];
+//                users = snapshotForPacts.value[@"users"];
+//                self.dataSource.pactMembers = [[NSArray alloc]init];
+//                self.dataSource.pactMembers = [users allKeys];
+//                
+//                completionBlock(YES);
+//                [self.tableView reloadData];
+//
+//
+//            }];
+//            
+           
+//        }
         }
         
     } withCancelBlock:^(NSError *error) {
@@ -274,7 +320,7 @@
 
 -(BOOL)prefersStatusBarHidden
 {
-    return YES;
+    return NO;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -318,8 +364,19 @@
 //    //    cell.name3Image.image = @"";
 //    cell.name3checkIns.text = @"";
 //    
+
     
-    
+//    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+//    JDDPact *currentPact = self.pacts[indexPath.section];
+//    NSLog(@"indexPth.section is: %lu", indexPath.section);
+//    for (JDDUser *user in users) {
+//        UserDescriptionView *view = [[UserDescriptionView alloc]init];
+//        view
+//    }
+//    cell.pact = currentPact;
+//
+//    [cell setShitUp];
+//    cell.pactTitle.text = currentPact.title;
     
     return cell;
 }
@@ -369,21 +426,22 @@
 
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-    
+    JDDPact *currentPact = self.pacts[section];
+
     PactAccordionHeaderView *viewThing = [tableView dequeueReusableHeaderFooterViewWithIdentifier:accordionHeaderReuseIdentifier];
     
-    JDDPact *currentPact = self.pacts[section];
+    [viewThing setPact:currentPact];
     
-    viewThing.pact = currentPact;
+    
     
     return viewThing;
     
 }
 
+
 #pragma mark - <FZAccordionTableViewDelegate> -
 
 - (void)tableView:(FZAccordionTableView *)tableView willOpenSection:(NSInteger)section withHeader:(UITableViewHeaderFooterView *)header {
-    
 }
 
 - (void)tableView:(FZAccordionTableView *)tableView didOpenSection:(NSInteger)section withHeader:(UITableViewHeaderFooterView *)header {
@@ -391,6 +449,7 @@
     self.currentOpenPact = self.pacts[section];
     
     NSLog(@"did open section %@",self.currentOpenPact.title);
+    header.textLabel.text = self.currentOpenPact.title;
     
 }
 

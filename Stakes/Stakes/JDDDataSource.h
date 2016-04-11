@@ -22,12 +22,17 @@
 
 @property (nonatomic, strong) Firebase *firebaseRef;
 @property (nonatomic, strong) JDDUser *currentUser;
+@property (nonatomic, strong) JDDUser *User;
+@property (strong, nonatomic) NSArray *pactMembers;
+
 @property (nonatomic, strong) STTwitterAPI *twitter;
 @property (nonatomic, strong) ACAccountStore *accountStore;
 
 + (instancetype)sharedDataSource;
 
 -(void)setUpFireBaseRef;
+
+-(JDDPact*)createPactForFirstTimeUser;
 
 -(JDDPact*)createDemoPact;
 
