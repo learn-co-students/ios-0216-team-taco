@@ -145,7 +145,6 @@
         [self.stackView addArrangedSubview:view];
         
         [view.widthAnchor constraintEqualToAnchor:self.scrollView.widthAnchor multiplier:0.5].active = YES;
-        [view.heightAnchor constraintEqualToConstant:150].active =YES;
         [self.stackView layoutSubviews];//give subviews a size
         view.clipsToBounds = YES;
         

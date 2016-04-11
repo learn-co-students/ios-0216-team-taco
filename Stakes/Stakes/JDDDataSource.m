@@ -138,7 +138,7 @@
     pact.dateOfCreation = [dateFormatter dateFromString:snapshot.value[@"dateOfCreation"]];
     pact.users = snapshot.value[@"users"];
     pact.isActive = [snapshot.value[@"isActive"] boolValue];
-
+    
     return pact;
 
 }
@@ -207,7 +207,7 @@
     [checkInDateFormatter setDateFormat:@"yyyy'-'MM'-'dd'-'hh:mm'"];
     
  
-    
+    NSLog(@"\n\n\n\n\n\n creating a pact... what is pact.isActive???? %d", pact.isActive);
     NSMutableDictionary *pactDictionary = [[NSMutableDictionary alloc]initWithDictionary:
                                 @{
                                       @"title" : pact.title,

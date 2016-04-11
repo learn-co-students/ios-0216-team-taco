@@ -36,7 +36,7 @@
 
 #pragma methods
 
-- (instancetype)init;
+//- (instancetype)init;
 
 @end
 
