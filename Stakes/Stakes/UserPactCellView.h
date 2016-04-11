@@ -21,7 +21,7 @@
 @property(nonatomic, strong) CLLocationManager *locationManager;
 @property (nonatomic, strong) JDDDataSource *sharedData;
 @property (nonatomic, strong) JDDCheckIn *CheckIn;
-@property (weak, nonatomic) IBOutlet UIStackView *stackView;
+
 
 -(void)setShitUp;
 
