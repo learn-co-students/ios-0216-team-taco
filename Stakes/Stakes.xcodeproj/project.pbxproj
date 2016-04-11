@@ -100,7 +100,7 @@
 		CB8BC0471CAEC24A003A9D5E /* Secrets.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Secrets.m; sourceTree = "<group>"; };
 		CBA9854F1CAAEC6D00D1CC27 /* Stakes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Stakes.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CBA985531CAAEC6D00D1CC27 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		CBA985551CAAEC6D00D1CC27 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = Stakes/AppDelegate.h; sourceTree = "<group>"; };
+		CBA985551CAAEC6D00D1CC27 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		CBA985561CAAEC6D00D1CC27 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		CBA9855E1CAAEC6D00D1CC27 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CBA985611CAAEC6D00D1CC27 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -185,10 +185,76 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		CBA2BACE1CBC47FC007F8995 /* Model Classes */ = {
+			isa = PBXGroup;
+			children = (
+				CBA9858A1CAAEE0900D1CC27 /* JDDCheckIn.h */,
+				CBA9858B1CAAEE0900D1CC27 /* JDDCheckIn.m */,
+				CBA9858E1CAAEE0900D1CC27 /* JDDPact.h */,
+				CBA9858F1CAAEE0900D1CC27 /* JDDPact.m */,
+				CBA985901CAAEE0900D1CC27 /* JDDUser.h */,
+				CBA985911CAAEE0900D1CC27 /* JDDUser.m */,
+				AF27C4D91CB6FC92001AA278 /* JDDChatRoom.h */,
+				AF27C4DA1CB6FC92001AA278 /* JDDChatRoom.m */,
+			);
+			name = "Model Classes";
+			sourceTree = "<group>";
+		};
+		CBA2BACF1CBC482D007F8995 /* Storyboards & VCs */ = {
+			isa = PBXGroup;
+			children = (
+				CB8BC0381CAD75D0003A9D5E /* LoginViewController.h */,
+				CB8BC0391CAD75D0003A9D5E /* LoginViewController.m */,
+				CB4F71CA1CB552E300F44FE6 /* MainApplicationViewController.h */,
+				CB4F71CB1CB552E300F44FE6 /* MainApplicationViewController.m */,
+				AFB521681CAC450800A993E8 /* smackTackViewController.h */,
+				AFB521691CAC450800A993E8 /* smackTackViewController.m */,
+				CBA985881CAAEE0900D1CC27 /* CreatePactViewController.h */,
+				CBA985891CAAEE0900D1CC27 /* CreatePactViewController.m */,
+				CBA985921CAAEE0900D1CC27 /* PactDetailViewController.h */,
+				CBA985931CAAEE0900D1CC27 /* PactDetailViewController.m */,
+				CBA985941CAAEE0900D1CC27 /* UserPactsViewController.h */,
+				CBA985951CAAEE0900D1CC27 /* UserPactsViewController.m */,
+				AFEBE6871CB334FF00FBE107 /* UserDetailViewController.h */,
+				AFEBE6881CB334FF00FBE107 /* UserDetailViewController.m */,
+				CBA985601CAAEC6D00D1CC27 /* LaunchScreen.storyboard */,
+				CBA9859D1CAAEE7500D1CC27 /* Main.storyboard */,
+				CBA985A11CAB0AF700D1CC27 /* dimitrysStoryboard.storyboard */,
+				CBA9859F1CAB0AE600D1CC27 /* dylansStoryboard.storyboard */,
+			);
+			name = "Storyboards & VCs";
+			sourceTree = "<group>";
+		};
+		CBA2BAD01CBC4844007F8995 /* Custom Views */ = {
+			isa = PBXGroup;
+			children = (
+				AFC0645C1CAD736D00DBA069 /* UserPactCellView.h */,
+				AFC0645D1CAD736D00DBA069 /* UserPactCellView.m */,
+				AFC0645A1CAD733900DBA069 /* UserPactCellView.xib */,
+				CBA985E91CAC288000D1CC27 /* PactAccordionHeaderView.h */,
+				CBA985EA1CAC288000D1CC27 /* PactAccordionHeaderView.m */,
+				CBA985E71CAC286400D1CC27 /* PactAccordionHeaderView.xib */,
+				3F4DDABD1CB5695F0000ACE2 /* UserDescriptionView.xib */,
+				3F4DDAC21CB58E8A0000ACE2 /* UserDescriptionView.h */,
+				3F4DDAC31CB58E8A0000ACE2 /* UserDescriptionView.m */,
+			);
+			name = "Custom Views";
+			sourceTree = "<group>";
+		};
+		CBA2BAD11CBC486B007F8995 /* Secrets/Constants */ = {
+			isa = PBXGroup;
+			children = (
+				CBA985851CAAED4500D1CC27 /* Secrets.h */,
+				CB8BC0471CAEC24A003A9D5E /* Secrets.m */,
+				CB4F71CD1CB5540400F44FE6 /* Constants.h */,
+				CB4F71CE1CB5540400F44FE6 /* Constants.m */,
+			);
+			name = Secrets/Constants;
+			sourceTree = "<group>";
+		};
 		CBA985461CAAEC6D00D1CC27 = {
 			isa = PBXGroup;
 			children = (
-				CBA985551CAAEC6D00D1CC27 /* AppDelegate.h */,
 				CBA985511CAAEC6D00D1CC27 /* Stakes */,
 				CBA9856B1CAAEC6D00D1CC27 /* StakesTests */,
 				CBA985761CAAEC6D00D1CC27 /* StakesUITests */,
@@ -211,56 +277,17 @@
 		CBA985511CAAEC6D00D1CC27 /* Stakes */ = {
 			isa = PBXGroup;
 			children = (
+				CBA985551CAAEC6D00D1CC27 /* AppDelegate.h */,
 				CBA985561CAAEC6D00D1CC27 /* AppDelegate.m */,
-				CBA985851CAAED4500D1CC27 /* Secrets.h */,
-				CB8BC0471CAEC24A003A9D5E /* Secrets.m */,
-				CB4F71CD1CB5540400F44FE6 /* Constants.h */,
-				CB4F71CE1CB5540400F44FE6 /* Constants.m */,
-				CB8BC0381CAD75D0003A9D5E /* LoginViewController.h */,
-				CB8BC0391CAD75D0003A9D5E /* LoginViewController.m */,
-				CB4F71CA1CB552E300F44FE6 /* MainApplicationViewController.h */,
-				CB4F71CB1CB552E300F44FE6 /* MainApplicationViewController.m */,
-				CBED55671CB2BFB0005F0D4E /* TwitterAuthHelper.h */,
-				CBED55681CB2BFB0005F0D4E /* TwitterAuthHelper.m */,
-				AFC0645F1CAD8DA800DBA069 /* Group 2.png */,
-				AFC064601CAD8DA800DBA069 /* Pic 1.png */,
-				AFC064611CAD8DA800DBA069 /* Screen Shot 2016-03-28 at 4.13.09 PM.png */,
-				AFB521681CAC450800A993E8 /* smackTackViewController.h */,
-				AFB521691CAC450800A993E8 /* smackTackViewController.m */,
-				CBA985881CAAEE0900D1CC27 /* CreatePactViewController.h */,
-				CBA985891CAAEE0900D1CC27 /* CreatePactViewController.m */,
-				CBA985921CAAEE0900D1CC27 /* PactDetailViewController.h */,
-				CBA985931CAAEE0900D1CC27 /* PactDetailViewController.m */,
-				CBA985941CAAEE0900D1CC27 /* UserPactsViewController.h */,
-				CBA985951CAAEE0900D1CC27 /* UserPactsViewController.m */,
-				AFEBE6871CB334FF00FBE107 /* UserDetailViewController.h */,
-				AFEBE6881CB334FF00FBE107 /* UserDetailViewController.m */,
-				CBA9858A1CAAEE0900D1CC27 /* JDDCheckIn.h */,
-				CBA9858B1CAAEE0900D1CC27 /* JDDCheckIn.m */,
-				CBA9858E1CAAEE0900D1CC27 /* JDDPact.h */,
-				CBA9858F1CAAEE0900D1CC27 /* JDDPact.m */,
-				CBA985901CAAEE0900D1CC27 /* JDDUser.h */,
-				CBA985911CAAEE0900D1CC27 /* JDDUser.m */,
 				AF2883461CAC12C6003FD3E2 /* JDDDataSource.h */,
 				AF2883471CAC12C6003FD3E2 /* JDDDataSource.m */,
-				AF27C4D91CB6FC92001AA278 /* JDDChatRoom.h */,
-				AF27C4DA1CB6FC92001AA278 /* JDDChatRoom.m */,
-				CBA9859D1CAAEE7500D1CC27 /* Main.storyboard */,
-				AFC0645C1CAD736D00DBA069 /* UserPactCellView.h */,
-				AFC0645D1CAD736D00DBA069 /* UserPactCellView.m */,
-				AFC0645A1CAD733900DBA069 /* UserPactCellView.xib */,
-				CBA985E91CAC288000D1CC27 /* PactAccordionHeaderView.h */,
-				CBA985EA1CAC288000D1CC27 /* PactAccordionHeaderView.m */,
-				CBA985E71CAC286400D1CC27 /* PactAccordionHeaderView.xib */,
-				CBA985A11CAB0AF700D1CC27 /* dimitrysStoryboard.storyboard */,
-				CBA9859F1CAB0AE600D1CC27 /* dylansStoryboard.storyboard */,
-				CBA9855E1CAAEC6D00D1CC27 /* Assets.xcassets */,
-				CBA985601CAAEC6D00D1CC27 /* LaunchScreen.storyboard */,
-				CBA985631CAAEC6D00D1CC27 /* Info.plist */,
-				3F4DDABD1CB5695F0000ACE2 /* UserDescriptionView.xib */,
-				3F4DDAC21CB58E8A0000ACE2 /* UserDescriptionView.h */,
-				3F4DDAC31CB58E8A0000ACE2 /* UserDescriptionView.m */,
+				CBA2BAD11CBC486B007F8995 /* Secrets/Constants */,
+				CBA2BACF1CBC482D007F8995 /* Storyboards & VCs */,
+				CBA2BACE1CBC47FC007F8995 /* Model Classes */,
+				CBA2BAD01CBC4844007F8995 /* Custom Views */,
 				CBA985521CAAEC6D00D1CC27 /* Supporting Files */,
+				CBA9855E1CAAEC6D00D1CC27 /* Assets.xcassets */,
+				CBA985631CAAEC6D00D1CC27 /* Info.plist */,
 			);
 			path = Stakes;
 			sourceTree = "<group>";
@@ -270,6 +297,11 @@
 			children = (
 				3F52B0871CAB3EBC0031BF59 /* Israel.jpg */,
 				CBA985531CAAEC6D00D1CC27 /* main.m */,
+				CBED55671CB2BFB0005F0D4E /* TwitterAuthHelper.h */,
+				CBED55681CB2BFB0005F0D4E /* TwitterAuthHelper.m */,
+				AFC0645F1CAD8DA800DBA069 /* Group 2.png */,
+				AFC064601CAD8DA800DBA069 /* Pic 1.png */,
+				AFC064611CAD8DA800DBA069 /* Screen Shot 2016-03-28 at 4.13.09 PM.png */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
