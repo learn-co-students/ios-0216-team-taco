@@ -122,7 +122,7 @@
 -(JDDPact *)useSnapShotAndCreatePact:(FDataSnapshot*)snapshot {
     
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
-    [dateFormatter setDateFormat:@"yyyy'-'MM'-'dd'"];
+    [dateFormatter setDateFormat:@"yyyy'-'MM'-'dd'-'hh:mm'"];
     
     JDDPact *pact = [[JDDPact alloc]init];
     
@@ -138,6 +138,21 @@
     pact.dateOfCreation = [dateFormatter dateFromString:snapshot.value[@"dateOfCreation"]];
     pact.users = snapshot.value[@"users"];
     pact.isActive = [snapshot.value[@"isActive"] boolValue];
+
+    pact.checkIns = [[NSMutableArray alloc]init];
+    
+    for (NSString *checkin in snapshot.value[@"checkins"]) {
+        
+        
+        JDDCheckIn *check = [[JDDCheckIn alloc]init];
+        
+        check.userID = snapshot.value[@"checkins"][checkin][@"userID"];
+        check.checkInDate = [dateFormatter dateFromString:snapshot.value[@"checkins"][checkin][@"userID"]];
+        check.checkInID = snapshot.value[@"checkins"][checkin][@"checkInID"];
+        
+        [pact.checkIns addObject:check];
+    }
+
     
     return pact;
 
@@ -231,7 +246,7 @@
         
     }
     
-    if (pact.checkIns.count != 0) {
+    if (pact.checkIns.count > 0) {
         
         for (JDDCheckIn *checkin in pact.checkIns) {
             

@@ -39,6 +39,7 @@
 - (IBAction)checkInButtonPressed:(id)sender {
        
     NSLog(@"checkin Button Pressed");
+    
     self.pact.checkIns = [[NSMutableArray alloc]init];
 
     self.checkIn = [[JDDCheckIn alloc]init];
@@ -138,7 +139,17 @@
     
     // then for each user, createa a UserDescriptionView and add it to the stackview
     for (JDDUser *user in self.pact.usersToShowInApp){
+       
         UserDescriptionView *view = [[UserDescriptionView alloc]init];
+        
+        for (JDDCheckIn *checkin in self.pact.checkIns) {
+            
+            if ([checkin.userID isEqualToString:user.userID]) {
+                
+                view.checkinsCount ++;
+            }
+        }
+        
         view.user = user;
         
         // same as [view setUser:user];
