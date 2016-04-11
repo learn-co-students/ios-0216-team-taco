@@ -96,7 +96,7 @@
     
         self.intialsLabel.text = [self.user.displayName substringToIndex:1] ;
         
-    self.countOfCheckInsLabel.text = [NSString stringWithFormat:@"%li",self.user.checkIns.count];
+    self.countOfCheckInsLabel.text = [NSString stringWithFormat:@"%li",self.checkinsCount];
     
     [self.intialsLabel sizeToFit];
     [self.intialsLabel setFont: [self.intialsLabel.font fontWithSize: 50]];
