@@ -42,49 +42,55 @@
 
 //=============================================================================================================================
 
-
-
-
-
 - (IBAction)checkInButtonPressed:(id)sender {
        
     NSLog(@"checkin Button Pressed");
+    self.pact.checkIns = [[NSMutableArray alloc]init];
 
+    self.checkIn = [[JDDCheckIn alloc]init];
+    NSDate * now = [NSDate date];
+    self.checkIn.userID = self.sharedData.currentUser.userID;
+    self.checkIn.checkInDate = now;
     
+    Firebase *checkinRef = [self.sharedData.firebaseRef childByAppendingPath:[NSString stringWithFormat:@"pacts/%@/checkins",self.pact.pactID]];
+    
+    Firebase *newCheckin = [checkinRef childByAutoId];
+    
+     self.checkIn.checkInID = [newCheckin.description stringByReplacingOccurrencesOfString:checkinRef.description withString:@""];
+    
+    NSMutableDictionary *finalCheckinDictionary = [self.sharedData createDictionaryToSendToFirebaseWithJDDCheckIn:self.checkIn];
+    
+    [newCheckin setValue:finalCheckinDictionary];
+    
+//    
 //    self.locationManager = [[CLLocationManager alloc]init];
 //    self.locationManager.desiredAccuracy = kCLLocationAccuracyBest;
-//    
-//    [self.locationManager startUpdatingLocation]; // after creating JSQMEssageLocationData, call method below
-//    
-//    _locationManager = [[CLLocationManager alloc] init];
 //    self.locationManager.delegate = self;
-//  
 //    [self.locationManager requestWhenInUseAuthorization];
-//    
 //    if ([self.locationManager respondsToSelector:@selector
 //         (requestWhenInUseAuthorization)]) {
 //        [self.locationManager requestWhenInUseAuthorization];
 //    }
-//    [self.locationManager startUpdatingLocation];
-
-    self.CheckIn = [[JDDCheckIn alloc]init];
-    NSDate *now = [NSDate date];
-
-//    self.CheckIn.checkInDate = now;
-//    self.CheckIn.checkInMessage = @"";
-//    self.CheckIn.checkInLocation = [[CLLocation alloc]init];;
-//    self.CheckIn.userID = self.sharedData.currentUser.userID;
-//    self.CheckIn.pactID = self.pact.pactID;
 //    
-//    [self.sharedData.currentUser.checkins addObject:self.CheckIn];
+//    [self.locationManager startUpdatingLocation];
+//
+//    Firebase *itemRef = [[self.sharedData.firebaseRef childByAppendingPath:[NSString stringWithFormat:@"chatrooms/%@",self.pact.pactID]] childByAutoId];
+//    
+//    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
+//    [dateFormatter setDateFormat:@"yyyy'-'MM'-'dd'-'hh:mm'"];
+//    
+//    NSDictionary *LocationToSendToFirebase = @{
+//                                               @"senderID" : self.sharedData.currentUser.userID,
+//                                               @"date" : [dateFormatter stringFromDate:[NSDate date]],
+//                                               @"longitude" : self.locationManager
+//                                               };
+//    
+//    
+//    
+//    [itemRef setValue:LocationToSendToFirebase];
     
+
 }
-
-
-
-
-
-
 
 //location geo delagates methods.
 //=====================================================================================================================
@@ -97,7 +103,6 @@
 
 -(void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
 {
-//    NSLog(@"location info object=%@", [locations lastObject]);
     NSString *latitude = @"";
     NSString *longitude = @"";
     CLLocation *crnLoc = [locations lastObject];
@@ -110,13 +115,6 @@
 
 }
 //===================================================================================================================
-
-
-
-
-
-
-
 
 - (void)awakeFromNib {
     
@@ -281,19 +279,9 @@
                     [view setUser:user];
                     [self.stackView addArrangedSubview:view];
                 
-                
-                
                 }
 
-                
-                
-                
-
-                
             }];
-
-            
-            
             
         }
     }

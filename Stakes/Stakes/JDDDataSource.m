@@ -146,7 +146,7 @@
 -(JDDCheckIn *)useSnapShotAndCreateCheckIn:(FDataSnapshot*)snapshot {
 
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
-    [dateFormatter setDateFormat:@"yyyy'-'MM'-'dd'-'hh:mm'-'ss'"];
+    [dateFormatter setDateFormat:@"yyyy'-'MM'-'dd'-'hh:mm'"];
     
     JDDCheckIn *checkIn = [[JDDCheckIn alloc]init];
     
@@ -237,7 +237,7 @@
             
             NSDictionary * checkinItemDict = @{
                                                @"checkInID" :checkin.checkInID,
-                                               @"checkInDate" : checkin.checkInDate,
+                                               @"checkInDate" : [dateFormatter stringFromDate:checkin.checkInDate],
                                                @"userID" : checkin.userID
                                                };
             
@@ -261,6 +261,21 @@
     }
     
     return dictionary;
+    
+}
+
+-(NSMutableDictionary*)createDictionaryToSendToFirebaseWithJDDCheckIn:(JDDCheckIn*)checkin {
+
+    NSDateFormatter *checkInDateFormatter = [[NSDateFormatter alloc]init];
+    [checkInDateFormatter setDateFormat:@"yyyy'-'MM'-'dd'-'hh:mm'"];
+    
+    NSMutableDictionary * dictionaryToSend = [[NSMutableDictionary alloc]initWithDictionary:@{
+                                        @"checkInID" :checkin.checkInID,
+                                        @"checkInDate" : [checkInDateFormatter stringFromDate:checkin.checkInDate],
+                                        @"userID" : checkin.userID
+                                        }];
+    
+    return dictionaryToSend;
     
 }
 
