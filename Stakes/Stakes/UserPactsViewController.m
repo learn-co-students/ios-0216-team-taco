@@ -18,6 +18,7 @@
 #import "LoginViewController.h"
 #import "smackTackViewController.h"
 #import "Constants.h"
+#import "UserDescriptionView.h"
 
 @interface UserPactsViewController () <UITableViewDataSource, UITableViewDelegate>
 @property (weak, nonatomic) IBOutlet FZAccordionTableView *tableView;
@@ -47,8 +48,7 @@
 
     NSLog(@"%lu",self.dataSource.currentUser.pacts.count);
     
-//    self.currentOpenPact = self.dataSource.currentUserPacts[0];
-//    self.currentOpenPact.title = @"test";
+
     self.dataSource.currentUser.userID = [[NSUserDefaults standardUserDefaults] objectForKey: UserIDKey];
     self.currentUserID = self.dataSource.currentUser.userID;
     NSLog(@"currentUserIs %@",self.currentUserID);
@@ -103,19 +103,28 @@
     
     // this observe event will give back snapshot value of @{pactID: BOOL-isActive}
     [[self.dataSource.firebaseRef childByAppendingPath:[NSString stringWithFormat:@"users/%@/pacts",self.currentUserID]] observeEventType:FEventTypeValue withBlock:^(FDataSnapshot *snapshotForUser) {
-        
+           NSLog(@"snapshotForUser.value: %@", snapshotForUser );
+        if ([snapshotForUser exists]) {
         for (NSString *pactID in [snapshotForUser.value allKeys]) {
-            
+            NSLog(@"PactID: %@", pactID);
             [[self.dataSource.firebaseRef childByAppendingPath:[NSString stringWithFormat:@"pacts/%@",pactID]] observeEventType:FEventTypeValue withBlock:^(FDataSnapshot *snapshotForPacts) {
                 
                 [self.pacts addObject:[self.dataSource useSnapShotAndCreatePact:snapshotForPacts]];
+                 NSLog(@"pacts %@",[snapshotForUser.value allKeys]);
+                
+                NSDictionary *users = [[NSDictionary alloc]init];
+                users = snapshotForPacts.value[@"users"];
+                self.dataSource.pactMembers = [[NSArray alloc]init];
+                self.dataSource.pactMembers = [users allKeys];
                 
                 completionBlock(YES);
+                [self.tableView reloadData];
+
 
             }];
             
            
-        
+        }
         }
         
     } withCancelBlock:^(NSError *error) {
@@ -186,17 +195,25 @@
 
 -(BOOL)prefersStatusBarHidden
 {
-    return YES;
+    return NO;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+
     UserPactCellView * cell = [tableView dequeueReusableCellWithIdentifier:@"basicCell" forIndexPath:indexPath];
     
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    
-    cell.pact = self.pacts[indexPath.section];
-    
+    JDDPact *currentPact = self.pacts[indexPath.section];
+    NSLog(@"indexPth.section is: %lu", indexPath.section);
+//    for (JDDUser *user in users) {
+//        UserDescriptionView *view = [[UserDescriptionView alloc]init];
+//        view
+//    }
+    cell.pact = currentPact;
+
+    [cell setShitUp];
+    cell.pactTitle.text = currentPact.title;
     return cell;
 }
 
@@ -213,12 +230,13 @@
 
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-    
+    JDDPact *currentPact = self.pacts[section];
+
     PactAccordionHeaderView *viewThing = [tableView dequeueReusableHeaderFooterViewWithIdentifier:accordionHeaderReuseIdentifier];
     
-    JDDPact *currentPact = self.pacts[section];
+    [viewThing setPact:currentPact];
     
-    viewThing.pact = currentPact;
+    
     
     return viewThing;
     
@@ -228,7 +246,6 @@
 #pragma mark - <FZAccordionTableViewDelegate> -
 
 - (void)tableView:(FZAccordionTableView *)tableView willOpenSection:(NSInteger)section withHeader:(UITableViewHeaderFooterView *)header {
-    
 }
 
 - (void)tableView:(FZAccordionTableView *)tableView didOpenSection:(NSInteger)section withHeader:(UITableViewHeaderFooterView *)header {
@@ -236,6 +253,7 @@
     self.currentOpenPact = self.pacts[section];
     
     NSLog(@"did open section %@",self.currentOpenPact.title);
+    header.textLabel.text = self.currentOpenPact.title;
     
 }
 

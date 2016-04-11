@@ -20,6 +20,7 @@
 @property (nonatomic, strong) UIImage *userImage;
 @property (nonatomic, strong) NSString *userImageURL;
 
+
 //App Info
 @property (nonatomic, strong) NSString *userID;
 

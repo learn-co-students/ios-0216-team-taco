@@ -22,13 +22,14 @@
 //@property (strong, nonatomic) IBOutlet UILabel *name3;
 
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
-@property (weak, nonatomic) IBOutlet UIStackView *stackView;
+
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *stackViewWidth;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *stackViewHeight;
-@property (strong, nonatomic) IBOutlet UILabel *pactTitle;
+
 @property (strong, nonatomic) IBOutlet UILabel *pactDetail;
 @property (strong, nonatomic) IBOutlet UILabel *stakesTitle;
 @property (strong, nonatomic) IBOutlet UILabel *stakesDetail;
+@property (strong, nonatomic) NSArray *pactMembers;
 //@property (strong, nonatomic) IBOutlet UIImageView *name1Image;
 //@property (strong, nonatomic) IBOutlet UIImageView *name2Image;
 //@property (strong, nonatomic) IBOutlet UIImageView *name3Image;
@@ -146,54 +147,147 @@
     
     
 
-    if (self.sharedData.users == nil) {
-        if (self.stackViewWidth.constant == 0) {
-            CGFloat userViewWidth = 100;//self.scrollView.bounds.size.width / 2;
-            CGFloat userViewHeight = self.scrollView.bounds.size.height;
-//            self.sharedData.firebaseRef addListe
-            NSUInteger count = 5;
-            CGFloat stackViewWidth = userViewWidth * count;
-            self.stackViewWidth.constant = stackViewWidth;
-            [self.sharedData.firebaseRef observeEventType:FEventTypeChildAdded withBlock:^(FDataSnapshot *snapshot) {
-//                NSLog(@"users %@",snapshot.value[@"users"][]);
-                NSLog(@"pacts %@",snapshot.value[@"pacts"]);
-
-            }];
-//                       self.sharedData.currentUser.
-            
-            for (NSUInteger i = 0; i < count; i++) {
-                UserDescriptionView *view = [[UserDescriptionView alloc] initWithFrame:CGRectMake(0, 0, userViewWidth, userViewHeight)];
-                
-                [self.stackView addArrangedSubview:view];
-            }
-        }
-    } else {
+    
+//        if (self.stackViewWidth.constant == 0) {
+//            CGFloat userViewWidth = 100;//self.scrollView.bounds.size.width / 2;
+//           CGFloat userViewHeight = self.scrollView.bounds.size.height;
+//            
+//            NSUInteger count = 5;
+//            CGFloat stackViewWidth = userViewWidth * count;
+//            self.stackViewWidth.constant = stackViewWidth;
+//            [self.sharedData.firebaseRef observeEventType:FEventTypeValue withBlock:^(FDataSnapshot *snapshot) {
+//                NSString *currentUserIdString =[[NSUserDefaults standardUserDefaults] stringForKey:UserIDKey];
+//                NSDictionary *pactID =[[NSDictionary alloc]init];
+//                pactID = snapshot.value[@"users"][currentUserIdString][@"pacts"];
+//                NSArray *pactIDString = [[NSArray alloc]init];
+//                pactIDString =  [pactID allKeys];
+//                NSLog(@"id is %@",snapshot.value[pactID]);
+//                //                NSLog(@"users %@",snapshot.value[currentUserIdString]);
+//                //                NSLog(@"pacts %@",snapshot.value[@"pacts"]);
+//                
+//            }];
+//            
+//            for (NSUInteger i = 0; i < count; i++) {
+//                UserDescriptionView *view = [[UserDescriptionView alloc] initWithFrame:CGRectMake(0, 0, userViewWidth, userViewHeight)];
+//                
+//                [self.stackView addArrangedSubview:view];
+//            }
+//        }
+//    } else {
     
     if (self.stackViewWidth.constant == 0) {
-        CGFloat userViewWidth = 100;
+        
+        
+        
+        
+        CGFloat userViewWidth = 90;
         CGFloat userViewHeight = self.scrollView.bounds.size.height;
-        NSUInteger count = self.sharedData.users.count;
+        NSUInteger count = self.pact.users.count;
+        if (!self.sharedData.pactMembers || !self.sharedData.pactMembers.count) { //just to make sure the array is not nil
+            count = 1;
+        }
+        
+        
         CGFloat stackViewWidth = userViewWidth * count;
         self.stackViewWidth.constant = stackViewWidth;
         
-        NSString *currentUserIdString =[[NSUserDefaults standardUserDefaults] stringForKey:UserIDKey];
-        NSLog(@"User id is %@", currentUserIdString);
 
         
         for (NSUInteger i = 0; i < count; i++) {
+            
+            
             UserDescriptionView *view = [[UserDescriptionView alloc] initWithFrame:CGRectMake(0, 0, userViewWidth, userViewHeight)];
             JDDUser *user = [[JDDUser alloc]init];
-            user = self.sharedData.users[i];
-            [view setUser:user];
             
-            [self.stackView addArrangedSubview:view];
-            NSLog(@"view name is %@", view.userNameLabel.text);
+            
+            
+            [self.sharedData.firebaseRef observeEventType:FEventTypeValue withBlock:^(FDataSnapshot *snapshot) {
+                
+                /*
+                 
+                 1) Get current information
+                 2) Send the current user to the user description nib
+                 3) Get the ID of the currentUser pact
+                 4) Get the other Users id's associated with that pact
+                 5) Send each user info to user description nib
+                 
+                */
+                
+                
+                
+                NSString *currentUserIdString =[[NSUserDefaults standardUserDefaults] stringForKey:UserIDKey];  // Gets current user Phone number
+                
+                NSLog(@"in userPactCellView, currentUserIDString is:%@",currentUserIdString);
+                NSDictionary *pactIDDict =[[NSDictionary alloc]init];
+                
+                pactIDDict = snapshot.value[@"users"][currentUserIdString][@"pacts"]; // a dictionary of all the associated pacts with the current user and their BOOL status
+                NSLog(@"in userPactCellView, pactIDDict is: %@",pactIDDict);
+                NSArray *pactIDArray = [[NSArray alloc]init];
+                
+                pactIDArray =  [pactIDDict allKeys]; //  an array of all the pacts ID's of the current User
+                NSLog(@"in userPactCellView,  pactIDArray is: %@",pactIDArray);
+                
+                NSString *pactID = pactIDArray[i];
+                NSLog(@"in userPactCellView,  PactID is: %@",pactID);
+
+                NSDictionary *currentUserFireBaseInfo =[[NSDictionary alloc]init];
+                
+                currentUserFireBaseInfo  = snapshot.value[@"users"][currentUserIdString]; // return current user information
+                NSLog(@"in userPactCellView,  currentUserFireBaseInfo is: %@",currentUserFireBaseInfo);
+
+                
+                if (i==0) {
+                   
+                    user.displayName = currentUserFireBaseInfo[@"displayName"];
+            
+                    user.userImageURL = currentUserFireBaseInfo[@"profileImageURL"];
+                    
+                    [view setUser:user];
+                    [self.stackView addArrangedSubview:view];
+
+                } else {
+                
+                NSDictionary *otherUserFireBaseID =[[NSDictionary alloc]init];
+                self.pactMembers = [[NSArray alloc]init];
+                 otherUserFireBaseID = snapshot.value[@"pacts"][pactID][@"users"];
+                    self.pactMembers = self.pact.users;
+                    NSLog(@"in userPactCellView,  PactID is: %@",pactID);
+
+                 // returns all the other users part of the same pact
+                    NSString * otherUserID = self.pactMembers[i];// retruns phoneNumber of other users
+                    NSLog(@"other user ID is:%@",otherUserID);
+                    
+                    
+                    NSDictionary *usersInfo =[[NSDictionary alloc]init];
+                    
+                    usersInfo = snapshot.value[@"users"][otherUserID];
+                    
+                    user.displayName = usersInfo[@"displayName"];
+                    user.userImageURL = usersInfo[@"profileImageURL"];
+                    
+                    [view setUser:user];
+                    [self.stackView addArrangedSubview:view];
+                
+                
+                
+                }
+
+                
+                
+                
+
+                
+            }];
+
+            
+            
+            
         }
     }
     
         
-    }
-}
+    
+
 
 
     // here we are going to have to create new views programatically and add in users in the pact. (probably with a custom xib) This is a sloppy way of doing it for the MVP to get something on screen
@@ -267,6 +361,6 @@
 //        self.stakesDetail.text = @"";
     
     
-
+}
 
 @end

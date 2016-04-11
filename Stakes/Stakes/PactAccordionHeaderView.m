@@ -57,7 +57,8 @@
 
 -(void)updateUI;
 {
-    self.title.text = @"test";//self.pact.title;
+    
+    self.title.text = self.pact.title;
     
 }
 

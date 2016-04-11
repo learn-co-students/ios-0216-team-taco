@@ -8,8 +8,9 @@
 
 #import "JDDDataSource.h"
 #import "UIImageView+AFNetworking.h"
-
+#import "Constants.h"
 @import UIKit;
+
 
 
 @implementation JDDDataSource
@@ -36,6 +37,7 @@
         
         [self setUpFireBaseRef];
         self.currentUser = [[JDDUser alloc]init];
+        self.User = [[JDDUser alloc]init];
         self.twitter = [[STTwitterAPI alloc]init];
 
     }
@@ -69,46 +71,36 @@
 -(void)setUpFireBaseRef {
     
     self.firebaseRef = [[Firebase alloc]initWithUrl:@"https://jddstakes.firebaseio.com/"];
-        
+    
+    //testing something to be deleted after
+//    [self.firebaseRef observeEventType:FEventTypeValue withBlock:^(FDataSnapshot *snapshot) {
+//        NSString *currentUserIdString =[[NSUserDefaults standardUserDefaults] stringForKey:UserIDKey];
+//        NSDictionary *pactID =[[NSDictionary alloc]init];
+//        pactID = snapshot.value[@"users"][currentUserIdString][@"pacts"];
+//        NSArray *pactIDString = [[NSArray alloc]init];
+//        pactIDString =  [pactID allKeys];
+//        NSLog(@"id is %@",snapshot.value[pactID]);
+//        //                NSLog(@"users %@",snapshot.value[currentUserIdString]);
+//        //                NSLog(@"pacts %@",snapshot.value[@"pacts"]);
+//        
+//    }];
+
 }
 
 -(JDDUser *)useSnapShotAndCreateUser:(FDataSnapshot *)snapshot {
     
     JDDUser *user = [[JDDUser alloc]init];
     
-    [newRef observeEventType:FEventTypeValue withBlock:^(FDataSnapshot *snapshot) { //Happens only when a change to firebase happens
-        
-        self.currentUser = [self takeSnapShotAndCreateUser:snapshot];
-        
-        NSLog(@"snapshot %@", snapshot.value);
-        NSLog(@"this is the current user %@", self.currentUser);
-        
-// pulling pacts from currentUser from firebase
-        for (NSString *pactID in self.currentUser.pacts) {
-            
-            Firebase *pactRef = [self.firebaseRef childByAppendingPath:[NSString stringWithFormat:@"pacts/%@",pactID]];
-            
-            [pactRef observeEventType:FEventTypeValue withBlock:^(FDataSnapshot *snapshot2) {
-                
-                [self.currentUserPacts addObject:[self takeSnapShotAndCreatePact:snapshot2]];
-                
-                NSLog(@"this is the pact getting added to self.currentUserPacts %@", snapshot2.value);
-                NSLog(@"currentUserPacts: %@", self.currentUserPacts);
-                
-            }];
-            
-            
-        }
     user.userID = snapshot.value[@"userID"];
     user.displayName = snapshot.value[@"displayName"];
     user.phoneNumber = snapshot.value[@"phoneNumber"];
-        
+    
     if (snapshot.value[@"profileImageURL"]) {
         
         UIImageView * image = [[UIImageView alloc]init];
         [image setImageWithURL:[NSURL URLWithString:snapshot.value[@"profileImageURL"]]];
         user.userImage = image.image;
-
+        
     }
     
     if (snapshot.value[@"twitterHandle"]){
@@ -116,32 +108,12 @@
         user.twitterHandle = snapshot.value[@"twitterHandle"];
         
     }
-<<<<<<< HEAD
     
-}
-
--(JDDUser *)takeSnapShotAndCreateUser:(FDataSnapshot *)snapshot {
-    
-    JDDUser *user = [[JDDUser alloc]init];
-
-    UIImageView * image = [[UIImageView alloc]init];
-    [image setImageWithURL:[NSURL URLWithString:snapshot.value[@"profileImageURL"]]];
-    user.userID = snapshot.value[@"userID"];
-    user.userImage = image.image;
-    user.twitterHandle = snapshot.value[@"twitterHandle"];
-    user.displayName = snapshot.value[@"displayName"];
-    user.phoneNumber = snapshot.value[@"phoneNumber"];
-    
-    self.twitter = [[STTwitterAPI alloc]init];
-    
-    self.currentUser = [[JDDUser alloc]init];
-    
-    
-
     if(snapshot.value[@"pacts"]) {
         
         user.pacts = snapshot.value[@"pacts"];
-    
+        
+        
     }
     
     if(snapshot.value[@"pactHistory"]) {
@@ -159,6 +131,7 @@
     return user;
 }
 
+
 -(JDDPact *)useSnapShotAndCreatePact:(FDataSnapshot*)snapshot {
     
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
@@ -175,7 +148,7 @@
     pact.checkInsPerTimeInterval = [snapshot.value[@"allowsShaming"] integerValue];
     pact.twitterPost = snapshot.value[@"twitterPost"];
     pact.dateOfCreation = [dateFormatter dateFromString:snapshot.value[@"dateOfCreation"]];
-    pact.users = snapshot.value[@"users"];
+    pact.users = [[snapshot.value[@"users"]allKeys]mutableCopy];
 
     return pact;
 

@@ -484,7 +484,6 @@ return  NO;
 //Messaging stuff
 //========================================================================================================================================
 
-<<<<<<< HEAD
 -(void)sendMessageToInvites
 {
     if (![MFMessageComposeViewController canSendText]) {
@@ -514,7 +513,6 @@ return  NO;
     [self dismissViewControllerAnimated:YES completion:nil];
 
 }
-=======
 //-(void)sendMessageToInvites{
 //    if (![MFMessageComposeViewController canSendText]) {
 //        NSLog(@"Message services are not available.");
@@ -543,6 +541,5 @@ return  NO;
 //    [self dismissViewControllerAnimated:YES completion:nil];
 //
 //}
->>>>>>> master
 
 @end

@@ -108,7 +108,7 @@
             </tableViewCellContentView>
             <connections>
                 <outlet property="pactDetail" destination="PDr-HD-w4Y" id="k2l-Ri-n7O"/>
-                <outlet property="pactTitle" destination="Rei-sv-p0M" id="3gG-os-veO"/>
+                <outlet property="pactTitle" destination="Rei-sv-p0M" id="3Qf-q0-TRy"/>
                 <outlet property="scrollView" destination="kRV-pm-Ly5" id="GGo-9e-dLv"/>
                 <outlet property="stackView" destination="O2Y-ez-NzW" id="S3c-GZ-5H3"/>
                 <outlet property="stackViewHeight" destination="s8j-0U-j6y" id="Wmc-O5-WjP"/>

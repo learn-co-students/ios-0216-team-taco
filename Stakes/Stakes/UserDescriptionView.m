@@ -8,6 +8,7 @@
 
 #import "UserDescriptionView.h"
 #import <Masonry/Masonry.h>
+#import "JDDDataSource.h"
 
 @interface UserDescriptionView ()
 
@@ -15,6 +16,9 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *countOfCheckInsLabel;
 @property (weak, nonatomic) IBOutlet UILabel *intialsLabel;
+@property (weak, nonatomic) IBOutlet UIImageView *userProfileImage;
+@property (strong, nonatomic) JDDDataSource *sharedData;
+
 
 @end
 
@@ -83,16 +87,25 @@
 -(void)updateUI
 {
     
-    
+    if ([self.user.userImageURL  isEqual: @""]) {
+        self.userProfileImage.hidden = YES;
+    } else {
+    self.userProfileImage.hidden = NO;
+        self.intialsLabel.hidden = YES;
+        UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:self.user.userImageURL]]];
+        self.userProfileImage.image = image;
     if (self.userNameLabel.text != nil) {
-    self.userNameLabel.text =@"Dani";
-    self.countOfCheckInsLabel.text = @"";
-    self.intialsLabel.text = @"DK";
+    self.userNameLabel.text =self.user.displayName;
+        self.countOfCheckInsLabel.hidden = YES;
+        NSString *name= self.user.displayName;
+        
+        self.intialsLabel.text = [name substringToIndex:1] ;
+        
     } else {
         self.userNameLabel.text = @"";
         self.countOfCheckInsLabel.text = @"";
         self.intialsLabel.text = @"";
-
+    }
     }
 }
 @end
