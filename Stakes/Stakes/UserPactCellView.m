@@ -121,22 +121,37 @@
 -(void)setUpCell {
     
     // here we are going to have to create new views programatically and add in users in the pact. (probably with a custom xib) This is a sloppy way of doing it for the MVP to get something on screen
-//    
-//    for (JDDUser *user in self.pact.users) {
-//        
-//        self.name1.text = self.pact.users[0].displayName;
-//        self.name1Image.image = self.pact.users[0].userImage;
-//        self.name1checkIns.text = @"1";
-//        self.pactTitle.text = @"Pact";
-//        self.pactDetail.text = self.pact.pactDescription;
-//        self.stakesTitle.text = @"Stakes";
-//        self.stakesDetail.text = self.pact.stakes;
-//        
-//        
-//    }
-    
+
         self.pactTitle.text = @"Pact";
         self.stakesTitle.text = @"Stakes";
+    
+    
+    [[self.sharedData.firebaseRef childByAppendingPath:[NSString stringWithFormat:@"pacts/%@/users", self.pact.pactID]] observeEventType:FEventTypeValue withBlock:^(FDataSnapshot *snapshot) {
+        NSLog(@"snapshot value for current user %@", snapshot.value[self.sharedData.currentUser.userID]);
+        if ([snapshot.value[self.sharedData.currentUser.userID] isEqualToNumber:@1]) {
+            self.pendingButton.hidden = YES;
+        }
+    }];
+    
+    
+    
+    NSLog(@"self.pact.users in userpactcellview %@", self.pact.users);
+    //this is a dictionary and we only have phone numbers
+
+    self.name1.text = @"";
+    //    cell.name1Image.image = image;
+    self.name1checkIns.text = @"x";
+    self.pactDetail.text = self.pact.pactDescription;
+    self.stakesDetail.text = self.pact.stakes;
+    
+    self.name2.text = @"";
+    //    cell.name2Image.image = cell.pact.users[1].userImage;
+    self.name2checkIns.text = @"x";
+    
+    self.name3.text = @"";
+    //    cell.name3Image.image = @"";
+    self.name3checkIns.text = @"";
+    
 }
 
 - (IBAction)pendingButtonTapped:(id)sender

@@ -107,14 +107,12 @@
         }
     }];
     
-//    self.accountStore = [[ACAccountStore alloc] init];
-//    NSLog(@"accountstore accounts %@", self.accountStore.accounts);
-//    ACAccount *account =  [[ACAccount alloc] init];
-//    account = [self.accountStore accountWithIdentifier:AccountIdentifierKey];
-//    [self.accountStore renewCredentialsForAccount:account completion:^(ACAccountCredentialRenewResult renewResult, NSError *error) {
-//        NSLog(@"error renewing account credentials: %@", error.localizedDescription);
-//    }];
-//    self.twitter = [STTwitterAPI twitterAPIOSWithAccount:account delegate:self];
+    self.accountStore = [[ACAccountStore alloc] init];
+    NSLog(@"accountstore accounts %@", self.accountStore.accounts);
+    NSString *accountKey = [[NSUserDefaults standardUserDefaults] objectForKey:AccountIdentifierKey];
+    ACAccount *account =  [self.accountStore accountWithIdentifier:accountKey];
+    NSLog(@"account %@", account);
+    self.twitter = [STTwitterAPI twitterAPIOSWithAccount:account delegate:self];
     self.currentPactIsActive = NO;
 }
 
@@ -292,34 +290,34 @@
     
     
     cell.pact = self.pacts[indexPath.section];
-    
-    [[self.ref childByAppendingPath:[NSString stringWithFormat:@"pacts/%@/users", cell.pact.pactID]] observeEventType:FEventTypeValue withBlock:^(FDataSnapshot *snapshot) {
-        NSLog(@"snapshot value for current user %@", snapshot.value[self.currentUserID]);
-        if ([snapshot.value[self.currentUserID] isEqualToNumber:@1]) {
-            
-            cell.pendingButton.hidden = YES;
-        }
-    }];
-    
-    cell.name1.text = self.dataSource.currentUser.displayName;
-    NSLog(@"\n\n\n\n\n\n\n\n\n %@", self.dataSource.currentUser.userImageURL);
-    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:self.dataSource.currentUser.userImageURL]];
-    [cell.name1Image setImageWithURLRequest:request placeholderImage:nil success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
-        NSLog(@"got an image");
-    } failure:nil];
-    //    cell.name1Image.image = image;
-    cell.name1checkIns.text = @"x";
-    cell.pactDetail.text = cell.pact.pactDescription;
-    cell.stakesDetail.text = cell.pact.stakes;
-    
-    cell.name2.text = @"test";
-    //    cell.name2Image.image = cell.pact.users[1].userImage;
-    cell.name2checkIns.text = @"x";
-    
-    cell.name3.text = @"";
-    //    cell.name3Image.image = @"";
-    cell.name3checkIns.text = @"";
-    
+//    
+//    [[self.ref childByAppendingPath:[NSString stringWithFormat:@"pacts/%@/users", cell.pact.pactID]] observeEventType:FEventTypeValue withBlock:^(FDataSnapshot *snapshot) {
+//        NSLog(@"snapshot value for current user %@", snapshot.value[self.currentUserID]);
+//        if ([snapshot.value[self.currentUserID] isEqualToNumber:@1]) {
+//            
+//            cell.pendingButton.hidden = YES;
+//        }
+//    }];
+//    
+//    cell.name1.text = self.dataSource.currentUser.displayName;
+//    NSLog(@"\n\n\n\n\n\n\n\n\n %@", self.dataSource.currentUser.userImageURL);
+//    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:self.dataSource.currentUser.userImageURL]];
+//    [cell.name1Image setImageWithURLRequest:request placeholderImage:nil success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
+//        NSLog(@"got an image");
+//    } failure:nil];
+//    //    cell.name1Image.image = image;
+//    cell.name1checkIns.text = @"x";
+//    cell.pactDetail.text = cell.pact.pactDescription;
+//    cell.stakesDetail.text = cell.pact.stakes;
+//    
+//    cell.name2.text = @"test";
+//    //    cell.name2Image.image = cell.pact.users[1].userImage;
+//    cell.name2checkIns.text = @"x";
+//    
+//    cell.name3.text = @"";
+//    //    cell.name3Image.image = @"";
+//    cell.name3checkIns.text = @"";
+//    
     
     
     
