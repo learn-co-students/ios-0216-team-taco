@@ -16,8 +16,8 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *countOfCheckInsLabel;
 @property (weak, nonatomic) IBOutlet UILabel *intialsLabel;
-@property (weak, nonatomic) IBOutlet UIImageView *userProfileImage;
 @property (strong, nonatomic) JDDDataSource *sharedData;
+@property (weak, nonatomic) IBOutlet UIImageView *indicatorImage;
 
 
 @end
@@ -41,6 +41,7 @@
 //    return self;
 //    
 //}
+
 
 -(instancetype)initWithCoder:(NSCoder *)aDecoder
 {
@@ -86,26 +87,19 @@
 
 -(void)updateUI
 {
+    self.indicatorImage.hidden = YES;
+//    self.indicatorImage.image = [self.indicatorImage.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+//    [self.indicatorImage setTintColor:[UIColor redColor]];
     
-    if ([self.user.userImageURL  isEqual: @""]) {
-        self.userProfileImage.hidden = YES;
-    } else {
-    self.userProfileImage.hidden = NO;
-        self.intialsLabel.hidden = YES;
-        UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:self.user.userImageURL]]];
-        self.userProfileImage.image = image;
-    if (self.userNameLabel.text != nil) {
     self.userNameLabel.text =self.user.displayName;
-        self.countOfCheckInsLabel.hidden = YES;
-        NSString *name= self.user.displayName;
+    
+    
+        self.intialsLabel.text = [self.user.displayName substringToIndex:1] ;
         
-        self.intialsLabel.text = [name substringToIndex:1] ;
-        
-    } else {
-        self.userNameLabel.text = @"";
-        self.countOfCheckInsLabel.text = @"";
-        self.intialsLabel.text = @"";
-    }
-    }
+    self.countOfCheckInsLabel.text = [NSString stringWithFormat:@"%li",self.user.checkIns.count];
+    
+    self.intialsLabel.layer.cornerRadius = self.intialsLabel.frame.size.height/2;
+    self.intialsLabel.layer.borderWidth = 2;
+    
 }
 @end

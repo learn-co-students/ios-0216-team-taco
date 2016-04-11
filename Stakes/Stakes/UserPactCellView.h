@@ -24,6 +24,7 @@
 @property (weak, nonatomic) IBOutlet UIStackView *stackView;
 @property (nonatomic,strong) Firebase *firebase;
 
+
 -(void)setShitUp;
 
 @property (weak, nonatomic) IBOutlet UIButton *pendingButton;
