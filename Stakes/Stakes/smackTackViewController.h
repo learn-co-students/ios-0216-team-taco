@@ -19,7 +19,6 @@
 
 @interface smackTackViewController : JSQMessagesViewController <UIActionSheetDelegate, JSQMessagesComposerTextViewPasteDelegate>
 
-@property (nonatomic, strong)NSMutableArray *messages;
 @property (nonatomic, strong) JDDDataSource *dataSource;
 @property (nonatomic, strong) JDDChatRoom *chatroom;
 @property (nonatomic, strong) JDDPact *currentPact;

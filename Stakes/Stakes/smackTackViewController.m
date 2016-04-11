@@ -28,12 +28,21 @@
     self.title = @"SmackTalk";
     
     self.dataSource = [JDDDataSource sharedDataSource];
-    
+    self.chatroom = [[JDDChatRoom alloc]init];
+    self.chatroom.messages = [[NSMutableArray alloc]init];
+    NSLog(@"currentPact: %@",self.currentPact.title);
     self.senderId = self.dataSource.currentUser.userID;
-    
-    self.messageRef = [self.dataSource.firebaseRef childByAppendingPath:[NSString stringWithFormat:@"chatRoom/%@",self.currentPact.pactID]];
-    
+    self.senderDisplayName = self.dataSource.currentUser.displayName;
+
+    self.messageRef = [self.dataSource.firebaseRef childByAppendingPath:[NSString stringWithFormat:@"chatrooms/%@",self.currentPact.pactID]];
+        
     [self setupBubbles];
+    
+}
+
+-(void)viewDidAppear:(BOOL)animated {
+
+    [self observeMessages];
     
 }
 
@@ -47,7 +56,7 @@
     
     JSQMessage *message =  self.chatroom.messages[indexPath.item];
 
-    if (message.senderId == self.dataSource.currentUser.userID) {
+    if ([message.senderId isEqualToString: self.dataSource.currentUser.userID]) {
         
         return self.outgoingBubbleImageView;
 
@@ -71,12 +80,11 @@
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     
     return self.chatroom.messages.count;
-    return 1;
 }
 
-//-(id<JSQMessageAvatarImageDataSource>)collectionView:(JSQMessagesCollectionView *)collectionView avatarImageDataForItemAtIndexPath:(NSIndexPath *)indexPath {
-//    
-//    JSQMessage * message = self.currentPact.messages[indexPath.row];
+-(id<JSQMessageAvatarImageDataSource>)collectionView:(JSQMessagesCollectionView *)collectionView avatarImageDataForItemAtIndexPath:(NSIndexPath *)indexPath {
+    
+//    JSQMessage * message = self.chatroom.messages[indexPath.row];
 //    
 //    for (JDDUser * user in self.currentPact.users) {
 //        
@@ -87,10 +95,10 @@
 //        }
 //        
 //    }
-//    
-//    return nil; 
-//    
-//}
+    
+    return nil; 
+    
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -112,7 +120,6 @@
     NSDictionary * message = @{ @"text": text,
                                 @"userID":self.dataSource.currentUser.userID,
                                 @"displayName": self.dataSource.currentUser.displayName,
-                                @"pactID":self.currentPact.pactID
                                 };
     
     [itemRef setValue:message];
@@ -123,11 +130,14 @@
 
 -(void)observeMessages {
     
-    FQuery *query = [self.messageRef queryLimitedToLast:25];
+    NSLog(@"ref : %@",self.messageRef.description);
+    
+    FQuery *query = [self.messageRef queryLimitedToLast:35];
     
     [query observeEventType:FEventTypeChildAdded withBlock:^(FDataSnapshot *snapshot) {
         
         NSString *userID = snapshot.value[@"userID"];
+        NSLog(@"snapshot: %@",snapshot.value);
         NSString *text = snapshot.value[@"text"];
         NSString *displayName = snapshot.value[@"displayName"];
         
@@ -135,6 +145,9 @@
         
         [self finishReceivingMessage];
         
+    } withCancelBlock:^(NSError *error) {
+        NSLog(@"ERROR: %@",error.description);
+
     }];
     
 }

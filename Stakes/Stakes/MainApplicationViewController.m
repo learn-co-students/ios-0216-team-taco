@@ -32,6 +32,12 @@
     if(userIsLoggedIn) {
         
         [self showUserPactsViewController];
+        [self establishCurrentUserWithBlock:^(BOOL completionBlock) {
+           
+            if (completionBlock == YES) {
+            NSLog(@"MAIN APP VC self.currentUser: %@", self.datasource.currentUser.displayName);
+            }
+        }];
     }
     
     else {
@@ -101,6 +107,23 @@
     [viewController.view.rightAnchor constraintEqualToAnchor:self.view.rightAnchor].active = YES;
     
     [viewController didMoveToParentViewController:self];
+}
+
+-(void)establishCurrentUserWithBlock:(void(^)(BOOL))completionBlock {
+    
+    Firebase *ref = [self.datasource.firebaseRef childByAppendingPath:[NSString stringWithFormat:@"users/%@",[[NSUserDefaults standardUserDefaults] stringForKey:UserIDKey]]];
+    
+    NSLog(@"%@",ref.description);
+    
+    [ref observeEventType:FEventTypeValue withBlock:^(FDataSnapshot *snapshot) {
+        
+        self.datasource.currentUser = [self.datasource useSnapShotAndCreateUser:snapshot];
+        
+        completionBlock(YES);
+        
+    }];
+    
+    
 }
 
 @end

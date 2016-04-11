@@ -36,6 +36,7 @@
         
         [self setUpFireBaseRef];
         self.currentUser = [[JDDUser alloc]init];
+        NSLog(@"currentUser is %@",self.currentUser);
         self.twitter = [[STTwitterAPI alloc]init];
 
     }

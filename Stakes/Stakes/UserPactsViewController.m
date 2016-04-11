@@ -44,7 +44,7 @@
     
     self.dataSource.currentUser.userID = [[NSUserDefaults standardUserDefaults] objectForKey: UserIDKey];
     self.currentUserID = self.dataSource.currentUser.userID;
-    NSLog(@"currentUserIs %@",self.currentUserID);
+    NSLog(@"currentUserIs %@",self.dataSource.currentUser.userID);
     
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
@@ -66,7 +66,8 @@
             [[NSOperationQueue mainQueue] addOperationWithBlock:^{
                 
                 [self.tableView reloadData];
-                
+                self.currentOpenPact = self.pacts[0];
+
                 [self observeEventForUsersFromFirebaseWithCompletionBlock:^(BOOL block) {
                     
                     if (completionBlock == YES) {
@@ -75,9 +76,9 @@
                             
                             [self.tableView reloadData];
                             
-                            JDDPact *thingToShow = self.pacts[2];
-                            JDDUser *user = thingToShow.usersToShowInApp[0];
-                            NSLog(@"%@",thingToShow.usersToShowInApp);
+//                            JDDPact *thingToShow = self.pacts[2];
+//                            JDDUser *user = thingToShow.usersToShowInApp[0];
+//                            NSLog(@"%@",thingToShow.usersToShowInApp);
 
                         }];
                     }
@@ -123,7 +124,7 @@
         // getting the userID information
         for (NSString *user in pact.users) { // Q to ask Teachers = why is this returning a string not a dictionary?? This is weird.
             
-            NSLog(@"The pact is %@ and the UserID is %@",pact.title, user);
+//            NSLog(@"The pact is %@ and the UserID is %@",pact.title, user);
 //            NSArray *things = [user allKeys];
 //            NSLog(@"\n\n\n\n\n\n\n%@\n\n\n\n\n\n", things);
 //            NSDictionary *stuff = @{ @"hello":@"stuff",
@@ -133,15 +134,15 @@
 
             // querying firebase and creating user
             Firebase *ref = [self.dataSource.firebaseRef childByAppendingPath:[NSString stringWithFormat:@"users/%@",user]];
-            NSLog(@"%@",ref.description);
-            [ref observeEventType:FEventTypeValue  withBlock:^(FDataSnapshot *snapshot) {
+            [ref observeEventType:FEventTypeValue withBlock:^(FDataSnapshot *snapshot) {
                 
                 // create the user and then add to array that will power the userView
                 JDDUser *pactUser = [self.dataSource useSnapShotAndCreateUser:snapshot];
-                [pact.usersToShowInApp addObject:pactUser];
                 
-                NSLog(@"%@",pactUser.displayName);
-                
+                if (![pact.usersToShowInApp containsObject:pactUser]) {
+                    [pact.usersToShowInApp addObject:pactUser];
+                    NSLog(@"the pact is %@ and the user is %@",pact.title ,pactUser.displayName);
+                }
                 completionBlock(YES);
             }];
         
@@ -238,7 +239,7 @@
     
     self.currentOpenPact = self.pacts[section];
     
-    NSLog(@"did open section %@",self.currentOpenPact.title);
+    NSLog(@"currentOpenPactIs %@",self.currentOpenPact.title);
     
 }
 
