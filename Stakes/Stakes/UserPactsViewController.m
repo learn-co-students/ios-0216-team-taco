@@ -42,10 +42,9 @@
     self.ref = self.dataSource.firebaseRef;
     self.pacts = [[NSMutableArray alloc]init];
     
-    self.dataSource.currentUser.userID = [[NSUserDefaults standardUserDefaults] objectForKey: UserIDKey];
-    self.currentUserID = self.dataSource.currentUser.userID;
     NSLog(@"currentUserIs %@",self.dataSource.currentUser.userID);
-    
+    self.currentOpenPact = self.dataSource.currentUser.pactsToShowInApp[0];
+
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     self.tableView.allowMultipleSectionsOpen = NO;
@@ -59,97 +58,9 @@
     
     [self setupSwipeGestureRecognizer];
     
-    [self observeEventFromFirebaseWithCompletionBlock:^(BOOL completionBlock) {
-        
-        if (completionBlock == YES) {
-            
-            [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-                
-                [self.tableView reloadData];
-                self.currentOpenPact = self.pacts[0];
-
-                [self observeEventForUsersFromFirebaseWithCompletionBlock:^(BOOL block) {
-                    
-                    if (completionBlock == YES) {
-                        
-                        [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-                            
-                            [self.tableView reloadData];
-
-                        }];
-                    }
-                }];
-                
-            }];
-        }
-    }];
-    
-}
+ }
 
 #pragma method that populates the view from Firebase
-
--(void)observeEventFromFirebaseWithCompletionBlock:(void(^)(BOOL))completionBlock {
-    
-    // this observe event will give back snapshot value of @{pactID: BOOL-isActive}
-    [[self.dataSource.firebaseRef childByAppendingPath:[NSString stringWithFormat:@"users/%@/pacts",self.currentUserID]] observeEventType:FEventTypeValue withBlock:^(FDataSnapshot *snapshotForUser) {
-        
-        for (NSString *pactID in [snapshotForUser.value allKeys]) {
-            
-            [[self.dataSource.firebaseRef childByAppendingPath:[NSString stringWithFormat:@"pacts/%@",pactID]] observeEventType:FEventTypeValue withBlock:^(FDataSnapshot *snapshotForPacts) {
-                
-                // could put create user observe event here?
-                
-                [self.pacts addObject:[self.dataSource useSnapShotAndCreatePact:snapshotForPacts]];
-                
-                completionBlock(YES);
-
-            }];
-            
-        }
-        
-    } withCancelBlock:^(NSError *error) {
-        NSLog(@"this shit didnt happen: %@", error.description );
-    }];
-
-}
-
-// this method is populating the users in the pact so we can use Twitter info etc. in the UserPactVC. Everything is saved in
--(void)observeEventForUsersFromFirebaseWithCompletionBlock:(void(^)(BOOL))completionBlock {
-
-    for (JDDPact *pact in self.pacts) {
-        pact.usersToShowInApp = [[NSMutableArray alloc] init];
-
-        // getting the userID information
-        for (NSString *user in pact.users) { // Q to ask Teachers = why is this returning a string not a dictionary?? This is weird.
-            
-//            NSLog(@"The pact is %@ and the UserID is %@",pact.title, user);
-//            NSArray *things = [user allKeys];
-//            NSLog(@"\n\n\n\n\n\n\n%@\n\n\n\n\n\n", things);
-//            NSDictionary *stuff = @{ @"hello":@"stuff",
-//                                     @"mere":@"cat"};
-//            NSArray *stuffArray = [stuff allKeys];
-//            NSLog(@"\n\n\n\n\n\n\n%@\n\n\n\n\n\n", stuffArray);
-
-            // querying firebase and creating user
-            Firebase *ref = [self.dataSource.firebaseRef childByAppendingPath:[NSString stringWithFormat:@"users/%@",user]];
-            [ref observeEventType:FEventTypeValue withBlock:^(FDataSnapshot *snapshot) {
-                
-                // create the user and then add to array that will power the userView
-                JDDUser *pactUser = [self.dataSource useSnapShotAndCreateUser:snapshot];
-                
-                if (![pact.usersToShowInApp containsObject:pactUser]) {
-                    [pact.usersToShowInApp addObject:pactUser];
-                    NSLog(@"the pact is %@ and the user is %@",pact.title ,pactUser.displayName);
-                }
-                
-                completionBlock(YES);
-            }];
-        
-        }
-        
-    }
-
-}
 
 
 #pragma gestureRecognizers for segues
@@ -199,14 +110,14 @@
     
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
-    cell.pact = self.pacts[indexPath.section];
+    cell.pact = self.dataSource.currentUser.pactsToShowInApp[indexPath.section];
     
     return cell;
 }
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return self.pacts.count;
+    return self.dataSource.currentUser.pactsToShowInApp.count;
 }
 
 
@@ -220,7 +131,7 @@
     
     PactAccordionHeaderView *viewThing = [tableView dequeueReusableHeaderFooterViewWithIdentifier:accordionHeaderReuseIdentifier];
     
-    JDDPact *currentPact = self.pacts[section];
+    JDDPact *currentPact = self.dataSource.currentUser.pactsToShowInApp[section];
     
     viewThing.pact = currentPact;
     
@@ -236,7 +147,7 @@
 
 - (void)tableView:(FZAccordionTableView *)tableView didOpenSection:(NSInteger)section withHeader:(UITableViewHeaderFooterView *)header {
     
-    self.currentOpenPact = self.pacts[section];
+    self.currentOpenPact = self.dataSource.currentUser.pactsToShowInApp[section];
     
     NSLog(@"currentOpenPactIs %@",self.currentOpenPact.title);
     

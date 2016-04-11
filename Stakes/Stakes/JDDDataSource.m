@@ -36,7 +36,6 @@
         
         [self setUpFireBaseRef];
         self.currentUser = [[JDDUser alloc]init];
-        NSLog(@"currentUser is %@",self.currentUser);
         self.twitter = [[STTwitterAPI alloc]init];
 
     }
@@ -97,7 +96,7 @@
 
     if(snapshot.value[@"pacts"]) {
         
-        user.pacts = snapshot.value[@"pacts"];
+        user.pacts = (NSMutableArray *)snapshot.value[@"pacts"];
     
     }
     
@@ -123,7 +122,8 @@
     
     JDDPact *pact = [[JDDPact alloc]init];
     
-    pact.pactID = snapshot.value[@"pactID"];
+    pact.pactID = (NSString *)snapshot.value[@"pactID"];
+    NSLog(@"pactID in initialization is: %@", pact.pactID);
     pact.pactDescription = snapshot.value[@"pactDescription"];
     pact.title = snapshot.value[@"title"];
     pact.stakes = snapshot.value[@"stakes"];
@@ -133,6 +133,7 @@
     pact.twitterPost = snapshot.value[@"twitterPost"];
     pact.dateOfCreation = [dateFormatter dateFromString:snapshot.value[@"dateOfCreation"]];
     pact.users = snapshot.value[@"users"];
+    pact.isActive = [snapshot.value[@"isActive"] boolValue];
 
     return pact;
 
@@ -212,6 +213,7 @@
                                       @"allowsShaming" : [NSNumber numberWithBool: pact.allowsShaming],
                                       @"checkInsPerTimeInterval" :[NSNumber numberWithUnsignedInteger:pact.checkInsPerTimeInterval],
                                       @"dateOfCreation" : [dateFormatter stringFromDate: pact.dateOfCreation],
+                                      @"isActive" : [NSNumber numberWithBool:pact.isActive]
                                       
                               }];
     

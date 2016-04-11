@@ -77,6 +77,7 @@
         self.createdPact.timeInterval = self.timeIntervalString;
         self.createdPact.checkInsPerTimeInterval = [self.frequanctString integerValue];
         self.createdPact.dateOfCreation = currentDate;
+        self.createdPact.isActive = NO;
         
         self.createdPact.users = self.contactsToShow;
         
