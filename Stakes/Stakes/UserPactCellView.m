@@ -20,15 +20,18 @@
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (weak, nonatomic) IBOutlet UIStackView *stackView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *stackViewWidth;
+@property (weak, nonatomic) IBOutlet UIView *View1;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *stackViewHeight;
+@property (weak, nonatomic) IBOutlet UILabel *pactDetalisHeaderLabel;
+
+@property (weak, nonatomic) IBOutlet UILabel *pactDetailsLabel;
 
 @property (strong, nonatomic) NSArray *pactMembers;
-@property (weak, nonatomic) IBOutlet UILabel *pactTitleLabel;
-@property (weak, nonatomic) IBOutlet UILabel *pactDetailLabel;
+@property (weak, nonatomic) IBOutlet UILabel *MembersCountLabel;
 
 @property (weak, nonatomic) IBOutlet UILabel *stakesLabel;
-@property (weak, nonatomic) IBOutlet UILabel *stakesDetailLabel;
 
+@property (weak, nonatomic) IBOutlet UILabel *twitterPostLabel;
 @property (nonatomic) CGFloat latitude;
 @property (nonatomic) CGFloat longitude;
 @property (nonatomic, strong) CLLocation *location;
@@ -156,24 +159,42 @@
                 view.checkinsCount ++;
             }
         }
-        
+        ;
+        NSString *valueIndicator = [NSString stringWithFormat:@"%@",[self.pact.users valueForKey:user.userID]] ;
+  
+        user.isReady = valueIndicator;
         view.user = user;
-        
+        NSLog(@"Is the view's user ready? %@", view.user.isReady);
         // same as [view setUser:user];
         [self.stackView addArrangedSubview:view];
         
-        [view.widthAnchor constraintEqualToAnchor:self.scrollView.widthAnchor multiplier:0.5].active = YES;
+        
+        if (self.pact.users.count == 2) {
+            [view.widthAnchor constraintEqualToAnchor:self.scrollView.widthAnchor multiplier:0.45].active = YES;
+        } else {
+        [view.widthAnchor constraintEqualToAnchor:self.scrollView.widthAnchor multiplier:0.33].active = YES;
+        }
+        
         [self.stackView layoutSubviews];//give subviews a size
         view.clipsToBounds = YES;
         
     }
+    self.MembersCountLabel.text = [NSString stringWithFormat:@"%li Members",self.pact.users.count];
+    self.pactDetalisHeaderLabel.backgroundColor =[UIColor blackColor];
+    self.pactDetalisHeaderLabel.textColor = [UIColor whiteColor];
+    [self.pactDetalisHeaderLabel setFont: [self.pactDetalisHeaderLabel.font fontWithSize: 14]];
+
     
     
-    self.pactTitle.text = self.pact.title;
-    self.pactDetail.text = self.pact.pactDescription;
-    self.stakesLabel.text = self.pact.stakes;
-    [self.stakesDetail sizeToFit];
-    self.stakesDetail.text = [NSString stringWithFormat:@"%lu per %@ \n to keep the pact",self.pact.checkInsPerTimeInterval,self.pact.timeInterval];
+    self.stakesLabel.backgroundColor =[UIColor blackColor];
+    self.stakesLabel.textColor = [UIColor whiteColor];
+    self.pactDetailsLabel.text = self.pact.pactDescription;
+    [self.stakesLabel setFont: [self.stakesLabel.font fontWithSize: 14]];
+    self.stakesLabel.text = [NSString stringWithFormat:@"What is at Stake: %@",self.pact.stakes];
+    
+//    NSString *twitterPost =
+    self.twitterPostLabel.text = [NSString stringWithFormat:@"Twitter Post: %@",self.pact.twitterPost];
+
     
 
 }

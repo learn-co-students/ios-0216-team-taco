@@ -109,7 +109,7 @@
                                     <constraint firstItem="a5f-VN-aAU" firstAttribute="centerY" secondItem="6iD-Vp-NXD" secondAttribute="centerY" id="gW7-kN-8xR"/>
                                 </constraints>
                             </view>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="fill" contentVerticalAlignment="top" borderStyle="line" placeholder="What Are You Going to Do" textAlignment="center" minimumFontSize="14" translatesAutoresizingMaskIntoConstraints="NO" id="ykR-kl-pm0">
+                            <textField opaque="NO" contentMode="scaleAspectFill" contentHorizontalAlignment="fill" contentVerticalAlignment="top" borderStyle="line" placeholder="What Are You Going to Do" textAlignment="center" minimumFontSize="13" translatesAutoresizingMaskIntoConstraints="NO" id="ykR-kl-pm0">
                                 <rect key="frame" x="30" y="160" width="540" height="70"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="70" id="Rx3-1t-RBH"/>

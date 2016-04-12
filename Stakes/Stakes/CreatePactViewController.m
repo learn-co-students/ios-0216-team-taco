@@ -37,6 +37,7 @@
 @property (nonatomic, strong) JDDPact *createdPact;
 @property (nonatomic, strong) NSMutableArray *contactsToShow;
 
+
 @end
 
 @implementation CreatePactViewController
@@ -82,10 +83,8 @@
         self.createdPact.isActive = NO;
         
         
-        [self sendMessageToInvites];
         self.createdPact.users = self.contactsToShow;
         
-//        [self sendMessageToInvites];
         
         [self sendPactToFirebase];
         
@@ -105,7 +104,7 @@
                                     
                                     [[NSOperationQueue mainQueue] addOperationWithBlock:^{
                                         
-                                        [self dismissViewControllerAnimated:YES completion:nil];
+                                    //    [self dismissViewControllerAnimated:YES completion:nil];
                                         
                                     }];
                                 }
@@ -119,6 +118,11 @@
             }
         }];
 
+        
+
+        [self sendMessageToInvites];
+
+        
     } else {
         
         [self alertPactNotReady];
@@ -357,14 +361,17 @@
         
         NSString *contactPhone = [[NSString alloc]init];
         
-        CNLabeledValue<CNPhoneNumber*>* oneWeWant = [contact.phoneNumbers firstObject];
+        if ([contact.phoneNumbers firstObject]) {
+            CNLabeledValue<CNPhoneNumber*>* oneWeWant = [contact.phoneNumbers firstObject];
+
+             contactPhone = oneWeWant.value.stringValue;
         
-        contactPhone = oneWeWant.value.stringValue;
+       
         
         contactPhone = [[contactPhone componentsSeparatedByCharactersInSet:[[NSCharacterSet decimalDigitCharacterSet] invertedSet]]
                         componentsJoinedByString:@""]; // clean iPhone number
-        
-        
+        self.contacts = [[NSMutableArray alloc]init];
+            [self.contacts addObject:contactPhone];}
         // query Firebase to see if the contactIphone exists
         Firebase *usersRef = [self.dataSource.firebaseRef childByAppendingPath:@"users"];
         
@@ -517,9 +524,8 @@ return  NO;
     // Configure the fields of the interface.
     composeVC.recipients = self.contacts;
     composeVC.body = @"Hey Guys I created a pact to hit the gym download the app to keep tracking our progress";
-    
+
     // Present the view controller modally.
-//    [self presentViewController:composeVC animated:YES completion:nil];
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         [self presentViewController:composeVC animated:YES completion:nil];
     });}
@@ -528,40 +534,16 @@ return  NO;
 -(void)messageComposeViewController:(MFMessageComposeViewController *)controller didFinishWithResult:(MessageComposeResult)result
 {
     if(result == MessageComposeResultSent) {
-        // ...
-    }
-    
-    [self dismissViewControllerAnimated:YES completion:nil];
+        [self dismissViewControllerAnimated:YES completion:nil];
+        [self dismissViewControllerAnimated:NO completion:nil];
 
+
+    } else {
+    
+    [self dismissViewControllerAnimated:NO completion:nil];
+
+    }
 }
-//-(void)sendMessageToInvites{
-//    if (![MFMessageComposeViewController canSendText]) {
-//        NSLog(@"Message services are not available.");
-//    }
-//    
-//    MFMessageComposeViewController* composeVC = [[MFMessageComposeViewController alloc] init];
-//    composeVC.messageComposeDelegate = self;
-//    
-//    // Configure the fields of the interface.
-//    composeVC.recipients = self.contacts;
-//    composeVC.body = @"Hey Guys I created a pact to hit the gym download the app to keep tracking our progress";
-//    
-//    // Present the view controller modally.
-////    [self presentViewController:composeVC animated:YES completion:nil];
-//    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-//        [self presentViewController:composeVC animated:YES completion:nil];
-//    });
-//}
-//
-//-(void)messageComposeViewController:(MFMessageComposeViewController *)controller didFinishWithResult:(MessageComposeResult)result
-//{
-//    if(result == MessageComposeResultSent) {
-//        // ...
-//    }
-//    
-//    [self dismissViewControllerAnimated:YES completion:nil];
-//
-//}
 
 
 -(void)establishCurrentUserWithBlock:(void(^)(BOOL))completionBlock {
