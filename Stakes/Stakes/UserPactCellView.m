@@ -71,30 +71,6 @@
     }
     [self.locationManager startUpdatingLocation];
     
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
-    [dateFormatter setDateFormat:@"yyyy'-'MM'-'dd'-'hh:mm'"];
-    
-    NSMutableDictionary *JSQMessageDictionary = [[NSMutableDictionary alloc]initWithDictionary:@{
-                                                                                                 @"senderId" : self.sharedData.currentUser.userID,
-                                                                                                 @"senderDisplayName" :self.sharedData.currentUser.displayName,
-                                                                                                 @"date" : [dateFormatter stringFromDate:[NSDate date]],
-                                                                                                 @"text" : [NSString stringWithFormat:@"%@ just checked in to %f, %f",self.sharedData.currentUser.displayName, self.latitude,self.longitude],
-                                                                                                 
-                                                                                                 }];
-    
-    
-    [[[self.sharedData.firebaseRef childByAppendingPath:[NSString stringWithFormat:@"chatrooms/%@",self.pact.pactID]] childByAutoId] setValue:JSQMessageDictionary];
-    
-    NSMutableDictionary * locationDictionary = [[NSMutableDictionary alloc]initWithDictionary: @{
-                                                                                                 @"senderId" : self.sharedData.currentUser.userID,
-                                                                                                 @"senderDisplayName" :self.sharedData.currentUser.displayName,
-                                                                                                 @"date" : [dateFormatter stringFromDate:[NSDate date]],
-                                                                                                 @"longitude" :[NSNumber numberWithFloat: self.longitude],
-                                                                                                 @"latitude" :[NSNumber numberWithFloat: self.latitude],
-                                                                                                 }];
-    
-    [[[self.sharedData.firebaseRef childByAppendingPath:[NSString stringWithFormat:@"chatrooms/%@",self.pact.pactID]] childByAutoId] setValue:locationDictionary];
-
 }
 
 //location geo delagates methods.
@@ -111,6 +87,31 @@
     self.location= [locations lastObject];
     self.latitude= self.location.coordinate.latitude;
     self.longitude = self.location.coordinate.longitude;
+    
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
+    [dateFormatter setDateFormat:@"yyyy'-'MM'-'dd'-'hh:mm'"];
+    
+    NSMutableDictionary *JSQMessageDictionary = [[NSMutableDictionary alloc]initWithDictionary:@{
+                                                                                                 @"senderId" : self.sharedData.currentUser.userID,
+                                                                                                 @"senderDisplayName" :self.sharedData.currentUser.displayName,
+                                                                                                 @"date" : [dateFormatter stringFromDate:[NSDate date]],
+                                                                                                 @"text" : [NSString stringWithFormat:@"%@ just checked in to %f, %f",self.sharedData.currentUser.displayName, self.latitude,self.longitude]
+                                                                                                 
+                                                                                                 }];
+    
+    
+    [[[self.sharedData.firebaseRef childByAppendingPath:[NSString stringWithFormat:@"chatrooms/%@",self.pact.pactID]] childByAutoId] setValue:JSQMessageDictionary];
+    
+    NSMutableDictionary * locationDictionary = [[NSMutableDictionary alloc]initWithDictionary: @{
+                                                                                                 @"senderId" : self.sharedData.currentUser.userID,
+                                                                                                 @"senderDisplayName" :self.sharedData.currentUser.displayName,
+                                                                                                 @"date" : [dateFormatter stringFromDate:[NSDate date]],
+                                                                                                 @"longitude" :[NSNumber numberWithFloat: self.longitude],
+                                                                                                 @"latitude" :[NSNumber numberWithFloat: self.latitude]
+                                                                                                 }];
+    
+    [[[self.sharedData.firebaseRef childByAppendingPath:[NSString stringWithFormat:@"chatrooms/%@",self.pact.pactID]] childByAutoId] setValue:locationDictionary];
+
     
     [self.locationManager stopUpdatingLocation];
 
