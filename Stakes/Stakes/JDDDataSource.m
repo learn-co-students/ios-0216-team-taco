@@ -54,6 +54,7 @@
     pact.stakes = @"Loser has to buy beer";
     pact.users = [[NSMutableArray alloc]init];
     
+    
     pact.checkInsPerTimeInterval = 3;
     pact.timeInterval = @"week";
     pact.repeating = YES;
@@ -61,7 +62,7 @@
     pact.allowsShaming = YES;
     pact.twitterPost = @"man, all these donuts are incredible";
     
-    pact.users = [[NSMutableArray alloc]init];
+    pact.users = [[NSMutableArray alloc]initWithArray:@[self.currentUser]];
     
     pact.chatRoomID = [[NSString alloc]init];
  
@@ -230,6 +231,7 @@
                                       @"stakes" : pact.stakes,
                                       @"repeating" : [NSNumber numberWithBool: pact.repeating],
                                       @"allowsShaming" : [NSNumber numberWithBool: pact.allowsShaming],
+                                      @"timeInterval" : pact.timeInterval,
                                       @"checkInsPerTimeInterval" :[NSNumber numberWithUnsignedInteger:pact.checkInsPerTimeInterval],
                                       @"dateOfCreation" : [dateFormatter stringFromDate: pact.dateOfCreation],
                                       @"isActive" : [NSNumber numberWithBool:pact.isActive]

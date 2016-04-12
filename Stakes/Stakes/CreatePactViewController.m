@@ -119,13 +119,6 @@
             }
         }];
 
-        
-        
-//        [self dismissViewControllerAnimated:YES completion:nil];
-
-
-        
-                
     } else {
         
         [self alertPactNotReady];
