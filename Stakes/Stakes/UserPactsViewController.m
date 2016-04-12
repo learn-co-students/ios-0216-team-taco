@@ -15,6 +15,7 @@
 #import "JDDDataSource.h"
 #import "UserPactCellView.h"
 #import "PactDetailViewController.h"
+#import "CreatePactViewController.h"
 #import "LoginViewController.h"
 #import "smackTackViewController.h"
 #import "Constants.h"
@@ -115,6 +116,7 @@
     if (scrollView.contentOffset.y < -(self.view.frame.size.height/6)) {
         
         [self performSegueWithIdentifier:@"segueToCreatePact" sender:self];
+        
     }
 }
 
@@ -193,9 +195,7 @@
     
     if ([segue.identifier isEqualToString:@"segueToSmackTalkVC"]) {
         
-        UINavigationController *destinationVC = segue.destinationViewController;
-        
-        smackTackViewController *thing = destinationVC.viewControllers[0];
+        smackTackViewController *thing = segue.destinationViewController;
         
         thing.currentPact = self.currentOpenPact;
         

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="v6e-dC-oUV">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="MPh-TJ-Hsx">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -10,7 +10,7 @@
         <!--Smack Tack View Controller-->
         <scene sceneID="tRZ-Rw-5Qn">
             <objects>
-                <viewController id="MPh-TJ-Hsx" customClass="smackTackViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="navBarToSmackTalkVC" id="MPh-TJ-Hsx" customClass="smackTackViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="6Cc-UE-D5A"/>
                         <viewControllerLayoutGuide type="bottom" id="QYL-y3-P0C"/>
@@ -21,28 +21,21 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="298-3B-QFo"/>
+                    <connections>
+                        <segue destination="wEL-4w-6oi" kind="show" identifier="segueBackToUserPactsVC" id="mhF-gW-k1p"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dRU-Eh-DSq" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3471" y="2040"/>
         </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="8P1-yf-uKM">
+        <!--Main-->
+        <scene sceneID="ibn-94-VXI">
             <objects>
-                <navigationController storyboardIdentifier="navBarToSmackTalkVC" automaticallyAdjustsScrollViewInsets="NO" id="v6e-dC-oUV" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="z6q-YK-HFH">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="MPh-TJ-Hsx" kind="relationship" relationship="rootViewController" id="slU-Tn-JIs"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="KDU-Gt-amw" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <viewControllerPlaceholder storyboardIdentifier="UserPactsViewController" storyboardName="Main" id="wEL-4w-6oi" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="1Vo-fr-6S2" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2659" y="2040"/>
+            <point key="canvasLocation" x="4046.5" y="1883"/>
         </scene>
         <!--Item-->
         <scene sceneID="iUk-We-miD">
