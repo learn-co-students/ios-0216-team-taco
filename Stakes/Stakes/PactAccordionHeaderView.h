@@ -15,5 +15,7 @@ static NSString *const accordionHeaderReuseIdentifier = @"AccordionHeaderViewReu
 
 @interface PactAccordionHeaderView : FZAccordionTableViewHeaderView
 @property (nonatomic, strong) JDDPact *pact;
+@property (weak, nonatomic) IBOutlet UIView *containerView;
+
 
 @end

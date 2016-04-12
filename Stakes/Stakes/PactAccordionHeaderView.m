@@ -1,3 +1,4 @@
+
 //
 //  PactAccordionHeaderView.m
 //  Stakes
@@ -8,7 +9,6 @@
 
 #import "PactAccordionHeaderView.h"
 @interface PactAccordionHeaderView ()
-@property (weak, nonatomic) IBOutlet UIView *containerView;
 @property (weak, nonatomic) IBOutlet UILabel *title;
 @property (weak, nonatomic) IBOutlet UIButton *acceptPactButton;
 @property (strong, nonatomic) JDDDataSource *sharedData;

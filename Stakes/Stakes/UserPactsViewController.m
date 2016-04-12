@@ -15,6 +15,7 @@
 #import "JDDDataSource.h"
 #import "UserPactCellView.h"
 #import "PactDetailViewController.h"
+#import "CreatePactViewController.h"
 #import "LoginViewController.h"
 #import "smackTackViewController.h"
 #import "Constants.h"
@@ -41,14 +42,7 @@
     self.dataSource = [JDDDataSource sharedDataSource];
     self.ref = self.dataSource.firebaseRef;
 
-//    NSLog(@"%@",self.dataSource.currentUser.displayName);
-//    NSLog(@"%@",self.dataSource.currentUser.twitterHandle);
-//
-//    NSLog(@"%lu",self.dataSource.currentUser.pacts.count);
-//    
-//    NSLog(@"currentUserIs %@",self.dataSource.currentUser.userID);
     self.currentOpenPact = self.dataSource.currentUser.pactsToShowInApp[0];
-
 
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
@@ -127,6 +121,7 @@
     if (scrollView.contentOffset.y < -(self.view.frame.size.height/6)) {
         
         [self performSegueWithIdentifier:@"segueToCreatePact" sender:self];
+        
     }
 }
                                                                                                                 
@@ -141,7 +136,7 @@
 #pragma stuff for tableView
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 400;
+    return self.view.frame.size.height*.75;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
@@ -182,7 +177,6 @@
 
     PactAccordionHeaderView *accordianHeaderView = [tableView dequeueReusableHeaderFooterViewWithIdentifier:accordionHeaderReuseIdentifier];
     
-
     [accordianHeaderView setPact:currentPact];
     
     return accordianHeaderView;
@@ -192,20 +186,24 @@
 
 #pragma mark - <FZAccordionTableViewDelegate> -
 
-- (void)tableView:(FZAccordionTableView *)tableView willOpenSection:(NSInteger)section withHeader:(UITableViewHeaderFooterView *)header {
+- (void)tableView:(FZAccordionTableView *)tableView willOpenSection:(NSInteger)section withHeader:(PactAccordionHeaderView *)header {
 }
 
-- (void)tableView:(FZAccordionTableView *)tableView didOpenSection:(NSInteger)section withHeader:(UITableViewHeaderFooterView *)header {
+- (void)tableView:(FZAccordionTableView *)tableView didOpenSection:(NSInteger)section withHeader:(PactAccordionHeaderView *)header {
+    
+    header.containerView.backgroundColor = [UIColor grayColor];
     
     self.currentOpenPact = self.dataSource.currentUser.pactsToShowInApp[section];
     
 }
 
-- (void)tableView:(FZAccordionTableView *)tableView willCloseSection:(NSInteger)section withHeader:(UITableViewHeaderFooterView *)header {
+- (void)tableView:(FZAccordionTableView *)tableView willCloseSection:(NSInteger)section withHeader:(PactAccordionHeaderView *)header {
     
+    header.containerView.backgroundColor = [UIColor blackColor];
+
 }
 
-- (void)tableView:(FZAccordionTableView *)tableView didCloseSection:(NSInteger)section withHeader:(UITableViewHeaderFooterView *)header {
+- (void)tableView:(FZAccordionTableView *)tableView didCloseSection:(NSInteger)section withHeader:(PactAccordionHeaderView *)header {
     
 }
 
@@ -213,9 +211,7 @@
     
     if ([segue.identifier isEqualToString:@"segueToSmackTalkVC"]) {
         
-        UINavigationController *destinationVC = segue.destinationViewController;
-        
-        smackTackViewController *thing = destinationVC.viewControllers[0];
+        smackTackViewController *thing = segue.destinationViewController;
         
         thing.currentPact = self.currentOpenPact;
         

@@ -17,8 +17,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *countOfCheckInsLabel;
 @property (weak, nonatomic) IBOutlet UILabel *intialsLabel;
 @property (strong, nonatomic) JDDDataSource *sharedData;
-@property (weak, nonatomic) IBOutlet UIImageView *indicatorImage;
 
+@property (weak, nonatomic) IBOutlet UILabel *indicatorLabel;
 
 @end
 
@@ -87,12 +87,18 @@
 
 -(void)updateUI
 {
-    self.indicatorImage.hidden = YES;
-//    self.indicatorImage.image = [self.indicatorImage.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
-//    [self.indicatorImage setTintColor:[UIColor redColor]];
+    self.indicatorLabel.layer.cornerRadius = self.indicatorLabel.frame.size.width/2;
+    self.indicatorLabel.text = @"";
+    self.indicatorLabel.layer.borderWidth = 0.5;
+    
+    NSString *Boolian = (NSString*)self.user.isReady;
+    if ([Boolian isEqual:@"1"]) {
+        self.indicatorLabel.backgroundColor = [UIColor greenColor];
+    } else {
+        self.indicatorLabel.backgroundColor = [UIColor redColor];
+    }
     
     self.userNameLabel.text =self.user.displayName;
-    
     
         self.intialsLabel.text = [self.user.displayName substringToIndex:1] ;
         
