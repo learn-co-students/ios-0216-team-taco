@@ -27,7 +27,6 @@
 @property (nonatomic, strong) JDDDataSource *dataSource;
 @property (nonatomic, strong) JDDPact * currentOpenPact;
 @property (nonatomic, strong) ACAccountStore *accountStore;
-@property (weak, nonatomic) IBOutlet UITextField *tweetTextField;
 @property (nonatomic,strong)NSString *currentUserID;
 @property (nonatomic, strong) Firebase *ref;
 @property (nonatomic, strong) STTwitterAPI *twitter;
@@ -57,7 +56,7 @@
     self.tableView.keepOneSectionOpen = NO;
     self.tableView.initialOpenSections = [NSSet setWithObjects:@(0), nil];
     self.tableView.scrollEnabled = YES;
-    self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLineEtched;
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
     [self.tableView registerNib:[UINib nibWithNibName:@"UserPactCellView" bundle:nil] forCellReuseIdentifier:@"userPact"];
     [self.tableView registerNib:[UINib nibWithNibName:@"PactAccordionHeaderView" bundle:nil] forHeaderFooterViewReuseIdentifier:accordionHeaderReuseIdentifier];
@@ -69,7 +68,14 @@
     NSString *accountKey = [[NSUserDefaults standardUserDefaults] objectForKey:AccountIdentifierKey];
     ACAccount *account =  [self.accountStore accountWithIdentifier:accountKey];
     NSLog(@"account %@", account);
-    self.twitter = [STTwitterAPI twitterAPIOSWithAccount:account delegate:self];
+    self.dataSource.twitter = [STTwitterAPI twitterAPIOSWithAccount:account delegate:self];
+    [self.dataSource.twitter verifyCredentialsWithUserSuccessBlock:^(NSString *username, NSString *userID) {
+        NSLog(@"Twitter verified");
+    } errorBlock:^(NSError *error) {
+        NSLog(@"%@", error.localizedDescription);
+        NSString *message = [NSString stringWithFormat:@"There was an error signing in to Twitter: %@", error.localizedDescription];
+//        [self showAlertWithMessage:message];
+    }];
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -96,18 +102,24 @@
 
 -(void)setupSwipeGestureRecognizer {
     
-    UISwipeGestureRecognizer *swipe = [[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(swipeRightGestureHappened:)];
-    [swipe setDirection:UISwipeGestureRecognizerDirectionRight];
+    UISwipeGestureRecognizer *swipeRight = [[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(swipeRightGestureHappened:)];
+    [swipeRight setDirection:UISwipeGestureRecognizerDirectionRight];
     
-    [self.view addGestureRecognizer:swipe];
+    [self.view addGestureRecognizer:swipeRight];
+    
+    UISwipeGestureRecognizer *swipeLeft = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swifeLeftGestureHappened:)];
+    
+    [self.view addGestureRecognizer:swipeLeft];
 }
 
 -(void)swipeRightGestureHappened:(UISwipeGestureRecognizer *)swipeGestureRight{
     
+
     NSLog(@"Right Gesture Recognizer is happening!");
     
     [self performSegueWithIdentifier:@"segueToSmackTalkVC" sender:self];
 
+    //if swipe gesture left
 }
 
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView {
@@ -117,7 +129,15 @@
         [self performSegueWithIdentifier:@"segueToCreatePact" sender:self];
     }
 }
-
+                                                                                                                
+-(void)swifeLeftGestureHappened:(UISwipeGestureRecognizer *)swifeGestureLeft
+{
+    NSLog(@"swiped left");
+    
+    [self performSegueWithIdentifier:@"segueToPactDetail" sender:self];
+    
+}
+                                                                                                                
 #pragma stuff for tableView
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -206,6 +226,9 @@
     } else if ([segue.identifier isEqualToString:@"segueToUserDetail"]) {
         
         // don't do anything
+    } else if ([segue.identifier isEqualToString:@"segueToPactDetail"]) {
+        PactDetailViewController *pactVC = segue.destinationViewController;
+        pactVC.pact = self.currentOpenPact;
     }
 }
 
@@ -220,25 +243,27 @@
 
 }
 
-- (IBAction)tweetTapped:(id)sender
-{
-    
-    NSLog(@"trying to send a tweet");
-    NSString *tweet = self.tweetTextField.text;
-    [self.dataSource.twitter postStatusUpdate:tweet
-                            inReplyToStatusID:nil
-                                     latitude:nil
-                                    longitude:nil
-                                      placeID:nil
-                           displayCoordinates:nil
-                                     trimUser:nil
-                                 successBlock:^(NSDictionary *status) {
-                                     NSLog(@"SUCCESSFUL TWEET");
-                                 } errorBlock:^(NSError *error) {
-                                     NSLog(@"THERE WAS AN ERROR TWEETING");
-                                     NSString *message = [NSString stringWithFormat:@"You didn't really want to send that, did you? There was an error sending your Tweet: %@", error.localizedDescription];
-                                     NSLog(@"ERROR TWEETING: %@", error.localizedDescription);
-                                 }];
-}
+//- (IBAction)tweetTapped:(id)sender
+//{
+//    
+//    NSLog(@"trying to send a tweet");
+//    NSString *tweet = self.tweetTextField.text;
+//    [self.dataSource.twitter postStatusUpdate:tweet
+//                            inReplyToStatusID:nil
+//                                     latitude:nil
+//                                    longitude:nil
+//                                      placeID:nil
+//                           displayCoordinates:nil
+//                                     trimUser:nil
+//                                 successBlock:^(NSDictionary *status) {
+//                                     NSLog(@"SUCCESSFUL TWEET");
+//                                 } errorBlock:^(NSError *error) {
+//                                     NSLog(@"THERE WAS AN ERROR TWEETING");
+//                                     NSString *message = [NSString stringWithFormat:@"You didn't really want to send that, did you? There was an error sending your Tweet: %@", error.localizedDescription];
+//                                     NSLog(@"ERROR TWEETING: %@", error.localizedDescription);
+//                                 }];
+//}
+
+
 
 @end

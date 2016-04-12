@@ -7,7 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "JDDPact.h"
 
 @interface PactDetailViewController : UIViewController
+@property (nonatomic, strong) JDDPact *pact;
 
 @end
