@@ -19,6 +19,7 @@
 @property (nonatomic, strong) NSString *twitterHandle;
 @property (nonatomic, strong) UIImage *userImage;
 @property (nonatomic, strong) NSString *userImageURL;
+@property (nonatomic,strong) NSString *isReady;
 
 
 //App Info

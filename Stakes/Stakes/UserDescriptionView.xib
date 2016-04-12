@@ -11,6 +11,7 @@
             <connections>
                 <outlet property="contentView" destination="iN0-l3-epB" id="M7e-Ek-1MT"/>
                 <outlet property="countOfCheckInsLabel" destination="nYO-zu-Y2V" id="wCd-5U-nFA"/>
+                <outlet property="indicatorLabel" destination="mrA-JW-ryr" id="KlG-vs-kcP"/>
                 <outlet property="intialsLabel" destination="djV-sx-i9R" id="6sH-eQ-6iq"/>
                 <outlet property="userNameLabel" destination="U54-ea-yf7" id="JQc-Tk-Uwb"/>
             </connections>
@@ -41,15 +42,29 @@
                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
+                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mrA-JW-ryr">
+                    <rect key="frame" x="176" y="64" width="12" height="12"/>
+                    <color key="backgroundColor" red="0.4608384370803833" green="0.94355803728103638" blue="0.23015168309211731" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="width" secondItem="mrA-JW-ryr" secondAttribute="height" multiplier="1:1" id="ROo-N1-Cvi"/>
+                        <constraint firstAttribute="width" constant="12" id="iUW-cl-k0K"/>
+                        <constraint firstAttribute="height" constant="12" id="ujJ-JG-HoX"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
             </subviews>
             <constraints>
                 <constraint firstItem="djV-sx-i9R" firstAttribute="leading" secondItem="U54-ea-yf7" secondAttribute="leading" id="8wg-ab-dWe"/>
                 <constraint firstItem="nYO-zu-Y2V" firstAttribute="leading" secondItem="U54-ea-yf7" secondAttribute="leading" id="Dmp-mJ-YZU"/>
                 <constraint firstItem="djV-sx-i9R" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" multiplier="0.7" id="QyN-Uq-Iyh"/>
                 <constraint firstItem="U54-ea-yf7" firstAttribute="top" secondItem="djV-sx-i9R" secondAttribute="bottom" constant="10" id="WTk-vj-tsd"/>
+                <constraint firstItem="djV-sx-i9R" firstAttribute="top" secondItem="mrA-JW-ryr" secondAttribute="bottom" id="ZJn-C2-orx"/>
                 <constraint firstItem="nYO-zu-Y2V" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="dsd-Fz-Pkr"/>
                 <constraint firstItem="nYO-zu-Y2V" firstAttribute="top" secondItem="U54-ea-yf7" secondAttribute="bottom" constant="10" id="gGS-77-WGS"/>
                 <constraint firstItem="djV-sx-i9R" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="lhc-5U-lcp"/>
+                <constraint firstItem="mrA-JW-ryr" firstAttribute="leading" secondItem="djV-sx-i9R" secondAttribute="trailing" constant="10" id="nPQ-Yw-dqT"/>
                 <constraint firstItem="U54-ea-yf7" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="rGH-P7-CBU"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
