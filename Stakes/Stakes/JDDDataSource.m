@@ -54,6 +54,7 @@
     pact.stakes = @"Loser has to buy beer";
     pact.users = [[NSMutableArray alloc]init];
     
+    
     pact.checkInsPerTimeInterval = 3;
     pact.timeInterval = @"week";
     pact.repeating = YES;
