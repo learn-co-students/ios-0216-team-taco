@@ -170,7 +170,7 @@
         
         
         if (self.pact.users.count == 2) {
-            [view.widthAnchor constraintEqualToAnchor:self.scrollView.widthAnchor multiplier:0.45].active = YES;
+            [view.widthAnchor constraintEqualToAnchor:self.scrollView.widthAnchor multiplier:0.5].active = YES;
         } else {
         [view.widthAnchor constraintEqualToAnchor:self.scrollView.widthAnchor multiplier:0.33].active = YES;
         }

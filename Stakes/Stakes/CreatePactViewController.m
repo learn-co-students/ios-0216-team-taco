@@ -10,6 +10,7 @@
 #import "JDDDataSource.h"
 #import "JDDPact.h"
 #import "Constants.h"
+#import "UserDescriptionView.h"
 
 @import Contacts;
 @import ContactsUI;
@@ -36,7 +37,9 @@
 @property (nonatomic, strong) Firebase *pactReference;
 @property (nonatomic, strong) JDDPact *createdPact;
 @property (nonatomic, strong) NSMutableArray *contactsToShow;
+@property (weak, nonatomic) IBOutlet UIStackView *stackView;
 
+@property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 
 @end
 
@@ -406,6 +409,9 @@
                     [self.contactsToShow addObject:contactToAdd];
                     
                     NSLog(@"contactToShow: %@",self.contactsToShow);
+                    
+                    [self addUserToInviteScrollView:contactToAdd];
+
 
                 }];
 
@@ -424,17 +430,82 @@
                 
                 [self.contactsToShow addObject: newUser]; // add user to contacts to show
                 
-                NSLog(@"contactsToShowNewUser : %@",self.contactsToShow);
+                [self addUserToInviteScrollView:newUser];
+
+                
+                NSLog(@"contactsToShowNewUser : %lu",self.contactsToShow.count);
+                NSLog(@"contactsAddressBookInvites : %lu",(unsigned long)contacts.count);
 
             }
             
+            
             [NSNotification notificationWithName:@"contactsReadyForCreatePactView" object:nil];
             
+
         }];
         
     }
     
 }
+
+-(void)addUserToInviteScrollView: (JDDUser*)user {
+    UserDescriptionView *view = [[UserDescriptionView alloc]init];
+    view.indicatorLabel.hidden = YES;
+    view.user = user;
+    
+    if (self.stackView.arrangedSubviews.count == 0) {
+        [self.stackView addArrangedSubview:view];
+        if (self.stackView.arrangedSubviews.count == 2) {
+            [view.widthAnchor constraintEqualToAnchor:self.scrollView.widthAnchor multiplier:0.4].active = YES;
+        } else {
+            [view.widthAnchor constraintEqualToAnchor:self.scrollView.widthAnchor multiplier:0.24].active = YES;
+            
+        }
+    } else  {
+        NSMutableArray *userIDsInStackView = [[NSMutableArray alloc]init];
+        for (UserDescriptionView *viewToCompare in self.stackView.arrangedSubviews) {
+            [userIDsInStackView addObject:viewToCompare.user.userID];
+        }
+
+        
+            if ([userIDsInStackView containsObject:view.user.userID]) {
+                NSLog(@"Already have this user in the scrollView");
+                [self alertUserAlreadyAdded:view.user.displayName];
+                
+            } else {
+                [self.stackView addArrangedSubview:view];
+                if (self.stackView.arrangedSubviews.count == 2) {
+                    [view.widthAnchor constraintEqualToAnchor:self.scrollView.widthAnchor multiplier:0.4].active = YES;
+                } else {
+                    [view.widthAnchor constraintEqualToAnchor:self.scrollView.widthAnchor multiplier:0.24].active = YES;
+                }
+            }
+        
+    }
+    
+    
+}
+
+-(void)alertUserAlreadyAdded:(NSString *)name
+{
+    NSString *message = [NSString stringWithFormat:@"You already added %@", name];
+    
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Oops!" message:message preferredStyle:UIAlertControllerStyleAlert];
+    
+    UIAlertAction* ok = [UIAlertAction
+                         actionWithTitle:@"OK"
+                         style:UIAlertActionStyleDefault
+                         handler:^(UIAlertAction * action)
+                         {
+                             [alert dismissViewControllerAnimated:YES completion:nil];
+                             
+                         }];
+    
+    [alert addAction: ok];
+    
+    [self presentViewController:alert animated:YES completion:nil];
+}
+
 
 - (IBAction)cancelButtonPressed:(id)sender {
     

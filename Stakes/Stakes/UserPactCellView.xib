@@ -13,7 +13,7 @@
             <rect key="frame" x="0.0" y="0.0" width="606" height="607"/>
             <autoresizingMask key="autoresizingMask"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="5RV-0D-LDx" id="axl-7V-KNR">
-                <rect key="frame" x="0.0" y="0.0" width="606" height="607"/>
+                <rect key="frame" x="0.0" y="0.0" width="606" height="606"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="00x-P1-sNA">
@@ -110,9 +110,9 @@
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
+                                <exclude reference="TIV-SZ-F6R"/>
                                 <exclude reference="PGC-Sq-GW1"/>
                                 <exclude reference="TD7-6K-AOp"/>
-                                <exclude reference="TIV-SZ-F6R"/>
                             </mask>
                         </variation>
                     </view>

@@ -18,7 +18,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *intialsLabel;
 @property (strong, nonatomic) JDDDataSource *sharedData;
 
-@property (weak, nonatomic) IBOutlet UILabel *indicatorLabel;
 
 @end
 

@@ -20,12 +20,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Stakes/CreatePactViewController.m"
-            timestampString = "482250782.484981"
+            timestampString = "482264837.604357"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "553"
-            endingLineNumber = "553"
-            landmarkName = "-messageComposeViewController:didFinishWithResult:"
+            startingLineNumber = "452"
+            endingLineNumber = "452"
+            landmarkName = "-addUserToInviteScrollView:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -36,12 +36,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Stakes/CreatePactViewController.m"
-            timestampString = "482250574.484215"
+            timestampString = "482274074.333248"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "533"
-            endingLineNumber = "533"
-            landmarkName = "-sendMessageToInvites"
+            startingLineNumber = "465"
+            endingLineNumber = "465"
+            landmarkName = "-addUserToInviteScrollView:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -52,12 +52,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Stakes/CreatePactViewController.m"
-            timestampString = "482250782.484981"
+            timestampString = "482267582.802317"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "550"
-            endingLineNumber = "550"
-            landmarkName = "-sendMessageToInvites"
+            startingLineNumber = "456"
+            endingLineNumber = "456"
+            landmarkName = "-addUserToInviteScrollView:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -68,12 +68,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Stakes/CreatePactViewController.m"
-            timestampString = "482250782.484981"
+            timestampString = "482274074.333248"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "544"
-            endingLineNumber = "544"
-            landmarkName = "-sendMessageToInvites"
+            startingLineNumber = "478"
+            endingLineNumber = "478"
+            landmarkName = "-addUserToInviteScrollView:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -84,12 +84,28 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Stakes/CreatePactViewController.m"
-            timestampString = "482250574.484215"
+            timestampString = "482274074.333248"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "392"
-            endingLineNumber = "392"
-            landmarkName = "-contactPicker:didSelectContacts:"
+            startingLineNumber = "480"
+            endingLineNumber = "480"
+            landmarkName = "-addUserToInviteScrollView:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Stakes/CreatePactViewController.m"
+            timestampString = "482274074.333248"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "472"
+            endingLineNumber = "472"
+            landmarkName = "-addUserToInviteScrollView:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
