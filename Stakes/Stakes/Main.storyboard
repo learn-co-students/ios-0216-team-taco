@@ -157,7 +157,6 @@
         <!--Pact Detail View Controller-->
         <scene sceneID="lwG-2m-sKz">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="LKy-Gs-e25" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController id="pjh-ye-mZS" customClass="PactDetailViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="XdQ-su-HgP"/>
@@ -267,6 +266,7 @@
                         <outlet property="stakesLabel" destination="vxG-c1-stN" id="ZtK-MP-o2i"/>
                     </connections>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="LKy-Gs-e25" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-691.5" y="155.5"/>
         </scene>
