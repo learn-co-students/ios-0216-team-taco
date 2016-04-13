@@ -289,6 +289,24 @@
     [self presentViewController:alert animated:YES completion:nil];
 }
 
+-(void)alertMessagingNotAvailable
+{
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Sorry!" message:@"Messaging is not available on this device" preferredStyle:UIAlertControllerStyleAlert];
+    
+    UIAlertAction* ok = [UIAlertAction
+                         actionWithTitle:@"OK"
+                         style:UIAlertActionStyleDefault
+                         handler:^(UIAlertAction * action)
+                         {
+                             [alert dismissViewControllerAnimated:NO completion:nil];
+                             [self dismissViewControllerAnimated:YES completion:nil];
+                         }];
+    
+    [alert addAction: ok];
+    
+    [self presentViewController:alert animated:YES completion:nil];
+}
+
 -(NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView
 {
     
@@ -516,6 +534,7 @@ return  NO;
 {
     if (![MFMessageComposeViewController canSendText]) {
         NSLog(@"Message services are not available.");
+        [self alertMessagingNotAvailable];
     } else {
     
     MFMessageComposeViewController* composeVC = [[MFMessageComposeViewController alloc] init];
