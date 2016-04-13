@@ -11,11 +11,13 @@
 #import <STTwitter/STTwitter.h>
 #import "LoginViewController.h"
 #import "JDDDataSource.h"
+#import "JDDCheckIn.h"
 
 @interface AppDelegate ()
 @property (nonatomic, strong) STTwitterAPI *twitter;
 @property (nonatomic, strong) NSString *oauthToken;
 @property (nonatomic, strong) JDDDataSource *dataSource;
+@property (nonatomic, strong) NSDate * currentDate;
 
 @end
 
@@ -27,17 +29,18 @@
     self.dataSource = [JDDDataSource sharedDataSource];
     
     if (!self.oauthToken) {
-//        NSString *board = @"Main";
-//        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:board bundle: nil];
-//        LoginViewController *login = [storyboard instantiateViewControllerWithIdentifier:@"LoginViewController"];
-//        [self.viewcon presentViewController:login animated:YES completion:nil];
-//        self performseguewith
+        //        NSString *board = @"Main";
+        //        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:board bundle: nil];
+        //        LoginViewController *login = [storyboard instantiateViewControllerWithIdentifier:@"LoginViewController"];
+        //        [self.viewcon presentViewController:login animated:YES completion:nil];
+        //        self performseguewith
     } else {
         //+[STTwitterAPI twitterAPIWithOAuthConsumerKey:consumerSecret:oauthToken:oauthTokenSecret:]
         
         // call -[STTwitter verifyCredentialsWithSuccessBlock:errorBlock:] after that.
-    
+        
     }
+    
     return YES;
 }
 
@@ -55,7 +58,7 @@
     // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
     
     //verify credentials!!!!!!!!!
-
+    
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
@@ -65,5 +68,172 @@
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
+
+-(void)application:(UIApplication *)application performFetchWithCompletionHandler:(nonnull void (^)(UIBackgroundFetchResult))completionHandler {
+    
+    [application setMinimumBackgroundFetchInterval:UIApplicationBackgroundFetchIntervalMinimum];
+    
+    NSLog(@"background Fetch has started");
+    
+    self.currentDate = [NSDate date];
+    
+    [self.dataSource establishCurrentUserWithBlock:^(BOOL completionBlock) {
+        
+        if (completionBlock) {
+            
+            if (self.dataSource.currentUser.pacts.count == 0) {
+                
+                //do nothing
+                
+            } else {
+                
+                [self.dataSource methodToPullDownPactsFromFirebaseWithCompletionBlock:^(BOOL completionBlock) {
+                    
+                    if (completionBlock) {
+                        
+                        NSLog(@"awesome now we have all the pacts %@", self.dataSource.currentUser.pactsToShowInApp);
+                        
+                        NSUInteger pactCount = self.dataSource.currentUser.pactsToShowInApp.count;
+                        
+                        // throw this bad boy in a for loop and check all sorts of weird.
+                        
+                        for (JDDPact *pact in self.dataSource.currentUser.pactsToShowInApp) {
+                            
+                            
+                            NSLog(@"time interval %@",pact.timeInterval);
+                            pactCount --;
+                            
+                            NSDateFormatter *checkInDateFormatter = [[NSDateFormatter alloc]init];
+                            [checkInDateFormatter setDateFormat:@"yyyy'-'MM'-'dd'-'hh:mm'"];
+                            if (pact.isActive) {
+                                
+                                if ([self checkIfPactHasExpiredWithStartDate:pact.dateOfCreation andTimeInterval:pact.timeInterval]){
+                                    
+                                    NSLog(@"time interval %@",pact.timeInterval);
+                                    NSLog(@"ok a pact has expired!");
+                                    
+                                    // firebase change value of date of creation to Now if repeating enabled.
+                                    
+                                    if ([self hasUserAccomplishedCheckinGoalWithPact:pact] == NO) {
+                                        
+                                        NSLog(@"ok someone hasn't completed their pact!");
+                                        
+                                        [self sendTwitterShameMessageWithPact:pact];
+                                        
+                                        
+                                        NSLog(@"OH SHIT TWITTER SHAME");
+                                        
+                                        if (pactCount == 0) {
+                                            completionHandler(UIBackgroundFetchResultNewData);
+                                        }
+                                    }
+                                    
+                                }
+                            } else {
+                                
+                                pactCount --;
+                            }
+                        }
+                    }
+                }];
+                
+            }
+            
+        }
+        
+    }];
+    
+}
+
+-(BOOL)checkIfPactHasExpiredWithStartDate:(NSDate *)startDate andTimeInterval:(NSString *)timeInterval {
+    
+    BOOL boolToReturn = NO;
+    
+    NSDate *executionDate = [[NSDate alloc]init];
+    
+    if ([timeInterval isEqualToString:@"day"]) {
+        
+        executionDate = [startDate dateByAddingTimeInterval:60*60*24];
+        
+    } else if ([timeInterval isEqualToString:@"week"]) {
+        
+        executionDate = [startDate dateByAddingTimeInterval:60*60*24 *7];
+        
+    } else if ([timeInterval isEqualToString:@"month"]) {
+        
+        executionDate = [startDate dateByAddingTimeInterval:60*60*24 *30.5];
+        
+    } else if ([timeInterval isEqualToString:@"year"]) {
+        
+        executionDate = [startDate dateByAddingTimeInterval:60*60*24 *365];
+        
+    }
+    
+        if ([[NSDate date] compare: executionDate] == NSOrderedDescending){
+    
+            boolToReturn = YES;
+        }
+    
+    return (boolToReturn);
+}
+
+-(BOOL)hasUserAccomplishedCheckinGoalWithPact:(JDDPact *)pact{
+    
+    BOOL boolToReturn = YES;
+    
+    NSUInteger checkinCount = pact.checkIns.count;
+    
+    NSUInteger userCheckinCount = 0;
+    
+    if (pact.checkIns.count == 0) {
+        return NO;
+    }
+    
+    for (JDDCheckIn * checkin in pact.checkIns) {
+        
+        checkinCount --;
+        
+        if ([checkin.userID isEqualToString:self.dataSource.currentUser.userID]) {
+            
+            userCheckinCount ++;
+        }
+        
+        if (checkinCount == 0 && (pact.checkInsPerTimeInterval > userCheckinCount)) {
+            
+            boolToReturn = NO;
+            
+        }
+    }
+    
+    
+    return boolToReturn;
+}
+
+
+- (void)sendTwitterShameMessageWithPact:(JDDPact *)pact {
+    
+    NSLog(@"twitterShameSent!");
+    
+        NSLog(@"trying to send a tweet");
+    
+        NSString *tweet = pact.twitterPost;
+    
+        [self.dataSource.twitter postStatusUpdate:tweet
+                                inReplyToStatusID:nil
+                                         latitude:nil
+                                        longitude:nil
+                                          placeID:nil
+                               displayCoordinates:nil
+                                         trimUser:nil
+                                     successBlock:^(NSDictionary *status) {
+                                         NSLog(@"SUCCESSFUL TWEET");
+                                     } errorBlock:^(NSError *error) {
+                                         NSLog(@"THERE WAS AN ERROR TWEETING");
+                                         NSString *message = [NSString stringWithFormat:@"You didn't really want to send that, did you? There was an error sending your Tweet: %@", error.localizedDescription];
+                                         NSLog(@"ERROR TWEETING: %@", error.localizedDescription);
+                                     }];
+    
+}
+
 
 @end
