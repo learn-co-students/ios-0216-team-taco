@@ -79,6 +79,8 @@
     
     [self.dataSource establishCurrentUserWithBlock:^(BOOL completionBlock) {
         
+        NSLog(@"establishing current user");
+        
         if (completionBlock) {
             
             if (self.dataSource.currentUser.pacts.count == 0) {

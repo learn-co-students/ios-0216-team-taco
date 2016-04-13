@@ -38,7 +38,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UU9-Wo-Nch" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-749.5" y="1014.5"/>
+            <point key="canvasLocation" x="-1381.5" y="608.5"/>
         </scene>
         <!--Login View Controller-->
         <scene sceneID="tne-QT-ifu">
@@ -144,7 +144,7 @@
                 <viewControllerPlaceholder storyboardIdentifier="CreatePactVC" storyboardName="dimitrysStoryboard" id="Scb-tg-16g" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Rxd-b5-0Et" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="281.5" y="-142"/>
+            <point key="canvasLocation" x="-194.5" y="-656"/>
         </scene>
         <!--dylansStoryboard-->
         <scene sceneID="LSi-qD-fl3">
@@ -195,7 +195,7 @@
                                     <constraint firstItem="JOA-1G-RLs" firstAttribute="height" secondItem="XFh-S4-Yjm" secondAttribute="height" id="x6U-ul-8q4"/>
                                 </constraints>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AWv-Qn-DZx">
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AWv-Qn-DZx">
                                 <rect key="frame" x="16" y="617" width="45" height="30"/>
                                 <state key="normal" title="Delete">
                                     <color key="titleColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -268,7 +268,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="LKy-Gs-e25" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-691.5" y="155.5"/>
+            <point key="canvasLocation" x="1240.5" y="155.5"/>
         </scene>
         <!--dylansStoryboard-->
         <scene sceneID="4Pg-Am-8d2">
@@ -276,7 +276,7 @@
                 <viewControllerPlaceholder storyboardIdentifier="navBarToSmackTalkVC" storyboardName="dylansStoryboard" id="P6F-rR-h2E" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="okS-yZ-Kjd" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-697.5" y="597"/>
+            <point key="canvasLocation" x="-647.5" y="156"/>
         </scene>
         <!--user pacts-->
         <scene sceneID="wza-PZ-Hcx">
@@ -312,6 +312,7 @@
                             <constraint firstItem="lak-Xs-a7c" firstAttribute="centerY" secondItem="NCN-7v-PXa" secondAttribute="centerY" id="jpJ-mh-lEC"/>
                         </constraints>
                     </view>
+                    <tabBarItem key="tabBarItem" title="Item" id="lhP-Ht-6OB"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <connections>
                         <outlet property="tableView" destination="lak-Xs-a7c" id="cLv-Js-L0P"/>
@@ -322,7 +323,24 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UO9-Ls-zX4" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-189" y="156"/>
+            <point key="canvasLocation" x="622.5" y="155.5"/>
+        </scene>
+        <!--tabBarViewController-->
+        <scene sceneID="AXd-FZ-f55">
+            <objects>
+                <tabBarController title="tabBarViewController" automaticallyAdjustsScrollViewInsets="NO" id="436-pK-7m4" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <tabBar key="tabBar" contentMode="scaleToFill" id="U0x-c9-P8A">
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="6hU-6R-OlN" kind="relationship" relationship="viewControllers" id="JJh-Vh-5K0"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="e9O-KH-iSE" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-117" y="156"/>
         </scene>
     </scenes>
 </document>
