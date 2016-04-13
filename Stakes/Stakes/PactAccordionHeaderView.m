@@ -136,10 +136,17 @@
 
 - (IBAction)acceptPactTapped:(id)sender
 {
-        
-        NSLog(@"accept tappeD");
-        [[[[self.sharedData.firebaseRef childByAppendingPath:@"pacts"] childByAppendingPath:self.pact.pactID] childByAppendingPath:@"users"] updateChildValues:@{self.sharedData.currentUser.userID : [NSNumber numberWithBool:YES] }];
-        //update child value for //
+    
+    NSLog(@"accept tappeD");
+    [[[[self.sharedData.firebaseRef childByAppendingPath:@"pacts"] childByAppendingPath:self.pact.pactID] childByAppendingPath:@"users"] updateChildValues:@{self.sharedData.currentUser.userID : [NSNumber numberWithBool:YES] }];
+
+    //updating the dateofCreation every time someone accepts a pact
+    NSDate *currentDate = [NSDate date];
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
+    [dateFormatter setDateFormat:@"yyyy'-'MM'-'dd'-'hh:mm'"];
+    NSString *dateString = [dateFormatter stringFromDate: currentDate];
+    [[[self.sharedData.firebaseRef childByAppendingPath:@"pacts"] childByAppendingPath:self.pact.pactID] updateChildValues:@{ @"dateOfCreation" : dateString }];
+    
     [self updateAcceptPactWithBlock:^(BOOL completion) {
         if (completion) {
             [[NSOperationQueue mainQueue] addOperationWithBlock:^{

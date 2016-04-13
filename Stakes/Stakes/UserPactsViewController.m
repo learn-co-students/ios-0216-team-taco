@@ -47,7 +47,7 @@
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     self.tableView.allowMultipleSectionsOpen = NO;
-    self.tableView.keepOneSectionOpen = NO;
+    self.tableView.keepOneSectionOpen = YES;
     self.tableView.initialOpenSections = [NSSet setWithObjects:@(0), nil];
     self.tableView.scrollEnabled = YES;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
@@ -74,7 +74,7 @@
 
 -(void)viewWillAppear:(BOOL)animated{
     
-    
+//     self.tableView.initialOpenSections = [NSSet setWithObjects:@(0), nil];
     [self.tableView reloadData];
     
 }

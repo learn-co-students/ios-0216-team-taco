@@ -31,6 +31,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.sharedData = [JDDDataSource sharedDataSource];
     // Do any additional setup after loading the view.
     for (UIView *subview in self.stackview.arrangedSubviews){
         [self.stackview removeArrangedSubview:subview];
@@ -72,31 +73,59 @@
 
 - (IBAction)deleteButtonTapped:(id)sender
 {
-    [self deleteUserPactReferencesWithCompletion:^(BOOL doneWithUsers) {
-        if (doneWithUsers) {
-            [self deletePactReferenceWithCompletion:^(BOOL doneWithPact) {
-                if (doneWithPact) {
-                [self dismissViewControllerAnimated:YES completion:^{
-                    //
-                }];
-                }
-            }];
-        }
+    UIAlertController *deleteAlert = [UIAlertController alertControllerWithTitle:@"Are you sure you want to delete this pact?" message:nil preferredStyle:UIAlertControllerStyleAlert];
+    
+    UIAlertAction *delete = [UIAlertAction actionWithTitle:@"Delete" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+        [self deleteAction];
+    }];
+    
+    UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleDefault handler:nil];
+    [deleteAlert addAction:delete];
+    [deleteAlert addAction:cancel];
+
+    
+    [self presentViewController:deleteAlert animated:YES completion:^{
+        //
     }];
 }
 
--(void)deleteUserPactReferencesWithCompletion:(void(^)(BOOL))completionBlock {
-    self.sharedData = [JDDDataSource sharedDataSource];
+-(void)deleteAction
+{
+    [self deleteCurrentUserPactReferenceWithCompletion:^(BOOL done) {
+        if (done) {
+            [self deleteAllUserPactReferences];
+            [self deletePactReferenceWithCompletion:^(BOOL doneWithPact) {
+                if (doneWithPact) {
+                    [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                        
+                        [self dismissViewControllerAnimated:YES completion:nil];
+                        
+                    }];
+
+                }
+            }];
+        }
+        
+    }];
+}
+
+-(void)deleteCurrentUserPactReferenceWithCompletion:(void(^)(BOOL))completed {
+
+    [[[[[self.sharedData.firebaseRef childByAppendingPath:@"users"] childByAppendingPath:self.sharedData.currentUser.userID] childByAppendingPath:@"pacts"] childByAppendingPath:self.pact.pactID]removeValueWithCompletionBlock:^(NSError *error, Firebase *ref) {
+        completed(YES);
+    }];
+}
     
+-(void)deleteAllUserPactReferences
+{
     for (JDDUser *user in self.pact.usersToShowInApp) {
         NSLog(@"ARE WE IN THE LOO{):");
         NSString *userID = user.userID;
-        [[[[[self.sharedData.firebaseRef childByAppendingPath:@"users"] childByAppendingPath:userID] childByAppendingPath:@"pacts"] childByAppendingPath:self.pact.pactID] removeValueWithCompletionBlock:^(NSError *error, Firebase *ref) {
-            completionBlock(YES);
-        }];
+        [[[[[self.sharedData.firebaseRef childByAppendingPath:@"users"] childByAppendingPath:userID] childByAppendingPath:@"pacts"] childByAppendingPath:self.pact.pactID] removeValue];
     }
+
 }
--(void)deletePactReferenceWithCompletion:(void(^)(BOOL))completionBlock {
+-(void)deletePactReferenceWithCompletion:(void(^)(BOOL))referenceDeleted {
 
     [[[self.sharedData.firebaseRef childByAppendingPath:@"pacts"] childByAppendingPath:self.pact.pactID] removeValueWithCompletionBlock:^(NSError *error, Firebase *ref) {
         
@@ -121,15 +150,12 @@
                         
                         if (completion2) {
                             
-                            [[NSOperationQueue mainQueue] addOperationWithBlock:^{
                                 
                                 [self observeEventForUsersFromFirebaseWithCompletionBlock:^(BOOL block) {
                                     
                                     if (block) {
-                                        
-                                        completionBlock(YES);
+                                        referenceDeleted(YES);
                                     }
-                                }];
                                 
                             }];
                         }
@@ -260,6 +286,9 @@
     
 }
 
+- (IBAction)exitTapped:(id)sender {
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
 
 
 @end
