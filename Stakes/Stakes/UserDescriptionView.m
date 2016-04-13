@@ -89,13 +89,19 @@
     self.indicatorLabel.layer.cornerRadius = self.indicatorLabel.frame.size.width/2;
     self.indicatorLabel.text = @"";
     self.indicatorLabel.layer.borderWidth = 0.5;
+     NSString *Boolian = (NSString*)self.user.isReady;
     
-    NSString *Boolian = (NSString*)self.user.isReady;
-    if ([Boolian isEqual:@"1"]) {
-        self.indicatorLabel.backgroundColor = [UIColor greenColor];
-    } else {
-        self.indicatorLabel.backgroundColor = [UIColor redColor];
-    }
+    
+        
+    
+        if ([Boolian isEqual:@"1"]) {
+            self.indicatorLabel.backgroundColor = [UIColor greenColor];
+        } else {
+            self.indicatorLabel.backgroundColor = [UIColor redColor];
+        }
+
+    
+    
     
     self.userNameLabel.text =self.user.displayName;
     

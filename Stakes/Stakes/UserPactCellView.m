@@ -147,6 +147,7 @@
     // first empty the stackview
     for (UIView *subview in self.stackView.arrangedSubviews){
         [self.stackView removeArrangedSubview:subview];
+        
     }
     
     // then for each user, createa a UserDescriptionView and add it to the stackview
@@ -163,8 +164,10 @@
         }
         ;
         NSString *valueIndicator = [NSString stringWithFormat:@"%@",[self.pact.users valueForKey:user.userID]] ;
+        NSString *currentPact = [NSString stringWithFormat:@"%@",self.pact.title];
   
         user.isReady = valueIndicator;
+        user.currentPactIn = currentPact;
         view.user = user;
         NSLog(@"Is the view's user ready? %@", view.user.isReady);
         // same as [view setUser:user];
