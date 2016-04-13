@@ -81,12 +81,12 @@
 
 #pragma - observe events for user, user pacts, pacts/users
 
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    
-    NSLog(@"selectedCell:%ld", indexPath.section);
-    UserPactCellView *thisCell = [self.tableView cellForRowAtIndexPath:indexPath];
-
-}
+//-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+//    
+//    NSLog(@"selectedCell:%ld", indexPath.section);
+//    UserPactCellView *thisCell = [self.tableView cellForRowAtIndexPath:indexPath];
+//
+//}
 
 #pragma method that populates the view from Firebase
 
@@ -102,6 +102,7 @@
     [self.view addGestureRecognizer:swipeRight];
     
     UISwipeGestureRecognizer *swipeLeft = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swifeLeftGestureHappened:)];
+    [swipeLeft setDirection:UISwipeGestureRecognizerDirectionLeft];
     
     [self.view addGestureRecognizer:swipeLeft];
 }

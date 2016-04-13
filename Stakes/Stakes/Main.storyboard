@@ -317,7 +317,7 @@
                         <outlet property="tableView" destination="lak-Xs-a7c" id="cLv-Js-L0P"/>
                         <segue destination="Scb-tg-16g" kind="presentation" identifier="segueToCreatePact" modalTransitionStyle="coverVertical" id="9WM-PE-Ubb"/>
                         <segue destination="P6F-rR-h2E" kind="show" identifier="segueToSmackTalkVC" id="rIC-TR-27G"/>
-                        <segue destination="pjh-ye-mZS" kind="show" identifier="segueToPactDetail" id="Oxb-lV-gZM"/>
+                        <segue destination="pjh-ye-mZS" kind="presentation" identifier="segueToPactDetail" id="mXw-u1-d2l"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UO9-Ls-zX4" userLabel="First Responder" sceneMemberID="firstResponder"/>
