@@ -13,18 +13,18 @@
             <rect key="frame" x="0.0" y="0.0" width="606" height="607"/>
             <autoresizingMask key="autoresizingMask"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="5RV-0D-LDx" id="axl-7V-KNR">
-                <rect key="frame" x="0.0" y="0.0" width="606" height="607"/>
+                <rect key="frame" x="0.0" y="0.0" width="606" height="606"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="00x-P1-sNA">
-                        <rect key="frame" x="8" y="322" width="590" height="12"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="00x-P1-sNA">
+                        <rect key="frame" x="282" y="293" width="42" height="21"/>
                         <fontDescription key="fontDescription" type="system" pointSize="10"/>
-                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <button opaque="NO" alpha="0.80000000000000004" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fNE-ht-DP7">
-                        <rect key="frame" x="228" y="566" width="151" height="30"/>
-                        <color key="backgroundColor" red="0.0021103268981569876" green="0.74320913461538463" blue="0.0032743643286720276" alpha="0.73168103448275867" colorSpace="calibratedRGB"/>
+                        <rect key="frame" x="5" y="566" width="596" height="30"/>
+                        <color key="backgroundColor" red="0.031370580196380615" green="0.058635435998439789" blue="0.023802164942026138" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <state key="normal" title="Check In">
                             <color key="titleColor" red="0.99598389863967896" green="0.99614673852920532" blue="0.99594932794570923" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         </state>
@@ -38,7 +38,7 @@
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zsf-Wn-qeh">
                                 <rect key="frame" x="8" y="15" width="606" height="91"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
@@ -56,7 +56,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="606" height="334"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" distribution="fillEqually" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="CaQ-jF-mQY">
-                                        <rect key="frame" x="0.0" y="61" width="0.0" height="334"/>
+                                        <rect key="frame" x="0.0" y="70" width="0.0" height="334"/>
                                     </stackView>
                                 </subviews>
                                 <constraints>
@@ -119,7 +119,7 @@
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pact Details:" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="u37-Yu-E4U">
                         <rect key="frame" x="8" y="334" width="590" height="15"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
@@ -144,7 +144,7 @@
                     <constraint firstItem="00x-P1-sNA" firstAttribute="centerX" secondItem="axl-7V-KNR" secondAttribute="centerX" id="YXo-DO-oSs"/>
                     <constraint firstAttribute="trailingMargin" secondItem="INh-BL-tfG" secondAttribute="trailing" id="eV2-DS-Ytf"/>
                     <constraint firstItem="fNE-ht-DP7" firstAttribute="top" secondItem="lXg-mD-AyU" secondAttribute="bottom" constant="10" id="fOh-Du-NRJ"/>
-                    <constraint firstItem="fNE-ht-DP7" firstAttribute="width" secondItem="axl-7V-KNR" secondAttribute="width" multiplier="0.25" id="gwY-AG-Vay"/>
+                    <constraint firstItem="fNE-ht-DP7" firstAttribute="width" secondItem="axl-7V-KNR" secondAttribute="width" constant="-10" id="gwY-AG-Vay"/>
                     <constraint firstItem="J28-lh-4mk" firstAttribute="top" secondItem="INh-BL-tfG" secondAttribute="bottom" constant="10" id="gxI-vZ-ooP"/>
                     <constraint firstItem="J28-lh-4mk" firstAttribute="height" secondItem="axl-7V-KNR" secondAttribute="height" multiplier="0.175" id="jRZ-nY-5gr"/>
                     <constraint firstItem="00x-P1-sNA" firstAttribute="leading" secondItem="axl-7V-KNR" secondAttribute="leadingMargin" id="nLq-H6-c2m"/>
