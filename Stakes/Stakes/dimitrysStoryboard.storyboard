@@ -78,16 +78,6 @@
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <pickerView contentMode="scaleToFill" semanticContentAttribute="playback" translatesAutoresizingMaskIntoConstraints="NO" id="a5f-VN-aAU">
-                                        <rect key="frame" x="-10" y="-20" width="320" height="100"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="100" id="t9L-Ov-1Un"/>
-                                        </constraints>
-                                        <connections>
-                                            <outlet property="dataSource" destination="i4d-Ov-NqA" id="MIT-Tx-7li"/>
-                                            <outlet property="delegate" destination="i4d-Ov-NqA" id="u7z-Dg-sZB"/>
-                                        </connections>
-                                    </pickerView>
                                     <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GlM-XX-YM4">
                                         <rect key="frame" x="290" y="-20" width="320" height="100"/>
                                         <constraints>
@@ -98,8 +88,18 @@
                                             <outlet property="delegate" destination="i4d-Ov-NqA" id="G9h-Nw-bOr"/>
                                         </connections>
                                     </pickerView>
+                                    <pickerView contentMode="scaleToFill" semanticContentAttribute="playback" translatesAutoresizingMaskIntoConstraints="NO" id="a5f-VN-aAU">
+                                        <rect key="frame" x="-10" y="-20" width="320" height="100"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="100" id="t9L-Ov-1Un"/>
+                                        </constraints>
+                                        <connections>
+                                            <outlet property="dataSource" destination="i4d-Ov-NqA" id="MIT-Tx-7li"/>
+                                            <outlet property="delegate" destination="i4d-Ov-NqA" id="u7z-Dg-sZB"/>
+                                        </connections>
+                                    </pickerView>
                                 </subviews>
-                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstItem="GlM-XX-YM4" firstAttribute="centerY" secondItem="6iD-Vp-NXD" secondAttribute="centerY" id="6Oq-Gf-eZm"/>
                                     <constraint firstItem="GlM-XX-YM4" firstAttribute="centerX" secondItem="6iD-Vp-NXD" secondAttribute="centerX" multiplier="1.5" id="I6X-7g-60O"/>
@@ -109,7 +109,7 @@
                                     <constraint firstItem="a5f-VN-aAU" firstAttribute="centerY" secondItem="6iD-Vp-NXD" secondAttribute="centerY" id="gW7-kN-8xR"/>
                                 </constraints>
                             </view>
-                            <textField opaque="NO" contentMode="scaleAspectFill" contentHorizontalAlignment="fill" contentVerticalAlignment="top" borderStyle="line" placeholder="What Are You Going to Do" textAlignment="center" minimumFontSize="13" translatesAutoresizingMaskIntoConstraints="NO" id="ykR-kl-pm0">
+                            <textField opaque="NO" contentMode="scaleAspectFill" contentHorizontalAlignment="fill" contentVerticalAlignment="center" placeholder="What Are You Going to Do" textAlignment="center" minimumFontSize="13" translatesAutoresizingMaskIntoConstraints="NO" id="ykR-kl-pm0">
                                 <rect key="frame" x="30" y="160" width="540" height="70"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="70" id="Rx3-1t-RBH"/>
@@ -126,13 +126,11 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Qkw-Cs-hWq">
-                                <rect key="frame" x="516" y="428" width="51" height="31"/>
-                                <connections>
-                                    <action selector="shameToggleTapped:" destination="i4d-Ov-NqA" eventType="valueChanged" id="Bxl-LI-ov2"/>
-                                </connections>
-                            </switch>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" borderStyle="line" placeholder="Example I am a shitty friend and I am truly sorry!" textAlignment="center" minimumFontSize="14" translatesAutoresizingMaskIntoConstraints="NO" id="GJ4-oh-CTe" userLabel="twiiterShamePost">
+                            <view alpha="0.40000000000000002" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TnU-X2-cqc">
+                                <rect key="frame" x="0.0" y="540" width="600" height="60"/>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            </view>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Example I am a shitty friend and I am truly sorry!" textAlignment="center" minimumFontSize="14" translatesAutoresizingMaskIntoConstraints="NO" id="GJ4-oh-CTe" userLabel="twiiterShamePost">
                                 <rect key="frame" x="30" y="465" width="540" height="60"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="60" id="0aF-bQ-OXR"/>
@@ -143,9 +141,9 @@
                                     <action selector="dismissShameKeboard:" destination="i4d-Ov-NqA" eventType="primaryActionTriggered" id="NH0-e2-2Of"/>
                                 </connections>
                             </textField>
-                            <button opaque="NO" alpha="0.14999999999999999" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Hne-Dh-8f5">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Hne-Dh-8f5">
                                 <rect key="frame" x="300" y="540" width="300" height="60"/>
-                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="20"/>
                                 <state key="normal" title="Cancel">
                                     <color key="titleColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
@@ -153,9 +151,9 @@
                                     <action selector="cancelButtonPressed:" destination="i4d-Ov-NqA" eventType="touchUpInside" id="TEM-Ua-Fkl"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" alpha="0.14999999999999999" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zfu-8l-5oA">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zfu-8l-5oA">
                                 <rect key="frame" x="0.0" y="540" width="300" height="60"/>
-                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="20"/>
                                 <state key="normal" title="Done">
                                     <color key="titleColor" red="0.0" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
@@ -163,7 +161,7 @@
                                     <action selector="createPactTapped:" destination="i4d-Ov-NqA" eventType="touchUpInside" id="ffZ-eF-3EI"/>
                                 </connections>
                             </button>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" placeholder="What Is At Stake?" textAlignment="center" minimumFontSize="14" translatesAutoresizingMaskIntoConstraints="NO" id="F1N-JR-b0z">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="What Is At Stake?" textAlignment="center" minimumFontSize="14" translatesAutoresizingMaskIntoConstraints="NO" id="F1N-JR-b0z">
                                 <rect key="frame" x="30" y="360" width="540" height="60"/>
                                 <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="18"/>
                                 <textInputTraits key="textInputTraits" returnKeyType="done"/>
@@ -173,11 +171,13 @@
                             </textField>
                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TqF-Rr-nsV">
                                 <rect key="frame" x="516" y="308" width="51" height="31"/>
+                                <color key="tintColor" red="0.56470588239999997" green="0.79215686269999996" blue="0.97647058819999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="onTintColor" red="0.0" green="0.49803921568627452" blue="0.97647058823529409" alpha="1" colorSpace="calibratedRGB"/>
                                 <connections>
                                     <action selector="repeateToggleTapped:" destination="i4d-Ov-NqA" eventType="valueChanged" id="2yy-4c-zwT"/>
                                 </connections>
                             </switch>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1BE-hl-lEJ" userLabel="AddFriendsView">
+                            <view alpha="0.40000000000000002" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1BE-hl-lEJ" userLabel="AddFriendsView">
                                 <rect key="frame" x="0.0" y="66" width="600" height="90"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="contactAdd" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ACI-JZ-z8A">
@@ -186,12 +186,13 @@
                                             <constraint firstAttribute="height" constant="30" id="8Bp-M8-u7V"/>
                                             <constraint firstAttribute="width" constant="30" id="gfv-cP-6dy"/>
                                         </constraints>
+                                        <color key="tintColor" red="0.0" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <connections>
                                             <action selector="addFriendsButton:" destination="i4d-Ov-NqA" eventType="touchUpInside" id="vfs-aK-oSg"/>
                                         </connections>
                                     </button>
                                 </subviews>
-                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstItem="ACI-JZ-z8A" firstAttribute="centerX" secondItem="1BE-hl-lEJ" secondAttribute="centerX" id="abR-uc-P2f"/>
                                     <constraint firstItem="ACI-JZ-z8A" firstAttribute="centerY" secondItem="1BE-hl-lEJ" secondAttribute="centerY" id="fWA-Ok-8m9"/>
@@ -203,21 +204,33 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" placeholder="Pact Title" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ZjD-Gz-bxB">
-                                <rect key="frame" x="30" y="20" width="540" height="41"/>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Pact Title" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ZjD-Gz-bxB">
+                                <rect key="frame" x="30" y="20" width="540" height="30"/>
                                 <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="28"/>
                                 <textInputTraits key="textInputTraits"/>
                                 <connections>
                                     <action selector="dismissTitleKeyboard:" destination="i4d-Ov-NqA" eventType="primaryActionTriggered" id="bLr-LA-itT"/>
                                 </connections>
                             </textField>
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Qkw-Cs-hWq">
+                                <rect key="frame" x="516" y="428" width="51" height="31"/>
+                                <color key="tintColor" red="0.56470588239999997" green="0.79215686269999996" blue="0.97647058819999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="onTintColor" red="0.0" green="0.5" blue="0.97647058819999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <connections>
+                                    <action selector="shameToggleTapped:" destination="i4d-Ov-NqA" eventType="valueChanged" id="Bxl-LI-ov2"/>
+                                </connections>
+                            </switch>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="zfu-8l-5oA" firstAttribute="leading" secondItem="Et9-hf-pi4" secondAttribute="leading" id="0hE-Fk-JvR"/>
                             <constraint firstItem="kwf-BE-ogz" firstAttribute="centerX" secondItem="Et9-hf-pi4" secondAttribute="centerX" id="3Kf-rm-4SG"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="TnU-X2-cqc" secondAttribute="trailing" constant="-20" id="3iM-4F-23r"/>
+                            <constraint firstItem="TnU-X2-cqc" firstAttribute="height" secondItem="Et9-hf-pi4" secondAttribute="height" multiplier="0.1" id="46c-vS-b0v"/>
                             <constraint firstItem="1BE-hl-lEJ" firstAttribute="centerY" secondItem="Et9-hf-pi4" secondAttribute="centerY" multiplier="0.37" id="6bl-M7-P1M"/>
+                            <constraint firstItem="TnU-X2-cqc" firstAttribute="leading" secondItem="Et9-hf-pi4" secondAttribute="leadingMargin" constant="-20" id="85t-tp-Y0V"/>
                             <constraint firstItem="GJ4-oh-CTe" firstAttribute="top" secondItem="kwf-BE-ogz" secondAttribute="bottom" constant="7" id="Do7-6Y-r9z"/>
+                            <constraint firstItem="cdF-GR-QuQ" firstAttribute="top" secondItem="TnU-X2-cqc" secondAttribute="bottom" id="GYX-Qg-VA2"/>
                             <constraint firstItem="zfu-8l-5oA" firstAttribute="height" secondItem="Et9-hf-pi4" secondAttribute="height" multiplier="0.1" id="KSl-YH-JVy"/>
                             <constraint firstItem="1BE-hl-lEJ" firstAttribute="centerX" secondItem="Et9-hf-pi4" secondAttribute="centerX" id="KZV-t7-eHj"/>
                             <constraint firstItem="GJ4-oh-CTe" firstAttribute="centerY" secondItem="Et9-hf-pi4" secondAttribute="centerY" multiplier="1.65" id="LZC-qj-to5"/>

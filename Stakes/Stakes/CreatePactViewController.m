@@ -37,7 +37,6 @@
 @property (nonatomic, strong) JDDPact *createdPact;
 @property (nonatomic, strong) NSMutableArray *contactsToShow;
 
-
 @end
 
 @implementation CreatePactViewController
