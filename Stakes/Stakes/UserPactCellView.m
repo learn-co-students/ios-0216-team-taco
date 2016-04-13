@@ -192,10 +192,10 @@
     self.stakesLabel.textColor = [UIColor whiteColor];
     self.pactDetailsLabel.text = self.pact.pactDescription;
     [self.stakesLabel setFont: [self.stakesLabel.font fontWithSize: 14]];
-    self.stakesLabel.text = [NSString stringWithFormat:@"What is at Stake: %@",self.pact.stakes];
+    self.stakesLabel.text = @"What are the stakes?";
     
 //    NSString *twitterPost =
-    self.twitterPostLabel.text = [NSString stringWithFormat:@"Twitter Post: %@",self.pact.twitterPost];
+    self.twitterPostLabel.text = self.pact.stakes;
 
     
 

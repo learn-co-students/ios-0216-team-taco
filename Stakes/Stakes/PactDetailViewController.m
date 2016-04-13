@@ -72,10 +72,23 @@
         view.clipsToBounds = YES;
         
     }
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
+    [dateFormatter setDateFormat:@"MM'-'dd'-'yyyy'"];
+//     @"yyyy'-'MM'-'dd'-'hh:mm'"];
+//    NSString *fakeDate = @"2016-04-13-06:05";
+//    [dateFormatter dateFromString:fakeDate];
+//    
+//    NSDate *date = [NSDate date];
+//    [dateFormatter stringFromDate:date];
+//    NSLog(@"self.pact.creation %@", self.pact.dateOfCreation);
+//    NSString *date = [dateFormatter stringFromDate:self.pact.dateOfCreation];
     
     self.pactTitleLabel.text = self.pact.title;
     self.pactDescriptionLabel.text = [NSString stringWithFormat: @"%@",self.pact.pactDescription];
-//    self.createdLabel.text = self.pact.dateOfCreation;
+    
+    NSString *createText = [dateFormatter stringFromDate:self.pact.dateOfCreation];
+    BOOL worked = createText != nil;
+    self.createdLabel.text = worked ? createText : @"ERROR";
     self.checkinStringLabel.text = [NSString stringWithFormat:@"%lu times per %@", self.pact.checkInsPerTimeInterval, self.pact.timeInterval];
     self.stakesLabel.text = [NSString stringWithFormat:@"%@", self.pact.stakes];
     if (self.pact.allowsShaming) {

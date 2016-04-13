@@ -50,8 +50,8 @@
     JDDPact *pact = [[JDDPact alloc]init];
     
     pact.title = @"Welcome to Stakes!";
-    pact.pactDescription = @"On this page you will see your pacts.  Click on a header to open that pact.";
-    pact.stakes = @"Swipe down to create a new pact and invite your friends.  Swipe Left to see the open pact's details.  Swipe right to access the chat feature for that pact.";
+    pact.pactDescription = @"Swipe down to create a pact and invite your friends! If you have multiple pacts, tap a header to open one.";
+    pact.stakes = @"Swipe left to see the open pact's details, and swipe right to access the chat feature for that pact.";
     pact.users = [[NSMutableArray alloc]init];
     
     
@@ -64,6 +64,7 @@
     
     pact.users = [[NSMutableArray alloc]initWithArray:@[self.currentUser]];
     
+    NSLog(@"self.currentuser in datasource %@", self.currentUser.displayName);
     pact.chatRoomID = [[NSString alloc]init];
  
     return pact;
@@ -124,7 +125,7 @@
     
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
     [dateFormatter setDateFormat:@"yyyy'-'MM'-'dd'-'hh:mm'"];
-    
+
     JDDPact *pact = [[JDDPact alloc]init];
     
     pact.pactID = (NSString *)snapshot.value[@"pactID"];
@@ -136,6 +137,7 @@
     pact.allowsShaming = [snapshot.value[@"allowsShaming"] boolValue];
     pact.checkInsPerTimeInterval = [snapshot.value[@"allowsShaming"] integerValue];
     pact.twitterPost = snapshot.value[@"twitterPost"];
+//    pact.dateOfCreation = [[NSDate alloc] init];
     pact.dateOfCreation = [dateFormatter dateFromString:snapshot.value[@"dateOfCreation"]];
     pact.users = snapshot.value[@"users"];
     pact.isActive = [snapshot.value[@"isActive"] boolValue];
@@ -218,7 +220,7 @@
 -(NSMutableDictionary*)createDictionaryToSendToFirebaseWithJDDPact:(JDDPact*)pact {
     
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
-    [dateFormatter setDateFormat:@"yyyy'-'MM'-'dd'"];
+    [dateFormatter setDateFormat:@"yyyy'-'MM'-'dd'-'hh:mm'"];
     
     NSDateFormatter *checkInDateFormatter = [[NSDateFormatter alloc]init];
     [checkInDateFormatter setDateFormat:@"yyyy'-'MM'-'dd'-'hh:mm'"];
