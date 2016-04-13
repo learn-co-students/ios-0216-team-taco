@@ -50,12 +50,16 @@
     [super awakeFromNib];
     self.acceptPactButton.hidden = YES;
     self.pendingLabel.hidden = YES;
-//    [self updateUI];
 }
 
 -(void)setPact:(JDDPact *)pact
 {
     _pact = pact;
+    [self updateUI];
+}
+
+-(void)updateUI
+{
     [self updateAcceptPactWithBlock:^(BOOL completion) {
         if (!completion) {
             [[NSOperationQueue mainQueue] addOperationWithBlock:^{
@@ -68,6 +72,11 @@
         if (hasPendingInvites) {
             [[NSOperationQueue mainQueue] addOperationWithBlock:^{
                 self.pendingLabel.hidden = NO;
+            }];
+        }
+        if (!hasPendingInvites) {
+            [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                self.pendingLabel.hidden = YES;
             }];
         }
     }];
@@ -106,21 +115,24 @@
         
         NSArray *allUserValues = [snapshot.value allValues];
         NSLog(@"ALL USER VALUES ARRAY %@", allUserValues);
-
+        BOOL hasPending = NO;
+        
         for (NSNumber *num in allUserValues) {
             if ([num isEqualToNumber:@0]) {
-                hasPendingInvites(YES);
-                return;
-            } else {
-                [[[self.sharedData.firebaseRef childByAppendingPath:@"pacts"] childByAppendingPath:self.pact.pactID]  updateChildValues:@{@"isActive" : [NSNumber numberWithBool:YES] }];
-                hasPendingInvites(NO);
+                hasPending = YES;
             }
         }
-
         
+        if (!hasPending) {
+            [[[self.sharedData.firebaseRef childByAppendingPath:@"pacts"] childByAppendingPath:self.pact.pactID]  updateChildValues:@{@"isActive" : [NSNumber numberWithBool:YES] }];
+            hasPendingInvites(NO);
+        } else {
+            hasPendingInvites(YES);
+        }
     }];
     
-}
+    
+    }
 
 - (IBAction)acceptPactTapped:(id)sender
 {

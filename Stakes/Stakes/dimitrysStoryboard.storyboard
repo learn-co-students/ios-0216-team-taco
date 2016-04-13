@@ -281,10 +281,10 @@
             </objects>
             <point key="canvasLocation" x="1415" y="286"/>
         </scene>
-        <!--Pact Detail View Controller-->
+        <!--View Controller-->
         <scene sceneID="xEl-h7-9kY">
             <objects>
-                <viewController id="Vdl-C3-nss" customClass="PactDetailViewController" sceneMemberID="viewController">
+                <viewController id="Vdl-C3-nss" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="gu0-ie-ECT"/>
                         <viewControllerLayoutGuide type="bottom" id="kg2-Xo-8rC"/>

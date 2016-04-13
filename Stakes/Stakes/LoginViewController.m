@@ -64,8 +64,10 @@
 
 - (IBAction)loginTapped:(id)sender
 {
+    NSLog(@"login");
     if (self.userDidRegister) {
         self.userQuery = [[NSUserDefaults standardUserDefaults] objectForKey:UserIDKey];
+        NSLog(@"LOGIN TAPPED< self.userquery: %@", self.userQuery);
         [self startAuthProcess];
     } else {
         self.userQuery = self.phoneNumberTextField.text;
@@ -75,6 +77,7 @@
 
 -(void)startAuthProcess
 {
+    NSLog(@"auth");
     self.twitterAuthHelper = [[TwitterAuthHelper alloc] initWithFirebaseRef:self.firebaseReference apiKey:TWITTER_KEY];
     
     [self.twitterAuthHelper selectTwitterAccountWithCallback:^(NSError *error, NSArray *accounts) {
@@ -124,13 +127,24 @@
             [self showAlertWithMessage:message];
         } else {
             if (self.userDidRegister) { // this person has registered the app at some point in time
+                NSLog(@"IN AUTHENTICATE IN FIREBASE, AUTH DATA %@", authData);
+                NSDictionary *userDictionary = [self createUserDictionary:authData];
+                JDDUser *user = [self createUserFromData:authData];
+                NSLog(@"shared data %@", self.sharedData.currentUser.userID);
+                NSLog(@"user id %@", user.userID);
+                NSLog(@"now we are setting shared current = to current");
+                self.sharedData.currentUser = user; // this is setting the current user
+                NSLog(@"shared data %@", self.sharedData.currentUser.userID);
+                NSLog(@"user id %@", user.userID);
+//                [[NSUserDefaults standardUserDefaults] setObject:user.userID forKey:UserIDKey];
+                NSLog(@"user exists... in did register...setting user default key for user ID: %@", user.userID);
                 
+                [[[self.firebaseReference childByAppendingPath:@"users"] childByAppendingPath:user.userID] updateChildValues:userDictionary];
+
                 [self loginWithiOSAccount:account];
                 
-                self.sharedData.currentUser = [self createUserFromData:authData];
-                
             } else if (self.userFoundInFirebase){ // this person exists in firebase
-                
+                NSLog(@"IN AUTHENTICATE IN FIREBASE, AUTH DATA %@", authData);
                 NSDictionary *userDictionary = [self createUserDictionary:authData];
                 JDDUser *user = [self createUserFromData:authData];
                 
@@ -199,6 +213,7 @@
 
 -(void)checkForUserInFirebase
 {
+    NSLog(@"checkingfor user in firebase");
     [[self.firebaseReference childByAppendingPath:@"users"]
      observeSingleEventOfType:FEventTypeValue withBlock:^(FDataSnapshot *snapshot) {
          
@@ -214,22 +229,22 @@
 -(JDDUser *)createUserFromData:(FAuthData *)data
 {
     JDDUser *newUser = [[JDDUser alloc] init];
-    newUser.userID = self.phoneNumberTextField.text;
+    newUser.userID = self.userQuery;
     newUser.twitterHandle = data.providerData[@"username"];
     newUser.userImageURL = data.providerData[@"profileImageURL"];
     newUser.displayName = data.providerData[@"displayName"];
-    newUser.phoneNumber = self.phoneNumberTextField.text;
+    newUser.phoneNumber = self.userQuery;
     
     return newUser;
 }
 
 -(NSDictionary *)createUserDictionary:(FAuthData *)data
 {
-    return  @{ @"userID" : self.phoneNumberTextField.text,
+    return  @{ @"userID" : self.userQuery,
                @"profileImageURL" : data.providerData[@"profileImageURL"],
                @"twitterHandle" : data.providerData[@"username"],
                @"displayName" : data.providerData[@"displayName"],
-               @"phoneNumber" : self.phoneNumberTextField.text
+               @"phoneNumber" : self.userQuery
                };
 }
 
