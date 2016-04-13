@@ -38,7 +38,10 @@
 @property (nonatomic, strong) JDDPact *createdPact;
 @property (nonatomic, strong) NSMutableArray *contactsToShow;
 @property (weak, nonatomic) IBOutlet UIStackView *stackView;
+@property (weak, nonatomic) IBOutlet UIButton *RemoveInvitesButton;
+@property (weak, nonatomic) IBOutlet UILabel *inviteFriendsLabel;
 
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *addFriendsConstraint;
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 
 @end
@@ -48,6 +51,8 @@
 - (void)viewDidLoad {
     
     [super viewDidLoad];
+    self.RemoveInvitesButton.hidden = YES;
+    [self.RemoveInvitesButton setTransform:CGAffineTransformMakeRotation(-M_PI / 2)];
     [self initializePickers];
     self.repeatSwitch.on = NO;
     self.shameSwitch.on = NO;
@@ -447,6 +452,17 @@
     }
     
 }
+- (IBAction)removeContactButton:(id)sender {
+    UserDescriptionView *user = [[UserDescriptionView alloc]init];
+    user = self.stackView.arrangedSubviews.lastObject;
+    [self.stackView removeArrangedSubview:user];
+    [self.contactsToShow removeLastObject];
+    if (self.contactsToShow.count ==1) {
+        self.inviteFriendsLabel.hidden = NO;
+        self.addFriendsConstraint.constant = 0;
+        self.RemoveInvitesButton.hidden = YES;
+    }
+}
 
 -(void)addUserToInviteScrollView: (JDDUser*)user {
     UserDescriptionView *view = [[UserDescriptionView alloc]init];
@@ -455,6 +471,9 @@
     
     if (self.stackView.arrangedSubviews.count == 0) {
         [self.stackView addArrangedSubview:view];
+        self.RemoveInvitesButton.hidden = NO;
+        self.inviteFriendsLabel.hidden = YES;
+        self.addFriendsConstraint.constant = 40;
         if (self.stackView.arrangedSubviews.count == 2) {
             [view.widthAnchor constraintEqualToAnchor:self.scrollView.widthAnchor multiplier:0.4].active = YES;
         } else {
@@ -541,7 +560,7 @@
 
 -(BOOL)didInviteFriends
 {
-    if (self.contactsToShow.count > 0){
+    if (self.contactsToShow.count > 1){
           NSLog(@"friends are invited");
     
         return YES;

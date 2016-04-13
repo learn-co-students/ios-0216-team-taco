@@ -183,7 +183,7 @@
                                     <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="FFv-f3-573">
                                         <rect key="frame" x="0.0" y="0.0" width="420" height="90"/>
                                         <subviews>
-                                            <stackView opaque="NO" clipsSubviews="YES" contentMode="scaleAspectFill" ambiguous="YES" misplaced="YES" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="0R4-cd-0in">
+                                            <stackView opaque="NO" clipsSubviews="YES" contentMode="scaleAspectFill" ambiguous="YES" misplaced="YES" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="0R4-cd-0in">
                                                 <rect key="frame" x="0.0" y="0.0" width="92" height="90"/>
                                             </stackView>
                                         </subviews>
@@ -270,6 +270,13 @@
                                     </mask>
                                 </variation>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zz6-xj-ozg">
+                                <rect key="frame" x="523" y="111" width="71" height="17"/>
+                                <state key="normal" title="Remove"/>
+                                <connections>
+                                    <action selector="removeContactButton:" destination="i4d-Ov-NqA" eventType="touchUpInside" id="1iW-gH-5eq"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -277,12 +284,14 @@
                             <constraint firstItem="1BE-hl-lEJ" firstAttribute="width" secondItem="Et9-hf-pi4" secondAttribute="width" multiplier="0.7" id="2pt-Up-bQ5"/>
                             <constraint firstItem="kwf-BE-ogz" firstAttribute="centerX" secondItem="Et9-hf-pi4" secondAttribute="centerX" id="3Kf-rm-4SG"/>
                             <constraint firstItem="1BE-hl-lEJ" firstAttribute="centerY" secondItem="Et9-hf-pi4" secondAttribute="centerY" multiplier="0.37" id="6bl-M7-P1M"/>
+                            <constraint firstItem="Zz6-xj-ozg" firstAttribute="centerY" secondItem="1BE-hl-lEJ" secondAttribute="centerY" id="7qH-uW-mjC"/>
                             <constraint firstItem="1BE-hl-lEJ" firstAttribute="leading" secondItem="q3F-wn-wxm" secondAttribute="trailing" constant="3" id="7tF-F0-khs"/>
                             <constraint firstItem="1BE-hl-lEJ" firstAttribute="leading" secondItem="q3F-wn-wxm" secondAttribute="trailing" id="AdL-J6-NDb"/>
                             <constraint firstItem="GJ4-oh-CTe" firstAttribute="top" secondItem="kwf-BE-ogz" secondAttribute="bottom" constant="7" id="Do7-6Y-r9z"/>
                             <constraint firstItem="q3F-wn-wxm" firstAttribute="height" secondItem="1BE-hl-lEJ" secondAttribute="height" id="FkN-Nf-dOx"/>
                             <constraint firstItem="q3F-wn-wxm" firstAttribute="top" secondItem="1BE-hl-lEJ" secondAttribute="top" id="JTJ-uP-nNu"/>
                             <constraint firstItem="zfu-8l-5oA" firstAttribute="height" secondItem="Et9-hf-pi4" secondAttribute="height" multiplier="0.1" id="KSl-YH-JVy"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="Zz6-xj-ozg" secondAttribute="trailing" id="Kn1-fR-7XG"/>
                             <constraint firstItem="GJ4-oh-CTe" firstAttribute="centerY" secondItem="Et9-hf-pi4" secondAttribute="centerY" multiplier="1.65" id="LZC-qj-to5"/>
                             <constraint firstItem="F1N-JR-b0z" firstAttribute="width" secondItem="Et9-hf-pi4" secondAttribute="width" multiplier="0.9" id="ORP-XQ-Aqe"/>
                             <constraint firstItem="TqF-Rr-nsV" firstAttribute="leading" secondItem="zO8-J3-gTy" secondAttribute="trailing" constant="34" id="PnK-ZU-eP8"/>
@@ -297,6 +306,7 @@
                             <constraint firstItem="ZjD-Gz-bxB" firstAttribute="width" secondItem="Et9-hf-pi4" secondAttribute="width" multiplier="0.9" id="WrZ-ea-fbk"/>
                             <constraint firstItem="Qkw-Cs-hWq" firstAttribute="centerY" secondItem="kwf-BE-ogz" secondAttribute="centerY" id="XlX-Xt-NVs"/>
                             <constraint firstItem="q3F-wn-wxm" firstAttribute="leading" secondItem="Et9-hf-pi4" secondAttribute="leadingMargin" id="Y9p-ga-gUk"/>
+                            <constraint firstItem="Zz6-xj-ozg" firstAttribute="leading" secondItem="1BE-hl-lEJ" secondAttribute="trailing" constant="-57" id="afI-8S-VXH"/>
                             <constraint firstItem="ykR-kl-pm0" firstAttribute="width" secondItem="Et9-hf-pi4" secondAttribute="width" multiplier="0.9" id="bXD-Q9-JNx"/>
                             <constraint firstItem="6iD-Vp-NXD" firstAttribute="height" secondItem="Et9-hf-pi4" secondAttribute="height" multiplier="0.1" id="cag-fo-aw8"/>
                             <constraint firstItem="Hne-Dh-8f5" firstAttribute="height" secondItem="Et9-hf-pi4" secondAttribute="height" multiplier="0.1" id="ceN-cS-fUI"/>
@@ -323,11 +333,15 @@
                                 <exclude reference="AdL-J6-NDb"/>
                                 <exclude reference="Uon-85-kLj"/>
                                 <exclude reference="t09-mQ-y3R"/>
+                                <exclude reference="afI-8S-VXH"/>
                             </mask>
                         </variation>
                     </view>
                     <connections>
+                        <outlet property="RemoveInvitesButton" destination="Zz6-xj-ozg" id="wCX-UK-6oz"/>
+                        <outlet property="addFriendsConstraint" destination="mQl-uf-Kff" id="jXv-mJ-KRf"/>
                         <outlet property="frequencyPicker" destination="a5f-VN-aAU" id="Z1c-tg-aUZ"/>
+                        <outlet property="inviteFriendsLabel" destination="wdH-k0-fHb" id="jfq-zk-k4O"/>
                         <outlet property="pactDescription" destination="ykR-kl-pm0" id="ofb-G9-zbA"/>
                         <outlet property="pactTitle" destination="ZjD-Gz-bxB" id="lDU-3H-rGZ"/>
                         <outlet property="repeatSwitch" destination="TqF-Rr-nsV" id="imT-Ob-eVF"/>
