@@ -23,6 +23,7 @@
 @property (weak, nonatomic) IBOutlet UIView *scrollview;
 @property (weak, nonatomic) IBOutlet UIStackView *stackview;
 @property (strong, nonatomic) JDDDataSource *sharedData;
+@property (weak, nonatomic) IBOutlet UILabel *twitterShameHeadingLabel;
 
 
 @end
@@ -33,12 +34,12 @@
     [super viewDidLoad];
     self.sharedData = [JDDDataSource sharedDataSource];
     // Do any additional setup after loading the view.
+    
+    // first empty the stackview
     for (UIView *subview in self.stackview.arrangedSubviews){
         [self.stackview removeArrangedSubview:subview];
     }
-    NSLog(@"users to show count, %@", self.pact.usersToShowInApp);
-    NSLog(@"users count, %@", self.pact.users);
-
+    
     // then for each user, createa a UserDescriptionView and add it to the stackview
     for (JDDUser *user in self.pact.usersToShowInApp){
         
@@ -51,23 +52,38 @@
                 view.checkinsCount ++;
             }
         }
+        ;
+        NSString *valueIndicator = [NSString stringWithFormat:@"%@",[self.pact.users valueForKey:user.userID]] ;
         
+        user.isReady = valueIndicator;
         view.user = user;
-        
+        NSLog(@"Is the view's user ready? %@", view.user.isReady);
         // same as [view setUser:user];
         [self.stackview addArrangedSubview:view];
         
-        [view.widthAnchor constraintEqualToAnchor:self.scrollview.widthAnchor multiplier:0.5].active = YES;
+        
+        if (self.pact.users.count == 2) {
+            [view.widthAnchor constraintEqualToAnchor:self.scrollview.widthAnchor multiplier:0.45].active = YES;
+        } else {
+            [view.widthAnchor constraintEqualToAnchor:self.scrollview.widthAnchor multiplier:0.33].active = YES;
+        }
+        
         [self.stackview layoutSubviews];//give subviews a size
         view.clipsToBounds = YES;
         
     }
+    
     self.pactTitleLabel.text = self.pact.title;
-    self.pactDescriptionLabel.text = self.pact.pactDescription;
-    self.checkinFrequencyLabel.text = [NSString stringWithFormat:@"%lu", self.pact.checkInsPerTimeInterval];
-    self.checkinStringLabel.text = self.pact.timeInterval;
-    self.stakesLabel.text = self.pact.stakes;
-//    self.shamingLabel.text = self.pact.allowsShaming;
+    self.pactDescriptionLabel.text = [NSString stringWithFormat: @"%@",self.pact.pactDescription];
+//    self.createdLabel.text = self.pact.dateOfCreation;
+    self.checkinStringLabel.text = [NSString stringWithFormat:@"%lu times per %@", self.pact.checkInsPerTimeInterval, self.pact.timeInterval];
+    self.stakesLabel.text = [NSString stringWithFormat:@"%@", self.pact.stakes];
+    if (self.pact.allowsShaming) {
+    self.shamingLabel.text = self.pact.twitterPost;
+    } else {
+        self.twitterShameHeadingLabel.hidden = YES;
+        self.shamingLabel.text = @"";
+    }
 }
 
 

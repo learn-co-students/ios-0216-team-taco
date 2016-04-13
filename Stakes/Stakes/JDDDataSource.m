@@ -49,9 +49,9 @@
     
     JDDPact *pact = [[JDDPact alloc]init];
     
-    pact.title = @"Gym with Boys";
-    pact.pactDescription = @"Need to go to gym 3x a week";
-    pact.stakes = @"Loser has to buy beer";
+    pact.title = @"Welcome to Stakes!";
+    pact.pactDescription = @"On this page you will see your pacts.  Click on a header to open that pact.";
+    pact.stakes = @"Swipe down to create a new pact and invite your friends.  Swipe Left to see the open pact's details.  Swipe right to access the chat feature for that pact.";
     pact.users = [[NSMutableArray alloc]init];
     
     
@@ -60,7 +60,7 @@
     pact.repeating = YES;
     
     pact.allowsShaming = YES;
-    pact.twitterPost = @"man, all these donuts are incredible";
+    pact.twitterPost = @"You can agree to Twitter shaming.  If you don't meet your check-in goal, the agreed upon Tweet will automatically send.";
     
     pact.users = [[NSMutableArray alloc]initWithArray:@[self.currentUser]];
     
@@ -139,6 +139,7 @@
     pact.dateOfCreation = [dateFormatter dateFromString:snapshot.value[@"dateOfCreation"]];
     pact.users = snapshot.value[@"users"];
     pact.isActive = [snapshot.value[@"isActive"] boolValue];
+    pact.timeInterval = snapshot.value[@"timeInterval"];
 
     pact.checkIns = [[NSMutableArray alloc]init];
     
