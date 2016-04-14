@@ -44,7 +44,7 @@
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *addFriendsConstraint;
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 
-
+@end
 
 @implementation CreatePactViewController
 

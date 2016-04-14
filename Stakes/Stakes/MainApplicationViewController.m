@@ -70,7 +70,7 @@
 - (void)showUserPactsViewController
 {
     
-    UITabBarController *tabBarControllerVC = [self.storyboard instantiateViewControllerWithIdentifier:@"NavBarStoryBoardID"];
+    UITabBarController *tabBarControllerVC = [self.storyboard instantiateViewControllerWithIdentifier:@"UserPactsViewController"];
 //    UserPactsViewController *userPactsVC = [self.storyboard instantiateViewControllerWithIdentifier:UserPactsViewControllerStoryboardID];
     
     [self.datasource establishCurrentUserWithBlock:^(BOOL completionBlock) {
