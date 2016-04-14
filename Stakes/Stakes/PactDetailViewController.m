@@ -15,8 +15,7 @@
 @interface PactDetailViewController ()
 @property (weak, nonatomic) IBOutlet UILabel *pactTitleLabel;
 @property (weak, nonatomic) IBOutlet UILabel *pactDescriptionLabel;
-@property (weak, nonatomic) IBOutlet UILabel *checkinFrequencyLabel;
-@property (weak, nonatomic) IBOutlet UILabel *checkinStringLabel;
+@property (weak, nonatomic) IBOutlet UILabel *checkinLabel;
 @property (weak, nonatomic) IBOutlet UILabel *stakesLabel;
 @property (weak, nonatomic) IBOutlet UILabel *shamingLabel;
 @property (weak, nonatomic) IBOutlet UILabel *createdLabel;
@@ -24,7 +23,6 @@
 @property (weak, nonatomic) IBOutlet UIStackView *stackview;
 @property (strong, nonatomic) JDDDataSource *sharedData;
 @property (weak, nonatomic) IBOutlet UILabel *twitterShameHeadingLabel;
-
 
 @end
 
@@ -81,7 +79,7 @@
     BOOL worked = createText != nil;
     self.createdLabel.text = worked ? createText : @"Error";
     NSLog(@"checkins %lu and timeinterval %@", self.pact.checkInsPerTimeInterval, self.pact.timeInterval);
-    self.checkinStringLabel.text = [NSString stringWithFormat:@"%lu times per %@", self.pact.checkInsPerTimeInterval, self.pact.timeInterval];
+    self.checkinLabel.text = [NSString stringWithFormat:@"%lu times per %@", self.pact.checkInsPerTimeInterval, self.pact.timeInterval];
     self.stakesLabel.text = [NSString stringWithFormat:@"%@", self.pact.stakes];
     if (self.pact.allowsShaming) {
     self.shamingLabel.text = self.pact.twitterPost;
