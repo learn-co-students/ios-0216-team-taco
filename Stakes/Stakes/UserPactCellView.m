@@ -210,11 +210,6 @@
 
 }
 
-- (IBAction)infoButtonTapped:(id)sender
-{
-
-}
-
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
             PactDetailViewController *pactVC = segue.destinationViewController;
             pactVC.pact = self.pact;

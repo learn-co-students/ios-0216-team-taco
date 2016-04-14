@@ -52,7 +52,7 @@
     pact.title = @"Welcome to Stakes!";
     pact.pactDescription = @"Swipe down to create a pact and invite your friends! If you have multiple pacts, tap a header to open one.";
     pact.stakes = @"Swipe left to see the open pact's details, and swipe right to access the chat feature for that pact.";
-    pact.users = [[NSMutableArray alloc]init];
+    pact.users = [[NSMutableDictionary alloc]init];
     
     
     pact.checkInsPerTimeInterval = 3;
@@ -62,7 +62,7 @@
     pact.allowsShaming = YES;
     pact.twitterPost = @"You can agree to Twitter shaming.  If you don't meet your check-in goal, the agreed upon Tweet will automatically send.";
     
-    pact.users = [[NSMutableArray alloc]initWithArray:@[self.currentUser]];
+    pact.users = [[NSMutableDictionary alloc] initWithDictionary:@{self.currentUser.userID : @1 }];
     
     NSLog(@"self.currentuser in datasource %@", self.currentUser.displayName);
     pact.chatRoomID = [[NSString alloc]init];
@@ -139,7 +139,24 @@
     pact.twitterPost = snapshot.value[@"twitterPost"];
     pact.dateOfCreation = [dateFormatter dateFromString:snapshot.value[@"dateOfCreation"]];
     pact.users = snapshot.value[@"users"];
-    pact.isActive = [snapshot.value[@"isActive"] boolValue];
+    
+    NSArray *allUserValues = [snapshot.value[@"users"] allValues];
+    NSLog(@"ALL USER VALUES ARRAY %@", allUserValues);
+    BOOL isActive = YES;
+    
+    for (NSNumber *num in allUserValues) {
+        if ([num isEqualToNumber:@0]) {
+            isActive = NO;
+        }
+    }
+    
+    pact.isActive = isActive;
+    
+    // if is active, tell firebase it is active
+    if (isActive) {
+        [[[self.firebaseRef childByAppendingPath:@"pacts"] childByAppendingPath:pact.pactID]  updateChildValues:@{@"isActive" : [NSNumber numberWithBool:YES] }];
+    }
+
     pact.timeInterval = snapshot.value[@"timeInterval"];
 
     pact.checkIns = [[NSMutableArray alloc]init];
