@@ -379,7 +379,6 @@
         
     }
     
-    
     // OBJECTIVE : for contacts in the CNContact array I want to check firebase to see if they exist. If YES, pull down info & create JDDUser. If no create JDDUser
     
     //may need an if statement to make sure this doesn't fire if contacts.count == 0

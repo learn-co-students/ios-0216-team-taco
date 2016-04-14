@@ -394,7 +394,12 @@
 				TargetAttributes = {
 					CBA9854E1CAAEC6D00D1CC27 = {
 						CreatedOnToolsVersion = 7.3;
-						DevelopmentTeam = KXY9EDFTF5;
+						DevelopmentTeam = R2XL2EPM9B;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+						};
 					};
 					CBA985671CAAEC6D00D1CC27 = {
 						CreatedOnToolsVersion = 7.3;
@@ -675,7 +680,7 @@
 				INFOPLIST_FILE = Stakes/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = JDDStakes1;
+				PRODUCT_BUNDLE_IDENTIFIER = JDDStakes;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 			};
@@ -691,7 +696,7 @@
 				INFOPLIST_FILE = Stakes/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = JDDStakes1;
+				PRODUCT_BUNDLE_IDENTIFIER = JDDStakes;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 			};
