@@ -29,6 +29,7 @@
 @property (nonatomic, strong) NSMutableArray *pacts;
 @property (nonatomic, strong) NSMutableArray *pactsToShowInApp;
 @property (nonatomic, strong) NSMutableArray *checkIns;
+@property (nonatomic, strong) NSString *currentPactIn;
 
 #pragma methods
 

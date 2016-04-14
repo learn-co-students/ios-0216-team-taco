@@ -10,6 +10,7 @@
 #import "JDDDataSource.h"
 #import "JDDPact.h"
 #import "Constants.h"
+#import "UserDescriptionView.h"
 
 @import Contacts;
 @import ContactsUI;
@@ -36,14 +37,22 @@
 @property (nonatomic, strong) Firebase *pactReference;
 @property (nonatomic, strong) JDDPact *createdPact;
 @property (nonatomic, strong) NSMutableArray *contactsToShow;
+@property (weak, nonatomic) IBOutlet UIStackView *stackView;
+@property (weak, nonatomic) IBOutlet UIButton *RemoveInvitesButton;
+@property (weak, nonatomic) IBOutlet UILabel *inviteFriendsLabel;
 
-@end
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *addFriendsConstraint;
+@property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
+
+
 
 @implementation CreatePactViewController
 
 - (void)viewDidLoad {
     
     [super viewDidLoad];
+    self.RemoveInvitesButton.hidden = YES;
+    [self.RemoveInvitesButton setTransform:CGAffineTransformMakeRotation(-M_PI / 2)];
     [self initializePickers];
     self.repeatSwitch.on = NO;
     self.shameSwitch.on = NO;
@@ -103,7 +112,7 @@
                                     
                                     [[NSOperationQueue mainQueue] addOperationWithBlock:^{
                                         
-                                    //    [self dismissViewControllerAnimated:YES completion:nil];
+//                                        [self dismissViewControllerAnimated:YES completion:nil];
                                         
                                     }];
                                 }
@@ -288,6 +297,24 @@
     [self presentViewController:alert animated:YES completion:nil];
 }
 
+-(void)alertMessagingNotAvailable
+{
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Sorry!" message:@"Messaging is not available on this device" preferredStyle:UIAlertControllerStyleAlert];
+    
+    UIAlertAction* ok = [UIAlertAction
+                         actionWithTitle:@"OK"
+                         style:UIAlertActionStyleDefault
+                         handler:^(UIAlertAction * action)
+                         {
+                             [alert dismissViewControllerAnimated:NO completion:nil];
+                             [self dismissViewControllerAnimated:YES completion:nil];
+                         }];
+    
+    [alert addAction: ok];
+    
+    [self presentViewController:alert animated:YES completion:nil];
+}
+
 -(NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView
 {
     
@@ -386,6 +413,9 @@
                     [self.contactsToShow addObject:contactToAdd];
                     
                     NSLog(@"contactToShow: %@",self.contactsToShow);
+                    
+                    [self addUserToInviteScrollView:contactToAdd];
+
 
                 }];
 
@@ -404,17 +434,96 @@
                 
                 [self.contactsToShow addObject: newUser]; // add user to contacts to show
                 
-                NSLog(@"contactsToShowNewUser : %@",self.contactsToShow);
+                [self addUserToInviteScrollView:newUser];
+
+                
+                NSLog(@"contactsToShowNewUser : %lu",self.contactsToShow.count);
+                NSLog(@"contactsAddressBookInvites : %lu",(unsigned long)contacts.count);
 
             }
             
+            
             [NSNotification notificationWithName:@"contactsReadyForCreatePactView" object:nil];
             
+
         }];
         
     }
     
 }
+- (IBAction)removeContactButton:(id)sender {
+    UserDescriptionView *user = [[UserDescriptionView alloc]init];
+    user = self.stackView.arrangedSubviews.lastObject;
+    [self.stackView removeArrangedSubview:user];
+    [self.contactsToShow removeLastObject];
+    if (self.contactsToShow.count ==1) {
+        self.inviteFriendsLabel.hidden = NO;
+        self.addFriendsConstraint.constant = 0;
+        self.RemoveInvitesButton.hidden = YES;
+    }
+}
+
+-(void)addUserToInviteScrollView: (JDDUser*)user {
+    UserDescriptionView *view = [[UserDescriptionView alloc]init];
+    view.indicatorLabel.hidden = YES;
+    view.user = user;
+    
+    if (self.stackView.arrangedSubviews.count == 0) {
+        [self.stackView addArrangedSubview:view];
+        self.RemoveInvitesButton.hidden = NO;
+        self.inviteFriendsLabel.hidden = YES;
+        self.addFriendsConstraint.constant = 40;
+        if (self.stackView.arrangedSubviews.count == 2) {
+            [view.widthAnchor constraintEqualToAnchor:self.scrollView.widthAnchor multiplier:0.4].active = YES;
+        } else {
+            [view.widthAnchor constraintEqualToAnchor:self.scrollView.widthAnchor multiplier:0.24].active = YES;
+            
+        }
+    } else  {
+        NSMutableArray *userIDsInStackView = [[NSMutableArray alloc]init];
+        for (UserDescriptionView *viewToCompare in self.stackView.arrangedSubviews) {
+            [userIDsInStackView addObject:viewToCompare.user.userID];
+        }
+
+        
+            if ([userIDsInStackView containsObject:view.user.userID]) {
+                NSLog(@"Already have this user in the scrollView");
+                [self alertUserAlreadyAdded:view.user.displayName];
+                
+            } else {
+                [self.stackView addArrangedSubview:view];
+                if (self.stackView.arrangedSubviews.count == 2) {
+                    [view.widthAnchor constraintEqualToAnchor:self.scrollView.widthAnchor multiplier:0.4].active = YES;
+                } else {
+                    [view.widthAnchor constraintEqualToAnchor:self.scrollView.widthAnchor multiplier:0.24].active = YES;
+                }
+            }
+        
+    }
+    
+    
+}
+
+-(void)alertUserAlreadyAdded:(NSString *)name
+{
+    NSString *message = [NSString stringWithFormat:@"You already added %@", name];
+    
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Oops!" message:message preferredStyle:UIAlertControllerStyleAlert];
+    
+    UIAlertAction* ok = [UIAlertAction
+                         actionWithTitle:@"OK"
+                         style:UIAlertActionStyleDefault
+                         handler:^(UIAlertAction * action)
+                         {
+                             [alert dismissViewControllerAnimated:YES completion:nil];
+                             
+                         }];
+    
+    [alert addAction: ok];
+    
+    [self presentViewController:alert animated:YES completion:nil];
+}
+
 
 - (IBAction)cancelButtonPressed:(id)sender {
     
@@ -450,7 +559,7 @@
 
 -(BOOL)didInviteFriends
 {
-    if (self.contactsToShow.count > 0){
+    if (self.contactsToShow.count > 1){
           NSLog(@"friends are invited");
     
         return YES;
@@ -514,6 +623,7 @@ return  NO;
 {
     if (![MFMessageComposeViewController canSendText]) {
         NSLog(@"Message services are not available.");
+        [self alertMessagingNotAvailable];
     } else {
     
     MFMessageComposeViewController* composeVC = [[MFMessageComposeViewController alloc] init];
