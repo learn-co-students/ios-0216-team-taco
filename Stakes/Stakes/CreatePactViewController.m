@@ -467,6 +467,7 @@
 -(void)addUserToInviteScrollView: (JDDUser*)user {
     UserDescriptionView *view = [[UserDescriptionView alloc]init];
     view.indicatorLabel.hidden = YES;
+    view.countOfCheckInsLabel.hidden = YES;
     view.user = user;
     
     if (self.stackView.arrangedSubviews.count == 0) {
@@ -474,12 +475,8 @@
         self.RemoveInvitesButton.hidden = NO;
         self.inviteFriendsLabel.hidden = YES;
         self.addFriendsConstraint.constant = 40;
-        if (self.stackView.arrangedSubviews.count == 2) {
-            [view.widthAnchor constraintEqualToAnchor:self.scrollView.widthAnchor multiplier:0.4].active = YES;
-        } else {
-            [view.widthAnchor constraintEqualToAnchor:self.scrollView.widthAnchor multiplier:0.24].active = YES;
-            
-        }
+            [view.widthAnchor constraintEqualToAnchor:self.scrollView.widthAnchor multiplier:0.25].active = YES;
+        
     } else  {
         NSMutableArray *userIDsInStackView = [[NSMutableArray alloc]init];
         for (UserDescriptionView *viewToCompare in self.stackView.arrangedSubviews) {
@@ -493,11 +490,7 @@
                 
             } else {
                 [self.stackView addArrangedSubview:view];
-                if (self.stackView.arrangedSubviews.count == 2) {
-                    [view.widthAnchor constraintEqualToAnchor:self.scrollView.widthAnchor multiplier:0.4].active = YES;
-                } else {
-                    [view.widthAnchor constraintEqualToAnchor:self.scrollView.widthAnchor multiplier:0.24].active = YES;
-                }
+
             }
         
     }

@@ -14,7 +14,6 @@
 
 @property (strong, nonatomic) IBOutlet UserDescriptionView *contentView;
 
-@property (weak, nonatomic) IBOutlet UILabel *countOfCheckInsLabel;
 @property (weak, nonatomic) IBOutlet UILabel *intialsLabel;
 @property (strong, nonatomic) JDDDataSource *sharedData;
 

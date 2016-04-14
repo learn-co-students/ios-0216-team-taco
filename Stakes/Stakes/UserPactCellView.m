@@ -128,7 +128,12 @@
     [super awakeFromNib];
     
     self.sharedData = [JDDDataSource sharedDataSource];
+    [self addObserver:self forKeyPath:@"pact.users" options:NSKeyValueObservingOptionNew context:nil];
+}
 
+-(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSString *,id> *)change context:(void *)context{
+ 
+    NSLog(@"observed changes %@", change);
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -163,6 +168,7 @@
             }
         }
         ;
+        
         NSString *valueIndicator = [NSString stringWithFormat:@"%@",[self.pact.users valueForKey:user.userID]] ;
         NSString *currentPact = [NSString stringWithFormat:@"%@",self.pact.title];
   

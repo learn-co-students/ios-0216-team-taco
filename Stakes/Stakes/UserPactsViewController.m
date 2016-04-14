@@ -70,6 +70,7 @@
         NSString *message = [NSString stringWithFormat:@"There was an error signing in to Twitter: %@", error.localizedDescription];
 //        [self showAlertWithMessage:message];
     }];
+    //    [[NSNotificationCenter defaultCenter] addObserver:self.tableView selector:@selector(reloadData) name:@"PACT_UPDATED" object:nil];
 }
 
 -(void)viewWillAppear:(BOOL)animated{

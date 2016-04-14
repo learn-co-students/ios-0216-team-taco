@@ -108,12 +108,13 @@
     [[self.sharedData.firebaseRef childByAppendingPath:[NSString stringWithFormat:@"pacts/%@/users", self.pact.pactID]] observeEventType:FEventTypeValue withBlock:^(FDataSnapshot *snapshot) {
         NSLog(@"snapshot value for current PACT \n\n\n\n\n\n\n %@", snapshot.value);
         
-        
         if (snapshot.value == [NSNull null] ) {
             hasPendingInvites(NO);
             return;
         }
         
+        self.pact.users = snapshot.value;
+
         NSArray *allUserValues = [snapshot.value allValues];
         NSLog(@"ALL USER VALUES ARRAY %@", allUserValues);
         BOOL hasPending = NO;
@@ -131,8 +132,6 @@
             hasPendingInvites(YES);
         }
     }];
-    
-    
     }
 
 - (IBAction)acceptPactTapped:(id)sender

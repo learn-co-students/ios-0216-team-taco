@@ -15,6 +15,7 @@
 @property (nonatomic, strong) JDDUser *user;
 @property (nonatomic) NSUInteger checkinsCount;
 @property (weak, nonatomic) IBOutlet UILabel *indicatorLabel;
+@property (weak, nonatomic) IBOutlet UILabel *countOfCheckInsLabel;
 
 @property (weak, nonatomic) IBOutlet UILabel *userNameLabel;
 
