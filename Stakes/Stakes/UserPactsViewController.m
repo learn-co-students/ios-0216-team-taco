@@ -96,10 +96,9 @@
 
 -(void)setupSwipeGestureRecognizer {
     
-    UISwipeGestureRecognizer *swipeRight = [[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(swipeRightGestureHappened:)];
-    [swipeRight setDirection:UISwipeGestureRecognizerDirectionRight];
+    UITapGestureRecognizer *cellTap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(swipeRightGestureHappened:)];
     
-    [self.view addGestureRecognizer:swipeRight];
+    [self.view addGestureRecognizer:cellTap];
     
     UISwipeGestureRecognizer *swipeLeft = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swifeLeftGestureHappened:)];
     [swipeLeft setDirection:UISwipeGestureRecognizerDirectionLeft];
@@ -107,7 +106,7 @@
     [self.view addGestureRecognizer:swipeLeft];
 }
 
--(void)swipeRightGestureHappened:(UISwipeGestureRecognizer *)swipeGestureRight{
+-(void)swipeRightGestureHappened:(UITapGestureRecognizer *)swipeGestureRight{
     
 
     NSLog(@"Right Gesture Recognizer is happening!");

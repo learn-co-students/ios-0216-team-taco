@@ -146,15 +146,7 @@
             </objects>
             <point key="canvasLocation" x="-194.5" y="-656"/>
         </scene>
-        <!--dylansStoryboard-->
-        <scene sceneID="LSi-qD-fl3">
-            <objects>
-                <viewControllerPlaceholder storyboardIdentifier="tabBarToUserDetailVC" storyboardName="dylansStoryboard" id="1ip-QS-hGW" sceneMemberID="viewController"/>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="3e9-BX-fZH" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="545.5" y="637"/>
-        </scene>
-        <!--Pact Detail View Controller-->
+        <!--Item-->
         <scene sceneID="lwG-2m-sKz">
             <objects>
                 <viewController id="pjh-ye-mZS" customClass="PactDetailViewController" sceneMemberID="viewController">
@@ -254,6 +246,7 @@
                             <constraint firstAttribute="leadingMargin" secondItem="AWv-Qn-DZx" secondAttribute="leading" id="x9u-ZD-XJu"/>
                         </constraints>
                     </view>
+                    <tabBarItem key="tabBarItem" title="Item" id="K6r-om-2b2"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <connections>
                         <outlet property="checkinStringLabel" destination="Sbg-1T-UNG" id="5sn-Lx-80P"/>
@@ -273,7 +266,9 @@
         <!--dylansStoryboard-->
         <scene sceneID="4Pg-Am-8d2">
             <objects>
-                <viewControllerPlaceholder storyboardIdentifier="navBarToSmackTalkVC" storyboardName="dylansStoryboard" id="P6F-rR-h2E" sceneMemberID="viewController"/>
+                <viewControllerPlaceholder storyboardIdentifier="navBarToSmackTalkVC" storyboardName="dylansStoryboard" id="P6F-rR-h2E" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Item" id="KXf-fJ-30i"/>
+                </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="okS-yZ-Kjd" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-647.5" y="156"/>
@@ -313,6 +308,8 @@
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Item" id="lhP-Ht-6OB"/>
+                    <toolbarItems/>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <connections>
                         <outlet property="tableView" destination="lak-Xs-a7c" id="cLv-Js-L0P"/>
@@ -328,7 +325,7 @@
         <!--tabBarViewController-->
         <scene sceneID="AXd-FZ-f55">
             <objects>
-                <tabBarController title="tabBarViewController" automaticallyAdjustsScrollViewInsets="NO" id="436-pK-7m4" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="NavBarStoryBoardID" title="tabBarViewController" automaticallyAdjustsScrollViewInsets="NO" id="436-pK-7m4" sceneMemberID="viewController">
                     <toolbarItems/>
                     <tabBar key="tabBar" contentMode="scaleToFill" id="U0x-c9-P8A">
                         <autoresizingMask key="autoresizingMask"/>
@@ -336,11 +333,15 @@
                     </tabBar>
                     <connections>
                         <segue destination="6hU-6R-OlN" kind="relationship" relationship="viewControllers" id="JJh-Vh-5K0"/>
+                        <segue destination="pjh-ye-mZS" kind="relationship" relationship="viewControllers" id="uyN-Dx-MTb"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="e9O-KH-iSE" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-117" y="156"/>
+            <point key="canvasLocation" x="610" y="-784"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="uyN-Dx-MTb"/>
+    </inferredMetricsTieBreakers>
 </document>

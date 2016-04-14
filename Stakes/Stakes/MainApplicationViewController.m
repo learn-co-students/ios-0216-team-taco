@@ -69,7 +69,9 @@
 
 - (void)showUserPactsViewController
 {
-    UserPactsViewController *userPactsVC = [self.storyboard instantiateViewControllerWithIdentifier:UserPactsViewControllerStoryboardID];
+    
+    UITabBarController *tabBarControllerVC = [self.storyboard instantiateViewControllerWithIdentifier:@"NavBarStoryBoardID"];
+//    UserPactsViewController *userPactsVC = [self.storyboard instantiateViewControllerWithIdentifier:UserPactsViewControllerStoryboardID];
     
     [self.datasource establishCurrentUserWithBlock:^(BOOL completionBlock) {
         
@@ -80,7 +82,8 @@
                 
                 [self.datasource.currentUser.pactsToShowInApp addObject:[self.datasource createDemoPact]];
                 
-                [self setEmbeddedViewController:userPactsVC];
+                [self setEmbeddedViewController:tabBarControllerVC];
+                
             } else {
             
             [self.datasource methodToPullDownPactsFromFirebaseWithCompletionBlock:^(BOOL completionBlock) {
@@ -95,7 +98,9 @@
                                 
                                 [[NSOperationQueue mainQueue] addOperationWithBlock:^{
                                     
-                                    [self setEmbeddedViewController:userPactsVC];
+                                    [self setEmbeddedViewController:tabBarControllerVC];
+                                    
+//                                    [self]
                                     
                                 }];
                             }
