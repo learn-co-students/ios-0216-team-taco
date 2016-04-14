@@ -322,26 +322,5 @@
             </objects>
             <point key="canvasLocation" x="622.5" y="155.5"/>
         </scene>
-        <!--tabBarViewController-->
-        <scene sceneID="AXd-FZ-f55">
-            <objects>
-                <tabBarController storyboardIdentifier="NavBarStoryBoardID" title="tabBarViewController" automaticallyAdjustsScrollViewInsets="NO" id="436-pK-7m4" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <tabBar key="tabBar" contentMode="scaleToFill" id="U0x-c9-P8A">
-                        <autoresizingMask key="autoresizingMask"/>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                    </tabBar>
-                    <connections>
-                        <segue destination="6hU-6R-OlN" kind="relationship" relationship="viewControllers" id="JJh-Vh-5K0"/>
-                        <segue destination="pjh-ye-mZS" kind="relationship" relationship="viewControllers" id="uyN-Dx-MTb"/>
-                    </connections>
-                </tabBarController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="e9O-KH-iSE" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="610" y="-784"/>
-        </scene>
     </scenes>
-    <inferredMetricsTieBreakers>
-        <segue reference="uyN-Dx-MTb"/>
-    </inferredMetricsTieBreakers>
 </document>
