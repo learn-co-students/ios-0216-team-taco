@@ -135,9 +135,8 @@
     pact.stakes = snapshot.value[@"stakes"];
     pact.repeating = [snapshot.value[@"repeating"] boolValue];
     pact.allowsShaming = [snapshot.value[@"allowsShaming"] boolValue];
-    pact.checkInsPerTimeInterval = [snapshot.value[@"allowsShaming"] integerValue];
+    pact.checkInsPerTimeInterval = [snapshot.value[@"checkInsPerTimeInterval"] integerValue];
     pact.twitterPost = snapshot.value[@"twitterPost"];
-//    pact.dateOfCreation = [[NSDate alloc] init];
     pact.dateOfCreation = [dateFormatter dateFromString:snapshot.value[@"dateOfCreation"]];
     pact.users = snapshot.value[@"users"];
     pact.isActive = [snapshot.value[@"isActive"] boolValue];

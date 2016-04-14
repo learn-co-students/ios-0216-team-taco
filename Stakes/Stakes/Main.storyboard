@@ -168,30 +168,25 @@
                             <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XFh-S4-Yjm">
                                 <rect key="frame" x="-1" y="40" width="376" height="134"/>
                                 <subviews>
-                                    <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JOA-1G-RLs">
+                                    <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JOA-1G-RLs">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="134"/>
                                         <subviews>
-                                            <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="e3S-Qv-8jv">
+                                            <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="e3S-Qv-8jv">
                                                 <rect key="frame" x="0.0" y="0.0" width="0.0" height="134"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="width" id="zFD-4f-kS2"/>
-                                                </constraints>
                                             </stackView>
                                         </subviews>
                                         <constraints>
                                             <constraint firstItem="e3S-Qv-8jv" firstAttribute="height" secondItem="JOA-1G-RLs" secondAttribute="height" id="5QR-vJ-85e"/>
-                                            <constraint firstAttribute="bottom" secondItem="e3S-Qv-8jv" secondAttribute="bottom" id="5h6-u1-3cV"/>
                                             <constraint firstAttribute="trailing" secondItem="e3S-Qv-8jv" secondAttribute="trailing" id="MTm-sf-DEk"/>
                                             <constraint firstItem="e3S-Qv-8jv" firstAttribute="leading" secondItem="JOA-1G-RLs" secondAttribute="leading" id="TZq-cS-Dzz"/>
-                                            <constraint firstItem="e3S-Qv-8jv" firstAttribute="centerY" secondItem="JOA-1G-RLs" secondAttribute="centerY" id="opE-Y2-F1O"/>
                                         </constraints>
                                     </scrollView>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstItem="JOA-1G-RLs" firstAttribute="width" secondItem="XFh-S4-Yjm" secondAttribute="width" id="0Xm-eo-rf6"/>
                                     <constraint firstItem="JOA-1G-RLs" firstAttribute="leading" secondItem="XFh-S4-Yjm" secondAttribute="leading" id="9V1-pg-4x0"/>
-                                    <constraint firstItem="JOA-1G-RLs" firstAttribute="top" secondItem="XFh-S4-Yjm" secondAttribute="top" id="njr-1f-VIL"/>
-                                    <constraint firstItem="JOA-1G-RLs" firstAttribute="height" secondItem="XFh-S4-Yjm" secondAttribute="height" id="x6U-ul-8q4"/>
+                                    <constraint firstAttribute="trailing" secondItem="JOA-1G-RLs" secondAttribute="trailing" id="Eyk-N2-Iv1"/>
+                                    <constraint firstItem="JOA-1G-RLs" firstAttribute="top" secondItem="XFh-S4-Yjm" secondAttribute="top" id="SYf-qf-Qdy"/>
+                                    <constraint firstAttribute="bottom" secondItem="JOA-1G-RLs" secondAttribute="bottom" id="muV-Ev-dob"/>
                                 </constraints>
                             </view>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" translatesAutoresizingMaskIntoConstraints="NO" id="E2m-yX-E0c">
