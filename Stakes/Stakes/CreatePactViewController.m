@@ -32,7 +32,7 @@
 @property (nonatomic,strong) NSMutableArray* FrequencyPickerDataSourceArray;
 @property (nonatomic,strong) NSMutableArray* timeInterval;
 @property (nonatomic,strong) NSString* timeIntervalString;
-@property (nonatomic,strong) NSString* frequanctString;
+@property (nonatomic,strong) NSString* frequencyString;
 @property (nonatomic, strong) NSMutableArray* contacts;
 @property (nonatomic, strong) Firebase *pactReference;
 @property (nonatomic, strong) JDDPact *createdPact;
@@ -86,7 +86,7 @@
         self.createdPact.allowsShaming = self.shameSwitch.on;
         self.createdPact.repeating = self.repeatSwitch.on;
         self.createdPact.timeInterval = self.timeIntervalString;
-        self.createdPact.checkInsPerTimeInterval = [self.frequanctString integerValue];
+        self.createdPact.checkInsPerTimeInterval = [self.frequencyString integerValue];
         self.createdPact.dateOfCreation = currentDate;
         self.createdPact.isActive = NO;
         
@@ -267,7 +267,7 @@
         [self.FrequencyPickerDataSourceArray addObject:number];
     }
     
-    self.timeInterval = [@[@"Day",@"Week",@"Month",@"Year"] mutableCopy];
+    self.timeInterval = [@[@"day",@"week",@"month",@"year"] mutableCopy];
     self.timeIntervalPicker.delegate =self;
     self.timeIntervalPicker.dataSource = self;
     self.frequencyPicker.delegate = self;
@@ -334,7 +334,7 @@
 - (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component
 {
     if (pickerView == self.frequencyPicker) {
-        self.frequanctString = self.FrequencyPickerDataSourceArray[row];
+        self.frequencyString = self.FrequencyPickerDataSourceArray[row];
         return self.FrequencyPickerDataSourceArray[row];
     } else {
         self.timeIntervalString = self.timeInterval[row];
@@ -378,7 +378,6 @@
         [self.contactsToShow addObject:self.dataSource.currentUser];
         
     }
-    
     
     // OBJECTIVE : for contacts in the CNContact array I want to check firebase to see if they exist. If YES, pull down info & create JDDUser. If no create JDDUser
     

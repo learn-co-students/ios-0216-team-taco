@@ -46,5 +46,14 @@
 
 -(NSMutableDictionary*)createDictionaryToSendToFirebaseWithJDDCheckIn:(JDDCheckIn*)checkin;
 
+-(void)observeEventForUsersFromFirebaseWithCompletionBlock:(void(^)(BOOL))completionBlock;
+    
+-(void)getAllUsersInPact:(JDDPact *)pact completion:(void (^)(BOOL success))completionBlock;
+
+-(void)methodToPullDownPactsFromFirebaseWithCompletionBlock:(void(^)(BOOL))completionBlock;
+
+-(void)establishCurrentUserWithBlock:(void(^)(BOOL))completionBlock;
+
+
 @end
 
