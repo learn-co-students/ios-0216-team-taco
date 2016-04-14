@@ -14,6 +14,8 @@
 #import "UserDescriptionView.h"
 #import "Firebase.h"
 #import "Constants.h"
+#import "PactDetailViewController.h"
+#import "UserPactsViewController.h"
 
 @interface UserPactCellView () 
 
@@ -145,6 +147,7 @@
     // first empty the stackview
     for (UIView *subview in self.stackView.arrangedSubviews){
         [self.stackView removeArrangedSubview:subview];
+        
     }
     
     // then for each user, createa a UserDescriptionView and add it to the stackview
@@ -161,8 +164,10 @@
         }
         ;
         NSString *valueIndicator = [NSString stringWithFormat:@"%@",[self.pact.users valueForKey:user.userID]] ;
+        NSString *currentPact = [NSString stringWithFormat:@"%@",self.pact.title];
   
         user.isReady = valueIndicator;
+        user.currentPactIn = currentPact;
         view.user = user;
         NSLog(@"Is the view's user ready? %@", view.user.isReady);
         // same as [view setUser:user];
@@ -170,7 +175,7 @@
         
         
         if (self.pact.users.count == 2) {
-            [view.widthAnchor constraintEqualToAnchor:self.scrollView.widthAnchor multiplier:0.45].active = YES;
+            [view.widthAnchor constraintEqualToAnchor:self.scrollView.widthAnchor multiplier:0.5].active = YES;
         } else {
         [view.widthAnchor constraintEqualToAnchor:self.scrollView.widthAnchor multiplier:0.33].active = YES;
         }
@@ -198,5 +203,17 @@
     
 
 }
+
+- (IBAction)infoButtonTapped:(id)sender
+{
+
+}
+
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+            PactDetailViewController *pactVC = segue.destinationViewController;
+            pactVC.pact = self.pact;
+}
+
+
 
 @end

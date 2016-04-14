@@ -47,7 +47,7 @@
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     self.tableView.allowMultipleSectionsOpen = NO;
-    self.tableView.keepOneSectionOpen = NO;
+    self.tableView.keepOneSectionOpen = YES;
     self.tableView.initialOpenSections = [NSSet setWithObjects:@(0), nil];
     self.tableView.scrollEnabled = YES;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
@@ -74,19 +74,19 @@
 
 -(void)viewWillAppear:(BOOL)animated{
     
-    
+//     self.tableView.initialOpenSections = [NSSet setWithObjects:@(0), nil];
     [self.tableView reloadData];
     
 }
 
 #pragma - observe events for user, user pacts, pacts/users
 
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    
-    NSLog(@"selectedCell:%ld", indexPath.section);
-    UserPactCellView *thisCell = [self.tableView cellForRowAtIndexPath:indexPath];
-
-}
+//-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+//    
+//    NSLog(@"selectedCell:%ld", indexPath.section);
+//    UserPactCellView *thisCell = [self.tableView cellForRowAtIndexPath:indexPath];
+//
+//}
 
 #pragma method that populates the view from Firebase
 
