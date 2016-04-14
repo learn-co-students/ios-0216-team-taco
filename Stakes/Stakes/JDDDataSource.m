@@ -299,6 +299,126 @@
 }
 
 
+-(void)establishCurrentUserWithBlock:(void(^)(BOOL))completionBlock {
+    
+    Firebase *ref = [self.firebaseRef childByAppendingPath:[NSString stringWithFormat:@"users/%@",[[NSUserDefaults standardUserDefaults] stringForKey:UserIDKey]]];
+    
+    [ref observeEventType:FEventTypeValue withBlock:^(FDataSnapshot *snapshot) {
+        
+        self.currentUser = [self useSnapShotAndCreateUser:snapshot];
+        
+        completionBlock(YES);
+        
+    }];
+    
+}
+
+-(void)methodToPullDownPactsFromFirebaseWithCompletionBlock:(void(^)(BOOL))completionBlock {
+    
+    NSLog(@"current%@", self.currentUser.pacts);
+    
+    __block NSUInteger numberOfPactsInDataSource = self.currentUser.pacts.count;
+    
+    self.currentUser.pactsToShowInApp = [[NSMutableArray alloc]init];
+    
+    for (NSString *pactID in self.currentUser.pacts) {
+        
+        [[self.firebaseRef childByAppendingPath:[NSString stringWithFormat:@"pacts/%@",pactID]] observeSingleEventOfType:FEventTypeValue withBlock:^(FDataSnapshot *snapshotForPacts) {
+            
+            JDDPact *currentPact = [self useSnapShotAndCreatePact:snapshotForPacts];
+            
+            NSLog(@"checkinsArray :%@",snapshotForPacts.value[@"checkins"]);
+            
+            BOOL isUniquePact = YES;
+            for (JDDPact *pact in self.currentUser.pactsToShowInApp) {
+                
+                NSString *pactID = pact.pactID;
+                NSString *currentPactID = currentPact.pactID;
+                if (pactID && currentPactID) {
+                    if ([pactID isEqualToString:currentPact.pactID]) {
+                        isUniquePact = NO;
+                    }
+                }
+                
+            }
+            
+            if (isUniquePact) {
+                NSLog(@"is unique Pact: %@", currentPact);
+                [self.currentUser.pactsToShowInApp addObject:[self useSnapShotAndCreatePact:snapshotForPacts]];
+                NSLog(@"self.pacts now holds %ld pacts!", self.currentUser.pactsToShowInApp.count);
+            }
+            
+            numberOfPactsInDataSource--;
+            
+            if (numberOfPactsInDataSource == 0) {
+                completionBlock(YES);
+            }
+            
+        }];
+        
+    }
+    
+}
+
+-(void)getAllUsersInPact:(JDDPact *)pact completion:(void (^)(BOOL success))completionBlock
+{
+    pact.usersToShowInApp = [[NSMutableArray alloc] init];
+    __block NSUInteger remainingUsersToFetch = pact.users.count;
+    
+    // getting the userID information
+    for (NSString *user in pact.users) {
+        
+        // querying firebase and creating user
+        Firebase *ref = [self.firebaseRef childByAppendingPath:[NSString stringWithFormat:@"users/%@",user]];
+        
+        [ref observeEventType:FEventTypeValue withBlock:^(FDataSnapshot *snapshot) {
+            
+            JDDUser *person = [self useSnapShotAndCreateUser:snapshot];
+            
+            BOOL isUniqueUser = YES;
+            
+            for (JDDUser * pactUser in pact.usersToShowInApp){
+                
+                if ([pactUser.userID isEqualToString:person.userID]) {
+                    NSLog(@"WE ALREADY HAVE THIS User!!!!!");
+                    isUniqueUser = NO;
+                }
+            }
+            
+            if (isUniqueUser) {
+                NSLog(@"is unique User: %@", person);
+                [pact.usersToShowInApp addObject:person];
+                NSLog(@"userToShowInAppnow holds %ld pacts!", pact.usersToShowInApp.count);
+            }
+            
+            remainingUsersToFetch--;
+            if(remainingUsersToFetch == 0) {
+                completionBlock(YES);
+            }
+        }];
+    }
+}
+
+// this method is populating the users in the pact so we can use Twitter info etc. in the UserPactVC. Everything is saved in
+-(void)observeEventForUsersFromFirebaseWithCompletionBlock:(void(^)(BOOL))completionBlock {
+    __block NSUInteger remainingPacts = self.currentUser.pactsToShowInApp.count;
+    
+    for (JDDPact *pact in self.currentUser.pactsToShowInApp) {
+        
+        [self getAllUsersInPact:pact completion:^(BOOL success) {
+            remainingPacts--;
+            
+            if(remainingPacts == 0) {
+                completionBlock(YES);
+            }
+        }];
+        
+    }
+    
+}
+
+
+
 
 
 

@@ -96,25 +96,31 @@
 
 -(void)setupSwipeGestureRecognizer {
     
-    UISwipeGestureRecognizer *swipeRight = [[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(swipeRightGestureHappened:)];
-    [swipeRight setDirection:UISwipeGestureRecognizerDirectionRight];
+    UITapGestureRecognizer *cellTap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(swipeRightGestureHappened:)];
     
-    [self.view addGestureRecognizer:swipeRight];
+    [self.view addGestureRecognizer:cellTap];
     
     UISwipeGestureRecognizer *swipeLeft = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swifeLeftGestureHappened:)];
     [swipeLeft setDirection:UISwipeGestureRecognizerDirectionLeft];
-    
+
     [self.view addGestureRecognizer:swipeLeft];
 }
 
--(void)swipeRightGestureHappened:(UISwipeGestureRecognizer *)swipeGestureRight{
+-(void)swipeRightGestureHappened:(UITapGestureRecognizer *)swipeGestureRight{
     
 
     NSLog(@"Right Gesture Recognizer is happening!");
     
     [self performSegueWithIdentifier:@"segueToSmackTalkVC" sender:self];
 
-    //if swipe gesture left
+}
+
+-(void)swifeLeftGestureHappened:(UISwipeGestureRecognizer *)swifeGestureLeft
+{
+    NSLog(@"swiped left");
+    
+    [self performSegueWithIdentifier:@"segueToPactDetail" sender:self];
+    
 }
 
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView {
@@ -126,13 +132,7 @@
     }
 }
                                                                                                                 
--(void)swifeLeftGestureHappened:(UISwipeGestureRecognizer *)swifeGestureLeft
-{
-    NSLog(@"swiped left");
-    
-    [self performSegueWithIdentifier:@"segueToPactDetail" sender:self];
-    
-}
+
                                                                                                                 
 #pragma stuff for tableView
 
@@ -188,14 +188,13 @@
 #pragma mark - <FZAccordionTableViewDelegate> -
 
 - (void)tableView:(FZAccordionTableView *)tableView willOpenSection:(NSInteger)section withHeader:(PactAccordionHeaderView *)header {
+    
+    header.containerView.backgroundColor = [UIColor grayColor];
 }
 
 - (void)tableView:(FZAccordionTableView *)tableView didOpenSection:(NSInteger)section withHeader:(PactAccordionHeaderView *)header {
     
-    header.containerView.backgroundColor = [UIColor grayColor];
-    
     self.currentOpenPact = self.dataSource.currentUser.pactsToShowInApp[section];
-    
 }
 
 - (void)tableView:(FZAccordionTableView *)tableView willCloseSection:(NSInteger)section withHeader:(PactAccordionHeaderView *)header {
