@@ -41,20 +41,18 @@
     NSLog(@"view did load in user pacts");
     self.sharedData = [JDDDataSource sharedDataSource];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateAllData:) name:DataChangedNotificationName object:nil];
-    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleUserCheckedIn:) name:UserCheckedInNotificationName object:nil];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleUserAccepted:) name:UserAcceptedPactNotificationName object:nil];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateAllData:) name:UserDeletedPactNotificationName object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleUserDeletedPact:) name:UserDeletedPactNotificationName object:nil];
     
     
     
     self.ref = self.sharedData.firebaseRef;
-
+    
     self.currentOpenPact = self.sharedData.currentUser.pactsToShowInApp[0];
-
+    
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     self.tableView.allowMultipleSectionsOpen = NO;
@@ -67,7 +65,7 @@
     [self.tableView registerNib:[UINib nibWithNibName:@"PactAccordionHeaderView" bundle:nil] forHeaderFooterViewReuseIdentifier:accordionHeaderReuseIdentifier];
     
     [self setupSwipeGestureRecognizer];
-
+    
     self.accountStore = [[ACAccountStore alloc] init];
     NSLog(@"accountstore accounts %@", self.accountStore.accounts);
     NSString *accountKey = [[NSUserDefaults standardUserDefaults] objectForKey:AccountIdentifierKey];
@@ -79,22 +77,30 @@
     } errorBlock:^(NSError *error) {
         NSLog(@"%@", error.localizedDescription);
         NSString *message = [NSString stringWithFormat:@"There was an error signing in to Twitter: %@", error.localizedDescription];
-//        [self showAlertWithMessage:message];
+        //        [self showAlertWithMessage:message];
     }];
     //    [[NSNotificationCenter defaultCenter] addObserver:self.tableView selector:@selector(reloadData) name:@"PACT_UPDATED" object:nil];
 }
 
+-(BOOL)prefersStatusBarHidden
+{
+    return YES;
+}
+
 -(void)viewWillAppear:(BOOL)animated{
     
-//     self.tableView.initialOpenSections = [NSSet setWithObjects:@(0), nil];
-    [self.tableView reloadData];
+    //     self.tableView.initialOpenSections = [NSSet setWithObjects:@(0), nil];
+    [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+        [self.tableView reloadData];
+        
+    }];
     
 }
 
 #pragma - observe events for user, user pacts, pacts/users
 
 //-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-//    
+//
 //    NSLog(@"selectedCell:%ld", indexPath.section);
 //    UserPactCellView *thisCell = [self.tableView cellForRowAtIndexPath:indexPath];
 //
@@ -114,17 +120,17 @@
     
     UISwipeGestureRecognizer *swipeLeft = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swifeLeftGestureHappened:)];
     [swipeLeft setDirection:UISwipeGestureRecognizerDirectionLeft];
-
+    
     [self.view addGestureRecognizer:swipeLeft];
 }
 
 -(void)swipeRightGestureHappened:(UITapGestureRecognizer *)swipeGestureRight{
     
-
+    
     NSLog(@"Right Gesture Recognizer is happening!");
     
     [self performSegueWithIdentifier:@"segueToSmackTalkVC" sender:self];
-
+    
 }
 
 -(void)swifeLeftGestureHappened:(UISwipeGestureRecognizer *)swifeGestureLeft
@@ -143,9 +149,9 @@
         
     }
 }
-                                                                                                                
 
-                                                                                                                
+
+
 #pragma stuff for tableView
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -154,11 +160,6 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
     return 70;
-}
-
--(BOOL)prefersStatusBarHidden
-{
-    return NO;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -187,7 +188,7 @@
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     
     JDDPact *currentPact = self.sharedData.currentUser.pactsToShowInApp[section];
-
+    
     PactAccordionHeaderView *accordianHeaderView = [tableView dequeueReusableHeaderFooterViewWithIdentifier:accordionHeaderReuseIdentifier];
     
     [accordianHeaderView setPact:currentPact];
@@ -207,16 +208,16 @@
 - (void)tableView:(FZAccordionTableView *)tableView didOpenSection:(NSInteger)section withHeader:(PactAccordionHeaderView *)header {
     
     self.currentOpenPact = self.sharedData.currentUser.pactsToShowInApp[section];
+
 }
 
 - (void)tableView:(FZAccordionTableView *)tableView willCloseSection:(NSInteger)section withHeader:(PactAccordionHeaderView *)header {
     
     header.containerView.backgroundColor = [UIColor blackColor];
-
+    
 }
 
 - (void)tableView:(FZAccordionTableView *)tableView didCloseSection:(NSInteger)section withHeader:(PactAccordionHeaderView *)header {
-    
 }
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
@@ -248,71 +249,7 @@
     self.sharedData.twitter = nil;
     NSLog(@"logged out of STTwitter");
     [[NSNotificationCenter defaultCenter] postNotificationName:UserDidLogOutNotificationName object:nil];
-
-}
-
-//- (IBAction)tweetTapped:(id)sender
-//{
-//    
-//    NSLog(@"trying to send a tweet");
-//    NSString *tweet = self.tweetTextField.text;
-//    [self.dataSource.twitter postStatusUpdate:tweet
-//                            inReplyToStatusID:nil
-//                                     latitude:nil
-//                                    longitude:nil
-//                                      placeID:nil
-//                           displayCoordinates:nil
-//                                     trimUser:nil
-//                                 successBlock:^(NSDictionary *status) {
-//                                     NSLog(@"SUCCESSFUL TWEET");
-//                                 } errorBlock:^(NSError *error) {
-//                                     NSLog(@"THERE WAS AN ERROR TWEETING");
-//                                     NSString *message = [NSString stringWithFormat:@"You didn't really want to send that, did you? There was an error sending your Tweet: %@", error.localizedDescription];
-//                                     NSLog(@"ERROR TWEETING: %@", error.localizedDescription);
-//                                 }];
-//}
-
--(void)updateAllData:(NSNotification *)notification
-{
-    [self.sharedData establishCurrentUserWithBlock:^(BOOL completionBlock) {
-        
-        if (completionBlock) {
-            
-            if (self.sharedData.currentUser.pacts.count == 0) {
-                self.sharedData.currentUser.pactsToShowInApp = [[NSMutableArray alloc]init];
-                
-                [self.sharedData.currentUser.pactsToShowInApp addObject:[self.sharedData createDemoPact]];
-                
-                
-            } else {
-                
-                [self.sharedData methodToPullDownPactsFromFirebaseWithCompletionBlock:^(BOOL completionBlock) {
-                    
-                    if (completionBlock) {
-                        
-                        [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-                            
-                            [self.sharedData observeEventForUsersFromFirebaseWithCompletionBlock:^(BOOL block) {
-                                
-                                if (block) {
-                                    
-                                    [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-                                        
-                                        [self.tableView reloadData];
-                                        
-                                        //                                    [self]
-                                        
-                                    }];
-                                }
-                            }];
-                            
-                        }];
-                    }
-                }];
-                
-            }
-        }
-    }];
+    
 }
 
 -(void)handleUserCheckedIn:(NSNotification *)notification
@@ -327,37 +264,37 @@
             }];
         }
     }];
-
+    
 }
 
 -(void)updateCheckInsForPact:(JDDPact *)updatedPact withCompletion:(void (^)(BOOL success))completionBlock
 {
-        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
-        [dateFormatter setDateFormat:@"yyyy'-'MM'-'dd'-'hh:mm'"];
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
+    [dateFormatter setDateFormat:@"yyyy'-'MM'-'dd'-'hh:mm'"];
     
-        for (NSString *pactID in self.sharedData.currentUser.pacts) {
-            if ([pactID isEqualToString:updatedPact.pactID]) {
-    
-                [[[self.sharedData.firebaseRef childByAppendingPath:@"pacts"] childByAppendingPath:updatedPact.pactID]  observeSingleEventOfType:FEventTypeValue withBlock:^(FDataSnapshot *snapshot) {
-    
-                    [updatedPact.checkIns removeAllObjects];
-                    updatedPact.checkIns = [[NSMutableArray alloc]init];
-    
-                    for (NSString *checkin in snapshot.value[@"checkins"]) {
-    
-    
-                        JDDCheckIn *check = [[JDDCheckIn alloc]init];
-    
-                        check.userID = snapshot.value[@"checkins"][checkin][@"userID"];
-                        check.checkInDate = [dateFormatter dateFromString:snapshot.value[@"checkins"][checkin][@"userID"]];
-                        check.checkInID = snapshot.value[@"checkins"][checkin][@"checkInID"];
-    
-                        [updatedPact.checkIns addObject:check];
-                    }
-                    completionBlock(YES);
-                }];
-            }
+    for (NSString *pactID in self.sharedData.currentUser.pacts) {
+        if ([pactID isEqualToString:updatedPact.pactID]) {
+            
+            [[[self.sharedData.firebaseRef childByAppendingPath:@"pacts"] childByAppendingPath:updatedPact.pactID]  observeSingleEventOfType:FEventTypeValue withBlock:^(FDataSnapshot *snapshot) {
+                
+                [updatedPact.checkIns removeAllObjects];
+                updatedPact.checkIns = [[NSMutableArray alloc]init];
+                
+                for (NSString *checkin in snapshot.value[@"checkins"]) {
+                    
+                    
+                    JDDCheckIn *check = [[JDDCheckIn alloc]init];
+                    
+                    check.userID = snapshot.value[@"checkins"][checkin][@"userID"];
+                    check.checkInDate = [dateFormatter dateFromString:snapshot.value[@"checkins"][checkin][@"userID"]];
+                    check.checkInID = snapshot.value[@"checkins"][checkin][@"checkInID"];
+                    
+                    [updatedPact.checkIns addObject:check];
+                }
+                completionBlock(YES);
+            }];
         }
+    }
 }
 
 -(void)handleUserAccepted:(NSNotification *)notification
@@ -383,43 +320,26 @@
             
             [[[self.sharedData.firebaseRef childByAppendingPath:@"pacts"] childByAppendingPath:updatedPact.pactID]  observeSingleEventOfType:FEventTypeValue withBlock:^(FDataSnapshot *snapshot) {
                 
-                    [updatedPact.users removeAllObjects];
-                    updatedPact.users = snapshot.value[@"users"];
+                [updatedPact.users removeAllObjects];
+                updatedPact.users = snapshot.value[@"users"];
                 
-                    NSArray *allUserValues = [snapshot.value[@"users"] allValues];
-                    NSLog(@"ALL USER VALUES ARRAY %@", allUserValues);
-                    BOOL isActive = YES;
+                NSArray *allUserValues = [snapshot.value[@"users"] allValues];
+                NSLog(@"ALL USER VALUES ARRAY %@", allUserValues);
+                BOOL isActive = YES;
                 
-                    for (NSNumber *num in allUserValues) {
-                        if ([num isEqualToNumber:@0]) {
-                            isActive = NO;
-                        }
+                for (NSNumber *num in allUserValues) {
+                    if ([num isEqualToNumber:@0]) {
+                        isActive = NO;
                     }
-                    
-                    updatedPact.isActive = isActive;
+                }
+                
+                updatedPact.isActive = isActive;
                 
                 completionBlock(YES);
                 
             }];
         }
     }
-
-    
-    
-    
-//    pact.users = snapshot.value[@"users"];
-//    
-//    NSArray *allUserValues = [snapshot.value[@"users"] allValues];
-//    NSLog(@"ALL USER VALUES ARRAY %@", allUserValues);
-//    BOOL isActive = YES;
-//    
-//    for (NSNumber *num in allUserValues) {
-//        if ([num isEqualToNumber:@0]) {
-//            isActive = NO;
-//        }
-//    }
-//    
-//    pact.isActive = isActive;
 }
 
 -(void)updatePactData:(NSNotification *)notification
@@ -448,6 +368,49 @@
             }];
         }
     }];
-
+    
 }
+
+-(void)handleUserDeletedPact:(NSNotification *)notification
+{
+    [self.sharedData establishCurrentUserWithBlock:^(BOOL completionBlock) {
+        
+        if (completionBlock) {
+            
+            if (self.sharedData.currentUser.pacts.count == 0) {
+                self.sharedData.currentUser.pactsToShowInApp = [[NSMutableArray alloc]init];
+                
+                [self.sharedData.currentUser.pactsToShowInApp addObject:[self.sharedData createDemoPact]];
+                
+            } else {
+                
+                [self.sharedData methodToPullDownPactsFromFirebaseWithCompletionBlock:^(BOOL completionBlock) {
+                    
+                    if (completionBlock) {
+                        
+                        [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                            
+                            [self.sharedData observeEventForUsersFromFirebaseWithCompletionBlock:^(BOOL block) {
+                                
+                                if (block) {
+                                    
+                                    [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                                        
+                                        [self.tableView reloadData];
+                                        [self dismissViewControllerAnimated:YES completion:nil];
+                                        
+                                    }];
+                                }
+                            }];
+                            
+                        }];
+                    }
+                }];
+                
+            }
+        }
+    }];
+    
+}
+
 @end
