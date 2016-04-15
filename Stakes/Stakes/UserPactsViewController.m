@@ -13,7 +13,7 @@
 #import <FZAccordionTableView/FZAccordionTableView.h>
 #import "PactAccordionHeaderView.h"
 #import "JDDDataSource.h"
-#import "UserPactCellView.h"
+#import "PactTableViewCell.h"
 #import "PactDetailViewController.h"
 #import "CreatePactViewController.h"
 #import "LoginViewController.h"
@@ -52,10 +52,14 @@
     self.tableView.scrollEnabled = YES;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
-    [self.tableView registerNib:[UINib nibWithNibName:@"UserPactCellView" bundle:nil] forCellReuseIdentifier:@"userPact"];
+//    [self.tableView registerNib:[UINib nibWithNibName:@"PactTableViewCell" bundle:nil] forCellReuseIdentifier:@"userPact"];
+    
+    UINib *cellNib = [UINib nibWithNibName:@"PactTableViewCell" bundle:nil];
+    [self.tableView registerNib:cellNib forCellReuseIdentifier:@"userPact"];
+
     [self.tableView registerNib:[UINib nibWithNibName:@"PactAccordionHeaderView" bundle:nil] forHeaderFooterViewReuseIdentifier:accordionHeaderReuseIdentifier];
     
-    [self setupSwipeGestureRecognizer];
+//    [self setupSwipeGestureRecognizer];
 
     self.accountStore = [[ACAccountStore alloc] init];
     NSLog(@"accountstore accounts %@", self.accountStore.accounts);
@@ -94,35 +98,35 @@
 
 
 #pragma gestureRecognizers for segues
-
--(void)setupSwipeGestureRecognizer {
-    
-    UITapGestureRecognizer *cellTap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(swipeRightGestureHappened:)];
-    
-    [self.view addGestureRecognizer:cellTap];
-    
-    UISwipeGestureRecognizer *swipeLeft = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swifeLeftGestureHappened:)];
-    [swipeLeft setDirection:UISwipeGestureRecognizerDirectionLeft];
-
-    [self.view addGestureRecognizer:swipeLeft];
-}
-
--(void)swipeRightGestureHappened:(UITapGestureRecognizer *)swipeGestureRight{
-    
-
-    NSLog(@"Right Gesture Recognizer is happening!");
-    
-    [self performSegueWithIdentifier:@"segueToSmackTalkVC" sender:self];
-
-}
-
--(void)swifeLeftGestureHappened:(UISwipeGestureRecognizer *)swifeGestureLeft
-{
-    NSLog(@"swiped left");
-    
-    [self performSegueWithIdentifier:@"segueToPactDetail" sender:self];
-    
-}
+//
+//-(void)setupSwipeGestureRecognizer {
+//    
+//    UITapGestureRecognizer *cellTap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(swipeRightGestureHappened:)];
+//    
+//    [self.view addGestureRecognizer:cellTap];
+//    
+//    UISwipeGestureRecognizer *swipeLeft = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swifeLeftGestureHappened:)];
+//    [swipeLeft setDirection:UISwipeGestureRecognizerDirectionLeft];
+//
+//    [self.view addGestureRecognizer:swipeLeft];
+//}
+//
+//-(void)swipeRightGestureHappened:(UITapGestureRecognizer *)swipeGestureRight{
+//    
+//
+//    NSLog(@"Right Gesture Recognizer is happening!");
+//    
+//    [self performSegueWithIdentifier:@"segueToSmackTalkVC" sender:self];
+//
+//}
+//
+//-(void)swifeLeftGestureHappened:(UISwipeGestureRecognizer *)swifeGestureLeft
+//{
+//    NSLog(@"swiped left");
+//    
+//    [self performSegueWithIdentifier:@"segueToPactDetail" sender:self];
+//    
+//}
 
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView {
     
@@ -152,11 +156,12 @@
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UserPactCellView * cell = [tableView dequeueReusableCellWithIdentifier:@"userPact"forIndexPath:indexPath];
+    PactTableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:@"userPact"forIndexPath:indexPath];
     
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
     cell.pact = self.dataSource.currentUser.pactsToShowInApp[indexPath.section];
+    
     return cell;
 }
 
@@ -239,27 +244,6 @@
     [[NSNotificationCenter defaultCenter] postNotificationName:UserDidLogOutNotificationName object:nil];
 
 }
-
-//- (IBAction)tweetTapped:(id)sender
-//{
-//    
-//    NSLog(@"trying to send a tweet");
-//    NSString *tweet = self.tweetTextField.text;
-//    [self.dataSource.twitter postStatusUpdate:tweet
-//                            inReplyToStatusID:nil
-//                                     latitude:nil
-//                                    longitude:nil
-//                                      placeID:nil
-//                           displayCoordinates:nil
-//                                     trimUser:nil
-//                                 successBlock:^(NSDictionary *status) {
-//                                     NSLog(@"SUCCESSFUL TWEET");
-//                                 } errorBlock:^(NSError *error) {
-//                                     NSLog(@"THERE WAS AN ERROR TWEETING");
-//                                     NSString *message = [NSString stringWithFormat:@"You didn't really want to send that, did you? There was an error sending your Tweet: %@", error.localizedDescription];
-//                                     NSLog(@"ERROR TWEETING: %@", error.localizedDescription);
-//                                 }];
-//}
 
 
 

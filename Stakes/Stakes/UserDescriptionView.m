@@ -31,14 +31,14 @@
 }
 */
 
-//- (instancetype)init {
-//    self = [super init];
-//    if (self) {
-//        [self commonInit];
-//    }
-//    return self;
-//    
-//}
+- (instancetype)init {
+    self = [super init];
+    if (self) {
+        [self commonInit];
+    }
+    return self;
+    
+}
 
 
 -(instancetype)initWithCoder:(NSCoder *)aDecoder
@@ -64,6 +64,7 @@
 
 -(void)commonInit
 {
+    
     [[NSBundle mainBundle] loadNibNamed:@"UserDescriptionView" owner:self options:nil];
     
     [self addSubview:self.contentView];
