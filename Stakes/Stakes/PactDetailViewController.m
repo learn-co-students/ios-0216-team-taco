@@ -61,11 +61,9 @@
         [self.stackview addArrangedSubview:view];
         
         
-        if (self.pact.users.count == 2) {
-            [view.widthAnchor constraintEqualToAnchor:self.scrollview.widthAnchor multiplier:0.45].active = YES;
-        } else {
+        
             [view.widthAnchor constraintEqualToAnchor:self.scrollview.widthAnchor multiplier:0.33].active = YES;
-        }
+        
         
         [self.stackview layoutSubviews];//give subviews a size
         view.clipsToBounds = YES;

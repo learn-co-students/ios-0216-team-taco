@@ -41,7 +41,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "446"
             endingLineNumber = "446"
-            landmarkName = "-contactPicker:didSelectContacts:"
+            landmarkName = "-shameToggleTapped:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
