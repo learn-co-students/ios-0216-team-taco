@@ -8,6 +8,7 @@
 #import <Foundation/Foundation.h>
 
 #import <AFNetworking/UIImageView+AFNetworking.h>
+#import <BALoadingView/BALoadingView.h>
 #import <STTwitter/STTwitter.h>
 
 #import "Constants.h"
@@ -34,6 +35,10 @@
 @property (nonatomic) BOOL userDidRegister;
 @property (nonatomic) BOOL userFoundInFirebase;
 @property (strong, nonatomic) IBOutlet UITapGestureRecognizer *tapGesture;
+@property (strong, nonatomic) IBOutlet BALoadingView *loadingView;
+@property(assign,nonatomic) BACircleAnimation animationType;
+@property(assign,nonatomic) bool firstLoad;
+
 
 @end
 
@@ -58,8 +63,19 @@
         self.phoneNumberLabel.hidden = YES;
         [self enableLoginButton];
     }
+    
+        self.firstLoad = YES;
 }
 
+-(void)viewDidLayoutSubviews {
+    if (self.firstLoad) {
+        [self.loadingView initialize];
+        self.loadingView.lineCap = kCALineCapRound;
+        self.loadingView.clockwise = true;
+        self.loadingView.segmentColor = [UIColor whiteColor];
+        self.firstLoad = NO;
+    }
+}
 #pragma mark - Login and Authentication
 
 - (IBAction)loginTapped:(id)sender
@@ -121,6 +137,11 @@
 
 - (void)authenticateInFirebaseWithTwitterAccount:(ACAccount *)account
 {
+    if (self.userDidRegister) {
+    NSLog(@"we should start the animation");
+    [self.loadingView startAnimation:BACircleAnimationFullCircle];
+    }
+    
     [self.twitterAuthHelper authenticateAccount:account withCallback:^(NSError *error, FAuthData *authData) {
         if (error) {
             NSString *message = [NSString stringWithFormat:@"There was an error authenticating your account: %@", error.localizedDescription];
@@ -189,6 +210,8 @@
         
         [[NSNotificationCenter defaultCenter] postNotificationName:UserDidLogInNotificationName object:nil];
         
+        [self.loadingView stopAnimation];
+        
         [self saveAccount:account];
         
     } errorBlock:^(NSError *error) {
@@ -204,7 +227,7 @@
         NSLog(@"account saved - identifier: %@", account.identifier);
         [[NSUserDefaults standardUserDefaults] setObject:account.identifier forKey:AccountIdentifierKey];
         //        self.accountStore = self.sharedData.accountStore;
-        //dont think i need this ^^
+        //dont think i need this ^
         
     }];
 }
@@ -213,6 +236,8 @@
 
 -(void)checkForUserInFirebase
 {
+    [self.loadingView startAnimation:BACircleAnimationFullCircle];
+
     NSLog(@"checkingfor user in firebase");
     [[self.firebaseReference childByAppendingPath:@"users"]
      observeSingleEventOfType:FEventTypeValue withBlock:^(FDataSnapshot *snapshot) {

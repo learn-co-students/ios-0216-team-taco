@@ -14,6 +14,7 @@ PODS:
   - AFNetworking/Serialization (3.1.0)
   - AFNetworking/UIKit (3.1.0):
     - AFNetworking/NSURLSession
+  - BALoadingView (0.1.1)
   - Firebase (2.5.1)
   - FZAccordionTableView (0.1.3)
   - JSQMessagesViewController (7.2.0):
@@ -24,6 +25,7 @@ PODS:
 
 DEPENDENCIES:
   - AFNetworking
+  - BALoadingView
   - Firebase (>= 2.5.1)
   - FZAccordionTableView (~> 0.1.2)
   - JSQMessagesViewController
@@ -32,6 +34,7 @@ DEPENDENCIES:
 
 SPEC CHECKSUMS:
   AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
+  BALoadingView: 181325648e67358b06dcedbc1cedfaeee35f8398
   Firebase: 3565ea88b830f28f2c77ecc524622bc71a20d085
   FZAccordionTableView: 028b53ea3a208a5b3591650edb055444749c530b
   JSQMessagesViewController: 73cab48aa92fc2d512f3b6724f3425cc47a19eb5
