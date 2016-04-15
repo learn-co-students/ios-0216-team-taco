@@ -19,13 +19,29 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Stakes/PactAccordionHeaderView.m"
-            timestampString = "482340770.568545"
+            filePath = "Stakes/CreatePactViewController.m"
+            timestampString = "482423507.543863"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "115"
-            endingLineNumber = "115"
-            landmarkName = "-updatePendingWithBlock:"
+            startingLineNumber = "124"
+            endingLineNumber = "124"
+            landmarkName = "-keyBoardWillShowForTwiiter:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Stakes/CreatePactViewController.m"
+            timestampString = "482424017.873155"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "446"
+            endingLineNumber = "446"
+            landmarkName = "-contactPicker:didSelectContacts:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

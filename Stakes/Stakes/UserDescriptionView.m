@@ -14,7 +14,6 @@
 
 @property (strong, nonatomic) IBOutlet UserDescriptionView *contentView;
 
-@property (weak, nonatomic) IBOutlet UILabel *intialsLabel;
 @property (strong, nonatomic) JDDDataSource *sharedData;
 
 
@@ -87,7 +86,6 @@
 {
     self.indicatorLabel.layer.cornerRadius = self.indicatorLabel.frame.size.width/2;
     self.indicatorLabel.text = @"";
-    self.indicatorLabel.layer.borderWidth = 0.5;
      NSString *Boolian = (NSString*)self.user.isReady;
     
     
@@ -105,16 +103,7 @@
     self.userNameLabel.text =self.user.displayName;
     
         self.intialsLabel.text = [self.user.displayName substringToIndex:1] ;
-        
     self.countOfCheckInsLabel.text = [NSString stringWithFormat:@"%li",self.checkinsCount];
     
-    [self.intialsLabel sizeToFit];
-    [self.intialsLabel setFont: [self.intialsLabel.font fontWithSize: 50]];
-    self.intialsLabel.layer.cornerRadius = self.intialsLabel.frame.size.width/2;
-    self.intialsLabel.layer.borderWidth = 2;
-    [self.intialsLabel.layer setShadowColor:[UIColor blackColor].CGColor];
-    
-    [self.intialsLabel.layer setShadowRadius:3.0];
-    [self.intialsLabel.layer setShadowOffset:CGSizeMake(2.0, 2.0)];
 }
 @end
