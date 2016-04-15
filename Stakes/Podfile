@@ -10,6 +10,7 @@ pod 'JSQMessagesViewController'
 pod 'STTwitter'
 pod 'Masonry'
 pod ‘AFNetworking’
+pod ‘BALoadingView’
 end
 
 target 'StakesTests' do
