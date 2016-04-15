@@ -8,6 +8,7 @@
 //
 
 #import "PactAccordionHeaderView.h"
+#import "Constants.h"
 @interface PactAccordionHeaderView ()
 @property (weak, nonatomic) IBOutlet UILabel *title;
 @property (weak, nonatomic) IBOutlet UIButton *acceptPactButton;
@@ -59,6 +60,7 @@
 
 -(void)updateUI
 {
+    self.sharedData = [JDDDataSource sharedDataSource];
     self.title.text = self.pact.title;
     NSLog(@"updatingUI self.pact.isactive %d", self.pact.isActive);
     if (!self.pact.isActive) {
@@ -67,6 +69,8 @@
         self.pendingLabel.hidden = YES;
     }
     
+    NSLog(@"self.pact.users: %@", self.pact.users);
+    NSLog(@"userid %@", self.sharedData.currentUser.userID);
     //if self.pact.users value for key current user = 1 then hide the accept pact button
     if ([[self.pact.users valueForKey:self.sharedData.currentUser.userID] isEqualToNumber:@0]) {
         self.acceptPactButton.hidden = NO;
@@ -161,6 +165,8 @@
     NSString *dateString = [dateFormatter stringFromDate: currentDate];
     [[[self.sharedData.firebaseRef childByAppendingPath:@"pacts"] childByAppendingPath:self.pact.pactID] updateChildValues:@{ @"dateOfCreation" : dateString }];
     
+    [[NSNotificationCenter defaultCenter] postNotificationName:UserAcceptedPactNotificationName object:self.pact];
+
 //    [self updateAcceptPactWithBlock:^(BOOL completion) {
 //        if (completion) {
 //            [[NSOperationQueue mainQueue] addOperationWithBlock:^{

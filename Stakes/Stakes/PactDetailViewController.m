@@ -31,6 +31,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.sharedData = [JDDDataSource sharedDataSource];
+    
     // Do any additional setup after loading the view.
     
     // first empty the stackview
@@ -115,11 +116,13 @@
             [self deleteAllUserPactReferences];
             [self deletePactReferenceWithCompletion:^(BOOL doneWithPact) {
                 if (doneWithPact) {
+                    
                     [[NSOperationQueue mainQueue] addOperationWithBlock:^{
                         
                         [self dismissViewControllerAnimated:YES completion:nil];
                         
                     }];
+                    
 
                 }
             }];
@@ -149,6 +152,8 @@
     [[[self.sharedData.firebaseRef childByAppendingPath:@"pacts"] childByAppendingPath:self.pact.pactID] removeValueWithCompletionBlock:^(NSError *error, Firebase *ref) {
         
         NSLog(@"in remove value completionblock");
+        
+//        [self.sharedData.currentUser.pacts removeAllObjects];
         
         [self establishCurrentUserWithBlock:^(BOOL completion) {
             NSLog(@"establish current user completion block");
@@ -309,5 +314,47 @@
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
+//-(void)updateAllData:Notification:(NSNotification *)notification
+//{
+//    [self.sharedData establishCurrentUserWithBlock:^(BOOL completionBlock) {
+//        
+//        if (completionBlock) {
+//            
+//            if (self.sharedData.currentUser.pacts.count == 0) {
+//                self.sharedData.currentUser.pactsToShowInApp = [[NSMutableArray alloc]init];
+//                
+//                [self.sharedData.currentUser.pactsToShowInApp addObject:[self.sharedData createDemoPact]];
+//                
+//                
+//            } else {
+//                
+//                [self.sharedData methodToPullDownPactsFromFirebaseWithCompletionBlock:^(BOOL completionBlock) {
+//                    
+//                    if (completionBlock) {
+//                        
+//                        [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+//                            
+//                            [self.sharedData observeEventForUsersFromFirebaseWithCompletionBlock:^(BOOL block) {
+//                                
+//                                if (block) {
+//                                    
+////                                    [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+////                                        
+////                                        [self setEmbeddedViewController:tabBarControllerVC];
+////                                        
+////                                        //                                    [self]
+////                                        
+////                                    }];
+//                                }
+//                            }];
+//                            
+//                        }];
+//                    }
+//                }];
+//                
+//            }
+//        }
+//    }];
+//}
 
 @end

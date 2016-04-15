@@ -16,6 +16,7 @@
 #import "Constants.h"
 #import "PactDetailViewController.h"
 #import "UserPactsViewController.h"
+#import "Constants.h"
 
 @interface UserPactCellView () 
 
@@ -76,6 +77,7 @@
     }
     [self.locationManager startUpdatingLocation];
     
+    [[NSNotificationCenter defaultCenter] postNotificationName:UserCheckedInNotificationName object:self.pact];
 }
 
 //location geo delagates methods.
