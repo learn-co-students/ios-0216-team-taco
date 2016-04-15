@@ -176,6 +176,7 @@
   
         user.isReady = valueIndicator;
         user.currentPactIn = currentPact;
+        view.borderView.layer.borderWidth = 1.0;
         view.user = user;
         NSLog(@"Is the view's user ready? %@", view.user.isReady);
         // same as [view setUser:user];

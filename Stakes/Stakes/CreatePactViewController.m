@@ -17,15 +17,19 @@
 @import MessageUI;
 
 @interface CreatePactViewController () <CNContactPickerDelegate, MFMessageComposeViewControllerDelegate> ;
+@property (strong, nonatomic) IBOutlet UIView *mainView;
 @property (weak, nonatomic) IBOutlet UILabel *userNameLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *profileImage;
 @property (weak, nonatomic) IBOutlet UITextField *pactDescription;
+@property (weak, nonatomic) IBOutlet UILabel *twitterShameLabel;
 @property (weak, nonatomic) IBOutlet UIPickerView *frequencyPicker;
 @property (weak, nonatomic) IBOutlet UIPickerView *timeIntervalPicker;
 @property (weak, nonatomic) IBOutlet UITextField *twitterShamePost;
 @property (weak, nonatomic) IBOutlet UITextField *pactTitle;
+@property (weak, nonatomic) IBOutlet UILabel *repeatLabel;
 @property (weak, nonatomic) IBOutlet UISwitch *repeatSwitch;
 @property (weak, nonatomic) IBOutlet UISwitch *shameSwitch;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *topConstraint;
 @property (weak, nonatomic) IBOutlet UIView *topView;
 @property (weak, nonatomic) IBOutlet UITextField *stakesTextView;
 @property (nonatomic, assign) NSString * pactID;
@@ -40,6 +44,9 @@
 @property (weak, nonatomic) IBOutlet UIStackView *stackView;
 @property (weak, nonatomic) IBOutlet UIButton *RemoveInvitesButton;
 @property (weak, nonatomic) IBOutlet UILabel *inviteFriendsLabel;
+@property (weak, nonatomic) IBOutlet UIView *addFriendsView;
+@property (weak, nonatomic) IBOutlet UIView *contactButtonView;
+@property (weak, nonatomic) IBOutlet UIView *pickerView;
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *addFriendsConstraint;
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
@@ -49,11 +56,21 @@
 @implementation CreatePactViewController
 
 - (void)viewDidLoad {
-    
+ 
     [super viewDidLoad];
     self.RemoveInvitesButton.hidden = YES;
     [self.RemoveInvitesButton setTransform:CGAffineTransformMakeRotation(-M_PI / 2)];
     [self initializePickers];
+    self.pactDescription.hidden = YES;
+    self.stakesTextView.hidden = YES;
+    self.twitterShamePost.hidden = YES;
+    self.repeatSwitch.hidden = YES;
+    self.shameSwitch.hidden = YES;
+    self.addFriendsView.hidden = YES;
+    self.contactButtonView.hidden = YES;
+    self.pickerView.hidden = YES;
+    self.twitterShameLabel.hidden = YES;
+    self.repeatLabel.hidden = YES;
     self.repeatSwitch.on = NO;
     self.shameSwitch.on = NO;
     self.twitterShamePost.hidden = YES;
@@ -69,8 +86,63 @@
     
     self.contactsToShow = [[NSMutableArray alloc]init];
     
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(dismissKeyboard)];
+    
+    [self.view addGestureRecognizer:tap];
+    
 }
 
+-(void)dismissKeyboard {
+    [self.stakesTextView resignFirstResponder];
+    [self.twitterShamePost resignFirstResponder];
+    [self.pactDescription resignFirstResponder];
+    [self.pactTitle resignFirstResponder];
+    self.topConstraint.constant = 0;
+}
+
+- (void)keyBoardWillShowForStakes:(NSNotification *)notification
+{
+    // grab some values from the notification
+    NSTimeInterval keyboardAnimationDuration = [notification.userInfo[UIKeyboardAnimationDurationUserInfoKey] doubleValue];
+    NSInteger keyboardAnimationCurve = [notification.userInfo[UIKeyboardAnimationCurveUserInfoKey] integerValue];
+    
+    [UIView animateKeyframesWithDuration:keyboardAnimationDuration delay:0.2 options:keyboardAnimationCurve animations:^{
+        
+        // Here is where you change something to make it animate!
+        self.topConstraint.constant = -80;
+    } completion:nil];
+}
+- (void)keyBoardWillShowForTwiiter:(NSNotification *)notification
+{
+    // grab some values from the notification
+    NSTimeInterval keyboardAnimationDuration = [notification.userInfo[UIKeyboardAnimationDurationUserInfoKey] doubleValue];
+    NSInteger keyboardAnimationCurve = [notification.userInfo[UIKeyboardAnimationCurveUserInfoKey] integerValue];
+    
+    [UIView animateKeyframesWithDuration:keyboardAnimationDuration delay:0.2 options:keyboardAnimationCurve animations:^{
+        
+        // Here is where you change something to make it animate!
+        self.topConstraint.constant = -140;
+    } completion:nil];
+}
+
+- (IBAction)twitterPostEditingBegan:(id)sender {
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyBoardWillShowForTwiiter:)
+                                                 name:UIKeyboardWillShowNotification
+                                               object:nil];
+    
+}
+
+
+
+- (IBAction)stakeDetailTapped:(id)sender {//editing began
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyBoardWillShowForStakes:)
+                                                 name:UIKeyboardWillShowNotification
+                                               object:nil];
+
+}
 
 - (IBAction)createPactTapped:(id)sender {
     
@@ -269,7 +341,7 @@
     self.timeInterval = [NSMutableArray new];
     self.FrequencyPickerDataSourceArray = [NSMutableArray new];
     for (NSUInteger i = 1; i<51; i++) {
-        NSString *number = [NSString stringWithFormat:@"%lu",i];
+        NSString *number = [NSString stringWithFormat:@"%li",i];
         [self.FrequencyPickerDataSourceArray addObject:number];
     }
     
@@ -421,7 +493,7 @@
                     NSLog(@"contactToShow: %@",self.contactsToShow);
                     
                     [self addUserToInviteScrollView:contactToAdd];
-
+                    
 
                 }];
 
@@ -443,14 +515,15 @@
                 [self addUserToInviteScrollView:newUser];
 
                 
-                NSLog(@"contactsToShowNewUser : %lu",self.contactsToShow.count);
+                NSLog(@"contactsToShowNewUser : %li",self.contactsToShow.count);
                 NSLog(@"contactsAddressBookInvites : %lu",(unsigned long)contacts.count);
 
             }
             
             
             [NSNotification notificationWithName:@"contactsReadyForCreatePactView" object:nil];
-            
+            [self didSelectedContactToInvite];
+
 
         }];
         
@@ -473,6 +546,7 @@
     UserDescriptionView *view = [[UserDescriptionView alloc]init];
     view.indicatorLabel.hidden = YES;
     view.countOfCheckInsLabel.hidden = YES;
+    view.borderView.layer.borderWidth = 0.8;
     view.user = user;
     
     if (self.stackView.arrangedSubviews.count == 0) {
@@ -481,7 +555,8 @@
         self.inviteFriendsLabel.hidden = YES;
         self.addFriendsConstraint.constant = 40;
             [view.widthAnchor constraintEqualToAnchor:self.scrollView.widthAnchor multiplier:0.25].active = YES;
-        
+  
+
     } else  {
         NSMutableArray *userIDsInStackView = [[NSMutableArray alloc]init];
         for (UserDescriptionView *viewToCompare in self.stackView.arrangedSubviews) {
@@ -594,8 +669,14 @@ return  NO;
 //========================================================================================================================================
 
 - (IBAction)dismissStakeKeyboard:(id)sender {
+    self.topConstraint.constant = 0;
     self.stakesTextView = (UITextField*) sender;
     [self.stakesTextView resignFirstResponder];
+    
+    if (self.stakesTextView.text.length > 0) {
+        self.twitterShameLabel.hidden = NO;
+        self.shameSwitch.hidden = NO;
+    }
 }
 
 - (IBAction)dismissDiscriptionKeyboard:(id)sender {
@@ -610,6 +691,8 @@ return  NO;
 
 
 - (IBAction)dismissShameKeboard:(id)sender {
+    self.topConstraint.constant = 0;
+
     self.twitterShamePost = (UITextField*) sender;
     [self.twitterShamePost resignFirstResponder];
 }
@@ -768,5 +851,64 @@ return  NO;
     }
     
 }
+- (IBAction)pactTitleEditingEnd:(id)sender {
+    if (self.pactTitle.text.length >1) {
+        self.contactButtonView.hidden = NO;
+        self.addFriendsView.hidden = NO;
+    } else {
+        [self alertFinishFiling:@"Please, name your pact"];
+    }
+    
+    
+}
+- (IBAction)didEndEditingPactDescription:(id)sender {
+    if (self.pactDescription.text.length >2) {
+        self.pickerView.hidden = NO;
+        self.repeatLabel.hidden = NO;
+        self.repeatSwitch.hidden = NO;
+        self.stakesTextView.hidden = NO;
+    } else {
+        [self alertFinishFiling:@"Please, describe your pact"];
+        self.pickerView.hidden = YES;
+        self.repeatLabel.hidden = YES;
+        self.repeatSwitch.hidden = YES;
+        self.stakesTextView.hidden = YES;
+    }
+
+}
+
+-(void)didSelectedContactToInvite
+{
+    if (self.contactsToShow.count >0) {
+        self.pactDescription.hidden = NO;
+    } else {
+        [self alertFinishFiling:@"Please, choose members to add to the pact"];
+        self.pactDescription.hidden = YES;
+
+    }
+    
+    
+}
+
+-(void)alertFinishFiling: (NSString *)message
+{
+    
+    
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Oops!" message:message preferredStyle:UIAlertControllerStyleAlert];
+    
+    UIAlertAction* ok = [UIAlertAction
+                         actionWithTitle:@"OK"
+                         style:UIAlertActionStyleDefault
+                         handler:^(UIAlertAction * action)
+                         {
+                             [alert dismissViewControllerAnimated:YES completion:nil];
+                             
+                         }];
+    
+    [alert addAction: ok];
+    
+    [self presentViewController:alert animated:YES completion:nil];
+}
+
 
 @end

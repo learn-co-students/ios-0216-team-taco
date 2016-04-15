@@ -13,7 +13,7 @@
             <rect key="frame" x="0.0" y="0.0" width="606" height="607"/>
             <autoresizingMask key="autoresizingMask"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="5RV-0D-LDx" id="axl-7V-KNR">
-                <rect key="frame" x="0.0" y="0.0" width="606" height="607"/>
+                <rect key="frame" x="0.0" y="0.0" width="606" height="606"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="00x-P1-sNA">
@@ -56,14 +56,13 @@
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="DD1-Oy-i1H">
                                 <rect key="frame" x="0.0" y="0.0" width="606" height="334"/>
                                 <subviews>
-                                    <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" distribution="fillEqually" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="CaQ-jF-mQY">
+                                    <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="CaQ-jF-mQY">
                                         <rect key="frame" x="0.0" y="35" width="0.0" height="334"/>
                                     </stackView>
                                 </subviews>
                                 <constraints>
                                     <constraint firstItem="CaQ-jF-mQY" firstAttribute="leading" secondItem="DD1-Oy-i1H" secondAttribute="leading" id="EB8-xr-tHS"/>
                                     <constraint firstAttribute="trailing" secondItem="CaQ-jF-mQY" secondAttribute="trailing" id="nej-IA-Tbh"/>
-                                    <constraint firstItem="CaQ-jF-mQY" firstAttribute="height" secondItem="DD1-Oy-i1H" secondAttribute="height" id="zd9-el-EK2"/>
                                 </constraints>
                             </scrollView>
                         </subviews>
@@ -72,6 +71,8 @@
                             <constraint firstItem="DD1-Oy-i1H" firstAttribute="top" secondItem="INh-BL-tfG" secondAttribute="top" id="Nky-Pk-bwZ"/>
                             <constraint firstAttribute="bottom" secondItem="DD1-Oy-i1H" secondAttribute="bottom" id="b44-aE-lHc"/>
                             <constraint firstItem="CaQ-jF-mQY" firstAttribute="width" secondItem="INh-BL-tfG" secondAttribute="width" multiplier="2" id="kpd-FM-p2U"/>
+                            <constraint firstAttribute="bottom" secondItem="CaQ-jF-mQY" secondAttribute="bottom" id="tTk-Lg-JjJ"/>
+                            <constraint firstItem="CaQ-jF-mQY" firstAttribute="top" secondItem="INh-BL-tfG" secondAttribute="top" id="wXz-KK-vKx"/>
                             <constraint firstItem="DD1-Oy-i1H" firstAttribute="leading" secondItem="INh-BL-tfG" secondAttribute="leading" id="wca-hU-w7J"/>
                         </constraints>
                         <variation key="default">
@@ -170,7 +171,6 @@
                 <outlet property="pactDetalisHeaderLabel" destination="u37-Yu-E4U" id="ljW-jN-R6Q"/>
                 <outlet property="scrollView" destination="DD1-Oy-i1H" id="E9i-GQ-Mwo"/>
                 <outlet property="stackView" destination="CaQ-jF-mQY" id="VUB-8x-LlW"/>
-                <outlet property="stackViewHeight" destination="zd9-el-EK2" id="ZU1-Js-Ay3"/>
                 <outlet property="stackViewWidth" destination="kpd-FM-p2U" id="abQ-w3-Zia"/>
                 <outlet property="stakesLabel" destination="qnM-K3-FJV" id="Aa4-TN-LkO"/>
                 <outlet property="twitterPostLabel" destination="Qh7-IN-dMW" id="eP6-T4-rjq"/>
