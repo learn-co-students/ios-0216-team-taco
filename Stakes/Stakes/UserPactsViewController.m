@@ -52,7 +52,6 @@
     self.ref = self.sharedData.firebaseRef;
     
     self.currentOpenPact = self.sharedData.currentUser.pactsToShowInApp[0];
-    
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     self.tableView.allowMultipleSectionsOpen = NO;
