@@ -173,7 +173,7 @@
     
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
-    cell.pact = self.dataSource.currentUser.pactsToShowInApp[indexPath.section];
+    cell.pact = self.sharedData.currentUser.pactsToShowInApp[indexPath.section];
     
     return cell;
 }
