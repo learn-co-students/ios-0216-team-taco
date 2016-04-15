@@ -16,6 +16,11 @@ extern NSString * const UserDidLogOutNotificationName;
 extern NSString * const LoginViewControllerStoryboardID;
 extern NSString * const UserPactsViewControllerStoryboardID;
 
+extern NSString * const DataChangedNotificationName;
+extern NSString * const UserCheckedInNotificationName;
+extern NSString * const UserAcceptedPactNotificationName;
+extern NSString * const UserDeletedPactNotificationName;
+
 extern NSString * const AccountIdentifierKey;
 extern NSString * const UserDidRegisterKey;
 extern NSString * const UserIDKey;

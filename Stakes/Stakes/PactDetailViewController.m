@@ -31,6 +31,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.sharedData = [JDDDataSource sharedDataSource];
+    
     // Do any additional setup after loading the view.
     
     // first empty the stackview
@@ -60,11 +61,9 @@
         [self.stackview addArrangedSubview:view];
         
         
-        if (self.pact.users.count == 2) {
-            [view.widthAnchor constraintEqualToAnchor:self.scrollview.widthAnchor multiplier:0.45].active = YES;
-        } else {
+        
             [view.widthAnchor constraintEqualToAnchor:self.scrollview.widthAnchor multiplier:0.33].active = YES;
-        }
+        
         
         [self.stackview layoutSubviews];//give subviews a size
         view.clipsToBounds = YES;
@@ -89,6 +88,10 @@
     }
 }
 
+-(BOOL)prefersStatusBarHidden
+{
+    return YES;
+}
 
 - (IBAction)deleteButtonTapped:(id)sender
 {
@@ -110,16 +113,20 @@
 
 -(void)deleteAction
 {
+
     [self deleteCurrentUserPactReferenceWithCompletion:^(BOOL done) {
         if (done) {
             [self deleteAllUserPactReferences];
             [self deletePactReferenceWithCompletion:^(BOOL doneWithPact) {
                 if (doneWithPact) {
-                    [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-                        
-                        [self dismissViewControllerAnimated:YES completion:nil];
-                        
-                    }];
+                    
+//                    [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+//                        
+//                        [self dismissViewControllerAnimated:YES completion:nil];
+//                        
+//                    }];
+                    //send notification to VC
+                    [[NSNotificationCenter defaultCenter] postNotificationName:UserDeletedPactNotificationName object:self.pact];
 
                 }
             }];
@@ -149,165 +156,13 @@
     [[[self.sharedData.firebaseRef childByAppendingPath:@"pacts"] childByAppendingPath:self.pact.pactID] removeValueWithCompletionBlock:^(NSError *error, Firebase *ref) {
         
         NSLog(@"in remove value completionblock");
-        
-        [self establishCurrentUserWithBlock:^(BOOL completion) {
-            NSLog(@"establish current user completion block");
-            if (completion) {
-                
-                if (self.sharedData.currentUser.pacts.count == 0) {
-                    self.sharedData.currentUser.pactsToShowInApp = [[NSMutableArray alloc]init];
-                    
-                    [self.sharedData.currentUser.pactsToShowInApp addObject:[self.sharedData createDemoPact]];
-                    
-                    [self dismissViewControllerAnimated:YES completion:^{
-                        //
-                    }];
-                    
-                } else {
-                    
-                    [self methodToPullDownPactsFromFirebaseWithCompletionBlock:^(BOOL completion2) {
-                        
-                        if (completion2) {
-                            
-                                
-                                [self observeEventForUsersFromFirebaseWithCompletionBlock:^(BOOL block) {
-                                    
-                                    if (block) {
-                                        referenceDeleted(YES);
-                                    }
-                                
-                            }];
-                        }
-                    }];
-                    
-                }
-            }
-        }];
+        referenceDeleted(YES);
     }];
 
-}
-
--(void)establishCurrentUserWithBlock:(void(^)(BOOL))completionBlock {
-    NSLog(@"in establish c urrent user method)");
-    Firebase *ref = [self.sharedData.firebaseRef childByAppendingPath:[NSString stringWithFormat:@"users/%@",[[NSUserDefaults standardUserDefaults] stringForKey:UserIDKey]]];
-    
-    [ref observeEventType:FEventTypeValue withBlock:^(FDataSnapshot *snapshot) {
-        
-        self.sharedData.currentUser = [self.sharedData useSnapShotAndCreateUser:snapshot];
-        
-        completionBlock(YES);
-        
-    }];
-    
-}
-
--(void)methodToPullDownPactsFromFirebaseWithCompletionBlock:(void(^)(BOOL))completionBlock {
-    
-    NSLog(@"current%@", self.sharedData.currentUser.pacts);
-    
-    __block NSUInteger numberOfPactsInDataSource = self.sharedData.currentUser.pacts.count;
-    
-    self.sharedData.currentUser.pactsToShowInApp = [[NSMutableArray alloc]init];
-    
-    for (NSString *pactID in self.sharedData.currentUser.pacts) {
-        
-        [[self.sharedData.firebaseRef childByAppendingPath:[NSString stringWithFormat:@"pacts/%@",pactID]] observeSingleEventOfType:FEventTypeValue withBlock:^(FDataSnapshot *snapshotForPacts) {
-            
-            JDDPact *currentPact = [self.sharedData useSnapShotAndCreatePact:snapshotForPacts];
-            
-            NSLog(@"checkinsArray :%@",snapshotForPacts.value[@"checkins"]);
-            
-            BOOL isUniquePact = YES;
-            for (JDDPact *pact in self.sharedData.currentUser.pactsToShowInApp) {
-                
-                NSString *pactID = pact.pactID;
-                NSString *currentPactID = currentPact.pactID;
-                if (pactID && currentPactID) {
-                    if ([pactID isEqualToString:currentPact.pactID]) {
-                        isUniquePact = NO;
-                    }
-                }
-                
-            }
-            
-            if (isUniquePact) {
-                NSLog(@"is unique Pact: %@", currentPact);
-                [self.sharedData.currentUser.pactsToShowInApp addObject:[self.sharedData useSnapShotAndCreatePact:snapshotForPacts]];
-                NSLog(@"self.pacts now holds %ld pacts!", self.sharedData.currentUser.pactsToShowInApp.count);
-            }
-            
-            numberOfPactsInDataSource--;
-            
-            if (numberOfPactsInDataSource == 0) {
-                completionBlock(YES);
-            }
-            
-        }];
-        
-    }
-    
-}
-
--(void)getAllUsersInPact:(JDDPact *)pact completion:(void (^)(BOOL success))completionBlock
-{
-    pact.usersToShowInApp = [[NSMutableArray alloc] init];
-    __block NSUInteger remainingUsersToFetch = pact.users.count;
-    
-    // getting the userID information
-    for (NSString *user in pact.users) {
-        
-        // querying firebase and creating user
-        Firebase *ref = [self.sharedData.firebaseRef childByAppendingPath:[NSString stringWithFormat:@"users/%@",user]];
-        
-        [ref observeEventType:FEventTypeValue withBlock:^(FDataSnapshot *snapshot) {
-            
-            JDDUser *person = [self.sharedData useSnapShotAndCreateUser:snapshot];
-            
-            BOOL isUniqueUser = YES;
-            
-            for (JDDUser * pactUser in pact.usersToShowInApp){
-                
-                if ([pactUser.userID isEqualToString:person.userID]) {
-                    NSLog(@"WE ALREADY HAVE THIS User!!!!!");
-                    isUniqueUser = NO;
-                }
-            }
-            
-            if (isUniqueUser) {
-                NSLog(@"is unique User: %@", person);
-                [pact.usersToShowInApp addObject:person];
-                NSLog(@"userToShowInAppnow holds %ld pacts!", pact.usersToShowInApp.count);
-            }
-            
-            remainingUsersToFetch--;
-            if(remainingUsersToFetch == 0) {
-                completionBlock(YES);
-            }
-        }];
-    }
-}
-
-// this method is populating the users in the pact so we can use Twitter info etc. in the UserPactVC. Everything is saved in
--(void)observeEventForUsersFromFirebaseWithCompletionBlock:(void(^)(BOOL))completionBlock {
-    __block NSUInteger remainingPacts = self.sharedData.currentUser.pactsToShowInApp.count;
-    
-    for (JDDPact *pact in self.sharedData.currentUser.pactsToShowInApp) {
-        
-        [self getAllUsersInPact:pact completion:^(BOOL success) {
-            remainingPacts--;
-            
-            if(remainingPacts == 0) {
-                completionBlock(YES);
-            }
-        }];
-        
-    }
-    
 }
 
 - (IBAction)exitTapped:(id)sender {
     [self dismissViewControllerAnimated:YES completion:nil];
 }
-
 
 @end

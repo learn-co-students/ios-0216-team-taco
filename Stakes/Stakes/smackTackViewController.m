@@ -50,6 +50,11 @@
     
 }
 
+-(BOOL)prefersStatusBarHidden
+{
+    return YES;
+}
+
 -(void)setUpNavBar {
     
     UINavigationBar *navBar = [[UINavigationBar alloc]init];

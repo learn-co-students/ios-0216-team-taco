@@ -16,6 +16,8 @@
 @property (nonatomic) NSUInteger checkinsCount;
 @property (weak, nonatomic) IBOutlet UILabel *indicatorLabel;
 @property (weak, nonatomic) IBOutlet UILabel *countOfCheckInsLabel;
+@property (weak, nonatomic) IBOutlet UILabel *intialsLabel;
+@property (weak, nonatomic) IBOutlet UIView *borderView;
 
 @property (weak, nonatomic) IBOutlet UILabel *userNameLabel;
 

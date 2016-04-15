@@ -17,16 +17,19 @@
 @import MessageUI;
 
 @interface CreatePactViewController () <CNContactPickerDelegate, MFMessageComposeViewControllerDelegate> ;
+@property (strong, nonatomic) IBOutlet UIView *mainView;
 @property (weak, nonatomic) IBOutlet UILabel *userNameLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *profileImage;
 @property (weak, nonatomic) IBOutlet UITextField *pactDescription;
+@property (weak, nonatomic) IBOutlet UILabel *twitterShameLabel;
 @property (weak, nonatomic) IBOutlet UIPickerView *frequencyPicker;
 @property (weak, nonatomic) IBOutlet UIPickerView *timeIntervalPicker;
 @property (weak, nonatomic) IBOutlet UITextField *twitterShamePost;
 @property (weak, nonatomic) IBOutlet UITextField *pactTitle;
+@property (weak, nonatomic) IBOutlet UILabel *repeatLabel;
 @property (weak, nonatomic) IBOutlet UISwitch *repeatSwitch;
 @property (weak, nonatomic) IBOutlet UISwitch *shameSwitch;
-@property (weak, nonatomic) IBOutlet UIView *topView;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *topConstraint;
 @property (weak, nonatomic) IBOutlet UITextField *stakesTextView;
 @property (nonatomic, assign) NSString * pactID;
 @property (nonatomic,strong) NSMutableArray* FrequencyPickerDataSourceArray;
@@ -40,6 +43,9 @@
 @property (weak, nonatomic) IBOutlet UIStackView *stackView;
 @property (weak, nonatomic) IBOutlet UIButton *RemoveInvitesButton;
 @property (weak, nonatomic) IBOutlet UILabel *inviteFriendsLabel;
+@property (weak, nonatomic) IBOutlet UIView *addFriendsView;
+@property (weak, nonatomic) IBOutlet UIView *contactButtonView;
+@property (weak, nonatomic) IBOutlet UIView *pickerView;
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *addFriendsConstraint;
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
@@ -51,26 +57,108 @@
 - (void)viewDidLoad {
     
     [super viewDidLoad];
-    self.RemoveInvitesButton.hidden = YES;
     [self.RemoveInvitesButton setTransform:CGAffineTransformMakeRotation(-M_PI / 2)];
     [self initializePickers];
-    self.repeatSwitch.on = NO;
-    self.shameSwitch.on = NO;
-    self.twitterShamePost.hidden = YES;
-    [self imageStyle];
-    [self styleTopView];
+    [self cleanScreenFromLabels];
+    //    [self imageStyle]; //this is for styling the proile Images
     [self stylePactDescriptionView];
     [self styleTwitterPost];
     [self styleStakesView];
-    self.profileImage.hidden = YES;
-    self.userNameLabel.hidden = YES;
-  
+    
+    
     self.dataSource = [JDDDataSource sharedDataSource];
     
     self.contactsToShow = [[NSMutableArray alloc]init];
     
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(dismissKeyboard)];
+    
+    [self.view addGestureRecognizer:tap];
+    
 }
 
+
+
+
+-(void)cleanScreenFromLabels
+{
+    self.RemoveInvitesButton.hidden = YES;
+    self.pactDescription.hidden = YES;
+    self.stakesTextView.hidden = YES;
+    self.twitterShamePost.hidden = YES;
+    self.repeatSwitch.hidden = YES;
+    self.shameSwitch.hidden = YES;
+    self.addFriendsView.hidden = YES;
+    self.contactButtonView.hidden = YES;
+    self.pickerView.hidden = YES;
+    self.twitterShameLabel.hidden = YES;
+    self.repeatLabel.hidden = YES;
+    self.repeatSwitch.on = NO;
+    self.shameSwitch.on = NO;
+    self.twitterShamePost.hidden = YES;
+    self.profileImage.hidden = YES;
+    self.userNameLabel.hidden = YES;
+}
+
+
+
+
+-(void)dismissKeyboard {//dismiss Keyboard for tap gesture
+    [self.stakesTextView resignFirstResponder];
+    [self.twitterShamePost resignFirstResponder];
+    [self.pactDescription resignFirstResponder];
+    [self.pactTitle resignFirstResponder];
+    self.topConstraint.constant = 0;
+}
+
+
+
+
+- (void)keyBoardWillShowForStakes:(NSNotification *)notification
+{
+    // grab some values from the notification
+    NSTimeInterval keyboardAnimationDuration = [notification.userInfo[UIKeyboardAnimationDurationUserInfoKey] doubleValue];
+    NSInteger keyboardAnimationCurve = [notification.userInfo[UIKeyboardAnimationCurveUserInfoKey] integerValue];
+    
+    [UIView animateKeyframesWithDuration:keyboardAnimationDuration delay:0.2 options:keyboardAnimationCurve animations:^{
+        
+        // Here is where you change something to make it animate!
+        self.topConstraint.constant = -80;
+    } completion:nil];
+}
+
+
+
+- (void)keyBoardWillShowForTwiiter:(NSNotification *)notification
+{
+    // grab some values from the notification
+    NSTimeInterval keyboardAnimationDuration = [notification.userInfo[UIKeyboardAnimationDurationUserInfoKey] doubleValue];
+    NSInteger keyboardAnimationCurve = [notification.userInfo[UIKeyboardAnimationCurveUserInfoKey] integerValue];
+    
+    [UIView animateKeyframesWithDuration:keyboardAnimationDuration delay:0.2 options:keyboardAnimationCurve animations:^{
+        
+        // Here is where you change something to make it animate!
+        self.topConstraint.constant = -140;
+    } completion:nil];
+}
+
+- (IBAction)twitterPostEditingBegan:(id)sender {
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyBoardWillShowForTwiiter:)
+                                                 name:UIKeyboardWillShowNotification
+                                               object:nil];
+    
+}
+
+
+
+- (IBAction)stakeDetailTapped:(id)sender {//editing began
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyBoardWillShowForStakes:)
+                                                 name:UIKeyboardWillShowNotification
+                                               object:nil];
+    
+}
 
 - (IBAction)createPactTapped:(id)sender {
     
@@ -112,7 +200,8 @@
                                     
                                     [[NSOperationQueue mainQueue] addOperationWithBlock:^{
                                         
-//                                        [self dismissViewControllerAnimated:YES completion:nil];
+                                        
+                                        //                                        [self dismissViewControllerAnimated:YES completion:nil];
                                         
                                     }];
                                 }
@@ -125,11 +214,11 @@
                 
             }
         }];
-
         
-
+        
+        
         [self sendMessageToInvites];
-
+        
         
     } else {
         
@@ -139,6 +228,16 @@
     
 }
 
+
+
+-(BOOL)prefersStatusBarHidden
+{
+    return YES;
+}
+
+
+
+
 -(void)sendPactToFirebase{
     
     self.pactReference = [self.dataSource.firebaseRef childByAppendingPath:@"pacts"];
@@ -147,7 +246,7 @@
     [dateFormatter setDateFormat:@"yyyy'-'MM'-'dd'-'hh:mm'"];
     
     // this dictionary is creating with the users that will be added into the pact when it is created in firebase
-        // this data is structured as such @{userID : NSNumber as BOOL whether they have accepted the pact or not}
+    // this data is structured as such @{userID : NSNumber as BOOL whether they have accepted the pact or not}
     
     NSMutableDictionary * usersInPact = [[NSMutableDictionary alloc]initWithDictionary:@{}];
     
@@ -181,10 +280,10 @@
     NSLog(@"%@", self.createdPact.pactID);
     
     // adding chatroom for pact to JDDStakes
-   [[self.dataSource.firebaseRef childByAppendingPath:@"chatrooms"]updateChildValues:@{
-                                                                              [NSString stringWithFormat:@"%@",self.createdPact.pactID]:[NSNumber numberWithBool:YES]
-                                                                              }];
-
+    [[self.dataSource.firebaseRef childByAppendingPath:@"chatrooms"]updateChildValues:@{
+                                                                                        [NSString stringWithFormat:@"%@",self.createdPact.pactID]:[NSNumber numberWithBool:YES]
+                                                                                        }];
+    
     // creating the pact to be sent to Firebase using createDict method
     NSDictionary *finalPactDictionary = [self.dataSource createDictionaryToSendToFirebaseWithJDDPact:self.createdPact];
     
@@ -218,6 +317,9 @@
     
 }
 
+
+
+
 //========================================================================================================================================
 // Styling of the pact form
 //========================================================================================================================================
@@ -244,26 +346,21 @@
     self.pactDescription.layer.borderColor = [UIColor blackColor].CGColor;
 }
 
--(void)styleTopView
-{
-    self.topView.layer.cornerRadius = 5;
-    self.topView.layer.borderWidth = 1.0f;
-    self.topView.layer.borderColor = [UIColor blackColor].CGColor;
-}
--(void)imageStyle
-{
-    self.profileImage.layer.cornerRadius = self.profileImage.frame.size.height /2;
-    self.profileImage.layer.borderWidth = 1.0f;
-    self.profileImage.layer.borderColor = [UIColor blackColor].CGColor;
-    
-}
+
+//-(void)imageStyle
+//{
+//    self.profileImage.layer.cornerRadius = self.profileImage.frame.size.height /2;
+//    self.profileImage.layer.borderWidth = 1.0f;
+//    self.profileImage.layer.borderColor = [UIColor blackColor].CGColor;
+//
+//}
 
 
 -(void)initializePickers {
     self.timeInterval = [NSMutableArray new];
     self.FrequencyPickerDataSourceArray = [NSMutableArray new];
     for (NSUInteger i = 1; i<51; i++) {
-        NSString *number = [NSString stringWithFormat:@"%lu",i];
+        NSString *number = [NSString stringWithFormat:@"%li",i];
         [self.FrequencyPickerDataSourceArray addObject:number];
     }
     
@@ -340,7 +437,7 @@
         self.timeIntervalString = self.timeInterval[row];
         return self.timeInterval[row];
     }
-
+    
     return nil;
 }
 
@@ -356,7 +453,7 @@
 
 
 - (IBAction)repeateToggleTapped:(id)sender {
-
+    
 }
 
 - (IBAction)shameToggleTapped:(id)sender {
@@ -365,7 +462,7 @@
         self.twitterShamePost.hidden = NO;
     } else {
         self.twitterShamePost.hidden = YES;
-
+        
     }
 }
 
@@ -382,75 +479,83 @@
     // OBJECTIVE : for contacts in the CNContact array I want to check firebase to see if they exist. If YES, pull down info & create JDDUser. If no create JDDUser
     
     //may need an if statement to make sure this doesn't fire if contacts.count == 0
+    self.contacts = [[NSMutableArray alloc]init];
+    
     for(CNContact *contact in contacts){
         
         NSString *contactPhone = [[NSString alloc]init];
-        
-        if ([contact.phoneNumbers firstObject]) {
+        if (contact.phoneNumbers.count >0)
+        {
             CNLabeledValue<CNPhoneNumber*>* oneWeWant = [contact.phoneNumbers firstObject];
-
-             contactPhone = oneWeWant.value.stringValue;
-        
-       
-        
-        contactPhone = [[contactPhone componentsSeparatedByCharactersInSet:[[NSCharacterSet decimalDigitCharacterSet] invertedSet]]
-                        componentsJoinedByString:@""]; // clean iPhone number
-        self.contacts = [[NSMutableArray alloc]init];
-            [self.contacts addObject:contactPhone];}
-        // query Firebase to see if the contactIphone exists
-        Firebase *usersRef = [self.dataSource.firebaseRef childByAppendingPath:@"users"];
-        
-        [usersRef observeSingleEventOfType:FEventTypeValue withBlock:^(FDataSnapshot *snapshot) {
-            
-            if ([snapshot hasChild:contactPhone]) { // number exists in Firebase
-                
-                [[usersRef childByAppendingPath:[NSString stringWithFormat:@"%@",contactPhone]] observeSingleEventOfType:FEventTypeValue withBlock:^(FDataSnapshot *snapshot) {
-                    
-                    JDDUser *contactToAdd =[self.dataSource useSnapShotAndCreateUser:snapshot];
-                    
-                    NSLog(@"user is: %@",contactToAdd.userID);
-                    
-                    [self.contactsToShow addObject:contactToAdd];
-                    
-                    NSLog(@"contactToShow: %@",self.contactsToShow);
-                    
-                    [self addUserToInviteScrollView:contactToAdd];
-
-
-                }];
-
-            } else {
-                
-                // need to create JDDUser
-                
-                JDDUser *newUser = [[JDDUser alloc]init];
-                newUser.userID = contactPhone;
-                newUser.displayName = contact.givenName;
-                newUser.phoneNumber = contactPhone;
-                
-                NSMutableDictionary * dictionary = [self.dataSource createDictionaryToSendToFirebaseWithJDDUser:newUser];
-                
-                [[usersRef childByAppendingPath:contactPhone]setValue:dictionary]; //create user in Firebase
-                
-                [self.contactsToShow addObject: newUser]; // add user to contacts to show
-                
-                [self addUserToInviteScrollView:newUser];
-
-                
-                NSLog(@"contactsToShowNewUser : %lu",self.contactsToShow.count);
-                NSLog(@"contactsAddressBookInvites : %lu",(unsigned long)contacts.count);
-
-            }
+            contactPhone = oneWeWant.value.stringValue;
             
             
-            [NSNotification notificationWithName:@"contactsReadyForCreatePactView" object:nil];
             
-
-        }];
-        
+            
+            contactPhone = [[contactPhone componentsSeparatedByCharactersInSet:[[NSCharacterSet decimalDigitCharacterSet] invertedSet]]
+                            componentsJoinedByString:@""]; // clean iPhone number
+            [self.contacts addObject:contactPhone];
+            //    }
+            // query Firebase to see if the contactIphone exists
+            Firebase *usersRef = [self.dataSource.firebaseRef childByAppendingPath:@"users"];
+            
+            [usersRef observeSingleEventOfType:FEventTypeValue withBlock:^(FDataSnapshot *snapshot) {
+                
+                if ([snapshot hasChild:contactPhone]) { // number exists in Firebase
+                    
+                    [[usersRef childByAppendingPath:[NSString stringWithFormat:@"%@",contactPhone]] observeSingleEventOfType:FEventTypeValue withBlock:^(FDataSnapshot *snapshot) {
+                        
+                        JDDUser *contactToAdd =[self.dataSource useSnapShotAndCreateUser:snapshot];
+                        
+                        NSLog(@"user is: %@",contactToAdd.userID);
+                        
+                        [self.contactsToShow addObject:contactToAdd];
+                        
+                        NSLog(@"contactToShow: %@",self.contactsToShow);
+                        
+                        [self addUserToInviteScrollView:contactToAdd];
+                        
+                        
+                    }];
+                    
+                } else {
+                    
+                    // need to create JDDUser
+                    
+                    JDDUser *newUser = [[JDDUser alloc]init];
+                    newUser.userID = contactPhone;
+                    newUser.displayName = contact.givenName;
+                    newUser.phoneNumber = contactPhone;
+                    
+                    NSMutableDictionary * dictionary = [self.dataSource createDictionaryToSendToFirebaseWithJDDUser:newUser];
+                    
+                    [[usersRef childByAppendingPath:contactPhone]setValue:dictionary]; //create user in Firebase
+                    
+                    [self.contactsToShow addObject: newUser]; // add user to contacts to show
+                    
+                    [self addUserToInviteScrollView:newUser];
+                    
+                    
+                    NSLog(@"contactsToShowNewUser : %li",self.contactsToShow.count);
+                    NSLog(@"contactsAddressBookInvites : %lu",(unsigned long)contacts.count);
+                    
+                }
+                
+                
+                [NSNotification notificationWithName:@"contactsReadyForCreatePactView" object:nil];
+                [self didSelectedContactToInvite];
+                
+                
+            }];
+        } else {
+            [self alertFinishFiling:@"This contact has no phone number"];
+        }
     }
     
 }
+
+
+
 - (IBAction)removeContactButton:(id)sender {
     UserDescriptionView *user = [[UserDescriptionView alloc]init];
     user = self.stackView.arrangedSubviews.lastObject;
@@ -463,10 +568,15 @@
     }
 }
 
+
+
+
+
 -(void)addUserToInviteScrollView: (JDDUser*)user {
     UserDescriptionView *view = [[UserDescriptionView alloc]init];
     view.indicatorLabel.hidden = YES;
     view.countOfCheckInsLabel.hidden = YES;
+    view.borderView.layer.borderWidth = 0.8;
     view.user = user;
     
     if (self.stackView.arrangedSubviews.count == 0) {
@@ -474,28 +584,33 @@
         self.RemoveInvitesButton.hidden = NO;
         self.inviteFriendsLabel.hidden = YES;
         self.addFriendsConstraint.constant = 40;
-            [view.widthAnchor constraintEqualToAnchor:self.scrollView.widthAnchor multiplier:0.25].active = YES;
+        [view.widthAnchor constraintEqualToAnchor:self.scrollView.widthAnchor multiplier:0.25].active = YES;
+        
         
     } else  {
         NSMutableArray *userIDsInStackView = [[NSMutableArray alloc]init];
         for (UserDescriptionView *viewToCompare in self.stackView.arrangedSubviews) {
             [userIDsInStackView addObject:viewToCompare.user.userID];
         }
-
         
-            if ([userIDsInStackView containsObject:view.user.userID]) {
-                NSLog(@"Already have this user in the scrollView");
-                [self alertUserAlreadyAdded:view.user.displayName];
-                
-            } else {
-                [self.stackView addArrangedSubview:view];
-
-            }
+        
+        if ([userIDsInStackView containsObject:view.user.userID]) {
+            NSLog(@"Already have this user in the scrollView");
+            [self alertUserAlreadyAdded:view.user.displayName];
+            
+        } else {
+            [self.stackView addArrangedSubview:view];
+            
+        }
         
     }
     
     
 }
+
+
+
+
 
 -(void)alertUserAlreadyAdded:(NSString *)name
 {
@@ -518,11 +633,20 @@
 }
 
 
+
+
+
+
+
 - (IBAction)cancelButtonPressed:(id)sender {
     
     [self dismissViewControllerAnimated:YES completion:nil];
     
 }
+
+
+
+
 
 //========================================================================================================================================
 // methods to check if all text fields are ready in the pact creation
@@ -532,13 +656,16 @@
 {
     if ([self isGroupTitleSet] && [self didInviteFriends] && [self isPactDecribed] && [self isStakeDecided]) {
         
-          NSLog(@"Pact is ready to go!!!");
+        NSLog(@"Pact is ready to go!!!");
         return YES;
     }
     
     return NO;
-
+    
 }
+
+
+
 
 -(BOOL)isGroupTitleSet
 {
@@ -550,21 +677,27 @@
     return NO;
 }
 
+
+
+
 -(BOOL)didInviteFriends
 {
     if (self.contactsToShow.count > 1){
-          NSLog(@"friends are invited");
-    
+        NSLog(@"friends are invited");
+        
         return YES;
     }
-
-return  NO;
+    
+    return  NO;
 }
+
+
+
 
 -(BOOL)isPactDecribed
 {
     if (self.pactDescription.text.length > 0 && self.pactDescription.text != nil && ![self.pactDescription.text isEqual:@""]) {
-          NSLog(@"pact is described");
+        NSLog(@"pact is described");
         return YES;
         
     }
@@ -572,10 +705,14 @@ return  NO;
     return NO;
 }
 
+
+
+
+
 -(BOOL)isStakeDecided
 {
     if (self.stakesTextView.text.length > 0 && self.stakesTextView.text != nil && ![self.stakesTextView.text isEqual:@""]) {
-          NSLog(@"Stakes are decided");
+        NSLog(@"Stakes are decided");
         return YES;
     }
     
@@ -583,19 +720,41 @@ return  NO;
     return  NO;
 }
 
+
+
+
+
+
+
 //========================================================================================================================================
 // Dismiss keboards
 //========================================================================================================================================
 
+
+
 - (IBAction)dismissStakeKeyboard:(id)sender {
+    self.topConstraint.constant = 0;
     self.stakesTextView = (UITextField*) sender;
     [self.stakesTextView resignFirstResponder];
+    
+    if (self.stakesTextView.text.length > 0) {
+        self.twitterShameLabel.hidden = NO;
+        self.shameSwitch.hidden = NO;
+    }
 }
+
+
+
+
 
 - (IBAction)dismissDiscriptionKeyboard:(id)sender {
     self.pactDescription = (UITextField*) sender;
     [self.pactDescription resignFirstResponder];
 }
+
+
+
+
 
 - (IBAction)dismissTitleKeyboard:(id)sender {
     self.pactTitle = (UITextField*) sender;
@@ -603,14 +762,27 @@ return  NO;
 }
 
 
+
+
+
+
 - (IBAction)dismissShameKeboard:(id)sender {
+    self.topConstraint.constant = 0;
+    
     self.twitterShamePost = (UITextField*) sender;
     [self.twitterShamePost resignFirstResponder];
 }
 
+
+
+
+
 //========================================================================================================================================
 //Messaging stuff
 //========================================================================================================================================
+
+
+
 
 -(void)sendMessageToInvites
 {
@@ -618,33 +790,40 @@ return  NO;
         NSLog(@"Message services are not available.");
         [self alertMessagingNotAvailable];
     } else {
-    
-    MFMessageComposeViewController* composeVC = [[MFMessageComposeViewController alloc] init];
-    composeVC.messageComposeDelegate = self;
-    
-    // Configure the fields of the interface.
-    composeVC.recipients = self.contacts;
-    composeVC.body = @"Hey Guys I created a pact to hit the gym download the app to keep tracking our progress";
-
-    // Present the view controller modally.
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [self presentViewController:composeVC animated:YES completion:nil];
-    });}
+        
+        MFMessageComposeViewController* composeVC = [[MFMessageComposeViewController alloc] init];
+        composeVC.messageComposeDelegate = self;
+        
+        // Configure the fields of the interface.
+        composeVC.recipients = self.contacts;
+        composeVC.body = @"Hey Guys I created a pact to hit the gym download the app to keep tracking our progress";
+        
+        // Present the view controller modally.
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [self presentViewController:composeVC animated:YES completion:nil];
+        });}
 }
+
+
+
+
 
 -(void)messageComposeViewController:(MFMessageComposeViewController *)controller didFinishWithResult:(MessageComposeResult)result
 {
     if(result == MessageComposeResultSent) {
         [self dismissViewControllerAnimated:YES completion:nil];
         [self dismissViewControllerAnimated:NO completion:nil];
-
-
+        
+        
     } else {
-    
-    [self dismissViewControllerAnimated:NO completion:nil];
-
+        
+        [self dismissViewControllerAnimated:NO completion:nil];
+        
     }
 }
+
+
+
 
 
 -(void)establishCurrentUserWithBlock:(void(^)(BOOL))completionBlock {
@@ -660,6 +839,9 @@ return  NO;
     }];
     
 }
+
+
+
 
 -(void)methodToPullDownPactsFromFirebaseWithCompletionBlock:(void(^)(BOOL))completionBlock {
     
@@ -706,6 +888,10 @@ return  NO;
     
 }
 
+
+
+
+
 -(void)getAllUsersInPact:(JDDPact *)pact completion:(void (^)(BOOL success))completionBlock
 {
     pact.usersToShowInApp = [[NSMutableArray alloc] init];
@@ -745,6 +931,10 @@ return  NO;
     }
 }
 
+
+
+
+
 // this method is populating the users in the pact so we can use Twitter info etc. in the UserPactVC. Everything is saved in
 -(void)observeEventForUsersFromFirebaseWithCompletionBlock:(void(^)(BOOL))completionBlock {
     __block NSUInteger remainingPacts = self.dataSource.currentUser.pactsToShowInApp.count;
@@ -762,5 +952,79 @@ return  NO;
     }
     
 }
+
+
+
+
+- (IBAction)pactTitleEditingEnd:(id)sender {
+    if (self.pactTitle.text.length >1) {
+        self.contactButtonView.hidden = NO;
+        self.addFriendsView.hidden = NO;
+    } else {
+        [self alertFinishFiling:@"Please, name your pact"];
+    }
+    
+    
+}
+
+
+
+
+- (IBAction)didEndEditingPactDescription:(id)sender {
+    if (self.pactDescription.text.length >2) {
+        self.pickerView.hidden = NO;
+        self.repeatLabel.hidden = NO;
+        self.repeatSwitch.hidden = NO;
+        self.stakesTextView.hidden = NO;
+    } else {
+        [self alertFinishFiling:@"Please, describe your pact"];
+        self.pickerView.hidden = YES;
+        self.repeatLabel.hidden = YES;
+        self.repeatSwitch.hidden = YES;
+        self.stakesTextView.hidden = YES;
+    }
+    
+}
+
+
+
+
+
+-(void)didSelectedContactToInvite
+{
+    if (self.contactsToShow.count >0) {
+        self.pactDescription.hidden = NO;
+    } else {
+        [self alertFinishFiling:@"Please, choose members to add to the pact"];
+        self.pactDescription.hidden = YES;
+        
+    }
+    
+    
+}
+
+
+
+
+-(void)alertFinishFiling: (NSString *)message
+{
+    
+    
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Oops!" message:message preferredStyle:UIAlertControllerStyleAlert];
+    
+    UIAlertAction* ok = [UIAlertAction
+                         actionWithTitle:@"OK"
+                         style:UIAlertActionStyleDefault
+                         handler:^(UIAlertAction * action)
+                         {
+                             [alert dismissViewControllerAnimated:YES completion:nil];
+                             
+                         }];
+    
+    [alert addAction: ok];
+    
+    [self presentViewController:alert animated:YES completion:nil];
+}
+
 
 @end

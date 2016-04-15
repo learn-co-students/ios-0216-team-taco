@@ -16,6 +16,11 @@ NSString * const UserDidLogOutNotificationName = @"UserDidLogOutNotification";
 NSString * const LoginViewControllerStoryboardID = @"LoginViewController";
 NSString * const UserPactsViewControllerStoryboardID = @"UserPactsViewController";
 
+NSString * const DataChangedNotificationName = @"DataChangedNotification";
+NSString * const UserCheckedInNotificationName = @"UserCheckedInNotification";
+NSString * const UserAcceptedPactNotificationName = @"UserAcceptedPact";
+NSString * const UserDeletedPactNotificationName = @"UserDeletedPact";
+
 NSString * const AccountIdentifierKey = @"AccountIdentifier";
 NSString * const UserDidRegisterKey = @"UserDidRegister";
 NSString * const UserIDKey = @"UserID";

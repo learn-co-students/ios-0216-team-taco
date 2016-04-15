@@ -171,14 +171,11 @@
                                     <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JOA-1G-RLs">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="167"/>
                                         <subviews>
-                                            <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="e3S-Qv-8jv"/>
+                                            <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" distribution="fillEqually" spacing="1" translatesAutoresizingMaskIntoConstraints="NO" id="e3S-Qv-8jv"/>
                                         </subviews>
                                         <constraints>
-                                            <constraint firstAttribute="bottom" secondItem="e3S-Qv-8jv" secondAttribute="bottom" id="InE-pv-uv7"/>
-                                            <constraint firstAttribute="trailing" secondItem="e3S-Qv-8jv" secondAttribute="trailing" id="MTm-sf-DEk"/>
-                                            <constraint firstItem="e3S-Qv-8jv" firstAttribute="leading" secondItem="JOA-1G-RLs" secondAttribute="leading" id="TZq-cS-Dzz"/>
-                                            <constraint firstItem="e3S-Qv-8jv" firstAttribute="height" secondItem="JOA-1G-RLs" secondAttribute="height" id="fLZ-63-jJE"/>
-                                            <constraint firstItem="e3S-Qv-8jv" firstAttribute="top" secondItem="JOA-1G-RLs" secondAttribute="top" id="htH-4m-mD8"/>
+                                            <constraint firstAttribute="trailing" secondItem="e3S-Qv-8jv" secondAttribute="trailing" id="dqe-4s-2P9"/>
+                                            <constraint firstItem="e3S-Qv-8jv" firstAttribute="leading" secondItem="JOA-1G-RLs" secondAttribute="leading" id="hHv-Ro-kkQ"/>
                                         </constraints>
                                     </scrollView>
                                 </subviews>
@@ -186,6 +183,8 @@
                                     <constraint firstAttribute="bottom" secondItem="JOA-1G-RLs" secondAttribute="bottom" id="7w0-iV-9pf"/>
                                     <constraint firstAttribute="trailing" secondItem="JOA-1G-RLs" secondAttribute="trailing" id="DGh-aC-chT"/>
                                     <constraint firstItem="JOA-1G-RLs" firstAttribute="leading" secondItem="XFh-S4-Yjm" secondAttribute="leading" id="JKi-p5-URl"/>
+                                    <constraint firstItem="e3S-Qv-8jv" firstAttribute="top" secondItem="XFh-S4-Yjm" secondAttribute="top" id="RX4-9d-Arp"/>
+                                    <constraint firstAttribute="bottom" secondItem="e3S-Qv-8jv" secondAttribute="bottom" id="XKi-EK-0V5"/>
                                     <constraint firstItem="JOA-1G-RLs" firstAttribute="top" secondItem="XFh-S4-Yjm" secondAttribute="top" id="p3f-Ph-rS0"/>
                                 </constraints>
                             </view>

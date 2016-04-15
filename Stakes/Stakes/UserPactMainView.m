@@ -16,6 +16,7 @@
 #import "Constants.h"
 #import "PactDetailViewController.h"
 #import "UserPactsViewController.h"
+#import "Constants.h"
 
 @interface UserPactMainView ()
 
@@ -124,6 +125,7 @@
     }
     [self.locationManager startUpdatingLocation];
     
+    [[NSNotificationCenter defaultCenter] postNotificationName:UserCheckedInNotificationName object:self.pact];
 }
 
 //location geo delagates methods.
@@ -222,6 +224,7 @@
   
         user.isReady = valueIndicator;
         user.currentPactIn = currentPact;
+        view.borderView.layer.borderWidth = 1.0;
         view.user = user;
         NSLog(@"Is the view's user ready? %@", view.user.isReady);
         // same as [view setUser:user];
@@ -242,11 +245,6 @@
     self.stakesText.text = self.pact.stakes;
     self.pactText.text = self.pact.pactDescription;
     self.twitterText.text = self.pact.twitterPost;
-
-}
-
-- (IBAction)infoButtonTapped:(id)sender
-{
 
 }
 
