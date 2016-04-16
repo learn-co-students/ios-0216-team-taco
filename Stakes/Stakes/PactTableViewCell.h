@@ -9,8 +9,18 @@
 #import <UIKit/UIKit.h>
 #import "JDDPact.h"
 
+@class PactTableViewCell;
+
+@protocol PactTableViewCellDelegate <NSObject>
+
+@optional
+-(void)pactTableViewCell: (PactTableViewCell *)pactTableViewCell shouldSegueToSmackTalkVC: (BOOL)shouldSegueToSmacktalkVC;
+
+@end
+
 @interface PactTableViewCell : UITableViewCell <UIScrollViewDelegate>
 
+@property (nonatomic, weak) id <PactTableViewCellDelegate> delegate;
 @property (nonatomic, strong)UIScrollView *scrollView;
 @property (nonatomic, strong)UIStackView *stackView;
 

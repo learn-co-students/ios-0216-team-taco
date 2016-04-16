@@ -22,7 +22,7 @@
 #import <AFNetworking/UIImageView+AFNetworking.h>
 #import "UserDescriptionView.h"
 
-@interface UserPactsViewController () <UITableViewDataSource, UITableViewDelegate>
+@interface UserPactsViewController () <UITableViewDataSource, UITableViewDelegate,PactTableViewCellDelegate>
 
 @property (weak, nonatomic) IBOutlet FZAccordionTableView *tableView;
 @property (nonatomic, strong) JDDDataSource *sharedData;
@@ -175,7 +175,18 @@
     
     cell.pact = self.sharedData.currentUser.pactsToShowInApp[indexPath.section];
     
+    cell.delegate = self;
+    
     return cell;
+}
+
+-(void)pactTableViewCell:(PactTableViewCell *)pactTableViewCell shouldSegueToSmackTalkVC:(BOOL)shouldSegueToSmacktalkVC {
+    
+    if(shouldSegueToSmacktalkVC) {
+        
+        [self performSegueWithIdentifier:@"segueToSmackTalkVC" sender:self];
+    }
+    
 }
 
 

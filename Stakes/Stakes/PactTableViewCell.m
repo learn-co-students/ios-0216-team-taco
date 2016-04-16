@@ -102,11 +102,18 @@
     
 }
 
+-(void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    
+    BOOL didSwipeToCertainPoint = NO;
+    if (scrollView.contentOffset.x < - (self.contentView.frame.size.width/6)) {
+        
+        didSwipeToCertainPoint = YES;
+        
+        [self.delegate pactTableViewCell:self shouldSegueToSmackTalkVC:didSwipeToCertainPoint];
+    }
+}
+
 -(void)createLabel{
-    
-    
-    
-    
     
 }
 
