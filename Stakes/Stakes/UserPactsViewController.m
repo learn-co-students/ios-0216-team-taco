@@ -13,7 +13,7 @@
 #import <FZAccordionTableView/FZAccordionTableView.h>
 #import "PactAccordionHeaderView.h"
 #import "JDDDataSource.h"
-#import "UserPactCellView.h"
+#import "PactTableViewCell.h"
 #import "PactDetailViewController.h"
 #import "CreatePactViewController.h"
 #import "LoginViewController.h"
@@ -22,7 +22,7 @@
 #import <AFNetworking/UIImageView+AFNetworking.h>
 #import "UserDescriptionView.h"
 
-@interface UserPactsViewController () <UITableViewDataSource, UITableViewDelegate>
+@interface UserPactsViewController () <UITableViewDataSource, UITableViewDelegate,PactTableViewCellDelegate>
 
 @property (weak, nonatomic) IBOutlet FZAccordionTableView *tableView;
 @property (nonatomic, strong) JDDDataSource *sharedData;
@@ -60,11 +60,16 @@
     self.tableView.scrollEnabled = YES;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
-    [self.tableView registerNib:[UINib nibWithNibName:@"UserPactCellView" bundle:nil] forCellReuseIdentifier:@"userPact"];
+//    [self.tableView registerNib:[UINib nibWithNibName:@"PactTableViewCell" bundle:nil] forCellReuseIdentifier:@"userPact"];
+    
+    UINib *cellNib = [UINib nibWithNibName:@"PactTableViewCell" bundle:nil];
+    [self.tableView registerNib:cellNib forCellReuseIdentifier:@"userPact"];
+
     [self.tableView registerNib:[UINib nibWithNibName:@"PactAccordionHeaderView" bundle:nil] forHeaderFooterViewReuseIdentifier:accordionHeaderReuseIdentifier];
     
-    [self setupSwipeGestureRecognizer];
-    
+//    [self setupSwipeGestureRecognizer];
+
+
     self.accountStore = [[ACAccountStore alloc] init];
     NSLog(@"accountstore accounts %@", self.accountStore.accounts);
     NSString *accountKey = [[NSUserDefaults standardUserDefaults] objectForKey:AccountIdentifierKey];
@@ -110,35 +115,36 @@
 
 
 #pragma gestureRecognizers for segues
+//
+//-(void)setupSwipeGestureRecognizer {
+//    
+//    UITapGestureRecognizer *cellTap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(swipeRightGestureHappened:)];
+//    
+//    [self.view addGestureRecognizer:cellTap];
+//    
+//    UISwipeGestureRecognizer *swipeLeft = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swifeLeftGestureHappened:)];
+//    [swipeLeft setDirection:UISwipeGestureRecognizerDirectionLeft];
+//
+//    [self.view addGestureRecognizer:swipeLeft];
+//}
+//
+//-(void)swipeRightGestureHappened:(UITapGestureRecognizer *)swipeGestureRight{
+//    
+//
+//    NSLog(@"Right Gesture Recognizer is happening!");
+//    
+//    [self performSegueWithIdentifier:@"segueToSmackTalkVC" sender:self];
+//
+//}
+//
+//-(void)swifeLeftGestureHappened:(UISwipeGestureRecognizer *)swifeGestureLeft
+//{
+//    NSLog(@"swiped left");
+//    
+//    [self performSegueWithIdentifier:@"segueToPactDetail" sender:self];
+//    
+//}
 
--(void)setupSwipeGestureRecognizer {
-    
-    UITapGestureRecognizer *cellTap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(swipeRightGestureHappened:)];
-    
-    [self.view addGestureRecognizer:cellTap];
-    
-    UISwipeGestureRecognizer *swipeLeft = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swifeLeftGestureHappened:)];
-    [swipeLeft setDirection:UISwipeGestureRecognizerDirectionLeft];
-    
-    [self.view addGestureRecognizer:swipeLeft];
-}
-
--(void)swipeRightGestureHappened:(UITapGestureRecognizer *)swipeGestureRight{
-    
-    
-    NSLog(@"Right Gesture Recognizer is happening!");
-    
-    [self performSegueWithIdentifier:@"segueToSmackTalkVC" sender:self];
-    
-}
-
--(void)swifeLeftGestureHappened:(UISwipeGestureRecognizer *)swifeGestureLeft
-{
-    NSLog(@"swiped left");
-    
-    [self performSegueWithIdentifier:@"segueToPactDetail" sender:self];
-    
-}
 
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView {
     
@@ -163,12 +169,24 @@
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UserPactCellView * cell = [tableView dequeueReusableCellWithIdentifier:@"userPact"forIndexPath:indexPath];
+    PactTableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:@"userPact"forIndexPath:indexPath];
     
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
     cell.pact = self.sharedData.currentUser.pactsToShowInApp[indexPath.section];
+    
+    cell.delegate = self;
+    
     return cell;
+}
+
+-(void)pactTableViewCell:(PactTableViewCell *)pactTableViewCell shouldSegueToSmackTalkVC:(BOOL)shouldSegueToSmacktalkVC {
+    
+    if(shouldSegueToSmacktalkVC) {
+        
+        [self performSegueWithIdentifier:@"segueToSmackTalkVC" sender:self];
+    }
+    
 }
 
 
@@ -265,6 +283,7 @@
     }];
     
 }
+
 
 -(void)updateCheckInsForPact:(JDDPact *)updatedPact withCompletion:(void (^)(BOOL success))completionBlock
 {

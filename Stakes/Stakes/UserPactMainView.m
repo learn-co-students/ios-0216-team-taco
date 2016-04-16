@@ -6,7 +6,7 @@
 //  Copyright © 2016 JDD. All rights reserved.
 //
 
-#import "UserPactCellView.h"
+#import "UserPactMainView.h"
 #import "JDDDataSource.h"
 #import "JDDCheckIn.h"
 #import "JSQMessage.h"
@@ -18,33 +18,81 @@
 #import "UserPactsViewController.h"
 #import "Constants.h"
 
-@interface UserPactCellView () 
+@interface UserPactMainView ()
 
-@property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
-@property (weak, nonatomic) IBOutlet UIStackView *stackView;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *stackViewWidth;
-@property (weak, nonatomic) IBOutlet UIView *View1;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *stackViewHeight;
-@property (weak, nonatomic) IBOutlet UILabel *pactDetalisHeaderLabel;
+@property (strong, nonatomic) IBOutlet UserPactMainView *contentView;
+@property (strong, nonatomic) IBOutlet UIView *viewForScrollView;
+@property (strong, nonatomic) IBOutlet UIScrollView *scrollView;
+@property (strong, nonatomic) IBOutlet UIStackView *stackView;
+@property (strong, nonatomic) IBOutlet UIView *textView;
+@property (strong, nonatomic) IBOutlet UILabel *twitterText;
+@property (strong, nonatomic) IBOutlet UILabel *TwitterTitle;
+@property (strong, nonatomic) IBOutlet UILabel *pactText;
+@property (strong, nonatomic) IBOutlet UILabel *stakesText;
+@property (strong, nonatomic) IBOutlet UILabel *pactTitle;
+@property (strong, nonatomic) IBOutlet UILabel *stakesTitle;
+@property (strong, nonatomic) IBOutlet UIView *CheckInButtonView;
+@property (strong, nonatomic) IBOutlet UIButton *checkInButton;
 
-@property (weak, nonatomic) IBOutlet UILabel *pactDetailsLabel;
-
-@property (strong, nonatomic) NSArray *pactMembers;
-@property (weak, nonatomic) IBOutlet UILabel *MembersCountLabel;
-
-@property (weak, nonatomic) IBOutlet UILabel *stakesLabel;
-
-@property (weak, nonatomic) IBOutlet UILabel *twitterPostLabel;
 @property (nonatomic) CGFloat latitude;
 @property (nonatomic) CGFloat longitude;
 @property (nonatomic, strong) CLLocation *location;
 
+@property(nonatomic, strong) CLLocationManager *locationManager;
+@property (nonatomic, strong) JDDDataSource *sharedData;
+@property (nonatomic, strong) JDDCheckIn *checkIn;
+@property (nonatomic,strong) Firebase *firebase;
 
 @end
 
-@implementation UserPactCellView
+@implementation UserPactMainView
 
 //=============================================================================================================================
+
+
+-(instancetype)initWithCoder:(NSCoder *)aDecoder
+{
+   
+    self = [super initWithCoder:aDecoder];
+    
+    if (self) {
+        
+        [self commonInit];
+    }
+    
+    return self;
+}
+
+-(instancetype)initWithFrame:(CGRect)frame
+{
+    
+    self = [super initWithFrame:frame];
+    
+    if (self) {
+        
+        [self commonInit];
+    }
+    
+    return self;
+}
+
+-(void)commonInit
+{
+    
+    NSLog(@"commonInit called in UserPactMainView.");
+    
+    [[NSBundle mainBundle] loadNibNamed:@"UserPactMainView" owner:self options:nil];
+    
+    [self addSubview:self.contentView];
+    
+    self.contentView.translatesAutoresizingMaskIntoConstraints = NO;
+    [self.contentView.topAnchor constraintEqualToAnchor:self.topAnchor].active = YES;
+    [self.contentView.leftAnchor constraintEqualToAnchor:self.leftAnchor].active = YES;
+    [self.contentView.rightAnchor constraintEqualToAnchor:self.rightAnchor].active = YES;
+    [self.contentView.bottomAnchor constraintEqualToAnchor:self.bottomAnchor].active = YES;
+    
+}
+
 
 - (IBAction)checkInButtonPressed:(id)sender {
        
@@ -138,11 +186,11 @@
     NSLog(@"observed changes %@", change);
 }
 
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
-    
-    [super setSelected:selected animated:animated];
-
-}
+//- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
+//    
+//    [super setSelected:selected animated:animated];
+//
+//}
 
 -(void)setPact:(JDDPact *)pact{
     _pact = pact;
@@ -193,23 +241,10 @@
         view.clipsToBounds = YES;
         
     }
-    self.MembersCountLabel.text = [NSString stringWithFormat:@"%li Members",self.pact.users.count];
-    self.pactDetalisHeaderLabel.backgroundColor =[UIColor blackColor];
-    self.pactDetalisHeaderLabel.textColor = [UIColor whiteColor];
-    [self.pactDetalisHeaderLabel setFont: [self.pactDetalisHeaderLabel.font fontWithSize: 14]];
-
     
-    
-    self.stakesLabel.backgroundColor =[UIColor blackColor];
-    self.stakesLabel.textColor = [UIColor whiteColor];
-    self.pactDetailsLabel.text = self.pact.pactDescription;
-    [self.stakesLabel setFont: [self.stakesLabel.font fontWithSize: 14]];
-    self.stakesLabel.text = @"What are the stakes?";
-    
-//    NSString *twitterPost =
-    self.twitterPostLabel.text = self.pact.stakes;
-
-    
+    self.stakesText.text = self.pact.stakes;
+    self.pactText.text = self.pact.pactDescription;
+    self.twitterText.text = self.pact.twitterPost;
 
 }
 
