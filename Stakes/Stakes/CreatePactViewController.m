@@ -558,9 +558,9 @@
 
 - (IBAction)removeContactButton:(id)sender {
     UserDescriptionView *user = [[UserDescriptionView alloc]init];
-    user = self.stackView.arrangedSubviews.lastObject;
-    [self.stackView removeArrangedSubview:user];
-    [self.contactsToShow removeLastObject];
+    user = self.stackView.arrangedSubviews.lastObject; //assign the last object in the stackView
+    [user removeFromSuperview]; // Find that object in the stackView and Remove it
+    [self.contactsToShow removeLastObject]; // Remove the last object from the array
     if (self.contactsToShow.count ==1) {
         self.inviteFriendsLabel.hidden = NO;
         self.addFriendsConstraint.constant = 0;
