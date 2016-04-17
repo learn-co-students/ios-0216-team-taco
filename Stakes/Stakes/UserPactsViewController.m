@@ -51,7 +51,8 @@
     
     self.ref = self.sharedData.firebaseRef;
     
-    self.currentOpenPact = self.sharedData.currentUser.pactsToShowInApp[0];
+    self.sharedData.currentPact =self.sharedData.currentUser.pactsToShowInApp[0];
+
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     self.tableView.allowMultipleSectionsOpen = NO;
@@ -103,47 +104,12 @@
 
 #pragma - observe events for user, user pacts, pacts/users
 
-//-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-//
-//    NSLog(@"selectedCell:%ld", indexPath.section);
-//    UserPactCellView *thisCell = [self.tableView cellForRowAtIndexPath:indexPath];
-//
-//}
 
 #pragma method that populates the view from Firebase
 
 
 
 #pragma gestureRecognizers for segues
-//
-//-(void)setupSwipeGestureRecognizer {
-//    
-//    UITapGestureRecognizer *cellTap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(swipeRightGestureHappened:)];
-//    
-//    [self.view addGestureRecognizer:cellTap];
-//    
-//    UISwipeGestureRecognizer *swipeLeft = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swifeLeftGestureHappened:)];
-//    [swipeLeft setDirection:UISwipeGestureRecognizerDirectionLeft];
-//
-//    [self.view addGestureRecognizer:swipeLeft];
-//}
-//
-//-(void)swipeRightGestureHappened:(UITapGestureRecognizer *)swipeGestureRight{
-//    
-//
-//    NSLog(@"Right Gesture Recognizer is happening!");
-//    
-//    [self performSegueWithIdentifier:@"segueToSmackTalkVC" sender:self];
-//
-//}
-//
-//-(void)swifeLeftGestureHappened:(UISwipeGestureRecognizer *)swifeGestureLeft
-//{
-//    NSLog(@"swiped left");
-//    
-//    [self performSegueWithIdentifier:@"segueToPactDetail" sender:self];
-//    
-//}
 
 
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView {
@@ -171,13 +137,10 @@
 {
     self.sharedData.currentPact = self.sharedData.currentUser.pactsToShowInApp[indexPath.section];
 
-    
     PactTableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:@"userPact"forIndexPath:indexPath];
     
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    
-//    cell.pact = self.sharedData.currentUser.pactsToShowInApp[indexPath.section];
-    
+        
     cell.delegate = self;
     
     return cell;
@@ -226,7 +189,7 @@
 
 - (void)tableView:(FZAccordionTableView *)tableView didOpenSection:(NSInteger)section withHeader:(PactAccordionHeaderView *)header {
     
-    self.currentOpenPact = self.sharedData.currentUser.pactsToShowInApp[section];
+    self.sharedData.currentPact = self.sharedData.currentUser.pactsToShowInApp[section];
 
 }
 
@@ -245,7 +208,7 @@
         
         smackTackViewController *thing = segue.destinationViewController;
         
-        thing.currentPact = self.currentOpenPact;
+        thing.currentPact = self.sharedData.currentPact;
         
     } else if ([segue.identifier isEqualToString:@"segueToCreatePact"]) {
         

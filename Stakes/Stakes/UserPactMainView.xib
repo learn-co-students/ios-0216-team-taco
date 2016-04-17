@@ -32,10 +32,10 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9YR-DT-yMz" userLabel="ViewForScrollView">
                     <rect key="frame" x="0.0" y="0.0" width="600" height="180"/>
                     <subviews>
-                        <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GQN-1U-NcY">
+                        <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GQN-1U-NcY">
                             <rect key="frame" x="0.0" y="0.0" width="600" height="180"/>
                             <subviews>
-                                <stackView opaque="NO" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0SU-pt-MMH">
+                                <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0SU-pt-MMH">
                                     <rect key="frame" x="0.0" y="0.0" width="1200" height="180"/>
                                 </stackView>
                             </subviews>
@@ -144,7 +144,7 @@
                                 <action selector="checkInButtonPressed:" destination="-1" eventType="touchUpInside" id="8bF-cV-wF7"/>
                             </connections>
                         </button>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Check In" textAlignment="center" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sr0-Tr-OR9">
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Check In" textAlignment="center" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sr0-Tr-OR9">
                             <rect key="frame" x="279" y="50" width="42" height="21"/>
                             <fontDescription key="fontDescription" type="system" pointSize="19"/>
                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>

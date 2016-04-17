@@ -7,8 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "JDDPact.h"
 
 @interface UserPactDetailView : UIView
-@property (strong, nonatomic) IBOutlet UIView *contentView;
+
+@property (strong, nonatomic) JDDPact *pact;
 
 @end

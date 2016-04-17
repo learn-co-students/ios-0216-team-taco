@@ -8,6 +8,7 @@
 
 #import "PactTableViewCell.h"
 #import "UserPactMainView.h"
+#import "UserPactDetailView.h"
 #import "JDDDataSource.h"
 
 @implementation PactTableViewCell
@@ -17,17 +18,15 @@
     [super awakeFromNib];
     
     [self createScrollView];
-    
     [self createStackView];
-    
     self.scrollView.delegate = self;
     
     [self.scrollView layoutIfNeeded];
     self.sharedData = [JDDDataSource sharedDataSource];
 
     self.pact = self.sharedData.currentPact;
-    [self createMainPactViewAtIndex:0 withPact:self.pact inStackView:self.stackView];
     
+    [self createMainPactViewAtIndex:0 withPact:self.pact inStackView:self.stackView];
     [self createPactDetailViewAtIndex:1 withPact:self.pact inStackView:self.stackView];
     
     
@@ -82,13 +81,10 @@
 -(void)createMainPactViewAtIndex:(NSUInteger)index withPact:(JDDPact *)pact inStackView:(UIStackView *)stackView{
     
     UserPactMainView * view = [[UserPactMainView alloc]initWithFrame:CGRectZero];
-    view.pact = pact; // This is nil why do we need this?
-    //    UIView *view = [[UIView alloc]init];
+    
+    view.pact = pact;
+    
     [stackView addArrangedSubview:view];
-    //    [stackView insertArrangedSubview:view atIndex:index];
-    
-    view.backgroundColor = [UIColor blueColor];
-    
     
     [view.widthAnchor constraintEqualToAnchor:self.contentView.widthAnchor].active = YES;
 //    [view.heightAnchor constraintEqualToAnchor:self.contentView.heightAnchor].active = YES;
@@ -97,10 +93,11 @@
 
 -(void)createPactDetailViewAtIndex:(NSUInteger)index withPact:(JDDPact *)pact inStackView:(UIStackView *)stackView{
     
-    UIView *view = [[UIView alloc]init];
-    [stackView insertArrangedSubview:view atIndex:index];
+    UserPactDetailView *view = [[UserPactDetailView alloc]initWithFrame:CGRectZero];
     
-    view.backgroundColor = [UIColor redColor];
+    view.pact = pact;
+    
+    [stackView insertArrangedSubview:view atIndex:index];
     
     
 }
@@ -108,7 +105,7 @@
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView {
     
     BOOL didSwipeToCertainPoint = NO;
-    if (scrollView.contentOffset.x < - (self.contentView.frame.size.width/6)) {
+    if (scrollView.contentOffset.x < - (self.contentView.frame.size.width/4)) {
         
         didSwipeToCertainPoint = YES;
         
@@ -123,7 +120,6 @@
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
     
-    // Configure the view for the selected state
 }
 
 @end
