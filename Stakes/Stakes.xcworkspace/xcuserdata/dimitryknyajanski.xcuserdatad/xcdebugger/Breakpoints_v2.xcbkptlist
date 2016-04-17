@@ -6,11 +6,19 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.ExceptionBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "No"
+            shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             scope = "0"
             stopOnStyle = "0">
+            <Actions>
+               <BreakpointActionProxy
+                  ActionExtensionID = "Xcode.BreakpointAction.DebuggerCommand">
+                  <ActionContent
+                     consoleCommand = "">
+                  </ActionContent>
+               </BreakpointActionProxy>
+            </Actions>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -19,13 +27,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Stakes/CreatePactViewController.m"
-            timestampString = "482443465.797321"
+            filePath = "Stakes/PactDetailViewController.m"
+            timestampString = "482564877.448859"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "497"
-            endingLineNumber = "497"
-            landmarkName = "-contactPicker:didSelectContacts:"
+            startingLineNumber = "31"
+            endingLineNumber = "31"
+            landmarkName = "-viewDidLoad"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -35,13 +43,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Stakes/CreatePactViewController.m"
-            timestampString = "482443469.067842"
+            filePath = "Stakes/UserPactMainView.m"
+            timestampString = "482572815.983935"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "486"
-            endingLineNumber = "486"
-            landmarkName = "-contactPicker:didSelectContacts:"
+            startingLineNumber = "253"
+            endingLineNumber = "253"
+            landmarkName = "-setShitUp"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -51,13 +59,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Stakes/CreatePactViewController.m"
-            timestampString = "482443759.924157"
+            filePath = "Stakes/UserPactMainView.m"
+            timestampString = "482573440.250118"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "551"
-            endingLineNumber = "551"
-            landmarkName = "-contactPicker:didSelectContacts:"
+            startingLineNumber = "249"
+            endingLineNumber = "249"
+            landmarkName = "-setShitUp"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -67,46 +75,14 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Stakes/CreatePactViewController.m"
-            timestampString = "482444434.260245"
+            filePath = "Stakes/UserPactMainView.m"
+            timestampString = "482573451.557361"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "552"
-            endingLineNumber = "552"
-            landmarkName = "-contactPicker:didSelectContacts:"
+            startingLineNumber = "201"
+            endingLineNumber = "201"
+            landmarkName = "-setShitUp"
             landmarkType = "5">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "-[CreatePactViewController contactPicker:didSelectContacts:]"
-                  moduleName = "Stakes"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/dimitryknyajanski/Development/code/ios-0216-team-taco/Stakes/Stakes/CreatePactViewController.m"
-                  timestampString = "482444445.742686"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "553"
-                  endingLineNumber = "553"
-                  offsetFromSymbolStart = "1912">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "-[CreatePactViewController contactPicker:didSelectContacts:]"
-                  moduleName = "Stakes"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/dimitryknyajanski/Development/code/ios-0216-team-taco/Stakes/Stakes/CreatePactViewController.m"
-                  timestampString = "482444445.74312"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "553"
-                  endingLineNumber = "553"
-                  offsetFromSymbolStart = "1924">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

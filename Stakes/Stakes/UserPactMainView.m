@@ -33,6 +33,7 @@
 @property (strong, nonatomic) IBOutlet UILabel *stakesTitle;
 @property (strong, nonatomic) IBOutlet UIView *CheckInButtonView;
 @property (strong, nonatomic) IBOutlet UIButton *checkInButton;
+@property (weak, nonatomic) IBOutlet UILabel *checkInLabel;
 
 @property (nonatomic) CGFloat latitude;
 @property (nonatomic) CGFloat longitude;
@@ -210,13 +211,13 @@
     // then for each user, createa a UserDescriptionView and add it to the stackview
     for (JDDUser *user in self.pact.usersToShowInApp){
        
-        UserDescriptionView *view = [[UserDescriptionView alloc]init];
+        UserDescriptionView *view1 = [[UserDescriptionView alloc]init];
         
         for (JDDCheckIn *checkin in self.pact.checkIns) {
             
             if ([checkin.userID isEqualToString:user.userID]) {
                 
-                view.checkinsCount ++;
+                view1.checkinsCount ++;
             }
         }
         ;
@@ -226,28 +227,42 @@
   
         user.isReady = valueIndicator;
         user.currentPactIn = currentPact;
-        view.borderView.layer.borderWidth = 1.0;
-        view.user = user;
-        NSLog(@"Is the view's user ready? %@", view.user.isReady);
+        view1.borderView.layer.borderWidth = 1.0;
+        view1.user = user;
+        NSLog(@"Is the view's user ready? %@", view1.user.isReady);
         // same as [view setUser:user];
-        [self.stackView addArrangedSubview:view];
+        [self.stackView addArrangedSubview:view1];
         
         
-        if (self.pact.users.count == 2) {
-            [view.widthAnchor constraintEqualToAnchor:self.scrollView.widthAnchor multiplier:0.5].active = YES;
-        } else {
-        [view.widthAnchor constraintEqualToAnchor:self.scrollView.widthAnchor multiplier:0.33].active = YES;
-        }
+//        if (self.pact.users.count == 2) {
+            [view1.widthAnchor constraintEqualToAnchor:self.scrollView.widthAnchor multiplier:0.33].active = YES;
+//        } else {
+//        [view1.widthAnchor constraintEqualToAnchor:self.scrollView.widthAnchor multiplier:0.33].active = YES;
+//        }
         
         [self.stackView layoutSubviews];//give subviews a size
-        view.clipsToBounds = YES;
+        view1.clipsToBounds = YES;
         
     }
     
     self.stakesText.text = self.pact.stakes;
     self.pactText.text = self.pact.pactDescription;
-    self.twitterText.text = self.pact.twitterPost;
+    self.checkInLabel.layer.borderWidth = 1;
+    self.checkInLabel.layer.cornerRadius = 10;
+    
+    
+    
+    
+    if (self.pact.twitterPost.length > 0) {
+        self.TwitterTitle.text = self.pact.twitterPost;
+        self.TwitterTitle.hidden = NO;
+        self.twitterText.hidden = NO;
 
+    } else {
+        self.TwitterTitle.hidden = YES;
+        self.twitterText.hidden = YES;
+    }
+    
 }
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
