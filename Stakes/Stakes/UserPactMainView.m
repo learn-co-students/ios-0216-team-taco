@@ -20,7 +20,7 @@
 
 @interface UserPactMainView ()
 
-@property (strong, nonatomic) IBOutlet UserPactMainView *contentView;
+@property (strong, nonatomic) IBOutlet UserPactMainView * contentView;
 @property (strong, nonatomic) IBOutlet UIView *viewForScrollView;
 @property (strong, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (strong, nonatomic) IBOutlet UIStackView *stackView;
@@ -127,6 +127,7 @@
     [self.locationManager startUpdatingLocation];
     
     [[NSNotificationCenter defaultCenter] postNotificationName:UserCheckedInNotificationName object:self.pact];
+    
 }
 
 //location geo delagates methods.
@@ -179,6 +180,7 @@
     [super awakeFromNib];
     
     self.sharedData = [JDDDataSource sharedDataSource];
+        
     [self addObserver:self forKeyPath:@"pact.users" options:NSKeyValueObservingOptionNew context:nil];
 }
 
@@ -187,11 +189,6 @@
     NSLog(@"observed changes %@", change);
 }
 
-//- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
-//    
-//    [super setSelected:selected animated:animated];
-//
-//}
 
 -(void)setPact:(JDDPact *)pact{
     _pact = pact;

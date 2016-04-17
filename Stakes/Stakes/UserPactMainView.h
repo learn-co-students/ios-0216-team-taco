@@ -20,7 +20,6 @@
 
 @property (nonatomic) JDDPact *pact;
 
-
 -(void)setShitUp;
 
 

@@ -178,8 +178,7 @@
         self.createdPact.dateOfCreation = currentDate;
         self.createdPact.isActive = NO;
         
-        
-        self.createdPact.users = self.contactsToShow;
+        self.createdPact.usersToShowInApp = self.contactsToShow;
         
         
         [self sendPactToFirebase];
@@ -567,10 +566,6 @@
         self.RemoveInvitesButton.hidden = YES;
     }
 }
-
-
-
-
 
 -(void)addUserToInviteScrollView: (JDDUser*)user {
     UserDescriptionView *view3 = [[UserDescriptionView alloc]init];
