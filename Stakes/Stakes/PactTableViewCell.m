@@ -13,6 +13,7 @@
 
 
 - (void)awakeFromNib {
+    
     [super awakeFromNib];
     
     [self createScrollView];
@@ -26,12 +27,6 @@
     [self createMainPactViewAtIndex:0 withPact:self.pact inStackView:self.stackView];
     
     [self createPactDetailViewAtIndex:1 withPact:self.pact inStackView:self.stackView];
-    
-    
-    
-    //    [[NSBundle mainBundle] loadNibNamed:@"PactTableViewCell" owner:self options:nil];
-    //
-    //    [self addSubview:self.viewOfContent];
     
 }
 
@@ -80,10 +75,9 @@
     
     UserPactMainView * view = [[UserPactMainView alloc]initWithFrame:CGRectZero];
     
+    view.pact = [[JDDPact alloc]init];
     view.pact = pact;
-    //    UIView *view = [[UIView alloc]init];
     [stackView addArrangedSubview:view];
-    //    [stackView insertArrangedSubview:view atIndex:index];
     
     view.backgroundColor = [UIColor blueColor];
     

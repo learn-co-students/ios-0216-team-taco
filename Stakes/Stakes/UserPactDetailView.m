@@ -11,6 +11,13 @@
 //#import "JDDUser.h"
 //#import "JDDCheckIn.h"
 //
+//@interface UserPactDetailView ()
+//
+//
+//
+//
+//@end
+//
 //@implementation UserPactDetailView
 //
 //-(instancetype)initWithCoder:(NSCoder *)aDecoder
@@ -188,6 +195,6 @@
 //    
 //}
 //
-//
-//
+
+
 //@end

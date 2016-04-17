@@ -173,6 +173,8 @@
     
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
+    cell.pact = [[JDDPact alloc]init];
+    
     cell.pact = self.sharedData.currentUser.pactsToShowInApp[indexPath.section];
     
     cell.delegate = self;

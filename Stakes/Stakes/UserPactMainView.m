@@ -126,6 +126,7 @@
     [self.locationManager startUpdatingLocation];
     
     [[NSNotificationCenter defaultCenter] postNotificationName:UserCheckedInNotificationName object:self.pact];
+    
 }
 
 //location geo delagates methods.
@@ -178,6 +179,7 @@
     [super awakeFromNib];
     
     self.sharedData = [JDDDataSource sharedDataSource];
+        
     [self addObserver:self forKeyPath:@"pact.users" options:NSKeyValueObservingOptionNew context:nil];
 }
 
