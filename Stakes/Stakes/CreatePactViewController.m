@@ -178,8 +178,7 @@
         self.createdPact.dateOfCreation = currentDate;
         self.createdPact.isActive = NO;
         
-        
-        self.createdPact.users = self.contactsToShow;
+        self.createdPact.usersToShowInApp = self.contactsToShow;
         
         
         [self sendPactToFirebase];
@@ -201,7 +200,7 @@
                                     [[NSOperationQueue mainQueue] addOperationWithBlock:^{
                                         
                                         
-                                        //                                        [self dismissViewControllerAnimated:YES completion:nil];
+                                        //                                        [self dismissViewControllerAnimated:YES completion:nil];// We dont need this here
                                         
                                     }];
                                 }
@@ -557,10 +556,10 @@
 
 
 - (IBAction)removeContactButton:(id)sender {
-    UserDescriptionView *user = [[UserDescriptionView alloc]init];
-    user = self.stackView.arrangedSubviews.lastObject;
-    [self.stackView removeArrangedSubview:user];
-    [self.contactsToShow removeLastObject];
+    UserDescriptionView *user4 = [[UserDescriptionView alloc]init];
+    user4 = self.stackView.arrangedSubviews.lastObject; //assign the last object in the stackView
+    [user4 removeFromSuperview]; // Find that object in the stackView and Remove it
+    [self.contactsToShow removeLastObject]; // Remove the last object from the array
     if (self.contactsToShow.count ==1) {
         self.inviteFriendsLabel.hidden = NO;
         self.addFriendsConstraint.constant = 0;
@@ -568,23 +567,19 @@
     }
 }
 
-
-
-
-
 -(void)addUserToInviteScrollView: (JDDUser*)user {
-    UserDescriptionView *view = [[UserDescriptionView alloc]init];
-    view.indicatorLabel.hidden = YES;
-    view.countOfCheckInsLabel.hidden = YES;
-    view.borderView.layer.borderWidth = 0.8;
-    view.user = user;
+    UserDescriptionView *view3 = [[UserDescriptionView alloc]init];
+    view3.indicatorLabel.hidden = YES;
+    view3.countOfCheckInsLabel.hidden = YES;
+    view3.borderView.layer.borderWidth = 0.8;
+    view3.user = user;
     
     if (self.stackView.arrangedSubviews.count == 0) {
-        [self.stackView addArrangedSubview:view];
+        [self.stackView addArrangedSubview:view3];
         self.RemoveInvitesButton.hidden = NO;
         self.inviteFriendsLabel.hidden = YES;
         self.addFriendsConstraint.constant = 40;
-        [view.widthAnchor constraintEqualToAnchor:self.scrollView.widthAnchor multiplier:0.25].active = YES;
+        [view3.widthAnchor constraintEqualToAnchor:self.scrollView.widthAnchor multiplier:0.25].active = YES;
         
         
     } else  {
@@ -594,12 +589,12 @@
         }
         
         
-        if ([userIDsInStackView containsObject:view.user.userID]) {
+        if ([userIDsInStackView containsObject:view3.user.userID]) {
             NSLog(@"Already have this user in the scrollView");
-            [self alertUserAlreadyAdded:view.user.displayName];
+            [self alertUserAlreadyAdded:view3.user.displayName];
             
         } else {
-            [self.stackView addArrangedSubview:view];
+            [self.stackView addArrangedSubview:view3];
             
         }
         

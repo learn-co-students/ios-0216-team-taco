@@ -6,7 +6,7 @@
 //  Copyright © 2016 JDD. All rights reserved.
 //
 
-#import "UserPactCellView.h"
+#import "UserPactMainView.h"
 #import "JDDDataSource.h"
 #import "JDDCheckIn.h"
 #import "JSQMessage.h"
@@ -18,33 +18,82 @@
 #import "UserPactsViewController.h"
 #import "Constants.h"
 
-@interface UserPactCellView () 
+@interface UserPactMainView ()
 
-@property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
-@property (weak, nonatomic) IBOutlet UIStackView *stackView;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *stackViewWidth;
-@property (weak, nonatomic) IBOutlet UIView *View1;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *stackViewHeight;
-@property (weak, nonatomic) IBOutlet UILabel *pactDetalisHeaderLabel;
+@property (strong, nonatomic) IBOutlet UserPactMainView * contentView;
+@property (strong, nonatomic) IBOutlet UIView *viewForScrollView;
+@property (strong, nonatomic) IBOutlet UIScrollView *scrollView;
+@property (strong, nonatomic) IBOutlet UIStackView *stackView;
+@property (strong, nonatomic) IBOutlet UIView *textView;
+@property (strong, nonatomic) IBOutlet UILabel *twitterText;
+@property (strong, nonatomic) IBOutlet UILabel *TwitterTitle;
+@property (strong, nonatomic) IBOutlet UILabel *pactText;
+@property (strong, nonatomic) IBOutlet UILabel *stakesText;
+@property (strong, nonatomic) IBOutlet UILabel *pactTitle;
+@property (strong, nonatomic) IBOutlet UILabel *stakesTitle;
+@property (strong, nonatomic) IBOutlet UIView *CheckInButtonView;
+@property (strong, nonatomic) IBOutlet UIButton *checkInButton;
+@property (weak, nonatomic) IBOutlet UILabel *checkInLabel;
 
-@property (weak, nonatomic) IBOutlet UILabel *pactDetailsLabel;
-
-@property (strong, nonatomic) NSArray *pactMembers;
-@property (weak, nonatomic) IBOutlet UILabel *MembersCountLabel;
-
-@property (weak, nonatomic) IBOutlet UILabel *stakesLabel;
-
-@property (weak, nonatomic) IBOutlet UILabel *twitterPostLabel;
 @property (nonatomic) CGFloat latitude;
 @property (nonatomic) CGFloat longitude;
 @property (nonatomic, strong) CLLocation *location;
 
+@property(nonatomic, strong) CLLocationManager *locationManager;
+@property (nonatomic, strong) JDDDataSource *sharedData;
+@property (nonatomic, strong) JDDCheckIn *checkIn;
+@property (nonatomic,strong) Firebase *firebase;
 
 @end
 
-@implementation UserPactCellView
+@implementation UserPactMainView
 
 //=============================================================================================================================
+
+
+-(instancetype)initWithCoder:(NSCoder *)aDecoder
+{
+   
+    self = [super initWithCoder:aDecoder];
+    
+    if (self) {
+        
+        [self commonInit];
+    }
+    
+    return self;
+}
+
+-(instancetype)initWithFrame:(CGRect)frame
+{
+    
+    self = [super initWithFrame:frame];
+    
+    if (self) {
+        
+        [self commonInit];
+    }
+    
+    return self;
+}
+
+-(void)commonInit
+{
+    
+    NSLog(@"commonInit called in UserPactMainView.");
+    
+    [[NSBundle mainBundle] loadNibNamed:@"UserPactMainView" owner:self options:nil];
+    
+    [self addSubview:self.contentView];
+    
+    self.contentView.translatesAutoresizingMaskIntoConstraints = NO;
+    [self.contentView.topAnchor constraintEqualToAnchor:self.topAnchor].active = YES;
+    [self.contentView.leftAnchor constraintEqualToAnchor:self.leftAnchor].active = YES;
+    [self.contentView.rightAnchor constraintEqualToAnchor:self.rightAnchor].active = YES;
+    [self.contentView.bottomAnchor constraintEqualToAnchor:self.bottomAnchor].active = YES;
+    
+}
+
 
 - (IBAction)checkInButtonPressed:(id)sender {
        
@@ -78,6 +127,7 @@
     [self.locationManager startUpdatingLocation];
     
     [[NSNotificationCenter defaultCenter] postNotificationName:UserCheckedInNotificationName object:self.pact];
+    
 }
 
 //location geo delagates methods.
@@ -130,6 +180,7 @@
     [super awakeFromNib];
     
     self.sharedData = [JDDDataSource sharedDataSource];
+        
     [self addObserver:self forKeyPath:@"pact.users" options:NSKeyValueObservingOptionNew context:nil];
 }
 
@@ -138,11 +189,6 @@
     NSLog(@"observed changes %@", change);
 }
 
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
-    
-    [super setSelected:selected animated:animated];
-
-}
 
 -(void)setPact:(JDDPact *)pact{
     _pact = pact;
@@ -160,13 +206,13 @@
     // then for each user, createa a UserDescriptionView and add it to the stackview
     for (JDDUser *user in self.pact.usersToShowInApp){
        
-        UserDescriptionView *view = [[UserDescriptionView alloc]init];
+        UserDescriptionView *view1 = [[UserDescriptionView alloc]init];
         
         for (JDDCheckIn *checkin in self.pact.checkIns) {
             
             if ([checkin.userID isEqualToString:user.userID]) {
                 
-                view.checkinsCount ++;
+                view1.checkinsCount ++;
             }
         }
         ;
@@ -176,41 +222,42 @@
   
         user.isReady = valueIndicator;
         user.currentPactIn = currentPact;
-        view.borderView.layer.borderWidth = 1.0;
-        view.user = user;
-        NSLog(@"Is the view's user ready? %@", view.user.isReady);
+        view1.borderView.layer.borderWidth = 1.0;
+        view1.user = user;
+        NSLog(@"Is the view's user ready? %@", view1.user.isReady);
         // same as [view setUser:user];
-        [self.stackView addArrangedSubview:view];
+        [self.stackView addArrangedSubview:view1];
         
         
-        if (self.pact.users.count == 2) {
-            [view.widthAnchor constraintEqualToAnchor:self.scrollView.widthAnchor multiplier:0.5].active = YES;
-        } else {
-        [view.widthAnchor constraintEqualToAnchor:self.scrollView.widthAnchor multiplier:0.33].active = YES;
-        }
+//        if (self.pact.users.count == 2) {
+            [view1.widthAnchor constraintEqualToAnchor:self.scrollView.widthAnchor multiplier:0.33].active = YES;
+//        } else {
+//        [view1.widthAnchor constraintEqualToAnchor:self.scrollView.widthAnchor multiplier:0.33].active = YES;
+//        }
         
         [self.stackView layoutSubviews];//give subviews a size
-        view.clipsToBounds = YES;
+        view1.clipsToBounds = YES;
         
     }
-    self.MembersCountLabel.text = [NSString stringWithFormat:@"%li Members",self.pact.users.count];
-    self.pactDetalisHeaderLabel.backgroundColor =[UIColor blackColor];
-    self.pactDetalisHeaderLabel.textColor = [UIColor whiteColor];
-    [self.pactDetalisHeaderLabel setFont: [self.pactDetalisHeaderLabel.font fontWithSize: 14]];
+    
+    self.stakesText.text = self.pact.stakes;
+    self.pactText.text = self.pact.pactDescription;
+    self.checkInLabel.layer.borderWidth = 1;
+    self.checkInLabel.layer.cornerRadius = 10;
+    
+    
+    
+    
+    if (self.pact.twitterPost.length > 0) {
+        self.TwitterTitle.text = self.pact.twitterPost;
+        self.TwitterTitle.hidden = NO;
+        self.twitterText.hidden = NO;
 
+    } else {
+        self.TwitterTitle.hidden = YES;
+        self.twitterText.hidden = YES;
+    }
     
-    
-    self.stakesLabel.backgroundColor =[UIColor blackColor];
-    self.stakesLabel.textColor = [UIColor whiteColor];
-    self.pactDetailsLabel.text = self.pact.pactDescription;
-    [self.stakesLabel setFont: [self.stakesLabel.font fontWithSize: 14]];
-    self.stakesLabel.text = @"What are the stakes?";
-    
-//    NSString *twitterPost =
-    self.twitterPostLabel.text = self.pact.stakes;
-
-    
-
 }
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {

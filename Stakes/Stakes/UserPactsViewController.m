@@ -1,4 +1,4 @@
-//
+    //
 //  UserPactsViewController.m
 //  stakes
 //
@@ -13,7 +13,7 @@
 #import <FZAccordionTableView/FZAccordionTableView.h>
 #import "PactAccordionHeaderView.h"
 #import "JDDDataSource.h"
-#import "UserPactCellView.h"
+#import "PactTableViewCell.h"
 #import "PactDetailViewController.h"
 #import "CreatePactViewController.h"
 #import "LoginViewController.h"
@@ -22,7 +22,7 @@
 #import <AFNetworking/UIImageView+AFNetworking.h>
 #import "UserDescriptionView.h"
 
-@interface UserPactsViewController () <UITableViewDataSource, UITableViewDelegate>
+@interface UserPactsViewController () <UITableViewDataSource, UITableViewDelegate,PactTableViewCellDelegate>
 
 @property (weak, nonatomic) IBOutlet FZAccordionTableView *tableView;
 @property (nonatomic, strong) JDDDataSource *sharedData;
@@ -51,7 +51,8 @@
     
     self.ref = self.sharedData.firebaseRef;
     
-    self.currentOpenPact = self.sharedData.currentUser.pactsToShowInApp[0];
+    self.sharedData.currentPact =self.sharedData.currentUser.pactsToShowInApp[0];
+
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     self.tableView.allowMultipleSectionsOpen = NO;
@@ -60,11 +61,16 @@
     self.tableView.scrollEnabled = YES;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
-    [self.tableView registerNib:[UINib nibWithNibName:@"UserPactCellView" bundle:nil] forCellReuseIdentifier:@"userPact"];
+//    [self.tableView registerNib:[UINib nibWithNibName:@"PactTableViewCell" bundle:nil] forCellReuseIdentifier:@"userPact"];
+//    
+    UINib *cellNib = [UINib nibWithNibName:@"PactTableViewCell" bundle:nil];
+    [self.tableView registerNib:cellNib forCellReuseIdentifier:@"userPact"];
+
     [self.tableView registerNib:[UINib nibWithNibName:@"PactAccordionHeaderView" bundle:nil] forHeaderFooterViewReuseIdentifier:accordionHeaderReuseIdentifier];
     
-    [self setupSwipeGestureRecognizer];
-    
+//    [self setupSwipeGestureRecognizer];
+
+
     self.accountStore = [[ACAccountStore alloc] init];
     NSLog(@"accountstore accounts %@", self.accountStore.accounts);
     NSString *accountKey = [[NSUserDefaults standardUserDefaults] objectForKey:AccountIdentifierKey];
@@ -98,12 +104,6 @@
 
 #pragma - observe events for user, user pacts, pacts/users
 
-//-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-//
-//    NSLog(@"selectedCell:%ld", indexPath.section);
-//    UserPactCellView *thisCell = [self.tableView cellForRowAtIndexPath:indexPath];
-//
-//}
 
 #pragma method that populates the view from Firebase
 
@@ -111,34 +111,6 @@
 
 #pragma gestureRecognizers for segues
 
--(void)setupSwipeGestureRecognizer {
-    
-    UITapGestureRecognizer *cellTap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(swipeRightGestureHappened:)];
-    
-    [self.view addGestureRecognizer:cellTap];
-    
-    UISwipeGestureRecognizer *swipeLeft = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swifeLeftGestureHappened:)];
-    [swipeLeft setDirection:UISwipeGestureRecognizerDirectionLeft];
-    
-    [self.view addGestureRecognizer:swipeLeft];
-}
-
--(void)swipeRightGestureHappened:(UITapGestureRecognizer *)swipeGestureRight{
-    
-    
-    NSLog(@"Right Gesture Recognizer is happening!");
-    
-    [self performSegueWithIdentifier:@"segueToSmackTalkVC" sender:self];
-    
-}
-
--(void)swifeLeftGestureHappened:(UISwipeGestureRecognizer *)swifeGestureLeft
-{
-    NSLog(@"swiped left");
-    
-    [self performSegueWithIdentifier:@"segueToPactDetail" sender:self];
-    
-}
 
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView {
     
@@ -163,12 +135,24 @@
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UserPactCellView * cell = [tableView dequeueReusableCellWithIdentifier:@"userPact"forIndexPath:indexPath];
+    self.sharedData.currentPact = self.sharedData.currentUser.pactsToShowInApp[indexPath.section];
+
+    PactTableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:@"userPact"forIndexPath:indexPath];
     
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        
+    cell.delegate = self;
     
-    cell.pact = self.sharedData.currentUser.pactsToShowInApp[indexPath.section];
     return cell;
+}
+
+-(void)pactTableViewCell:(PactTableViewCell *)pactTableViewCell shouldSegueToSmackTalkVC:(BOOL)shouldSegueToSmacktalkVC {
+    
+    if(shouldSegueToSmacktalkVC) {
+        
+        [self performSegueWithIdentifier:@"segueToSmackTalkVC" sender:self];
+    }
+    
 }
 
 
@@ -185,7 +169,6 @@
 
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-    
     JDDPact *currentPact = self.sharedData.currentUser.pactsToShowInApp[section];
     
     PactAccordionHeaderView *accordianHeaderView = [tableView dequeueReusableHeaderFooterViewWithIdentifier:accordionHeaderReuseIdentifier];
@@ -206,7 +189,7 @@
 
 - (void)tableView:(FZAccordionTableView *)tableView didOpenSection:(NSInteger)section withHeader:(PactAccordionHeaderView *)header {
     
-    self.currentOpenPact = self.sharedData.currentUser.pactsToShowInApp[section];
+    self.sharedData.currentPact = self.sharedData.currentUser.pactsToShowInApp[section];
 
 }
 
@@ -225,7 +208,7 @@
         
         smackTackViewController *thing = segue.destinationViewController;
         
-        thing.currentPact = self.currentOpenPact;
+        thing.currentPact = self.sharedData.currentPact;
         
     } else if ([segue.identifier isEqualToString:@"segueToCreatePact"]) {
         
@@ -265,6 +248,7 @@
     }];
     
 }
+
 
 -(void)updateCheckInsForPact:(JDDPact *)updatedPact withCompletion:(void (^)(BOOL success))completionBlock
 {
