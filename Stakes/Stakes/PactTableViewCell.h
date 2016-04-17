@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "JDDPact.h"
+#import "JDDDataSource.h"
 
 @class PactTableViewCell;
 
@@ -23,6 +24,7 @@
 @property (nonatomic, weak) id <PactTableViewCellDelegate> delegate;
 @property (nonatomic, strong)UIScrollView *scrollView;
 @property (nonatomic, strong)UIStackView *stackView;
+@property (nonatomic,strong) JDDDataSource *sharedData;
 
 @property (nonatomic, strong)JDDPact * pact;
 

@@ -11,6 +11,7 @@
                 <outlet property="CheckInButtonView" destination="Y7Z-ew-n3z" id="Ka5-90-DeQ"/>
                 <outlet property="TwitterTitle" destination="IVA-qI-vtn" id="KUS-0D-WF4"/>
                 <outlet property="checkInButton" destination="NEB-j1-gUG" id="QkA-pS-gJF"/>
+                <outlet property="checkInLabel" destination="sr0-Tr-OR9" id="UCs-Dz-JSv"/>
                 <outlet property="contentView" destination="iN0-l3-epB" id="gsA-ne-WsP"/>
                 <outlet property="pactText" destination="Ty5-97-lvX" id="4Yw-FE-B4M"/>
                 <outlet property="pactTitle" destination="Irm-s0-rrK" id="JNq-ub-epk"/>
@@ -45,58 +46,71 @@
                                 <constraint firstAttribute="bottom" secondItem="0SU-pt-MMH" secondAttribute="bottom" id="kuR-bB-Rb8"/>
                                 <constraint firstItem="0SU-pt-MMH" firstAttribute="leading" secondItem="GQN-1U-NcY" secondAttribute="leading" id="oW1-7E-9Wx"/>
                             </constraints>
+                            <variation key="default">
+                                <mask key="constraints">
+                                    <exclude reference="CRr-p2-S9c"/>
+                                    <exclude reference="eof-f2-CIv"/>
+                                    <exclude reference="kuR-bB-Rb8"/>
+                                </mask>
+                            </variation>
                         </scrollView>
                     </subviews>
-                    <color key="backgroundColor" red="1" green="0.0016199964350000001" blue="0.68500818789999995" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
                         <constraint firstAttribute="bottom" secondItem="GQN-1U-NcY" secondAttribute="bottom" id="2dC-jD-Ack"/>
+                        <constraint firstAttribute="bottom" secondItem="0SU-pt-MMH" secondAttribute="bottom" id="CUk-ib-U84"/>
                         <constraint firstAttribute="trailing" secondItem="GQN-1U-NcY" secondAttribute="trailing" id="Qtd-V8-xwB"/>
                         <constraint firstItem="GQN-1U-NcY" firstAttribute="leading" secondItem="9YR-DT-yMz" secondAttribute="leading" id="Vgd-80-szw"/>
+                        <constraint firstItem="0SU-pt-MMH" firstAttribute="top" secondItem="9YR-DT-yMz" secondAttribute="top" id="aTN-hl-8qE"/>
                         <constraint firstItem="GQN-1U-NcY" firstAttribute="top" secondItem="9YR-DT-yMz" secondAttribute="top" id="yHd-TL-MMu"/>
                         <constraint firstItem="0SU-pt-MMH" firstAttribute="width" secondItem="9YR-DT-yMz" secondAttribute="width" id="zhr-xo-16d"/>
                     </constraints>
+                    <variation key="default">
+                        <mask key="constraints">
+                            <exclude reference="zhr-xo-16d"/>
+                        </mask>
+                    </variation>
                 </view>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0Dt-or-GNl" userLabel="TextView">
+                <view alpha="0.80000000000000004" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0Dt-or-GNl" userLabel="TextView">
                     <rect key="frame" x="0.0" y="180" width="600" height="300"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Twitter" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tPE-cj-xfF">
                             <rect key="frame" x="0.0" y="199" width="600" height="23"/>
                             <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="17"/>
-                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                            <color key="textColor" red="0.99598389863967896" green="0.99614673852920532" blue="0.99594932794570923" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Twitter Text" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IVA-qI-vtn" userLabel="TwitterHeader">
                             <rect key="frame" x="0.0" y="236" width="600" height="24"/>
                             <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="17"/>
-                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                            <color key="textColor" red="0.99598389863967896" green="0.99614673852920532" blue="0.99594932794570923" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pact Text" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ty5-97-lvX" userLabel="PactText">
                             <rect key="frame" x="30" y="146" width="540" height="24"/>
                             <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="17"/>
-                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                            <color key="textColor" red="0.99598389863967896" green="0.99614673852920532" blue="0.99594932794570923" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Stakes Text" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pix-AW-HSx" userLabel="StakesText">
                             <rect key="frame" x="30" y="49" width="540" height="24"/>
                             <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="17"/>
-                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                            <color key="textColor" red="0.99598389863967896" green="0.99614673852920532" blue="0.99594932794570923" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pact" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Irm-s0-rrK" userLabel="PactHeader">
                             <rect key="frame" x="30" y="109" width="540" height="23"/>
                             <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="17"/>
-                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                            <color key="textColor" red="0.99598389863967896" green="0.99614673852920532" blue="0.99594932794570923" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Stakes" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RZV-8S-OiW" userLabel="StakesHeader">
                             <rect key="frame" x="275" y="11" width="50" height="23"/>
                             <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="17"/>
-                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                            <color key="textColor" red="0.99598389863967896" green="0.99614673852920532" blue="0.99594932794570923" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
                     </subviews>
-                    <color key="backgroundColor" red="0.54415023770000004" green="0.9944700783" blue="0.44631047260000001" alpha="1" colorSpace="calibratedRGB"/>
+                    <color key="backgroundColor" red="0.031370580196380615" green="0.058635435998439789" blue="0.023802164942026138" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
                         <constraint firstItem="tPE-cj-xfF" firstAttribute="centerY" secondItem="0Dt-or-GNl" secondAttribute="centerY" multiplier="1.4" id="1Jj-1c-SYq"/>
                         <constraint firstItem="pix-AW-HSx" firstAttribute="centerX" secondItem="0Dt-or-GNl" secondAttribute="centerX" id="8vk-1B-19d"/>
@@ -121,22 +135,32 @@
                     <rect key="frame" x="0.0" y="480" width="600" height="120"/>
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NEB-j1-gUG">
-                            <rect key="frame" x="0.0" y="0.0" width="600" height="120"/>
+                            <rect key="frame" x="150" y="0.0" width="300" height="120"/>
                             <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="25"/>
-                            <state key="normal" title="Button">
-                                <color key="titleColor" red="0.1442368892" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            <state key="normal">
+                                <color key="titleColor" red="0.031370580196380615" green="0.058635435998439789" blue="0.023802164942026138" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </state>
                             <connections>
                                 <action selector="checkInButtonPressed:" destination="-1" eventType="touchUpInside" id="8bF-cV-wF7"/>
                             </connections>
                         </button>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Check In" textAlignment="center" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sr0-Tr-OR9">
+                            <rect key="frame" x="279" y="50" width="42" height="21"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="19"/>
+                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
                     </subviews>
-                    <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                    <color key="backgroundColor" red="0.99598389863967896" green="0.99614673852920532" blue="0.99594932794570923" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
+                        <constraint firstItem="sr0-Tr-OR9" firstAttribute="centerX" secondItem="Y7Z-ew-n3z" secondAttribute="centerX" id="Bwe-d2-plK"/>
                         <constraint firstItem="NEB-j1-gUG" firstAttribute="height" secondItem="Y7Z-ew-n3z" secondAttribute="height" id="N40-35-NJ6"/>
-                        <constraint firstItem="NEB-j1-gUG" firstAttribute="width" secondItem="Y7Z-ew-n3z" secondAttribute="width" id="arK-dm-s6z"/>
+                        <constraint firstItem="NEB-j1-gUG" firstAttribute="width" secondItem="Y7Z-ew-n3z" secondAttribute="width" multiplier="0.5" id="arK-dm-s6z"/>
                         <constraint firstItem="NEB-j1-gUG" firstAttribute="centerX" secondItem="Y7Z-ew-n3z" secondAttribute="centerX" id="cAQ-sA-rU5"/>
+                        <constraint firstItem="sr0-Tr-OR9" firstAttribute="centerY" secondItem="Y7Z-ew-n3z" secondAttribute="centerY" id="ggf-kW-IeZ"/>
+                        <constraint firstItem="sr0-Tr-OR9" firstAttribute="width" secondItem="Y7Z-ew-n3z" secondAttribute="width" multiplier="0.7" id="ojD-S6-Blg"/>
                         <constraint firstItem="NEB-j1-gUG" firstAttribute="centerY" secondItem="Y7Z-ew-n3z" secondAttribute="centerY" id="vB5-0X-9vV"/>
+                        <constraint firstItem="sr0-Tr-OR9" firstAttribute="height" secondItem="Y7Z-ew-n3z" secondAttribute="height" multiplier="0.5" id="xX5-rv-fqH"/>
                     </constraints>
                 </view>
             </subviews>

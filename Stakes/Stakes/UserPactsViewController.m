@@ -1,4 +1,4 @@
-//
+    //
 //  UserPactsViewController.m
 //  stakes
 //
@@ -61,7 +61,7 @@
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
 //    [self.tableView registerNib:[UINib nibWithNibName:@"PactTableViewCell" bundle:nil] forCellReuseIdentifier:@"userPact"];
-    
+//    
     UINib *cellNib = [UINib nibWithNibName:@"PactTableViewCell" bundle:nil];
     [self.tableView registerNib:cellNib forCellReuseIdentifier:@"userPact"];
 
@@ -169,11 +169,14 @@
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    self.sharedData.currentPact = self.sharedData.currentUser.pactsToShowInApp[indexPath.section];
+
+    
     PactTableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:@"userPact"forIndexPath:indexPath];
     
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
-    cell.pact = self.sharedData.currentUser.pactsToShowInApp[indexPath.section];
+//    cell.pact = self.sharedData.currentUser.pactsToShowInApp[indexPath.section];
     
     cell.delegate = self;
     
@@ -203,7 +206,6 @@
 
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-    
     JDDPact *currentPact = self.sharedData.currentUser.pactsToShowInApp[section];
     
     PactAccordionHeaderView *accordianHeaderView = [tableView dequeueReusableHeaderFooterViewWithIdentifier:accordionHeaderReuseIdentifier];

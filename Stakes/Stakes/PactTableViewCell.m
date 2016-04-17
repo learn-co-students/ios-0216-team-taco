@@ -8,6 +8,7 @@
 
 #import "PactTableViewCell.h"
 #import "UserPactMainView.h"
+#import "JDDDataSource.h"
 
 @implementation PactTableViewCell
 
@@ -22,7 +23,9 @@
     self.scrollView.delegate = self;
     
     [self.scrollView layoutIfNeeded];
-    
+    self.sharedData = [JDDDataSource sharedDataSource];
+
+    self.pact = self.sharedData.currentPact;
     [self createMainPactViewAtIndex:0 withPact:self.pact inStackView:self.stackView];
     
     [self createPactDetailViewAtIndex:1 withPact:self.pact inStackView:self.stackView];
@@ -47,7 +50,7 @@
     [self.scrollView.rightAnchor constraintEqualToAnchor:self.contentView.rightAnchor
      ].active = YES;
     [self.scrollView.bottomAnchor constraintEqualToAnchor:self.contentView.bottomAnchor].active = YES;
-    [self.scrollView.heightAnchor constraintEqualToAnchor:self.contentView.heightAnchor].active = YES;
+//    [self.scrollView.heightAnchor constraintEqualToAnchor:self.contentView.heightAnchor].active = YES;
     
     self.scrollView.userInteractionEnabled = YES;
     self.scrollView.showsHorizontalScrollIndicator = YES;
@@ -65,11 +68,11 @@
     
     self.stackView.translatesAutoresizingMaskIntoConstraints = NO;
     
-    [self.stackView.topAnchor constraintEqualToAnchor:self.scrollView.topAnchor].active = YES;
-    [self.stackView.bottomAnchor constraintEqualToAnchor:self.scrollView.bottomAnchor].active = YES;
+    [self.stackView.topAnchor constraintEqualToAnchor:self.contentView.topAnchor].active = YES;
+    [self.stackView.bottomAnchor constraintEqualToAnchor:self.contentView.bottomAnchor].active = YES;
     [self.stackView.leftAnchor constraintEqualToAnchor:self.scrollView.leftAnchor].active = YES;
     [self.stackView.rightAnchor constraintEqualToAnchor:self.scrollView.rightAnchor].active = YES;
-    [self.stackView.heightAnchor constraintEqualToAnchor:self.contentView.heightAnchor].active = YES;
+    
     self.stackView.axis = UILayoutConstraintAxisHorizontal;
     self.stackView.distribution = UIStackViewDistributionFillEqually;
     self.stackView.alignment = UIStackViewAlignmentFill;
@@ -79,8 +82,7 @@
 -(void)createMainPactViewAtIndex:(NSUInteger)index withPact:(JDDPact *)pact inStackView:(UIStackView *)stackView{
     
     UserPactMainView * view = [[UserPactMainView alloc]initWithFrame:CGRectZero];
-    
-    view.pact = pact;
+    view.pact = pact; // This is nil why do we need this?
     //    UIView *view = [[UIView alloc]init];
     [stackView addArrangedSubview:view];
     //    [stackView insertArrangedSubview:view atIndex:index];
@@ -89,6 +91,7 @@
     
     
     [view.widthAnchor constraintEqualToAnchor:self.contentView.widthAnchor].active = YES;
+//    [view.heightAnchor constraintEqualToAnchor:self.contentView.heightAnchor].active = YES;
     
 }
 
