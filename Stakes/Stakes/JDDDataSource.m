@@ -39,7 +39,7 @@
         self.currentUser = [[JDDUser alloc]init];
         self.User = [[JDDUser alloc]init];
         self.twitter = [[STTwitterAPI alloc]init];
-
+        
     }
     
     return self;

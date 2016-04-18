@@ -51,13 +51,13 @@
     
     self.ref = self.sharedData.firebaseRef;
     
-    self.sharedData.currentPact =self.sharedData.currentUser.pactsToShowInApp[0];
+//    self.sharedData.currentPact =self.sharedData.currentUser.pactsToShowInApp[0];
 
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     self.tableView.allowMultipleSectionsOpen = NO;
-    self.tableView.keepOneSectionOpen = YES;
-    self.tableView.initialOpenSections = [NSSet setWithObjects:@(0), nil];
+    self.tableView.keepOneSectionOpen = NO;
+    self.tableView.initialOpenSections = nil;//[NSSet setWithObjects:@(0), nil];
     self.tableView.scrollEnabled = YES;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
@@ -126,19 +126,25 @@
 #pragma stuff for tableView
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
     return 490;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    
     return 70;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    self.sharedData.currentPact = self.sharedData.currentUser.pactsToShowInApp[indexPath.section];
 
     PactTableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:@"userPact"forIndexPath:indexPath];
-    
+    NSLog(@"willcellrowforindexpath gets called with x pact%@",self.sharedData.currentPact.title);
+    NSLog(@"willcellrowforindexpath gets called with x pact%@",self.sharedData.currentPact.stakes);
+
+    cell.pact = [[JDDPact alloc]init];
+    cell.pact = self.sharedData.currentPact;
+        
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
         
     cell.delegate = self;
@@ -149,6 +155,14 @@
 -(void)pactTableViewCell:(PactTableViewCell *)pactTableViewCell shouldSegueToSmackTalkVC:(BOOL)shouldSegueToSmacktalkVC {
     
     if(shouldSegueToSmacktalkVC) {
+        
+        
+        CATransition *transition = [CATransition animation];
+        transition.duration = 1;
+        transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+        transition.type = kCATransitionPush;
+        transition.subtype = kCATransitionFromLeft;
+        [self.view.window.layer addAnimation:transition forKey:nil];
         
         [self performSegueWithIdentifier:@"segueToSmackTalkVC" sender:self];
     }
@@ -169,6 +183,7 @@
 
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    
     JDDPact *currentPact = self.sharedData.currentUser.pactsToShowInApp[section];
     
     PactAccordionHeaderView *accordianHeaderView = [tableView dequeueReusableHeaderFooterViewWithIdentifier:accordionHeaderReuseIdentifier];
@@ -183,20 +198,25 @@
 #pragma mark - <FZAccordionTableViewDelegate> -
 
 - (void)tableView:(FZAccordionTableView *)tableView willOpenSection:(NSInteger)section withHeader:(PactAccordionHeaderView *)header {
+   
+    self.sharedData.currentPact = [[JDDPact alloc]init];
+    self.sharedData.currentPact = self.sharedData.currentUser.pactsToShowInApp[section];
     
+    NSLog(@"willOpenPactGetsCalled with pact %@",self.sharedData.currentPact.title);
+    NSLog(@"willOpenPactGetsCalled with pact %@",self.sharedData.currentPact);
+    NSLog(@"willOpenPactGetsCalled with pact %@",self.sharedData.currentPact.stakes);
+
     header.containerView.backgroundColor = [UIColor grayColor];
 }
 
 - (void)tableView:(FZAccordionTableView *)tableView didOpenSection:(NSInteger)section withHeader:(PactAccordionHeaderView *)header {
     
-    self.sharedData.currentPact = self.sharedData.currentUser.pactsToShowInApp[section];
 
 }
 
 - (void)tableView:(FZAccordionTableView *)tableView willCloseSection:(NSInteger)section withHeader:(PactAccordionHeaderView *)header {
     
     header.containerView.backgroundColor = [UIColor blackColor];
-    
 }
 
 - (void)tableView:(FZAccordionTableView *)tableView didCloseSection:(NSInteger)section withHeader:(PactAccordionHeaderView *)header {
