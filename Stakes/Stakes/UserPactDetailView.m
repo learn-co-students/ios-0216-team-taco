@@ -5,6 +5,7 @@
 //  Created by Dylan Straughan on 4/15/16.
 //  Copyright © 2016 JDD. All rights reserved.
 
+#import <BALoadingView/BALoadingView.h>
 
 #import "UserPactDetailView.h"
 #import "JDDDataSource.h"
@@ -12,6 +13,7 @@
 #import "JDDCheckIn.h"
 #import "UserDescriptionView.h"
 #import "Constants.h"
+
 
 
 @interface UserPactDetailView ()
@@ -32,7 +34,9 @@
 @property (strong, nonatomic) IBOutlet UILabel *twitterShame;
 @property (strong, nonatomic) IBOutlet UIButton *deletePactButton;
 @property (strong, nonatomic) JDDDataSource *sharedData;
-
+@property (strong, nonatomic) IBOutlet BALoadingView *loadingView;
+@property(assign,nonatomic) BACircleAnimation animationType;
+@property(assign,nonatomic) bool firstLoad;
 @end
 
 @implementation UserPactDetailView
@@ -88,6 +92,18 @@
     self.sharedData = [JDDDataSource sharedDataSource];
     
     self.pact = self.sharedData.currentPact;
+    
+    self.firstLoad = YES;
+    self.loadingView.hidden = YES;
+    
+    if (self.firstLoad) {
+        [self.loadingView initialize];
+        self.loadingView.lineCap = kCALineCapRound;
+        self.loadingView.clockwise = true;
+        self.loadingView.segmentColor = [UIColor blackColor];
+        self.firstLoad = NO;
+    }
+    
     // Do any additional setup after loading the view.
     
     // first empty the stackview
@@ -154,6 +170,8 @@
     UIAlertController *deleteAlert = [UIAlertController alertControllerWithTitle:@"Are you sure you want to delete this pact?" message:nil preferredStyle:UIAlertControllerStyleAlert];
     
     UIAlertAction *delete = [UIAlertAction actionWithTitle:@"Delete" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+        [self.loadingView startAnimation:BACircleAnimationFullCircle];
+        
         [self deleteAction];
     }];
     
@@ -163,8 +181,8 @@
     
     
 //    [self presentViewController:deleteAlert animated:YES completion:^{
-        //
-//    }]; going to need to build custom delegate here.
+//        
+//    }];
 }
 
 -(void)deleteAction
@@ -182,6 +200,7 @@
                     //
                     //                    }];
                     //send notification to VC
+                    [self.loadingView stopAnimation];
                     [[NSNotificationCenter defaultCenter] postNotificationName:UserDeletedPactNotificationName object:self.pact];
                     
                 }
