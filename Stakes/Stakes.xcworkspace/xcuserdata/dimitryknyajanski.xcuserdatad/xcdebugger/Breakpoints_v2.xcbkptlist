@@ -11,14 +11,6 @@
             continueAfterRunningActions = "No"
             scope = "0"
             stopOnStyle = "0">
-            <Actions>
-               <BreakpointActionProxy
-                  ActionExtensionID = "Xcode.BreakpointAction.DebuggerCommand">
-                  <ActionContent
-                     consoleCommand = "">
-                  </ActionContent>
-               </BreakpointActionProxy>
-            </Actions>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -27,13 +19,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Stakes/PactDetailViewController.m"
-            timestampString = "482564877.448859"
+            filePath = "Stakes/CreatePactViewController.m"
+            timestampString = "482705738.46818"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "31"
-            endingLineNumber = "31"
-            landmarkName = "-viewDidLoad"
+            startingLineNumber = "1034"
+            endingLineNumber = "1034"
+            landmarkName = "-didEndEditingPactDescription:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -43,13 +35,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Stakes/UserPactMainView.m"
-            timestampString = "482572815.983935"
+            filePath = "Stakes/CreatePactViewController.m"
+            timestampString = "482705738.46818"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "253"
-            endingLineNumber = "253"
-            landmarkName = "-setShitUp"
+            startingLineNumber = "1001"
+            endingLineNumber = "1001"
+            landmarkName = "-pactTitleEditingEnd:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -59,29 +51,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Stakes/UserPactMainView.m"
-            timestampString = "482573440.250118"
+            filePath = "Stakes/CreatePactViewController.m"
+            timestampString = "482705738.46818"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "249"
-            endingLineNumber = "249"
-            landmarkName = "-setShitUp"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Stakes/UserPactMainView.m"
-            timestampString = "482573451.557361"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "201"
-            endingLineNumber = "201"
-            landmarkName = "-setShitUp"
+            startingLineNumber = "1058"
+            endingLineNumber = "1058"
+            landmarkName = "-didEndStakeDescription:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
