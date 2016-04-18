@@ -75,7 +75,7 @@
     
     [self addSubview:self.contentView];
     
-    self.pact = self.sharedData.currentPact;
+//    self.pact = self.sharedData.currentPact;
     
     self.contentView.translatesAutoresizingMaskIntoConstraints = NO;
     [self.contentView.topAnchor constraintEqualToAnchor:self.topAnchor].active = YES;
@@ -91,7 +91,7 @@
     
     self.sharedData = [JDDDataSource sharedDataSource];
     
-    self.pact = self.sharedData.currentPact;
+//    self.pact = self.sharedData.currentPact;
     
     self.firstLoad = YES;
     self.loadingView.hidden = YES;
@@ -103,7 +103,15 @@
         self.loadingView.segmentColor = [UIColor blackColor];
         self.firstLoad = NO;
     }
-    
+}
+
+-(void)setPact:(JDDPact *)pact{
+    _pact = pact;
+    [self setShitUp];
+}
+
+-(void)setShitUp
+{
     // Do any additional setup after loading the view.
     
     // first empty the stackview

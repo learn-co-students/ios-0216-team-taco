@@ -8,7 +8,22 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="UserPactDetailView">
             <connections>
+                <outlet property="TwitterShameTitle" destination="lfp-OY-7C5" id="0w3-bn-ckl"/>
+                <outlet property="checkInsPerWeekLabel" destination="JqU-Q2-WcM" id="bpQ-Ua-Anf"/>
+                <outlet property="checkInsTitle" destination="OVN-MO-dzB" id="bfM-uR-bpJ"/>
                 <outlet property="contentView" destination="6R1-zs-DHn" id="fSS-PN-Ccl"/>
+                <outlet property="createdLabel" destination="iS8-Sy-YQM" id="K55-3a-5AH"/>
+                <outlet property="createdTitle" destination="u2r-iU-F22" id="4P2-Gm-uiS"/>
+                <outlet property="deletePactButton" destination="FRO-CX-uTF" id="bZe-Yh-rvE"/>
+                <outlet property="loadingView" destination="5Zc-aE-YHX" id="eJQ-oE-9IQ"/>
+                <outlet property="pactDescription" destination="wyZ-fx-ISi" id="LkK-oh-t9G"/>
+                <outlet property="pactTitle" destination="1Sx-Rh-brH" id="DmH-Go-KQF"/>
+                <outlet property="scrollView" destination="r1p-O6-Hs4" id="uWD-So-WNG"/>
+                <outlet property="scrollViewView" destination="uui-TC-WO3" id="bRv-Qm-eDO"/>
+                <outlet property="stackView" destination="MJY-kb-eot" id="1dJ-9R-gnV"/>
+                <outlet property="stakesDescription" destination="eZN-T8-6td" id="7aE-SM-hdy"/>
+                <outlet property="stakesTitle" destination="WyI-XN-SSz" id="L8G-2j-M49"/>
+                <outlet property="twitterShame" destination="bpU-6c-c2n" id="O0v-sj-CIF"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -16,10 +31,10 @@
             <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uui-TC-WO3">
+                <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uui-TC-WO3">
                     <rect key="frame" x="-1" y="0.0" width="601" height="150"/>
                     <subviews>
-                        <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="r1p-O6-Hs4">
+                        <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="r1p-O6-Hs4">
                             <rect key="frame" x="0.0" y="0.0" width="601" height="150"/>
                             <subviews>
                                 <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="MJY-kb-eot">
@@ -51,31 +66,31 @@
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="pact description" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wyZ-fx-ISi">
-                            <rect key="frame" x="0.0" y="49" width="570" height="39"/>
+                            <rect key="frame" x="0.0" y="49" width="570" height="40"/>
                             <fontDescription key="fontDescription" name="Avenir-Medium" family="Avenir" pointSize="21"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Created:" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="u2r-iU-F22">
-                            <rect key="frame" x="0.0" y="88" width="570" height="33"/>
+                            <rect key="frame" x="0.0" y="88" width="570" height="34"/>
                             <color key="backgroundColor" white="0.66666666669999997" alpha="0.7994073276" colorSpace="calibratedWhite"/>
                             <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="18"/>
                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="created" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iS8-Sy-YQM">
-                            <rect key="frame" x="0.0" y="121" width="570" height="42"/>
+                            <rect key="frame" x="0.0" y="122" width="570" height="42"/>
                             <fontDescription key="fontDescription" name="Avenir-Medium" family="Avenir" pointSize="22"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Check-ins:" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OVN-MO-dzB">
-                            <rect key="frame" x="0.0" y="163" width="570" height="34"/>
+                            <rect key="frame" x="0.0" y="164" width="570" height="34"/>
                             <color key="backgroundColor" white="0.66666666669999997" alpha="0.80000000000000004" colorSpace="calibratedWhite"/>
                             <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="18"/>
                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="checkins per week" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JqU-Q2-WcM">
-                            <rect key="frame" x="0.0" y="197" width="570" height="42"/>
+                            <rect key="frame" x="0.0" y="198" width="570" height="42"/>
                             <fontDescription key="fontDescription" name="Avenir-Medium" family="Avenir" pointSize="22"/>
                             <nil key="highlightedColor"/>
                         </label>
@@ -87,19 +102,19 @@
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="stakes" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eZN-T8-6td">
-                            <rect key="frame" x="0.0" y="273" width="570" height="41"/>
+                            <rect key="frame" x="0.0" y="273" width="570" height="42"/>
                             <fontDescription key="fontDescription" name="Avenir-Medium" family="Avenir" pointSize="22"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Twitter Shame:" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lfp-OY-7C5">
-                            <rect key="frame" x="0.0" y="314" width="570" height="34"/>
+                            <rect key="frame" x="0.0" y="315" width="570" height="34"/>
                             <color key="backgroundColor" white="0.66666666669999997" alpha="0.80000000000000004" colorSpace="calibratedWhite"/>
                             <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="18"/>
                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="shaming" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bpU-6c-c2n">
-                            <rect key="frame" x="0.0" y="348" width="570" height="42"/>
+                            <rect key="frame" x="0.0" y="349" width="570" height="42"/>
                             <fontDescription key="fontDescription" name="Avenir-Medium" family="Avenir" pointSize="22"/>
                             <nil key="highlightedColor"/>
                         </label>
@@ -112,14 +127,24 @@
                         <color key="titleColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     </state>
                 </button>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5Zc-aE-YHX" customClass="BALoadingView">
+                    <rect key="frame" x="278" y="278" width="44" height="44"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="44" id="8Up-5P-C95"/>
+                        <constraint firstAttribute="height" constant="44" id="HzG-Wy-9TP"/>
+                    </constraints>
+                </view>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
             <constraints>
+                <constraint firstItem="5Zc-aE-YHX" firstAttribute="centerX" secondItem="6R1-zs-DHn" secondAttribute="centerX" id="1gx-18-Z4i"/>
                 <constraint firstItem="PoO-iB-FiH" firstAttribute="centerX" secondItem="6R1-zs-DHn" secondAttribute="centerX" id="A1w-St-eOF"/>
                 <constraint firstItem="PoO-iB-FiH" firstAttribute="width" secondItem="6R1-zs-DHn" secondAttribute="width" multiplier="0.95" id="COp-Hs-z8X"/>
                 <constraint firstItem="uui-TC-WO3" firstAttribute="centerX" secondItem="6R1-zs-DHn" secondAttribute="centerX" id="Gtq-SI-gbM"/>
                 <constraint firstItem="FRO-CX-uTF" firstAttribute="centerX" secondItem="6R1-zs-DHn" secondAttribute="centerX" id="IYs-Al-aRn"/>
                 <constraint firstItem="uui-TC-WO3" firstAttribute="height" secondItem="6R1-zs-DHn" secondAttribute="height" multiplier="0.25" id="Kgq-co-eP9"/>
+                <constraint firstItem="5Zc-aE-YHX" firstAttribute="centerY" secondItem="6R1-zs-DHn" secondAttribute="centerY" id="P8z-Zs-dVd"/>
                 <constraint firstItem="PoO-iB-FiH" firstAttribute="height" secondItem="6R1-zs-DHn" secondAttribute="height" multiplier="0.65" id="Qn1-Z6-Vff"/>
                 <constraint firstItem="uui-TC-WO3" firstAttribute="width" secondItem="6R1-zs-DHn" secondAttribute="width" id="cIa-7u-BhE"/>
                 <constraint firstAttribute="bottom" secondItem="FRO-CX-uTF" secondAttribute="bottom" id="vf9-Ru-vGx"/>
