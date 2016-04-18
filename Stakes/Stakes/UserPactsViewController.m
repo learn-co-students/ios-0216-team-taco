@@ -242,7 +242,7 @@
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:section];
     [tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionTop animated:YES];
     
-    self.view.userInteractionEnabled = YES;
+    self.view.userInteractionEnabled =YES;
 
 }
 
