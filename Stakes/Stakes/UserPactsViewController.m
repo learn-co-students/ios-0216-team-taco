@@ -113,7 +113,7 @@
 
 
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    
+        
     if (scrollView.contentOffset.y < -(self.view.frame.size.height/6)) {
         
         CATransition *transition = [CATransition animation];
@@ -127,8 +127,6 @@
         
     }
 }
-
-
 
 #pragma stuff for tableView
 
@@ -202,6 +200,7 @@
 - (void)tableView:(FZAccordionTableView *)tableView willOpenSection:(NSInteger)section withHeader:(PactAccordionHeaderView *)header {
     
     self.sharedData.currentPact = self.sharedData.currentUser.pactsToShowInApp[section];
+
     
     NSLog(@"willOpenPactGetsCalled with pact %@",self.sharedData.currentPact.title);
     NSLog(@"willOpenPactGetsCalled with pact %@",self.sharedData.currentPact);
@@ -211,7 +210,9 @@
 }
 
 - (void)tableView:(FZAccordionTableView *)tableView didOpenSection:(NSInteger)section withHeader:(PactAccordionHeaderView *)header {
-    
+   
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:section];
+    [tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionTop animated:YES];
 
 }
 

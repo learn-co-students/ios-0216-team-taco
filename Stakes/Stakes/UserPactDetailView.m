@@ -124,7 +124,7 @@
             }
         }
         ;
-        NSString *valueIndicator = [NSString stringWithFormat:@"%@",[self.pact.users valueForKey:user.userID]] ;
+        NSString *valueIndicator = [NSString stringWithFormat:@"%@",[self.pact.users valueForKey:user.userID]];
         
         user.isReady = valueIndicator;
         view.user = user;
