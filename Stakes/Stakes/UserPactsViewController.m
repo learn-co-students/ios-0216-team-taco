@@ -137,7 +137,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    return 490;
+    return 595;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
@@ -151,6 +151,7 @@
     PactTableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:@"userPact"forIndexPath:indexPath];
 
     JDDPact *currentPact = self.sharedData.currentUser.pactsToShowInApp[indexPath.section];
+    NSLog (@"current pact is %ld", currentPact.checkIns.count);
     cell.pact = currentPact;
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     cell.delegate = self;
@@ -163,7 +164,7 @@
         
         
         CATransition *transition = [CATransition animation];
-        transition.duration = 1;
+        transition.duration = 0.75;
         transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
         transition.type = kCATransitionPush;
         transition.subtype = kCATransitionFromLeft;
@@ -270,12 +271,17 @@
 -(void)handleUserCheckedIn:(NSNotification *)notification
 {
     
+    NSLog(@"handleUser is getting called.")   ;
+    
     [self updateCheckInsForPact:notification.object withCompletion:^(BOOL success) {
+        
+        NSLog(@"Back in block.")    ;
         if (success) {
             [[NSOperationQueue mainQueue] addOperationWithBlock:^{
                 
+                NSLog(@"RELOADING DATA:");
                 [self.tableView reloadData];
-                
+//                [self.tableView.cell.pact reloadData];
             }];
         }
     }];
@@ -291,7 +297,7 @@
     for (NSString *pactID in self.sharedData.currentUser.pacts) {
         if ([pactID isEqualToString:updatedPact.pactID]) {
             
-            [[[self.sharedData.firebaseRef childByAppendingPath:@"pacts"] childByAppendingPath:updatedPact.pactID]  observeSingleEventOfType:FEventTypeValue withBlock:^(FDataSnapshot *snapshot) {
+            [[[self.sharedData.firebaseRef childByAppendingPath:@"pacts"] childByAppendingPath:pactID]  observeSingleEventOfType:FEventTypeValue withBlock:^(FDataSnapshot *snapshot) {
                 
                 [updatedPact.checkIns removeAllObjects];
                 updatedPact.checkIns = [[NSMutableArray alloc]init];
@@ -307,9 +313,14 @@
                     
                     [updatedPact.checkIns addObject:check];
                 }
+                
+                NSLog(@"COMPLETION BLOCK");
                 completionBlock(YES);
+
+                
             }];
         }
+        break;
     }
 }
 

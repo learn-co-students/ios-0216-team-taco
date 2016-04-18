@@ -33,11 +33,11 @@
     
     [self.scrollView layoutIfNeeded];
     self.sharedData = [JDDDataSource sharedDataSource];
-//    self.pact = self.sharedData.currentPact;
+    //    self.pact = self.sharedData.currentPact;
     [self createView];
-
-//    [self createMainPactViewAtIndex:0 withPact:self.sharedData.currentPact inStackView:self.stackView];
-//    [self createPactDetailViewAtIndex:1 withPact:self.sharedData.currentPact inStackView:self.stackView];
+    
+    //    [self createMainPactViewAtIndex:0 withPact:self.sharedData.currentPact inStackView:self.stackView];
+    //    [self createPactDetailViewAtIndex:1 withPact:self.sharedData.currentPact inStackView:self.stackView];
     
     
     
@@ -47,15 +47,15 @@
     
 }
 
--(void)setPact:(JDDPact *)pact{
-    if (_pact != pact) {
-        for (UIView *subviews in self.stackView.arrangedSubviews) {
-            [self.stackView removeArrangedSubview:subviews];
-        }
-        [self createMainPactViewAtIndex:0 withPact:pact inStackView:self.stackView];
-        [self createPactDetailViewAtIndex:1 withPact:pact inStackView:self.stackView];
-    }
+-(void)setPact:(JDDPact *)pact {
     _pact = pact;
+    
+    for (UIView *subviews in self.stackView.arrangedSubviews) {
+        [self.stackView removeArrangedSubview:subviews];
+    }
+    [self createMainPactViewAtIndex:0 withPact:pact inStackView:self.stackView];
+    [self createPactDetailViewAtIndex:1 withPact:pact inStackView:self.stackView];
+    
 }
 
 -(void)createScrollView {
@@ -70,7 +70,7 @@
     [self.scrollView.rightAnchor constraintEqualToAnchor:self.contentView.rightAnchor
      ].active = YES;
     [self.scrollView.bottomAnchor constraintEqualToAnchor:self.contentView.bottomAnchor].active = YES;
-//    [self.scrollView.heightAnchor constraintEqualToAnchor:self.contentView.heightAnchor].active = YES;
+    //    [self.scrollView.heightAnchor constraintEqualToAnchor:self.contentView.heightAnchor].active = YES;
     
     self.scrollView.userInteractionEnabled = YES;
     self.scrollView.showsHorizontalScrollIndicator = YES;
@@ -102,13 +102,13 @@
 -(void)createMainPactViewAtIndex:(NSUInteger)index withPact:(JDDPact *)pact inStackView:(UIStackView *)stackView{
     
     UserPactMainView * view = [[UserPactMainView alloc]initWithFrame:CGRectZero];
-        
+    
     [stackView addArrangedSubview:view];
     view.pact = pact;
-//    view.pact = self.sharedData.currentPact;
-
+    //    view.pact = self.sharedData.currentPact;
+    
     [view.widthAnchor constraintEqualToAnchor:self.contentView.widthAnchor].active = YES;
-//    [view.heightAnchor constraintEqualToAnchor:self.contentView.heightAnchor].active = YES;
+    //    [view.heightAnchor constraintEqualToAnchor:self.contentView.heightAnchor].active = YES;
     
 }
 
@@ -116,7 +116,7 @@
     
     UserPactDetailView *view = [[UserPactDetailView alloc]initWithFrame:CGRectZero];
     view.pact = pact;
-//    view.pact = self.sharedData.currentPact;
+    //    view.pact = self.sharedData.currentPact;
     [stackView insertArrangedSubview:view atIndex:index];
 }
 

@@ -16,9 +16,9 @@
                     <rect key="frame" x="0.0" y="0.0" width="740" height="160"/>
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kpp-cD-41a">
-                            <rect key="frame" x="8" y="60" width="30" height="42"/>
-                            <fontDescription key="fontDescription" name="AppleColorEmoji" family="Apple Color Emoji" pointSize="21"/>
-                            <state key="normal" title="✅">
+                            <rect key="frame" x="8" y="59" width="150" height="42"/>
+                            <fontDescription key="fontDescription" name="Futura-MediumItalic" family="Futura" pointSize="15"/>
+                            <state key="normal" title="Accept Pact">
                                 <color key="titleColor" red="0.0" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="titleShadowColor" red="0.0" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                             </state>
@@ -27,7 +27,7 @@
                             </connections>
                         </button>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Test" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="D3q-1L-wcU" userLabel="pact title">
-                            <rect key="frame" x="93" y="-1" width="555" height="161"/>
+                            <rect key="frame" x="112" y="-1" width="518" height="161"/>
                             <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="25"/>
                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
