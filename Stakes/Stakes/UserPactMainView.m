@@ -194,7 +194,9 @@
 
 
 -(void)setPact:(JDDPact *)pact{
+    
     _pact = pact;
+    
     [self setShitUp];
 }
 

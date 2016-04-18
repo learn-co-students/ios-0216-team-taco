@@ -100,7 +100,6 @@
                                     
                                     [self setEmbeddedViewController:tabBarControllerVC];
                                     
-//                                    [self]
                                     
                                 }];
                             }
