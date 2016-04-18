@@ -116,6 +116,13 @@
     
     if (scrollView.contentOffset.y < -(self.view.frame.size.height/6)) {
         
+        CATransition *transition = [CATransition animation];
+        transition.duration = 1;
+        transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+        transition.type = kCATransitionPush;
+        transition.subtype = kCATransitionFromBottom;
+        [self.view.window.layer addAnimation:transition forKey:nil];
+
         [self performSegueWithIdentifier:@"segueToCreatePact" sender:self];
         
     }
