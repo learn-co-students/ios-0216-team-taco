@@ -14,6 +14,7 @@
 @interface PactTableViewCell ()
 
 @property (nonatomic, strong)NSLayoutConstraint *messageShapeTrailingAnchor;
+@property (nonatomic, strong)NSLayoutConstraint *messageShapeHeightAnchor;
 @property (nonatomic, strong)UIImageView *messageImageView;
 
 @end
@@ -127,6 +128,9 @@
     
     self.messageShapeTrailingAnchor.constant = -(scrollView.contentOffset.x *2)-(self.contentView.frame.size.width/3.3);
     self.messageImageView.alpha = -(scrollView.contentOffset.x)/(self.contentView.frame.size.width/4);
+    
+    
+    
     NSLog(@"alpha is %f", self.messageImageView.alpha);
     
     if (scrollView.contentOffset.x < - (self.contentView.frame.size.width/4)) {
@@ -148,7 +152,8 @@
     
     self.messageImageView.translatesAutoresizingMaskIntoConstraints = NO;
     [self.messageImageView.centerYAnchor constraintEqualToAnchor:self.contentView.centerYAnchor].active = YES;
-    [self.messageImageView.heightAnchor constraintEqualToAnchor:self.contentView.heightAnchor multiplier:.1].active = YES;
+    self.messageShapeHeightAnchor = [self.messageImageView.heightAnchor constraintEqualToAnchor:self.contentView.heightAnchor multiplier:.1];
+    self.messageShapeHeightAnchor.active = YES;
     [self.messageImageView.widthAnchor constraintEqualToAnchor:self.contentView.heightAnchor multiplier:.1].active = YES;
     self.messageShapeTrailingAnchor  = [self.messageImageView.trailingAnchor constraintEqualToAnchor:self.contentView.leadingAnchor];
     self.messageShapeTrailingAnchor.active = YES;
