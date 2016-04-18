@@ -6,6 +6,7 @@
 //  Copyright © 2016 Jeremy Feld. All rights reserved.
 //
 #import <Accounts/Accounts.h>
+#import <BALoadingView/BALoadingView.h>
 #import "UserPactsViewController.h"
 #import "JDDDataSource.h"
 #import "JDDUser.h"
@@ -31,6 +32,7 @@
 @property (nonatomic,strong)NSString *currentUserID;
 @property (nonatomic, strong) Firebase *ref;
 @property (nonatomic, strong) STTwitterAPI *twitter;
+@property (nonatomic, ) NSInteger openSection;
 
 @end
 
@@ -45,7 +47,9 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleUserAccepted:) name:UserAcceptedPactNotificationName object:nil];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleUserDeletedPact:) name:UserDeletedPactNotificationName object:nil];
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleUserDeletedPact:) name:UserDeletedPactNotificationName object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleUserWantsToDelete:) name:UserWantsToDeletePactNotificationName object:nil];
     
     
     
@@ -87,6 +91,7 @@
     //    [[NSNotificationCenter defaultCenter] addObserver:self.tableView selector:@selector(reloadData) name:@"PACT_UPDATED" object:nil];
 }
 
+
 -(BOOL)prefersStatusBarHidden
 {
     return YES;
@@ -97,7 +102,7 @@
     //     self.tableView.initialOpenSections = [NSSet setWithObjects:@(0), nil];
     [[NSOperationQueue mainQueue] addOperationWithBlock:^{
         [self.tableView reloadData];
-        
+        self.tableView.initialOpenSections = nil;
     }];
     
 }
@@ -205,6 +210,7 @@
 
 - (void)tableView:(FZAccordionTableView *)tableView didOpenSection:(NSInteger)section withHeader:(PactAccordionHeaderView *)header {
     
+    self.openSection = section;
 
 }
 
@@ -214,6 +220,8 @@
 }
 
 - (void)tableView:(FZAccordionTableView *)tableView didCloseSection:(NSInteger)section withHeader:(PactAccordionHeaderView *)header {
+    
+
 }
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
@@ -368,7 +376,7 @@
     
 }
 
--(void)handleUserDeletedPact:(NSNotification *)notification
+-(void)updateAfterPactDeleted
 {
     [self.sharedData establishCurrentUserWithBlock:^(BOOL completionBlock) {
         
@@ -394,7 +402,15 @@
                                     [[NSOperationQueue mainQueue] addOperationWithBlock:^{
                                         
                                         [self.tableView reloadData];
-                                        [self dismissViewControllerAnimated:YES completion:nil];
+                                        [self.tableView toggleSection:self.openSection];
+                                        [UIView animateWithDuration:0.5 delay:1 options:UIViewAnimationOptionCurveLinear animations:^{
+                                            //
+                                        } completion:^(BOOL finished) {
+                                            //
+                                            
+                                        }];
+                                           
+                    
                             
                                     }];
                                 }
@@ -408,6 +424,77 @@
         }
     }];
     
+}
+
+-(void)handleUserWantsToDelete:(NSNotification *)notification
+{
+    UIAlertController *deleteAlert = [UIAlertController alertControllerWithTitle:@"Are you sure you want to delete this pact?" message:nil preferredStyle:UIAlertControllerStyleAlert];
+    
+    UIAlertAction *delete = [UIAlertAction actionWithTitle:@"Delete" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+//        [self.loadingView startAnimation:BACircleAnimationFullCircle];
+        
+        [self deletePact:notification.object];
+        
+    }];
+    
+    UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleDefault handler:nil];
+    [deleteAlert addAction:delete];
+    [deleteAlert addAction:cancel];
+    
+    
+        [self presentViewController:deleteAlert animated:YES completion:nil];
+}
+
+-(void)deletePact:(JDDPact *)pactToDelete
+{
+
+    [self deleteCurrentUserPact:pactToDelete withCompletion:^(BOOL done) {
+        if (done) {
+            [self deleteAllUserPactReferences:pactToDelete];
+            [self deletePactReference:pactToDelete WithCompletion:^(BOOL doneWithPact) {
+                if (doneWithPact) {
+                    
+                    [self updateAfterPactDeleted];
+
+                }
+            }];
+        }
+
+    }];
+}
+
+-(void)deleteCurrentUserPact:(JDDPact *)pactToDelete withCompletion:(void(^)(BOOL))completed {
+
+    [[[[[self.sharedData.firebaseRef childByAppendingPath:@"users"] childByAppendingPath:self.sharedData.currentUser.userID] childByAppendingPath:@"pacts"] childByAppendingPath:pactToDelete.pactID]removeValueWithCompletionBlock:^(NSError *error, Firebase *ref) {
+        completed(YES);
+    }];
+}
+
+-(void)deleteAllUserPactReferences:(JDDPact *)pactToDelete
+{
+    for (NSString *pactID in self.sharedData.currentUser.pacts) {
+        if ([pactID isEqualToString:pactToDelete.pactID]) {
+            for (NSString *user in pactToDelete.users) {
+                NSLog(@"ARE WE IN THE LOO{):");
+                [[[[[self.sharedData.firebaseRef childByAppendingPath:@"users"] childByAppendingPath:user] childByAppendingPath:@"pacts"] childByAppendingPath:pactToDelete.pactID] removeValue];
+            }
+
+            
+        }
+        
+        
+    }
+    
+    
+}
+-(void)deletePactReference:(JDDPact *)pactToDelete WithCompletion:(void(^)(BOOL))referenceDeleted {
+
+    [[[self.sharedData.firebaseRef childByAppendingPath:@"pacts"] childByAppendingPath:pactToDelete.pactID] removeValueWithCompletionBlock:^(NSError *error, Firebase *ref) {
+
+        NSLog(@"in remove value completionblock");
+        referenceDeleted(YES);
+    }];
+
 }
 
 @end

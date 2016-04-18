@@ -20,6 +20,9 @@ NSString * const DataChangedNotificationName = @"DataChangedNotification";
 NSString * const UserCheckedInNotificationName = @"UserCheckedInNotification";
 NSString * const UserAcceptedPactNotificationName = @"UserAcceptedPact";
 NSString * const UserDeletedPactNotificationName = @"UserDeletedPact";
+NSString * const UserWantsToDeletePactNotificationName = @"UserWantsToDeletePact";
+NSString * const DeletePactConfirmedNotificationName = @"DeletePactConfirmed";
+
 
 NSString * const AccountIdentifierKey = @"AccountIdentifier";
 NSString * const UserDidRegisterKey = @"UserDidRegister";
