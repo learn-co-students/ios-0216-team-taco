@@ -14,6 +14,7 @@
 @interface PactTableViewCell ()
 
 @property (nonatomic, strong)NSLayoutConstraint *messageShapeTrailingAnchor;
+@property (nonatomic, strong)NSLayoutConstraint *messageShapeHeightAnchor;
 @property (nonatomic, strong)UIImageView *messageImageView;
 
 @end
@@ -33,6 +34,7 @@
     
     [self.scrollView layoutIfNeeded];
     self.sharedData = [JDDDataSource sharedDataSource];
+
     //    self.pact = self.sharedData.currentPact;
     [self createView];
     
@@ -44,6 +46,7 @@
     //    [[NSBundle mainBundle] loadNibNamed:@"PactTableViewCell" owner:self options:nil];
     //
     //    [self addSubview:self.viewOfContent];
+
     
 }
 
@@ -70,10 +73,12 @@
     [self.scrollView.rightAnchor constraintEqualToAnchor:self.contentView.rightAnchor
      ].active = YES;
     [self.scrollView.bottomAnchor constraintEqualToAnchor:self.contentView.bottomAnchor].active = YES;
+
     //    [self.scrollView.heightAnchor constraintEqualToAnchor:self.contentView.heightAnchor].active = YES;
+
     
     self.scrollView.userInteractionEnabled = YES;
-    self.scrollView.showsHorizontalScrollIndicator = YES;
+    self.scrollView.showsHorizontalScrollIndicator = NO;
     self.scrollView.scrollEnabled = YES;
     self.scrollView.pagingEnabled = YES;
     
@@ -109,6 +114,7 @@
     
     [view.widthAnchor constraintEqualToAnchor:self.contentView.widthAnchor].active = YES;
     //    [view.heightAnchor constraintEqualToAnchor:self.contentView.heightAnchor].active = YES;
+
     
 }
 
@@ -117,7 +123,9 @@
     UserPactDetailView *view = [[UserPactDetailView alloc]initWithFrame:CGRectZero];
     view.pact = pact;
     //    view.pact = self.sharedData.currentPact;
+
     [stackView insertArrangedSubview:view atIndex:index];
+    
 }
 
 
@@ -127,6 +135,9 @@
     
     self.messageShapeTrailingAnchor.constant = -(scrollView.contentOffset.x *2)-(self.contentView.frame.size.width/3.3);
     self.messageImageView.alpha = -(scrollView.contentOffset.x)/(self.contentView.frame.size.width/4);
+    
+    
+    
     NSLog(@"alpha is %f", self.messageImageView.alpha);
     
     if (scrollView.contentOffset.x < - (self.contentView.frame.size.width/4)) {
@@ -148,7 +159,8 @@
     
     self.messageImageView.translatesAutoresizingMaskIntoConstraints = NO;
     [self.messageImageView.centerYAnchor constraintEqualToAnchor:self.contentView.centerYAnchor].active = YES;
-    [self.messageImageView.heightAnchor constraintEqualToAnchor:self.contentView.heightAnchor multiplier:.1].active = YES;
+    self.messageShapeHeightAnchor = [self.messageImageView.heightAnchor constraintEqualToAnchor:self.contentView.heightAnchor multiplier:.1];
+    self.messageShapeHeightAnchor.active = YES;
     [self.messageImageView.widthAnchor constraintEqualToAnchor:self.contentView.heightAnchor multiplier:.1].active = YES;
     self.messageShapeTrailingAnchor  = [self.messageImageView.trailingAnchor constraintEqualToAnchor:self.contentView.leadingAnchor];
     self.messageShapeTrailingAnchor.active = YES;

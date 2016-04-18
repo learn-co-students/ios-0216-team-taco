@@ -29,7 +29,7 @@
     [super viewDidLoad];
         
     self.title = @"SmackTalk";
-    
+        
     self.dataSource = [JDDDataSource sharedDataSource];
     self.chatroom = [[JDDChatRoom alloc]init];
     [self setUpGestureRecognizer];
@@ -70,7 +70,7 @@
     NSLog(@"Left Gesture Recognizer is happening!");
     
     CATransition *transition = [CATransition animation];
-    transition.duration = 0.3;
+    transition.duration = 0.75;
     transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
     transition.type = kCATransitionPush;
     transition.subtype = kCATransitionFromRight;
@@ -160,9 +160,13 @@
     
     Firebase *itemRef = [self.messageRef childByAutoId];
     
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
+    [dateFormatter setDateFormat:@"yyyy'-'MM'-'dd'-'hh:mm'"];
+    
     NSDictionary * message = @{ @"text": text,
                                 @"senderId":self.dataSource.currentUser.userID,
                                 @"senderDisplayName": self.dataSource.currentUser.displayName,
+                                @"date":[dateFormatter stringFromDate:[NSDate date]]
                                 };
     
     [itemRef setValue:message];
@@ -209,6 +213,66 @@
 
     }];
     
+}
+
+- (CGFloat)collectionView:(JSQMessagesCollectionView *)collectionView
+                   layout:(JSQMessagesCollectionViewFlowLayout *)collectionViewLayout heightForCellTopLabelAtIndexPath:(NSIndexPath *)indexPath
+{
+    /**
+     *  Each label in a cell has a `height` delegate method that corresponds to its text dataSource method
+     */
+    
+    /**
+     *  This logic should be consistent with what you return from `attributedTextForCellTopLabelAtIndexPath:`
+     *  The other label height delegate methods should follow similarly
+     *
+     *  Show a timestamp for every 3rd message
+     */
+    if (indexPath.item % 3 == 0) {
+        return kJSQMessagesCollectionViewCellLabelHeightDefault;
+    }
+    
+    return 0.0f;
+}
+
+- (NSAttributedString *)collectionView:(JSQMessagesCollectionView *)collectionView attributedTextForCellTopLabelAtIndexPath:(NSIndexPath *)indexPath
+{
+    /**
+     *  This logic should be consistent with what you return from `heightForCellTopLabelAtIndexPath:`
+     *  The other label text delegate methods should follow a similar pattern.
+     *
+     *  Show a timestamp for every 3rd message
+     */
+    if (indexPath.item % 3 == 0) {
+        JSQMessage *message = [self.chatroom.messages objectAtIndex:indexPath.item];
+        return [[JSQMessagesTimestampFormatter sharedFormatter] attributedTimestampForDate:message.date];
+    }
+    
+    return nil;
+}
+
+- (NSAttributedString *)collectionView:(JSQMessagesCollectionView *)collectionView attributedTextForMessageBubbleTopLabelAtIndexPath:(NSIndexPath *)indexPath
+{
+    JSQMessage *message = [self.chatroom.messages objectAtIndex:indexPath.item];
+    
+    /**
+     *  iOS7-style sender name labels
+     */
+    if ([message.senderId isEqualToString:self.senderId]) {
+        return nil;
+    }
+    
+    if (indexPath.item - 1 > 0) {
+        JSQMessage *previousMessage = [self.chatroom.messages objectAtIndex:indexPath.item - 1];
+        if ([[previousMessage senderId] isEqualToString:message.senderId]) {
+            return nil;
+        }
+    }
+    
+    /**
+     *  Don't specify attributes to use the defaults.
+     */
+    return [[NSAttributedString alloc] initWithString:message.senderDisplayName];
 }
 
 

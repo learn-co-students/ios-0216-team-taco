@@ -114,7 +114,7 @@
                                     NSLog(@"time interval %@",pact.timeInterval);
                                     NSLog(@"ok a pact has expired!");
                                     
-                                    // firebase change value of date of creation to Now if repeating enabled.
+                                    
                                     
                                     if ([self hasUserAccomplishedCheckinGoalWithPact:pact] == NO) {
                                         
@@ -122,7 +122,7 @@
                                         
                                         [self sendTwitterShameMessageWithPact:pact];
                                         
-                                        
+                                        NSLog(@"twitterShame Sent is: %@",pact.twitterPost);
                                         NSLog(@"OH SHIT TWITTER SHAME");
                                         
                                         if (pactCount == 0) {

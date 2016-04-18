@@ -19,19 +19,11 @@
 @interface UserPactDetailView ()
 
 @property (strong, nonatomic) IBOutlet UserPactDetailView *contentView;
-@property (strong, nonatomic) IBOutlet UIView *scrollViewView;
-@property (strong, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (strong, nonatomic) IBOutlet UIStackView *stackView;
-@property (strong, nonatomic) IBOutlet UILabel *pactTitle;
-@property (strong, nonatomic) IBOutlet UILabel *pactDescription;
 @property (strong, nonatomic) IBOutlet UILabel *createdTitle;
 @property (strong, nonatomic) IBOutlet UILabel *createdLabel;
 @property (strong, nonatomic) IBOutlet UILabel *checkInsTitle;
 @property (strong, nonatomic) IBOutlet UILabel *checkInsPerWeekLabel;
-@property (strong, nonatomic) IBOutlet UILabel *stakesTitle;
-@property (strong, nonatomic) IBOutlet UILabel *stakesDescription;
-@property (strong, nonatomic) IBOutlet UILabel *TwitterShameTitle;
-@property (strong, nonatomic) IBOutlet UILabel *twitterShame;
 @property (strong, nonatomic) IBOutlet UIButton *deletePactButton;
 @property (strong, nonatomic) JDDDataSource *sharedData;
 @property (strong, nonatomic) IBOutlet BALoadingView *loadingView;
@@ -107,39 +99,9 @@
     }
     
     // then for each user, createa a UserDescriptionView and add it to the stackview
-    for (JDDUser *user in self.pact.usersToShowInApp){
-        
-        UserDescriptionView *view = [[UserDescriptionView alloc]init];
-        
-        for (JDDCheckIn *checkin in self.pact.checkIns) {
-            
-            if ([checkin.userID isEqualToString:user.userID]) {
-                
-                view.checkinsCount ++;
-            }
-        }
-        ;
-        NSString *valueIndicator = [NSString stringWithFormat:@"%@",[self.pact.users valueForKey:user.userID]];
-        
-        user.isReady = valueIndicator;
-        view.user = user;
-        NSLog(@"Is the view's user ready? %@", view.user.isReady);
-        // same as [view setUser:user];
-        [self.stackView addArrangedSubview:view];
-        
-        
-        
-        [view.widthAnchor constraintEqualToAnchor:self.scrollView.widthAnchor multiplier:0.33].active = YES;
-        
-        
-        [self.stackView layoutSubviews];//give subviews a size
-        view.clipsToBounds = YES;
-        
-    }
+    
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
     [dateFormatter setDateFormat:@"MM'-'dd'-'yyyy'"];
-    self.pactTitle.text = self.pact.title;
-    self.pactDescription.text = [NSString stringWithFormat: @"%@",self.pact.pactDescription];
     
     NSString *createText = [dateFormatter stringFromDate:self.pact.dateOfCreation];
     BOOL worked = createText != nil;
@@ -158,6 +120,7 @@
 //        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(deleteAction:) name:DeletePactConfirmedNotificationName object:nil];
     
     self.sharedData = [JDDDataSource sharedDataSource];
+
 
 }
 
