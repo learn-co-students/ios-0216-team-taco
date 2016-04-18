@@ -85,13 +85,22 @@
     [[NSBundle mainBundle] loadNibNamed:@"UserPactMainView" owner:self options:nil];
     
     [self addSubview:self.contentView];
-    
+        
     self.contentView.translatesAutoresizingMaskIntoConstraints = NO;
     [self.contentView.topAnchor constraintEqualToAnchor:self.topAnchor].active = YES;
     [self.contentView.leftAnchor constraintEqualToAnchor:self.leftAnchor].active = YES;
     [self.contentView.rightAnchor constraintEqualToAnchor:self.rightAnchor].active = YES;
     [self.contentView.bottomAnchor constraintEqualToAnchor:self.bottomAnchor].active = YES;
     
+}
+
+- (void)awakeFromNib {
+    
+    [super awakeFromNib];
+    
+    self.sharedData = [JDDDataSource sharedDataSource];
+    
+    [self addObserver:self forKeyPath:@"pact.users" options:NSKeyValueObservingOptionNew context:nil];
 }
 
 
@@ -174,15 +183,6 @@
 
 }
 //===================================================================================================================
-
-- (void)awakeFromNib {
-    
-    [super awakeFromNib];
-    
-    self.sharedData = [JDDDataSource sharedDataSource];
-        
-    [self addObserver:self forKeyPath:@"pact.users" options:NSKeyValueObservingOptionNew context:nil];
-}
 
 -(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSString *,id> *)change context:(void *)context{
  

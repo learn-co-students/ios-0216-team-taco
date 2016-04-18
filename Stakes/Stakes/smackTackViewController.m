@@ -33,7 +33,7 @@
     self.dataSource = [JDDDataSource sharedDataSource];
     self.chatroom = [[JDDChatRoom alloc]init];
     [self setUpGestureRecognizer];
-    [self setUpNavBar];
+    
     self.chatroom.chatroomID = self.currentPact.pactID;
     self.chatroom.messages = [[NSMutableArray alloc]init];
     NSLog(@"currentPact: %@",self.currentPact.title);
@@ -55,26 +55,6 @@
     return YES;
 }
 
--(void)setUpNavBar {
-    
-    UINavigationBar *navBar = [[UINavigationBar alloc]init];
-    [self.view addSubview:navBar];
-
-    navBar.translatesAutoresizingMaskIntoConstraints = NO;
-    
-    [navBar.widthAnchor constraintEqualToAnchor:self.view.widthAnchor].active = YES;
-    [navBar.heightAnchor constraintEqualToAnchor:self.view.heightAnchor multiplier:0.1].active = YES;
-    [navBar.topAnchor constraintEqualToAnchor:self.view.topAnchor].active = YES;
-    [navBar.centerXAnchor constraintEqualToAnchor:self.view.centerXAnchor].active = YES;
-    
-    navBar.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:1];
-    navBar.topItem.title = self.currentPact.title;
-    
-    
-
-    
-}
-
 -(void)setUpGestureRecognizer {
     
     self.swipeLeft = [[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(swipeLeftGestureHappened:)];
@@ -89,8 +69,12 @@
     
     NSLog(@"Left Gesture Recognizer is happening!");
     
-    
-    
+    CATransition *transition = [CATransition animation];
+    transition.duration = 0.3;
+    transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+    transition.type = kCATransitionPush;
+    transition.subtype = kCATransitionFromRight;
+    [self.view.window.layer addAnimation:transition forKey:nil];
     [self performSegueWithIdentifier:@"segueBackToUserPactsVC" sender:self];
     
 }
@@ -109,7 +93,7 @@
 
 -(id<JSQMessageBubbleImageDataSource>)collectionView:(JSQMessagesCollectionView *)collectionView messageBubbleImageDataForItemAtIndexPath:(NSIndexPath *)indexPath {
     
-    JSQMessage *message =  self.chatroom.messages[indexPath.item];
+    JSQMessage *message = self.chatroom.messages[indexPath.item];
 
     if ([message.senderId isEqualToString: self.dataSource.currentUser.userID]) {
         
@@ -177,8 +161,8 @@
     Firebase *itemRef = [self.messageRef childByAutoId];
     
     NSDictionary * message = @{ @"text": text,
-                                @"userID":self.dataSource.currentUser.userID,
-                                @"displayName": self.dataSource.currentUser.displayName,
+                                @"senderId":self.dataSource.currentUser.userID,
+                                @"senderDisplayName": self.dataSource.currentUser.displayName,
                                 };
     
     [itemRef setValue:message];

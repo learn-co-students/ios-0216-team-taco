@@ -14,6 +14,7 @@
 		3F52B0881CAB3EBC0031BF59 /* Israel.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3F52B0871CAB3EBC0031BF59 /* Israel.jpg */; };
 		AF27C4DB1CB6FC92001AA278 /* JDDChatRoom.m in Sources */ = {isa = PBXBuildFile; fileRef = AF27C4DA1CB6FC92001AA278 /* JDDChatRoom.m */; };
 		AF2883481CAC12C6003FD3E2 /* JDDDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = AF2883471CAC12C6003FD3E2 /* JDDDataSource.m */; };
+		AF6449F91CC45BDA002568C9 /* MessageShape.png in Resources */ = {isa = PBXBuildFile; fileRef = AF6449F81CC45BDA002568C9 /* MessageShape.png */; };
 		AF97DCA71CC006660053E497 /* PactTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AF97DCA51CC006660053E497 /* PactTableViewCell.m */; };
 		AF97DCAF1CC03D8B0053E497 /* UserPactMainView.xib in Resources */ = {isa = PBXBuildFile; fileRef = AF97DCAE1CC03D8B0053E497 /* UserPactMainView.xib */; };
 		AF97DCB11CC15B450053E497 /* PactTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AF97DCB01CC15B450053E497 /* PactTableViewCell.xib */; };
@@ -82,6 +83,7 @@
 		AF27C4DA1CB6FC92001AA278 /* JDDChatRoom.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JDDChatRoom.m; sourceTree = "<group>"; };
 		AF2883461CAC12C6003FD3E2 /* JDDDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JDDDataSource.h; sourceTree = "<group>"; };
 		AF2883471CAC12C6003FD3E2 /* JDDDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JDDDataSource.m; sourceTree = "<group>"; };
+		AF6449F81CC45BDA002568C9 /* MessageShape.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = MessageShape.png; path = Assets.xcassets/MessageShape.png; sourceTree = "<group>"; };
 		AF97DCA41CC006660053E497 /* PactTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PactTableViewCell.h; sourceTree = "<group>"; };
 		AF97DCA51CC006660053E497 /* PactTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PactTableViewCell.m; sourceTree = "<group>"; };
 		AF97DCAE1CC03D8B0053E497 /* UserPactMainView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UserPactMainView.xib; sourceTree = "<group>"; };
@@ -245,6 +247,7 @@
 				AFC0645D1CAD736D00DBA069 /* UserPactMainView.m */,
 				AF97DCAE1CC03D8B0053E497 /* UserPactMainView.xib */,
 				CBA985E91CAC288000D1CC27 /* PactAccordionHeaderView.h */,
+				AF6449F81CC45BDA002568C9 /* MessageShape.png */,
 				CBA985EA1CAC288000D1CC27 /* PactAccordionHeaderView.m */,
 				CBA985E71CAC286400D1CC27 /* PactAccordionHeaderView.xib */,
 				3F4DDABD1CB5695F0000ACE2 /* UserDescriptionView.xib */,
@@ -455,6 +458,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				AFC064641CAD8DA800DBA069 /* Screen Shot 2016-03-28 at 4.13.09 PM.png in Resources */,
+				AF6449F91CC45BDA002568C9 /* MessageShape.png in Resources */,
 				AF97DCB11CC15B450053E497 /* PactTableViewCell.xib in Resources */,
 				AF97DCB31CC16AF20053E497 /* UserPactDetailView.xib in Resources */,
 				3F4DDABE1CB5695F0000ACE2 /* UserDescriptionView.xib in Resources */,

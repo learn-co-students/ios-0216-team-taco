@@ -75,7 +75,7 @@
     
     [self addSubview:self.contentView];
     
-//    self.pact = self.sharedData.currentPact;
+    self.pact = self.sharedData.currentPact;
     
     self.contentView.translatesAutoresizingMaskIntoConstraints = NO;
     [self.contentView.topAnchor constraintEqualToAnchor:self.topAnchor].active = YES;

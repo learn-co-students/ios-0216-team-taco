@@ -11,11 +11,21 @@
 #import "UserPactDetailView.h"
 #import "JDDDataSource.h"
 
+@interface PactTableViewCell ()
+
+@property (nonatomic, strong)NSLayoutConstraint *messageShapeTrailingAnchor;
+@property (nonatomic, strong)UIImageView *messageImageView;
+
+@end
+
+
 @implementation PactTableViewCell
 
 
 - (void)awakeFromNib {
     [super awakeFromNib];
+    
+    NSLog(@"PactTableViewCell awakeFromNib called!");
     
     [self createScrollView];
     [self createStackView];
@@ -23,11 +33,11 @@
     
     [self.scrollView layoutIfNeeded];
     self.sharedData = [JDDDataSource sharedDataSource];
+//    self.pact = self.sharedData.currentPact;
+    [self createView];
 
-    self.pact = self.sharedData.currentPact;
-    
-    [self createMainPactViewAtIndex:0 withPact:self.pact inStackView:self.stackView];
-    [self createPactDetailViewAtIndex:1 withPact:self.pact inStackView:self.stackView];
+//    [self createMainPactViewAtIndex:0 withPact:self.sharedData.currentPact inStackView:self.stackView];
+//    [self createPactDetailViewAtIndex:1 withPact:self.sharedData.currentPact inStackView:self.stackView];
     
     
     
@@ -35,6 +45,17 @@
     //
     //    [self addSubview:self.viewOfContent];
     
+}
+
+-(void)setPact:(JDDPact *)pact{
+    if (_pact != pact) {
+        for (UIView *subviews in self.stackView.arrangedSubviews) {
+            [self.stackView removeArrangedSubview:subviews];
+        }
+        [self createMainPactViewAtIndex:0 withPact:pact inStackView:self.stackView];
+        [self createPactDetailViewAtIndex:1 withPact:pact inStackView:self.stackView];
+    }
+    _pact = pact;
 }
 
 -(void)createScrollView {
@@ -81,11 +102,11 @@
 -(void)createMainPactViewAtIndex:(NSUInteger)index withPact:(JDDPact *)pact inStackView:(UIStackView *)stackView{
     
     UserPactMainView * view = [[UserPactMainView alloc]initWithFrame:CGRectZero];
-    
-    view.pact = pact;
-    
+        
     [stackView addArrangedSubview:view];
-    
+    view.pact = pact;
+//    view.pact = self.sharedData.currentPact;
+
     [view.widthAnchor constraintEqualToAnchor:self.contentView.widthAnchor].active = YES;
 //    [view.heightAnchor constraintEqualToAnchor:self.contentView.heightAnchor].active = YES;
     
@@ -94,17 +115,20 @@
 -(void)createPactDetailViewAtIndex:(NSUInteger)index withPact:(JDDPact *)pact inStackView:(UIStackView *)stackView{
     
     UserPactDetailView *view = [[UserPactDetailView alloc]initWithFrame:CGRectZero];
-    
     view.pact = pact;
-    
+//    view.pact = self.sharedData.currentPact;
     [stackView insertArrangedSubview:view atIndex:index];
-    
-    
 }
+
 
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView {
     
     BOOL didSwipeToCertainPoint = NO;
+    
+    self.messageShapeTrailingAnchor.constant = -(scrollView.contentOffset.x *2)-(self.contentView.frame.size.width/3.3);
+    self.messageImageView.alpha = -(scrollView.contentOffset.x)/(self.contentView.frame.size.width/4);
+    NSLog(@"alpha is %f", self.messageImageView.alpha);
+    
     if (scrollView.contentOffset.x < - (self.contentView.frame.size.width/4)) {
         
         didSwipeToCertainPoint = YES;
@@ -113,7 +137,21 @@
     }
 }
 
--(void)createLabel{
+-(void)createView{
+    
+    UIImage *messageImage = [UIImage imageNamed:@"MessageShape"];
+    self.messageImageView = [[UIImageView alloc]initWithImage:messageImage];
+    self.messageImageView.contentMode = UIViewContentModeScaleAspectFit;
+    [self.contentView addSubview:self.messageImageView];
+    
+    self.messageImageView.alpha =0.0001;
+    
+    self.messageImageView.translatesAutoresizingMaskIntoConstraints = NO;
+    [self.messageImageView.centerYAnchor constraintEqualToAnchor:self.contentView.centerYAnchor].active = YES;
+    [self.messageImageView.heightAnchor constraintEqualToAnchor:self.contentView.heightAnchor multiplier:.1].active = YES;
+    [self.messageImageView.widthAnchor constraintEqualToAnchor:self.contentView.heightAnchor multiplier:.1].active = YES;
+    self.messageShapeTrailingAnchor  = [self.messageImageView.trailingAnchor constraintEqualToAnchor:self.contentView.leadingAnchor];
+    self.messageShapeTrailingAnchor.active = YES;
     
 }
 
