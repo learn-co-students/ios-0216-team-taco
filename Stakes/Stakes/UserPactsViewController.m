@@ -139,16 +139,11 @@
 {
 
     PactTableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:@"userPact"forIndexPath:indexPath];
-    NSLog(@"willcellrowforindexpath gets called with x pact%@",self.sharedData.currentPact.title);
-    NSLog(@"willcellrowforindexpath gets called with x pact%@",self.sharedData.currentPact.stakes);
 
-    cell.pact = [[JDDPact alloc]init];
-    cell.pact = self.sharedData.currentPact;
-        
+    JDDPact *currentPact = self.sharedData.currentUser.pactsToShowInApp[indexPath.section];
+    cell.pact = currentPact;
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        
     cell.delegate = self;
-    
     return cell;
 }
 
@@ -198,8 +193,7 @@
 #pragma mark - <FZAccordionTableViewDelegate> -
 
 - (void)tableView:(FZAccordionTableView *)tableView willOpenSection:(NSInteger)section withHeader:(PactAccordionHeaderView *)header {
-   
-    self.sharedData.currentPact = [[JDDPact alloc]init];
+    
     self.sharedData.currentPact = self.sharedData.currentUser.pactsToShowInApp[section];
     
     NSLog(@"willOpenPactGetsCalled with pact %@",self.sharedData.currentPact.title);
