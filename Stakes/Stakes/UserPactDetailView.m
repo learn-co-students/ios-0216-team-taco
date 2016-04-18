@@ -67,7 +67,7 @@
     
     [self addSubview:self.contentView];
     
-    self.pact = self.sharedData.currentPact;
+//    self.pact = self.sharedData.currentPact;
     
     self.contentView.translatesAutoresizingMaskIntoConstraints = NO;
     [self.contentView.topAnchor constraintEqualToAnchor:self.topAnchor].active = YES;
@@ -81,21 +81,16 @@
     
     [super awakeFromNib];
     
-    self.sharedData = [JDDDataSource sharedDataSource];
-    
-    self.pact = self.sharedData.currentPact;
-    
-    self.firstLoad = YES;
-    self.loadingView.hidden = YES;
-    
-    if (self.firstLoad) {
-        [self.loadingView initialize];
-        self.loadingView.lineCap = kCALineCapRound;
-        self.loadingView.clockwise = true;
-        self.loadingView.segmentColor = [UIColor blackColor];
-        self.firstLoad = NO;
-    }
-    
+//    self.pact = self.sharedData.currentPact;
+}
+
+-(void)setPact:(JDDPact *)pact{
+    _pact = pact;
+    [self setShitUp];
+}
+
+-(void)setShitUp
+{
     // Do any additional setup after loading the view.
     
     // first empty the stackview
@@ -113,6 +108,19 @@
     self.createdLabel.text = worked ? createText : @"Error";
     NSLog(@"checkins %lu and timeinterval %@", self.pact.checkInsPerTimeInterval, self.pact.timeInterval);
     self.checkInsPerWeekLabel.text = [NSString stringWithFormat:@"%lu times per %@", self.pact.checkInsPerTimeInterval, self.pact.timeInterval];
+    self.stakesDescription.text = [NSString stringWithFormat:@"%@", self.pact.stakes];
+    if (self.pact.allowsShaming) {
+        self.twitterShame.text = self.pact.twitterPost;
+    } else {
+        self.TwitterShameTitle.hidden = YES;
+        self.twitterShame.text = @"";
+    }
+    
+    
+//        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(deleteAction:) name:DeletePactConfirmedNotificationName object:nil];
+    
+    self.sharedData = [JDDDataSource sharedDataSource];
+
 
 }
 
@@ -123,74 +131,54 @@
 
 - (IBAction)deleteButtonTapped:(id)sender
 {
-    UIAlertController *deleteAlert = [UIAlertController alertControllerWithTitle:@"Are you sure you want to delete this pact?" message:nil preferredStyle:UIAlertControllerStyleAlert];
-    
-    UIAlertAction *delete = [UIAlertAction actionWithTitle:@"Delete" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
-        [self.loadingView startAnimation:BACircleAnimationFullCircle];
-        
-        [self deleteAction];
-    }];
-    
-    UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleDefault handler:nil];
-    [deleteAlert addAction:delete];
-    [deleteAlert addAction:cancel];
-    
-    
-//    [self presentViewController:deleteAlert animated:YES completion:^{
+    [[NSNotificationCenter defaultCenter] postNotificationName:UserWantsToDeletePactNotificationName object:self.pact];
+}
+
+//-(void)deleteAction:(NSNotification *)notification
+//{
+//    [self.loadingView startAnimation:BACircleAnimationFullCircle];
+//    
+//    [self deleteCurrentUserPactReferenceWithCompletion:^(BOOL done) {
+//        if (done) {
+//            [self deleteAllUserPactReferences];
+//            [self deletePactReferenceWithCompletion:^(BOOL doneWithPact) {
+//                if (doneWithPact) {
+//
+//                    [self.loadingView stopAnimation];
+//                    [[NSNotificationCenter defaultCenter] postNotificationName:UserDeletedPactNotificationName object:self.pact];
+//                    
+//                }
+//            }];
+//        }
 //        
 //    }];
-}
-
--(void)deleteAction
-{
-    
-    [self deleteCurrentUserPactReferenceWithCompletion:^(BOOL done) {
-        if (done) {
-            [self deleteAllUserPactReferences];
-            [self deletePactReferenceWithCompletion:^(BOOL doneWithPact) {
-                if (doneWithPact) {
-                    
-                    //                    [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-                    //
-                    //                        [self dismissViewControllerAnimated:YES completion:nil];
-                    //
-                    //                    }];
-                    //send notification to VC
-                    [self.loadingView stopAnimation];
-                    [[NSNotificationCenter defaultCenter] postNotificationName:UserDeletedPactNotificationName object:self.pact];
-                    
-                }
-            }];
-        }
-        
-    }];
-}
-
--(void)deleteCurrentUserPactReferenceWithCompletion:(void(^)(BOOL))completed {
-    
-    [[[[[self.sharedData.firebaseRef childByAppendingPath:@"users"] childByAppendingPath:self.sharedData.currentUser.userID] childByAppendingPath:@"pacts"] childByAppendingPath:self.pact.pactID]removeValueWithCompletionBlock:^(NSError *error, Firebase *ref) {
-        completed(YES);
-    }];
-}
-
--(void)deleteAllUserPactReferences
-{
-    for (JDDUser *user in self.pact.usersToShowInApp) {
-        NSLog(@"ARE WE IN THE LOO{):");
-        NSString *userID = user.userID;
-        [[[[[self.sharedData.firebaseRef childByAppendingPath:@"users"] childByAppendingPath:userID] childByAppendingPath:@"pacts"] childByAppendingPath:self.pact.pactID] removeValue];
-    }
-    
-}
--(void)deletePactReferenceWithCompletion:(void(^)(BOOL))referenceDeleted {
-    
-    [[[self.sharedData.firebaseRef childByAppendingPath:@"pacts"] childByAppendingPath:self.pact.pactID] removeValueWithCompletionBlock:^(NSError *error, Firebase *ref) {
-        
-        NSLog(@"in remove value completionblock");
-        referenceDeleted(YES);
-    }];
-    
-}
+//}
+//
+//-(void)deleteCurrentUserPactReferenceWithCompletion:(void(^)(BOOL))completed {
+//    
+//    [[[[[self.sharedData.firebaseRef childByAppendingPath:@"users"] childByAppendingPath:self.sharedData.currentUser.userID] childByAppendingPath:@"pacts"] childByAppendingPath:self.pact.pactID]removeValueWithCompletionBlock:^(NSError *error, Firebase *ref) {
+//        completed(YES);
+//    }];
+//}
+//
+//-(void)deleteAllUserPactReferences
+//{
+//    for (JDDUser *user in self.pact.usersToShowInApp) {
+//        NSLog(@"ARE WE IN THE LOO{):");
+//        NSString *userID = user.userID;
+//        [[[[[self.sharedData.firebaseRef childByAppendingPath:@"users"] childByAppendingPath:userID] childByAppendingPath:@"pacts"] childByAppendingPath:self.pact.pactID] removeValue];
+//    }
+//    
+//}
+//-(void)deletePactReferenceWithCompletion:(void(^)(BOOL))referenceDeleted {
+//    
+//    [[[self.sharedData.firebaseRef childByAppendingPath:@"pacts"] childByAppendingPath:self.pact.pactID] removeValueWithCompletionBlock:^(NSError *error, Firebase *ref) {
+//        
+//        NSLog(@"in remove value completionblock");
+//        referenceDeleted(YES);
+//    }];
+//    
+//}
 
 
 
