@@ -608,6 +608,7 @@
         self.shameSwitch.alpha = 0;
         self.twitterShameLabel.alpha =0;
         self.HowOften.alpha = 0;
+        self.twitterOnboardingLabel.alpha = 0;
     }
     
 
