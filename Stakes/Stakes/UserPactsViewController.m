@@ -234,8 +234,9 @@
 
 - (void)tableView:(FZAccordionTableView *)tableView willOpenSection:(NSInteger)section withHeader:(PactAccordionHeaderView *)header {
     
+    self.view.userInteractionEnabled = NO;
+    
     self.sharedData.currentPact = self.sharedData.currentUser.pactsToShowInApp[section];
-
     
     NSLog(@"willOpenPactGetsCalled with pact %@",self.sharedData.currentPact.title);
     NSLog(@"willOpenPactGetsCalled with pact %@",self.sharedData.currentPact);
@@ -251,6 +252,8 @@
    
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:section];
     [tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionTop animated:YES];
+    
+    self.view.userInteractionEnabled =YES;
 
 
 }

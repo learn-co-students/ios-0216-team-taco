@@ -20,7 +20,19 @@
             <subviews>
                 <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uui-TC-WO3">
                     <rect key="frame" x="-1" y="0.0" width="601" height="150"/>
+                    <subviews>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ccg-fY-rZr">
+                            <rect key="frame" x="8" y="11" width="585" height="122"/>
+                            <color key="backgroundColor" red="0.54415023770000004" green="0.9944700783" blue="0.44631047260000001" alpha="1" colorSpace="calibratedRGB"/>
+                        </view>
+                    </subviews>
                     <color key="backgroundColor" red="0.56470588239999997" green="0.79215686269999996" blue="0.97647058819999999" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstItem="ccg-fY-rZr" firstAttribute="centerX" secondItem="uui-TC-WO3" secondAttribute="centerX" id="9r7-N5-CgE"/>
+                        <constraint firstItem="ccg-fY-rZr" firstAttribute="height" secondItem="uui-TC-WO3" secondAttribute="height" multiplier="0.9" id="AXK-VY-7rD"/>
+                        <constraint firstItem="ccg-fY-rZr" firstAttribute="width" secondItem="uui-TC-WO3" secondAttribute="width" multiplier="0.9" id="hhF-iU-Gk9"/>
+                        <constraint firstItem="ccg-fY-rZr" firstAttribute="centerY" secondItem="uui-TC-WO3" secondAttribute="centerY" multiplier="0.9" id="llC-0A-Ncc"/>
+                    </constraints>
                 </view>
                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" translatesAutoresizingMaskIntoConstraints="NO" id="PoO-iB-FiH">
                     <rect key="frame" x="15" y="207" width="570" height="330"/>
