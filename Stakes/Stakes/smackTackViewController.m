@@ -29,7 +29,7 @@
     [super viewDidLoad];
         
     self.title = @"SmackTalk";
-    
+        
     self.dataSource = [JDDDataSource sharedDataSource];
     self.chatroom = [[JDDChatRoom alloc]init];
     [self setUpGestureRecognizer];
@@ -70,7 +70,7 @@
     NSLog(@"Left Gesture Recognizer is happening!");
     
     CATransition *transition = [CATransition animation];
-    transition.duration = 0.3;
+    transition.duration = 0.75;
     transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
     transition.type = kCATransitionPush;
     transition.subtype = kCATransitionFromRight;

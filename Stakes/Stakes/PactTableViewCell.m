@@ -34,17 +34,7 @@
     
     [self.scrollView layoutIfNeeded];
     self.sharedData = [JDDDataSource sharedDataSource];
-//    self.pact = self.sharedData.currentPact;
     [self createView];
-
-//    [self createMainPactViewAtIndex:0 withPact:self.sharedData.currentPact inStackView:self.stackView];
-//    [self createPactDetailViewAtIndex:1 withPact:self.sharedData.currentPact inStackView:self.stackView];
-    
-    
-    
-    //    [[NSBundle mainBundle] loadNibNamed:@"PactTableViewCell" owner:self options:nil];
-    //
-    //    [self addSubview:self.viewOfContent];
     
 }
 
@@ -71,10 +61,9 @@
     [self.scrollView.rightAnchor constraintEqualToAnchor:self.contentView.rightAnchor
      ].active = YES;
     [self.scrollView.bottomAnchor constraintEqualToAnchor:self.contentView.bottomAnchor].active = YES;
-//    [self.scrollView.heightAnchor constraintEqualToAnchor:self.contentView.heightAnchor].active = YES;
     
     self.scrollView.userInteractionEnabled = YES;
-    self.scrollView.showsHorizontalScrollIndicator = YES;
+    self.scrollView.showsHorizontalScrollIndicator = NO;
     self.scrollView.scrollEnabled = YES;
     self.scrollView.pagingEnabled = YES;
     
@@ -106,10 +95,8 @@
         
     [stackView addArrangedSubview:view];
     view.pact = pact;
-//    view.pact = self.sharedData.currentPact;
 
     [view.widthAnchor constraintEqualToAnchor:self.contentView.widthAnchor].active = YES;
-//    [view.heightAnchor constraintEqualToAnchor:self.contentView.heightAnchor].active = YES;
     
 }
 
@@ -117,8 +104,9 @@
     
     UserPactDetailView *view = [[UserPactDetailView alloc]initWithFrame:CGRectZero];
     view.pact = pact;
-//    view.pact = self.sharedData.currentPact;
+
     [stackView insertArrangedSubview:view atIndex:index];
+    
 }
 
 

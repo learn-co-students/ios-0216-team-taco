@@ -141,7 +141,7 @@
     if (scrollView.contentOffset.y < -(self.view.frame.size.height/6)) {
         
         CATransition *transition = [CATransition animation];
-        transition.duration = 1;
+        transition.duration = 0.75;
         transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
         transition.type = kCATransitionPush;
         transition.subtype = kCATransitionFromBottom;
@@ -156,7 +156,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    return 490;
+    return (self.view.frame.size.height - 140);
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
