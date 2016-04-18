@@ -31,6 +31,8 @@
 @property (nonatomic,strong)NSString *currentUserID;
 @property (nonatomic, strong) Firebase *ref;
 @property (nonatomic, strong) STTwitterAPI *twitter;
+@property (nonatomic, strong) NSLayoutConstraint *createPactLabelAnchor;
+@property (nonatomic, strong) UILabel *createPactLabel;
 
 @end
 
@@ -53,6 +55,8 @@
     
     
     self.ref = self.sharedData.firebaseRef;
+    
+    [self createPactLabelView];
     
 //    self.sharedData.currentPact =self.sharedData.currentUser.pactsToShowInApp[0];
 
@@ -105,6 +109,23 @@
     
 }
 
+
+-(void)createPactLabelView{
+    
+    self.createPactLabel = [[UILabel alloc]init];
+    [self.view addSubview:self.createPactLabel];
+    self.createPactLabel.textColor = [UIColor grayColor];
+    self.createPactLabel.text = @"pull to create pact";
+    [self.createPactLabel setFont:[UIFont fontWithName:@"futura" size:17]];
+    self.createPactLabel.alpha =0.0001;
+    self.createPactLabel.translatesAutoresizingMaskIntoConstraints = NO;
+    [self.createPactLabel.centerXAnchor constraintEqualToAnchor:self.view.centerXAnchor].active = YES;
+    self.createPactLabelAnchor  = [self.createPactLabel.bottomAnchor constraintEqualToAnchor:self.view.topAnchor];
+    self.createPactLabelAnchor.active = YES;
+    
+}
+
+
 #pragma - observe events for user, user pacts, pacts/users
 
 
@@ -117,14 +138,22 @@
 
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView {
     
+    self.createPactLabelAnchor.constant = -(scrollView.contentOffset.y*2) -(self.view.frame.size.height/5);
+    self.createPactLabel.alpha = -(scrollView.contentOffset.y)/(self.view.frame.size.height/6);
+    
     if (scrollView.contentOffset.y < -(self.view.frame.size.height/6)) {
         
+        CATransition *transition = [CATransition animation];
+        transition.duration = 1;
+        transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+        transition.type = kCATransitionPush;
+        transition.subtype = kCATransitionFromBottom;
+        [self.view.window.layer addAnimation:transition forKey:nil];
+
         [self performSegueWithIdentifier:@"segueToCreatePact" sender:self];
         
     }
 }
-
-
 
 #pragma stuff for tableView
 
@@ -198,6 +227,7 @@
 - (void)tableView:(FZAccordionTableView *)tableView willOpenSection:(NSInteger)section withHeader:(PactAccordionHeaderView *)header {
     
     self.sharedData.currentPact = self.sharedData.currentUser.pactsToShowInApp[section];
+
     
     NSLog(@"willOpenPactGetsCalled with pact %@",self.sharedData.currentPact.title);
     NSLog(@"willOpenPactGetsCalled with pact %@",self.sharedData.currentPact);
@@ -207,7 +237,9 @@
 }
 
 - (void)tableView:(FZAccordionTableView *)tableView didOpenSection:(NSInteger)section withHeader:(PactAccordionHeaderView *)header {
-    
+   
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:section];
+    [tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionTop animated:YES];
 
 }
 
@@ -398,7 +430,7 @@
                                         
                                         [self.tableView reloadData];
                                         [self dismissViewControllerAnimated:YES completion:nil];
-                                        
+                            
                                     }];
                                 }
                             }];
