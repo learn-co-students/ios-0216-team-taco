@@ -18,10 +18,11 @@
 
 @interface CreatePactViewController () <CNContactPickerDelegate, MFMessageComposeViewControllerDelegate> ;
 @property (strong, nonatomic) IBOutlet UIView *mainView;
-@property (weak, nonatomic) IBOutlet UILabel *userNameLabel;
-@property (weak, nonatomic) IBOutlet UIImageView *profileImage;
+@property (weak, nonatomic) IBOutlet UILabel *DescriptionLabel;
+@property (weak, nonatomic) IBOutlet UILabel *HowOften;
 @property (weak, nonatomic) IBOutlet UITextField *pactDescription;
 @property (weak, nonatomic) IBOutlet UILabel *twitterShameLabel;
+@property (weak, nonatomic) IBOutlet UILabel *welcomeLabel;
 @property (weak, nonatomic) IBOutlet UIPickerView *frequencyPicker;
 @property (weak, nonatomic) IBOutlet UIPickerView *timeIntervalPicker;
 @property (weak, nonatomic) IBOutlet UITextField *twitterShamePost;
@@ -30,6 +31,7 @@
 @property (weak, nonatomic) IBOutlet UISwitch *repeatSwitch;
 @property (weak, nonatomic) IBOutlet UISwitch *shameSwitch;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *topConstraint;
+@property (weak, nonatomic) IBOutlet UILabel *twitterOnboardingLabel;
 @property (weak, nonatomic) IBOutlet UITextField *stakesTextView;
 @property (nonatomic, assign) NSString * pactID;
 @property (nonatomic,strong) NSMutableArray* FrequencyPickerDataSourceArray;
@@ -57,6 +59,7 @@
 - (void)viewDidLoad {
     
     [super viewDidLoad];
+    self.dataSource = [JDDDataSource sharedDataSource];
     [self.RemoveInvitesButton setTransform:CGAffineTransformMakeRotation(-M_PI / 2)];
     [self initializePickers];
     [self cleanScreenFromLabels];
@@ -64,9 +67,6 @@
     [self stylePactDescriptionView];
     [self styleTwitterPost];
     [self styleStakesView];
-    
-    
-    self.dataSource = [JDDDataSource sharedDataSource];
     
     self.contactsToShow = [[NSMutableArray alloc]init];
     
@@ -81,33 +81,57 @@
 
 -(void)cleanScreenFromLabels
 {
+    self.HowOften.alpha =0;
+    self.twitterOnboardingLabel.alpha = 0;
+    self.welcomeLabel.hidden = YES;
+    self.topConstraint.constant = ([[UIScreen mainScreen] bounds].size.height/2)-40;
+    if (self.dataSource.currentUser.pacts.count==0 || [self.dataSource.currentUser.pacts isEqual:nil] ) {
+        self.welcomeLabel.text = [NSString stringWithFormat:@"Welcome, %@",self.dataSource.currentUser.displayName];
+        self.welcomeLabel.hidden = NO;
+    } else {
+        self.welcomeLabel.text = [NSString stringWithFormat:@"Hi, %@",self.dataSource.currentUser.displayName];
+        self.welcomeLabel.hidden = NO;
+ 
+    }
     self.RemoveInvitesButton.hidden = YES;
-    self.pactDescription.hidden = YES;
-    self.stakesTextView.hidden = YES;
-    self.twitterShamePost.hidden = YES;
-    self.repeatSwitch.hidden = YES;
-    self.shameSwitch.hidden = YES;
+    self.pactDescription.alpha = 0;
+    self.stakesTextView.alpha = 0;
+    self.twitterShamePost.alpha = 0;
+    self.repeatSwitch.alpha = 0;
+    self.shameSwitch.alpha = 0;
     self.addFriendsView.hidden = YES;
     self.contactButtonView.hidden = YES;
-    self.pickerView.hidden = YES;
-    self.twitterShameLabel.hidden = YES;
-    self.repeatLabel.hidden = YES;
+    self.pickerView.alpha = 0;
+    self.twitterShameLabel.alpha = 0;
+    self.repeatLabel.alpha = 0;
     self.repeatSwitch.on = NO;
     self.shameSwitch.on = NO;
-    self.twitterShamePost.hidden = YES;
-    self.profileImage.hidden = YES;
-    self.userNameLabel.hidden = YES;
+    self.twitterShamePost.alpha = 0;
+    
+    self.DescriptionLabel.alpha = 0;
+
 }
 
 
 
 
--(void)dismissKeyboard {//dismiss Keyboard for tap gesture
+-(void)dismissKeyboard   //dismiss Keyboard for tap gesture
+{
     [self.stakesTextView resignFirstResponder];
     [self.twitterShamePost resignFirstResponder];
     [self.pactDescription resignFirstResponder];
     [self.pactTitle resignFirstResponder];
-    self.topConstraint.constant = 0;
+    if (self.pactTitle.text.length >0) {
+        [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
+            
+            self.topConstraint.constant = 10;
+            [self.view layoutIfNeeded];
+            
+        } completion:^(BOOL finished) {
+          
+        }];
+
+    }
 }
 
 
@@ -459,6 +483,12 @@
     
     if (self.shameSwitch.on) {
         self.twitterShamePost.hidden = NO;
+        self.twitterOnboardingLabel.alpha = 0;
+        [UIView animateWithDuration:1 animations:^{
+            self.twitterShamePost.alpha =1;
+
+        } completion:nil];
+
     } else {
         self.twitterShamePost.hidden = YES;
         
@@ -551,6 +581,10 @@
         }
     }
     
+    if (self.contacts.count >0) {
+        self.DescriptionLabel.alpha = 0;
+    }
+    
 }
 
 
@@ -564,7 +598,19 @@
         self.inviteFriendsLabel.hidden = NO;
         self.addFriendsConstraint.constant = 0;
         self.RemoveInvitesButton.hidden = YES;
+        self.DescriptionLabel.alpha = 1;
+        self.pactDescription.alpha = 0;
+        self.pickerView.alpha = 0;
+        self.repeatLabel.alpha = 0;
+        self.repeatSwitch.alpha = 0;
+        self.stakesTextView.alpha = 0;
+        self.twitterShamePost.alpha = 0;
+        self.shameSwitch.alpha = 0;
+        self.twitterShameLabel.alpha =0;
+        self.HowOften.alpha = 0;
     }
+    
+
 }
 
 -(void)addUserToInviteScrollView: (JDDUser*)user {
@@ -953,13 +999,32 @@
 
 - (IBAction)pactTitleEditingEnd:(id)sender {
     if (self.pactTitle.text.length >1) {
-        self.contactButtonView.hidden = NO;
-        self.addFriendsView.hidden = NO;
+        [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
+            
+            self.topConstraint.constant = 10;
+            self.welcomeLabel.hidden = YES;
+            [self.view layoutIfNeeded];
+            
+        } completion:^(BOOL finished) {
+            self.contactButtonView.hidden = NO;
+            self.addFriendsView.hidden = NO;
+        }];
+
+        
     } else {
         [self alertFinishFiling:@"Please, name your pact"];
     }
     
+    if (self.dataSource.currentUser.pacts.count==0 || [self.dataSource.currentUser.pacts isEqual:nil] ) {
+        
+        [UIView animateWithDuration:1 animations:^{
+            self.DescriptionLabel.text = @"Please add friends to the pact by tapping the add button";            self.DescriptionLabel.alpha = 1;
+        } completion:nil];
+        
     
+    } else {
+        self.DescriptionLabel.hidden = YES;
+    }
 }
 
 
@@ -967,10 +1032,18 @@
 
 - (IBAction)didEndEditingPactDescription:(id)sender {
     if (self.pactDescription.text.length >2) {
-        self.pickerView.hidden = NO;
-        self.repeatLabel.hidden = NO;
-        self.repeatSwitch.hidden = NO;
-        self.stakesTextView.hidden = NO;
+        [UIView animateWithDuration:1 animations:^{
+            self.pickerView.alpha = 1;
+            self.repeatLabel.alpha = 1;
+            self.repeatSwitch.alpha = 1;
+            self.HowOften.alpha =1;
+        } completion:nil];
+        
+        [UIView animateWithDuration:1 delay:2 options:nil animations:^{
+            self.stakesTextView.alpha = 1;
+
+        } completion:nil];
+        
     } else {
         [self alertFinishFiling:@"Please, describe your pact"];
         self.pickerView.hidden = YES;
@@ -981,15 +1054,41 @@
     
 }
 
+- (IBAction)didEndStakeDescription:(id)sender {
+    if (self.stakesTextView.text.length >2) {
+        [UIView animateWithDuration:1 animations:^{
+            self.twitterShameLabel.alpha = 1;
+            self.shameSwitch.alpha = 1;
+        } completion:nil];
+        
+    } else {
+        [self alertFinishFiling:@"Please write youe stakes"];
+    }
+    
+    if (self.dataSource.currentUser.pacts.count==0 || [self.dataSource.currentUser.pacts isEqual:nil] ) {
+        
+        [UIView animateWithDuration:1 animations:^{
+            self.twitterOnboardingLabel.text = @"Enable Twitter to bomb your friends Twitter if they don't follow the pact";            self.twitterOnboardingLabel.alpha = 1;
+        } completion:nil];
+        
+        
+    } else {
+        self.DescriptionLabel.hidden = YES;
+    }
 
+}
 
 
 
 -(void)didSelectedContactToInvite
 {
+    
     if (self.contactsToShow.count >0) {
-        self.pactDescription.hidden = NO;
-    } else {
+                [UIView animateWithDuration:1 animations:^{
+                    self.pactDescription.alpha = 1;
+                } completion:nil];
+        
+                } else {
         [self alertFinishFiling:@"Please, choose members to add to the pact"];
         self.pactDescription.hidden = YES;
         

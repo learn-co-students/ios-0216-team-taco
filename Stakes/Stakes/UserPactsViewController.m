@@ -41,6 +41,9 @@
     NSLog(@"view did load in user pacts");
     self.sharedData = [JDDDataSource sharedDataSource];
     
+    NSLog(@"sharedata in initial VC in that other VC is = %@", self.sharedData.currentUser.displayName);
+
+    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleUserCheckedIn:) name:UserCheckedInNotificationName object:nil];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleUserAccepted:) name:UserAcceptedPactNotificationName object:nil];
