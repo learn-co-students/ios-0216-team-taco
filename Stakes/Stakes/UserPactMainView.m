@@ -85,7 +85,9 @@
     [[NSBundle mainBundle] loadNibNamed:@"UserPactMainView" owner:self options:nil];
     
     [self addSubview:self.contentView];
-        
+    
+    self.sharedData = [JDDDataSource sharedDataSource];
+    
     self.contentView.translatesAutoresizingMaskIntoConstraints = NO;
     [self.contentView.topAnchor constraintEqualToAnchor:self.topAnchor].active = YES;
     [self.contentView.leftAnchor constraintEqualToAnchor:self.leftAnchor].active = YES;
@@ -98,7 +100,6 @@
     
     [super awakeFromNib];
     
-    self.sharedData = [JDDDataSource sharedDataSource];
     
     [self addObserver:self forKeyPath:@"pact.users" options:NSKeyValueObservingOptionNew context:nil];
 }
@@ -107,7 +108,8 @@
 - (IBAction)checkInButtonPressed:(id)sender {
        
     NSLog(@"checkin Button Pressed");
-    
+    NSLog(@"userIs : %@", self.sharedData.currentUser.userID);
+
     self.pact.checkIns = [[NSMutableArray alloc]init];
 
     self.checkIn = [[JDDCheckIn alloc]init];
@@ -119,7 +121,7 @@
     
     Firebase *newCheckin = [checkinRef childByAutoId];
     
-     self.checkIn.checkInID = [newCheckin.description stringByReplacingOccurrencesOfString:checkinRef.description withString:@""];
+    self.checkIn.checkInID = [newCheckin.description stringByReplacingOccurrencesOfString:checkinRef.description withString:@""];
     
     NSMutableDictionary *finalCheckinDictionary = [self.sharedData createDictionaryToSendToFirebaseWithJDDCheckIn:self.checkIn];
     
@@ -133,6 +135,7 @@
          (requestWhenInUseAuthorization)]) {
         [self.locationManager requestWhenInUseAuthorization];
     }
+    
     [self.locationManager startUpdatingLocation];
     
     [[NSNotificationCenter defaultCenter] postNotificationName:UserCheckedInNotificationName object:self.pact];
@@ -161,7 +164,7 @@
                                                                                                  @"senderId" : self.sharedData.currentUser.userID,
                                                                                                  @"senderDisplayName" :self.sharedData.currentUser.displayName,
                                                                                                  @"date" : [dateFormatter stringFromDate:[NSDate date]],
-                                                                                                 @"text" : [NSString stringWithFormat:@"%@ just checked in to %f, %f",self.sharedData.currentUser.displayName, self.latitude,self.longitude]
+                                                                                                 @"text" : [NSString stringWithFormat:@"%@ just checked in!",self.sharedData.currentUser.displayName]
                                                                                                  
                                                                                                  }];
     
