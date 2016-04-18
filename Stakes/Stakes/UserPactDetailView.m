@@ -26,9 +26,7 @@
 @property (strong, nonatomic) IBOutlet UILabel *checkInsPerWeekLabel;
 @property (strong, nonatomic) IBOutlet UIButton *deletePactButton;
 @property (strong, nonatomic) JDDDataSource *sharedData;
-@property (strong, nonatomic) IBOutlet BALoadingView *loadingView;
-@property(assign,nonatomic) BACircleAnimation animationType;
-@property(assign,nonatomic) bool firstLoad;
+
 @end
 
 @implementation UserPactDetailView
@@ -108,13 +106,6 @@
     self.createdLabel.text = worked ? createText : @"Error";
     NSLog(@"checkins %lu and timeinterval %@", self.pact.checkInsPerTimeInterval, self.pact.timeInterval);
     self.checkInsPerWeekLabel.text = [NSString stringWithFormat:@"%lu times per %@", self.pact.checkInsPerTimeInterval, self.pact.timeInterval];
-    self.stakesDescription.text = [NSString stringWithFormat:@"%@", self.pact.stakes];
-    if (self.pact.allowsShaming) {
-        self.twitterShame.text = self.pact.twitterPost;
-    } else {
-        self.TwitterShameTitle.hidden = YES;
-        self.twitterShame.text = @"";
-    }
     
     
 //        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(deleteAction:) name:DeletePactConfirmedNotificationName object:nil];
