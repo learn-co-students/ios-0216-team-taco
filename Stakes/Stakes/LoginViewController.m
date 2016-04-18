@@ -65,6 +65,8 @@
     }
     
         self.firstLoad = YES;
+    self.loadingView.hidden = YES;
+    
 }
 
 -(void)viewDidLayoutSubviews {
@@ -80,6 +82,11 @@
 
 - (IBAction)loginTapped:(id)sender
 {
+    self.loginContainer.hidden = YES;
+    self.loadingView.hidden = NO;
+    [self.loadingView startAnimation:BACircleAnimationFullCircle];
+
+    
     NSLog(@"login");
     if (self.userDidRegister) {
         self.userQuery = [[NSUserDefaults standardUserDefaults] objectForKey:UserIDKey];
@@ -89,6 +96,7 @@
         self.userQuery = self.phoneNumberTextField.text;
         [self checkForUserInFirebase];
     }
+    
 }
 
 -(void)startAuthProcess
@@ -128,6 +136,9 @@
     }
     
     UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+        [self.loadingView stopAnimation];
+        self.loadingView.hidden = YES;
+        self.loginContainer.hidden = NO;
         [self dismissViewControllerAnimated:YES completion:nil];
     }];
     [selectAccount addAction:cancel];
@@ -137,14 +148,13 @@
 
 - (void)authenticateInFirebaseWithTwitterAccount:(ACAccount *)account
 {
-    if (self.userDidRegister) {
-    NSLog(@"we should start the animation");
-    [self.loadingView startAnimation:BACircleAnimationFullCircle];
-    }
     
     [self.twitterAuthHelper authenticateAccount:account withCallback:^(NSError *error, FAuthData *authData) {
         if (error) {
             NSString *message = [NSString stringWithFormat:@"There was an error authenticating your account: %@", error.localizedDescription];
+            [self.loadingView stopAnimation];
+            self.loadingView.hidden = YES;
+            self.loginContainer.hidden = NO;
             [self showAlertWithMessage:message];
         } else {
             if (self.userDidRegister) { // this person has registered the app at some point in time
@@ -210,13 +220,14 @@
         
         [[NSNotificationCenter defaultCenter] postNotificationName:UserDidLogInNotificationName object:nil];
         
-        [self.loadingView stopAnimation];
-        
         [self saveAccount:account];
         
     } errorBlock:^(NSError *error) {
         NSLog(@"%@", error.localizedDescription);
         NSString *message = [NSString stringWithFormat:@"There was an error signing in to Twitter: %@", error.localizedDescription];
+        [self.loadingView stopAnimation];
+        self.loadingView.hidden = YES;
+        self.loginContainer.hidden = NO;
         [self showAlertWithMessage:message];
     }];
 }
@@ -226,8 +237,9 @@
     [self.accountStore saveAccount:account withCompletionHandler:^(BOOL success, NSError *error) {
         NSLog(@"account saved - identifier: %@", account.identifier);
         [[NSUserDefaults standardUserDefaults] setObject:account.identifier forKey:AccountIdentifierKey];
-        //        self.accountStore = self.sharedData.accountStore;
-        //dont think i need this ^
+        [self.loadingView stopAnimation];
+        self.loadingView.hidden = YES;
+        self.loginContainer.hidden = NO;
         
     }];
 }
@@ -236,8 +248,6 @@
 
 -(void)checkForUserInFirebase
 {
-    [self.loadingView startAnimation:BACircleAnimationFullCircle];
-
     NSLog(@"checkingfor user in firebase");
     [[self.firebaseReference childByAppendingPath:@"users"]
      observeSingleEventOfType:FEventTypeValue withBlock:^(FDataSnapshot *snapshot) {
