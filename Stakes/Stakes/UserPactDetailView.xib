@@ -8,17 +8,9 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="UserPactDetailView">
             <connections>
-                <outlet property="checkInsPerWeekLabel" destination="JqU-Q2-WcM" id="rY1-2l-cYW"/>
-                <outlet property="checkInsTitle" destination="OVN-MO-dzB" id="AMA-3O-2Yv"/>
+                <outlet property="checkInsPerWeekLabel" destination="JqU-Q2-WcM" id="udQ-vS-ebX"/>
                 <outlet property="contentView" destination="6R1-zs-DHn" id="fSS-PN-Ccl"/>
-                <outlet property="createdLabel" destination="iS8-Sy-YQM" id="h1d-j6-nr7"/>
-                <outlet property="createdTitle" destination="u2r-iU-F22" id="0q0-sp-66E"/>
-                <outlet property="deletePactButton" destination="FRO-CX-uTF" id="pOf-sd-3My"/>
-                <outlet property="stackView" destination="PoO-iB-FiH" id="e65-yU-tMC"/>
-                <outlet property="statusBar" destination="ccg-fY-rZr" id="KDM-ng-xfB"/>
-                <outlet property="statusBarLabel" destination="zgV-KQ-CWA" id="ni4-Xe-6Zr"/>
-                <outlet property="statusBarView" destination="uui-TC-WO3" id="ehi-2u-NI0"/>
-                <outlet property="statusBarWidthConstraint" destination="kDR-vd-n9x" id="JBe-mU-zMu"/>
+                <outlet property="createdLabel" destination="iS8-Sy-YQM" id="RjY-ED-kB1"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -26,27 +18,19 @@
             <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uui-TC-WO3">
+                <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uui-TC-WO3">
                     <rect key="frame" x="-1" y="0.0" width="601" height="150"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ccg-fY-rZr">
-                            <rect key="frame" x="31" y="8" width="540" height="120"/>
+                            <rect key="frame" x="8" y="11" width="585" height="122"/>
                             <color key="backgroundColor" red="0.54415023770000004" green="0.9944700783" blue="0.44631047260000001" alpha="1" colorSpace="calibratedRGB"/>
                         </view>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zgV-KQ-CWA">
-                            <rect key="frame" x="279" y="65" width="42" height="21"/>
-                            <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="27"/>
-                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                            <nil key="highlightedColor"/>
-                        </label>
                     </subviews>
                     <color key="backgroundColor" red="0.56470588239999997" green="0.79215686269999996" blue="0.97647058819999999" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
-                        <constraint firstItem="ccg-fY-rZr" firstAttribute="height" secondItem="uui-TC-WO3" secondAttribute="height" multiplier="0.8" id="AXK-VY-7rD"/>
-                        <constraint firstItem="zgV-KQ-CWA" firstAttribute="centerX" secondItem="uui-TC-WO3" secondAttribute="centerX" id="DxP-j7-J6Z"/>
-                        <constraint firstItem="zgV-KQ-CWA" firstAttribute="centerY" secondItem="uui-TC-WO3" secondAttribute="centerY" id="WEw-Y1-oKM"/>
-                        <constraint firstItem="ccg-fY-rZr" firstAttribute="leading" secondItem="uui-TC-WO3" secondAttribute="leading" constant="31" id="bIK-wR-IvK"/>
-                        <constraint firstItem="ccg-fY-rZr" firstAttribute="width" secondItem="uui-TC-WO3" secondAttribute="width" multiplier="0.9" id="kDR-vd-n9x"/>
+                        <constraint firstItem="ccg-fY-rZr" firstAttribute="centerX" secondItem="uui-TC-WO3" secondAttribute="centerX" id="9r7-N5-CgE"/>
+                        <constraint firstItem="ccg-fY-rZr" firstAttribute="height" secondItem="uui-TC-WO3" secondAttribute="height" multiplier="0.9" id="AXK-VY-7rD"/>
+                        <constraint firstItem="ccg-fY-rZr" firstAttribute="width" secondItem="uui-TC-WO3" secondAttribute="width" multiplier="0.9" id="hhF-iU-Gk9"/>
                         <constraint firstItem="ccg-fY-rZr" firstAttribute="centerY" secondItem="uui-TC-WO3" secondAttribute="centerY" multiplier="0.9" id="llC-0A-Ncc"/>
                     </constraints>
                 </view>
@@ -54,26 +38,26 @@
                     <rect key="frame" x="15" y="207" width="570" height="330"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Created:" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="u2r-iU-F22">
-                            <rect key="frame" x="0.0" y="0.0" width="570" height="74"/>
+                            <rect key="frame" x="0.0" y="0.0" width="570" height="75"/>
                             <color key="backgroundColor" white="0.66666666669999997" alpha="0.7994073276" colorSpace="calibratedWhite"/>
                             <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="18"/>
                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="created" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iS8-Sy-YQM">
-                            <rect key="frame" x="0.0" y="74" width="570" height="91"/>
+                            <rect key="frame" x="0.0" y="75" width="570" height="91"/>
                             <fontDescription key="fontDescription" name="Avenir-Medium" family="Avenir" pointSize="22"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Check-ins:" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OVN-MO-dzB">
-                            <rect key="frame" x="0.0" y="165" width="570" height="74"/>
+                            <rect key="frame" x="0.0" y="165" width="570" height="75"/>
                             <color key="backgroundColor" white="0.66666666669999997" alpha="0.80000000000000004" colorSpace="calibratedWhite"/>
                             <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="18"/>
                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="checkins per week" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JqU-Q2-WcM">
-                            <rect key="frame" x="0.0" y="239" width="570" height="91"/>
+                            <rect key="frame" x="0.0" y="240" width="570" height="91"/>
                             <fontDescription key="fontDescription" name="Avenir-Medium" family="Avenir" pointSize="22"/>
                             <nil key="highlightedColor"/>
                         </label>
@@ -85,9 +69,6 @@
                     <state key="normal" title="Delete this pact">
                         <color key="titleColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     </state>
-                    <connections>
-                        <action selector="deleteButtonTapped:" destination="-1" eventType="touchUpInside" id="SF6-Eo-Npb"/>
-                    </connections>
                 </button>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>

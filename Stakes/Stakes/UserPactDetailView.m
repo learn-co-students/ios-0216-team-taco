@@ -30,9 +30,7 @@
 @property (strong, nonatomic) IBOutlet UILabel *checkInsPerWeekLabel;
 @property (strong, nonatomic) IBOutlet UIButton *deletePactButton;
 @property (strong, nonatomic) JDDDataSource *sharedData;
-@property (strong, nonatomic) IBOutlet BALoadingView *loadingView;
-@property(assign,nonatomic) BACircleAnimation animationType;
-@property(assign,nonatomic) bool firstLoad;
+
 @end
 
 @implementation UserPactDetailView
@@ -163,7 +161,5 @@
 {
     [[NSNotificationCenter defaultCenter] postNotificationName:UserWantsToDeletePactNotificationName object:self.pact];
 }
-
-
 
 @end
