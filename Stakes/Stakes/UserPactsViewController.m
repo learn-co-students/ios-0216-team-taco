@@ -247,7 +247,7 @@
 
 - (void)tableView:(FZAccordionTableView *)tableView didOpenSection:(NSInteger)section withHeader:(PactAccordionHeaderView *)header {
     
-    self.openSection = section;
+//    self.openSection = section;
 
    
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:section];
@@ -447,7 +447,6 @@
                     
                     if (completionBlock) {
                         
-                        [[NSOperationQueue mainQueue] addOperationWithBlock:^{
                             
                             [self.sharedData observeEventForUsersFromFirebaseWithCompletionBlock:^(BOOL block) {
                                 
@@ -456,21 +455,21 @@
                                     [[NSOperationQueue mainQueue] addOperationWithBlock:^{
                                         
                                         [self.tableView reloadData];
-                                        [self.tableView toggleSection:self.openSection];
-                                        [UIView animateWithDuration:0.5 delay:1 options:UIViewAnimationOptionCurveLinear animations:^{
-                                            //
-                                        } completion:^(BOOL finished) {
-                                            //
-                                            
-                                        }];
-                                           
+//                                        [self.tableView toggleSection:self.openSection];
+//                                        [UIView animateWithDuration:0.5 delay:1 options:UIViewAnimationOptionCurveLinear animations:^{
+//                                            //
+//                                        } completion:^(BOOL finished) {
+//                                            //
+//                                            
+//                                        }];
+//                                           
                     
                             
                                     }];
                                 }
                             }];
                             
-                        }];
+                     
                     }
                 }];
                 

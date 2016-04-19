@@ -24,8 +24,10 @@
 @property (strong, nonatomic) IBOutlet UIButton *checkInButton;
 @property (weak, nonatomic) IBOutlet UILabel *checkInLabel;
 @property (strong, nonatomic) IBOutlet UIView *textView;
-@property (strong, nonatomic) IBOutlet UILabel *twitterText;
-@property (strong, nonatomic) IBOutlet UILabel *TwitterTitle;
+@property (strong, nonatomic) IBOutlet UILabel *twitterTitle
+;
+@property (strong, nonatomic) IBOutlet UILabel *twitterText
+;
 @property (strong, nonatomic) IBOutlet UILabel *pactText;
 @property (strong, nonatomic) IBOutlet UILabel *stakesText;
 @property (strong, nonatomic) IBOutlet UILabel *pactTitle;
