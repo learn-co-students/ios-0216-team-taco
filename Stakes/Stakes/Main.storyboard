@@ -148,41 +148,6 @@
             </objects>
             <point key="canvasLocation" x="36.5" y="988.5"/>
         </scene>
-        <!--Delete Pact View Controller-->
-        <scene sceneID="vOu-iH-mjP">
-            <objects>
-                <viewController id="VR7-Xi-b8F" customClass="DeletePactViewController" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="wN0-gb-Nae"/>
-                        <viewControllerLayoutGuide type="bottom" id="5Dt-0I-FQw"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="Hu6-bq-TvJ">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5Lt-n4-D7y" customClass="BALoadingView">
-                                <rect key="frame" x="166" y="312" width="44" height="44"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="44" id="3ZE-73-u0B"/>
-                                    <constraint firstAttribute="width" constant="44" id="duv-7j-Faa"/>
-                                </constraints>
-                            </view>
-                        </subviews>
-                        <color key="backgroundColor" red="0.14901960784313725" green="0.19607843137254902" blue="0.2196078431372549" alpha="1" colorSpace="calibratedRGB"/>
-                        <constraints>
-                            <constraint firstItem="5Lt-n4-D7y" firstAttribute="centerY" secondItem="Hu6-bq-TvJ" secondAttribute="centerY" id="gig-La-E7x"/>
-                            <constraint firstItem="5Lt-n4-D7y" firstAttribute="centerX" secondItem="Hu6-bq-TvJ" secondAttribute="centerX" id="ro8-BH-j5x"/>
-                        </constraints>
-                    </view>
-                    <connections>
-                        <outlet property="loadingView" destination="5Lt-n4-D7y" id="CZD-IE-JCb"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="8pA-pU-tig" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="740" y="955"/>
-        </scene>
         <!--dimitrysStoryboard-->
         <scene sceneID="lKN-pp-Bfh">
             <objects>
@@ -251,7 +216,6 @@
                         <outlet property="tableView" destination="lak-Xs-a7c" id="cLv-Js-L0P"/>
                         <segue destination="Scb-tg-16g" kind="presentation" identifier="segueToCreatePact" modalTransitionStyle="coverVertical" id="9WM-PE-Ubb"/>
                         <segue destination="P6F-rR-h2E" kind="presentation" identifier="segueToSmackTalkVC" id="qpW-KV-Xnc"/>
-                        <segue destination="VR7-Xi-b8F" kind="presentation" identifier="deleteModal" modalTransitionStyle="crossDissolve" id="2Wa-5I-1Tk"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UO9-Ls-zX4" userLabel="First Responder" sceneMemberID="firstResponder"/>
