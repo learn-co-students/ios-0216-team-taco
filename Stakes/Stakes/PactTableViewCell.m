@@ -31,7 +31,6 @@
     self.sharedData = [JDDDataSource sharedDataSource];
 
     [self createScrollView];
-    [self createStackView];
     self.scrollView.delegate = self;
     
     [self.scrollView layoutIfNeeded];
@@ -52,8 +51,10 @@
 }
 
 -(void)setPact:(JDDPact *)pact {
+    [self createStackView];
+
     _pact = pact;
-    
+   
     for (UIView *subviews in self.stackView.arrangedSubviews) {
         [subviews removeFromSuperview];
     }
@@ -94,12 +95,14 @@
     self.stackView.translatesAutoresizingMaskIntoConstraints = NO;
     
     if (self.sharedData.currentUser.pacts.count == 0 || [self.sharedData.currentUser.pacts isEqual:nil]) {
-        [self.stackView.topAnchor constraintEqualToAnchor:self.contentView.topAnchor constant:-22].active = YES;
+        [self.stackView.topAnchor constraintEqualToAnchor:self.contentView.topAnchor constant:0].active = YES;
+        [self.stackView.bottomAnchor constraintEqualToAnchor:self.contentView.bottomAnchor].active = YES;
     } else {
-        [self.stackView.topAnchor constraintEqualToAnchor:self.contentView.topAnchor].active = YES;
+        [self.stackView.topAnchor constraintEqualToAnchor:self.contentView.topAnchor constant:-22].active = YES;
+        [self.stackView.bottomAnchor constraintEqualToAnchor:self.contentView.bottomAnchor constant:-20].active = YES;
     }
     
-    [self.stackView.bottomAnchor constraintEqualToAnchor:self.contentView.bottomAnchor constant:10].active = YES;
+    
     [self.stackView.leftAnchor constraintEqualToAnchor:self.scrollView.leftAnchor].active = YES;
     [self.stackView.rightAnchor constraintEqualToAnchor:self.scrollView.rightAnchor].active = YES;
     

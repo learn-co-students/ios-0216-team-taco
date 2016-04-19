@@ -73,9 +73,9 @@
                 <constraint firstItem="djV-sx-i9R" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="cIg-Ug-DvU"/>
                 <constraint firstItem="U54-ea-yf7" firstAttribute="centerX" secondItem="djV-sx-i9R" secondAttribute="centerX" id="lfF-Xj-2Em"/>
                 <constraint firstItem="mrA-JW-ryr" firstAttribute="trailing" secondItem="Js8-xk-rKc" secondAttribute="trailing" constant="-8" id="qnI-xc-wyW"/>
-                <constraint firstItem="nYO-zu-Y2V" firstAttribute="top" secondItem="U54-ea-yf7" secondAttribute="bottom" constant="5" id="u1s-O6-moa"/>
+                <constraint firstItem="nYO-zu-Y2V" firstAttribute="top" secondItem="U54-ea-yf7" secondAttribute="bottom" constant="3" id="u1s-O6-moa"/>
                 <constraint firstItem="djV-sx-i9R" firstAttribute="width" secondItem="iN0-l3-epB" secondAttribute="width" multiplier="0.7" id="vOx-yy-x7j"/>
-                <constraint firstItem="U54-ea-yf7" firstAttribute="top" secondItem="djV-sx-i9R" secondAttribute="bottom" constant="5" id="wsA-MR-QWh"/>
+                <constraint firstItem="U54-ea-yf7" firstAttribute="top" secondItem="djV-sx-i9R" secondAttribute="bottom" constant="1" id="wsA-MR-QWh"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
