@@ -72,6 +72,8 @@
         self.title.text = self.pact.title;
         NSLog(@"updatingUI self.pact.isactive %d", self.pact.isActive);
         if (!self.pact.isActive) {
+            self.pendingLabel.text = @"Pending";
+
             self.pendingLabel.hidden = NO;
         } else {
             self.pendingLabel.hidden = YES;
