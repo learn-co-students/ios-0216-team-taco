@@ -15,6 +15,8 @@
 		AF27C4DB1CB6FC92001AA278 /* JDDChatRoom.m in Sources */ = {isa = PBXBuildFile; fileRef = AF27C4DA1CB6FC92001AA278 /* JDDChatRoom.m */; };
 		AF2883481CAC12C6003FD3E2 /* JDDDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = AF2883471CAC12C6003FD3E2 /* JDDDataSource.m */; };
 		AF6449F91CC45BDA002568C9 /* MessageShape.png in Resources */ = {isa = PBXBuildFile; fileRef = AF6449F81CC45BDA002568C9 /* MessageShape.png */; };
+		AF772A441CC6B1CA0008CD78 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AF772A431CC6B1CA0008CD78 /* Assets.xcassets */; };
+		AF772A4A1CC6B44A0008CD78 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AF772A491CC6B44A0008CD78 /* Assets.xcassets */; };
 		AF97DCA71CC006660053E497 /* PactTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AF97DCA51CC006660053E497 /* PactTableViewCell.m */; };
 		AF97DCAF1CC03D8B0053E497 /* UserPactMainView.xib in Resources */ = {isa = PBXBuildFile; fileRef = AF97DCAE1CC03D8B0053E497 /* UserPactMainView.xib */; };
 		AF97DCB11CC15B450053E497 /* PactTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AF97DCB01CC15B450053E497 /* PactTableViewCell.xib */; };
@@ -84,6 +86,8 @@
 		AF2883461CAC12C6003FD3E2 /* JDDDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JDDDataSource.h; sourceTree = "<group>"; };
 		AF2883471CAC12C6003FD3E2 /* JDDDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JDDDataSource.m; sourceTree = "<group>"; };
 		AF6449F81CC45BDA002568C9 /* MessageShape.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = MessageShape.png; path = Assets.xcassets/MessageShape.png; sourceTree = "<group>"; };
+		AF772A431CC6B1CA0008CD78 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		AF772A491CC6B44A0008CD78 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		AF97DCA41CC006660053E497 /* PactTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PactTableViewCell.h; sourceTree = "<group>"; };
 		AF97DCA51CC006660053E497 /* PactTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PactTableViewCell.m; sourceTree = "<group>"; };
 		AF97DCAE1CC03D8B0053E497 /* UserPactMainView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UserPactMainView.xib; sourceTree = "<group>"; };
@@ -200,6 +204,7 @@
 		CBA2BACE1CBC47FC007F8995 /* Model Classes */ = {
 			isa = PBXGroup;
 			children = (
+				AF772A431CC6B1CA0008CD78 /* Assets.xcassets */,
 				CBA9858A1CAAEE0900D1CC27 /* JDDCheckIn.h */,
 				CBA9858B1CAAEE0900D1CC27 /* JDDCheckIn.m */,
 				CBA9858E1CAAEE0900D1CC27 /* JDDPact.h */,
@@ -225,6 +230,7 @@
 				CBA985891CAAEE0900D1CC27 /* CreatePactViewController.m */,
 				CBA985921CAAEE0900D1CC27 /* PactDetailViewController.h */,
 				CBA985931CAAEE0900D1CC27 /* PactDetailViewController.m */,
+				AF772A491CC6B44A0008CD78 /* Assets.xcassets */,
 				CBA985941CAAEE0900D1CC27 /* UserPactsViewController.h */,
 				CBA985951CAAEE0900D1CC27 /* UserPactsViewController.m */,
 				AFEBE6871CB334FF00FBE107 /* UserDetailViewController.h */,
@@ -469,8 +475,10 @@
 				CBA985621CAAEC6D00D1CC27 /* LaunchScreen.storyboard in Resources */,
 				AF97DCAF1CC03D8B0053E497 /* UserPactMainView.xib in Resources */,
 				CBA985E81CAC286400D1CC27 /* PactAccordionHeaderView.xib in Resources */,
+				AF772A4A1CC6B44A0008CD78 /* Assets.xcassets in Resources */,
 				CBA985A01CAB0AE600D1CC27 /* dylansStoryboard.storyboard in Resources */,
 				CBA985A21CAB0AF700D1CC27 /* dimitrysStoryboard.storyboard in Resources */,
+				AF772A441CC6B1CA0008CD78 /* Assets.xcassets in Resources */,
 				CBA9855F1CAAEC6D00D1CC27 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

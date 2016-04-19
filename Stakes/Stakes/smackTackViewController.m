@@ -181,10 +181,10 @@
     [super didReceiveMemoryWarning];
 }
 
--(void)addMessage:(NSString*)stringFromTextField withUser: (NSString *)userID andDisplayName:(NSString *)displayName{
+-(void)addMessage:(NSString*)stringFromTextField withUser: (NSString *)userID andDisplayName:(NSString *)displayName andDate:(NSDate *)date{
     
     JSQMessage *message = [[JSQMessage alloc]initWithSenderId:userID senderDisplayName:displayName
-                                                         date:[NSDate date] text:stringFromTextField];
+                                                         date:date text:stringFromTextField];
     
     
     [self.chatroom.messages addObject:message];
@@ -229,6 +229,9 @@
     
     NSLog(@"ref : %@",self.messageRef.description);
     
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
+    [dateFormatter setDateFormat:@"yyyy'-'MM'-'dd'-'hh:mm'"];
+    
     FQuery *query = [self.messageRef queryLimitedToLast:35];
     
     [query observeEventType:FEventTypeChildAdded withBlock:^(FDataSnapshot *snapshot) {
@@ -239,8 +242,9 @@
         NSLog(@"snapshot: %@",snapshot.value);
         NSString *text = snapshot.value[@"text"];
         NSString *displayName = snapshot.value[@"senderDisplayName"];
+        NSDate *date = [dateFormatter dateFromString:snapshot.value[@"date"]];
         
-        [self addMessage:text withUser:userID andDisplayName:displayName];
+        [self addMessage:text withUser:userID andDisplayName:displayName andDate:date];
 
         } else {
             

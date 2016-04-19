@@ -58,13 +58,16 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleUserWantsToDelete:) name:UserWantsToDeletePactNotificationName object:nil];
     
-    self.logoutButton.title = @"logout";
     [self.logoutButton setTintColor:[UIColor blackColor]];
 //    [self.navigationController.navigationBar setTranslucent:YES];
     [self.navigationController.navigationBar setBackgroundColor:[UIColor colorWithRed:0 green:0 blue:0 alpha:0.0]];
+    [self.navigationController.navigationBar setBackgroundImage:[[UIImage alloc] init] forBarMetrics:UIBarMetricsDefault];
+    [self.navigationController.navigationBar setShadowImage:[[UIImage alloc]init]];
+
+    
+    self.navigationController.hidesBarsOnSwipe = YES;
     
     self.ref = self.sharedData.firebaseRef;
-    
     [self createPactLabelView];
     
 //    self.sharedData.currentPact =self.sharedData.currentUser.pactsToShowInApp[0];
@@ -196,7 +199,6 @@
     
     if(shouldSegueToSmacktalkVC) {
         
-        
         CATransition *transition = [CATransition animation];
         transition.duration = 0.75;
         transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
@@ -247,7 +249,6 @@
     NSLog(@"willOpenPactGetsCalled with pact %@",self.sharedData.currentPact);
     NSLog(@"willOpenPactGetsCalled with pact %@",self.sharedData.currentPact.stakes);
 
-//    header.containerView.backgroundColor = [UIColor grayColor];
 }
 
 - (void)tableView:(FZAccordionTableView *)tableView didOpenSection:(NSInteger)section withHeader:(PactAccordionHeaderView *)header {
@@ -265,7 +266,6 @@
 
 - (void)tableView:(FZAccordionTableView *)tableView willCloseSection:(NSInteger)section withHeader:(PactAccordionHeaderView *)header {
     
-//    header.containerView.backgroundColor = [UIColor blackColor];
 }
 
 - (void)tableView:(FZAccordionTableView *)tableView didCloseSection:(NSInteger)section withHeader:(PactAccordionHeaderView *)header {
@@ -288,9 +288,6 @@
         
         // don't do anything
         
-    } else if ([segue.identifier isEqualToString:@"segueToUserDetail"]) {
-        
-        // don't do anything
     } else if ([segue.identifier isEqualToString:@"segueToPactDetail"]) {
         PactDetailViewController *pactVC = segue.destinationViewController;
         pactVC.pact = self.currentOpenPact;
@@ -299,7 +296,6 @@
 
 - (IBAction)logoutTapped:(id)sender
 {
-    
     
     
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Logout" message:@"Are you sure you want to logout?" preferredStyle:UIAlertControllerStyleAlert];
@@ -312,7 +308,6 @@
         NSLog(@"logged out of STTwitter");
         [[NSNotificationCenter defaultCenter] postNotificationName:UserDidLogOutNotificationName object:nil];
         
-//        [self dismissViewControllerAnimated:YES completion:nil];
 
     }];
     

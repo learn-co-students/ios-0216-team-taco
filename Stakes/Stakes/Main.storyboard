@@ -189,7 +189,8 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="gAo-2P-30P">
-                        <barButtonItem key="rightBarButtonItem" title="Item" id="4Wf-yc-XOJ">
+                        <barButtonItem key="rightBarButtonItem" image="logout3.png" style="plain" id="4Wf-yc-XOJ">
+                            <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
                                 <action selector="logoutTapped:" destination="6hU-6R-OlN" id="LYb-HA-vat"/>
                             </connections>
@@ -226,4 +227,7 @@
             <point key="canvasLocation" x="36" y="130"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="logout3.png" width="28" height="26"/>
+    </resources>
 </document>

@@ -15,6 +15,7 @@
 @protocol PactTableViewCellDelegate <NSObject>
 
 @optional
+
 -(void)pactTableViewCell: (PactTableViewCell *)pactTableViewCell shouldSegueToSmackTalkVC: (BOOL)shouldSegueToSmacktalkVC;
 
 @end

@@ -27,7 +27,7 @@
 @property (nonatomic) CGFloat longitude;
 @property (nonatomic, strong) CLLocation *location;
 
-@property(nonatomic, strong) CLLocationManager *locationManager;
+@property(nonatomic, weak) CLLocationManager *locationManager;
 @property (nonatomic, strong) JDDDataSource *sharedData;
 @property (nonatomic, strong) JDDCheckIn *checkIn;
 @property (nonatomic,strong) Firebase *firebase;
