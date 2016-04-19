@@ -152,12 +152,12 @@
 -(void)setShitUp
 {
     // Do any additional setup after loading the view.
-    self.createdTitle.layer.borderWidth = 2;
-    self.createdTitle.layer.cornerRadius = 10;
-    self.createdTitle.layer.borderColor = [UIColor whiteColor].CGColor;
-    self.checkInsTitle.layer.borderWidth = 2;
-    self.checkInsTitle.layer.cornerRadius = 10;
-    self.checkInsTitle.layer.borderColor = [UIColor whiteColor].CGColor;
+//    self.createdTitle.layer.borderWidth = 2;
+//    self.createdTitle.layer.cornerRadius = 10;
+//    self.createdTitle.layer.borderColor = [UIColor whiteColor].CGColor;
+//    self.checkInsTitle.layer.borderWidth = 2;
+//    self.checkInsTitle.layer.cornerRadius = 10;
+//    self.checkInsTitle.layer.borderColor = [UIColor whiteColor].CGColor;
     
     // first empty the stackview
     for (UIView *subview in self.stackView.arrangedSubviews){

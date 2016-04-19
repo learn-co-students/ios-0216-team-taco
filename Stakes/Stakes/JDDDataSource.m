@@ -406,7 +406,7 @@
             if (isUniqueUser) {
                 NSLog(@"is unique User: %@", person);
                 [pact.usersToShowInApp addObject:person];
-                NSLog(@"userToShowInAppnow holds %ld pacts!", pact.usersToShowInApp.count);
+                NSLog(@"userToShowInAppnow holds %ld users!", pact.usersToShowInApp.count);
             }
             
             remainingUsersToFetch--;

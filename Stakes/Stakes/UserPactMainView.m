@@ -194,6 +194,7 @@
     NSLog(@"SetShit up is called.");
     NSLog(@"-------------- setShitUp -------------\n\n");
 
+    self.sharedData = [JDDDataSource sharedDataSource];
 
     // first empty the stackview
     for (UIView *subview in self.stackView.arrangedSubviews){
