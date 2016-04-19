@@ -414,8 +414,8 @@
                                 <exclude reference="Vmm-HX-qsY"/>
                                 <exclude reference="gIz-HA-oPp"/>
                                 <exclude reference="LZC-qj-to5"/>
-                                <exclude reference="afI-8S-VXH"/>
                                 <exclude reference="WuS-Ar-O46"/>
+                                <exclude reference="afI-8S-VXH"/>
                             </mask>
                         </variation>
                     </view>
