@@ -62,26 +62,16 @@
     
     [self createPactLabelView];
     
-//    self.sharedData.currentPact =self.sharedData.currentUser.pactsToShowInApp[0];
+    [self initialAccordionTableView];
+   
+    [self initailAccountStore];
 
-    self.tableView.delegate = self;
-    self.tableView.dataSource = self;
-    self.tableView.allowMultipleSectionsOpen = NO;
-    self.tableView.keepOneSectionOpen = NO;
-    self.tableView.initialOpenSections = nil;//[NSSet setWithObjects:@(0), nil];
-    self.tableView.scrollEnabled = YES;
-    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+
+}
+
+-(void)initailAccountStore
+{
     
-//    [self.tableView registerNib:[UINib nibWithNibName:@"PactTableViewCell" bundle:nil] forCellReuseIdentifier:@"userPact"];
-//    
-    UINib *cellNib = [UINib nibWithNibName:@"PactTableViewCell" bundle:nil];
-    [self.tableView registerNib:cellNib forCellReuseIdentifier:@"userPact"];
-
-    [self.tableView registerNib:[UINib nibWithNibName:@"PactAccordionHeaderView" bundle:nil] forHeaderFooterViewReuseIdentifier:accordionHeaderReuseIdentifier];
-    
-//    [self setupSwipeGestureRecognizer];
-
-
     self.accountStore = [[ACAccountStore alloc] init];
     NSLog(@"accountstore accounts %@", self.accountStore.accounts);
     NSString *accountKey = [[NSUserDefaults standardUserDefaults] objectForKey:AccountIdentifierKey];
@@ -95,9 +85,33 @@
         NSString *message = [NSString stringWithFormat:@"There was an error signing in to Twitter: %@", error.localizedDescription];
         //        [self showAlertWithMessage:message];
     }];
-    //    [[NSNotificationCenter defaultCenter] addObserver:self.tableView selector:@selector(reloadData) name:@"PACT_UPDATED" object:nil];
+
 }
 
+-(void)initialAccordionTableView
+{
+    self.tableView.delegate = self;
+    self.tableView.dataSource = self;
+    self.tableView.allowMultipleSectionsOpen = NO;
+    self.tableView.scrollEnabled = YES;
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+
+    UINib *cellNib = [UINib nibWithNibName:@"PactTableViewCell" bundle:nil];
+    [self.tableView registerNib:cellNib forCellReuseIdentifier:@"userPact"];
+    
+    [self.tableView registerNib:[UINib nibWithNibName:@"PactAccordionHeaderView" bundle:nil] forHeaderFooterViewReuseIdentifier:accordionHeaderReuseIdentifier];
+    if (self.sharedData.currentUser.pacts.count ==0 || [self.sharedData.currentUser.pacts isEqual:nil] || self.sharedData.currentUser.pacts.count ==1) {
+        self.tableView.keepOneSectionOpen = YES;
+        self.tableView.initialOpenSections = [NSSet setWithObjects:@(0), nil];
+    } else {
+ 
+    self.tableView.keepOneSectionOpen = NO;
+    self.tableView.initialOpenSections = nil;//[NSSet setWithObjects:@(0), nil];
+    
+    
+    
+    }
+}
 
 -(BOOL)prefersStatusBarHidden
 {

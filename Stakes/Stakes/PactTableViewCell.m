@@ -74,8 +74,6 @@
      ].active = YES;
     [self.scrollView.bottomAnchor constraintEqualToAnchor:self.contentView.bottomAnchor].active = YES;
 
-    //    [self.scrollView.heightAnchor constraintEqualToAnchor:self.contentView.heightAnchor].active = YES;
-
     
     self.scrollView.userInteractionEnabled = YES;
     self.scrollView.showsHorizontalScrollIndicator = NO;
@@ -93,8 +91,8 @@
     
     self.stackView.translatesAutoresizingMaskIntoConstraints = NO;
     
-    [self.stackView.topAnchor constraintEqualToAnchor:self.contentView.topAnchor].active = YES;
-    [self.stackView.bottomAnchor constraintEqualToAnchor:self.contentView.bottomAnchor].active = YES;
+    [self.stackView.topAnchor constraintEqualToAnchor:self.contentView.topAnchor constant:-23].active = YES;
+    [self.stackView.bottomAnchor constraintEqualToAnchor:self.contentView.bottomAnchor constant:10].active = YES;
     [self.stackView.leftAnchor constraintEqualToAnchor:self.scrollView.leftAnchor].active = YES;
     [self.stackView.rightAnchor constraintEqualToAnchor:self.scrollView.rightAnchor].active = YES;
     

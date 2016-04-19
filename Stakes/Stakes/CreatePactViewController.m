@@ -68,6 +68,7 @@
     [self styleTwitterPost];
     [self styleStakesView];
     
+    
     self.contactsToShow = [[NSMutableArray alloc]init];
     
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(dismissKeyboard)];
@@ -76,7 +77,9 @@
     
 }
 
-
+-(void)viewDidLayoutSubviews {
+    [self styleTitleTextView];
+}
 
 
 -(void)cleanScreenFromLabels
@@ -347,6 +350,20 @@
 // Styling of the pact form
 //========================================================================================================================================
 
+-(void)styleTitleTextView
+{
+    CALayer *border = [CALayer layer];
+    CGFloat borderWidth = 2;
+    border.borderColor = [UIColor darkGrayColor].CGColor;
+    border.frame = CGRectMake(0, self.pactTitle.frame.size.height - borderWidth, self.pactTitle.frame.size.width, self.pactTitle.frame.size.height);
+    border.borderWidth = borderWidth;
+    [self.pactTitle.layer addSublayer:border];
+    self.pactTitle.layer.masksToBounds = YES;
+    
+//    self.pactTitle.layer.borderWidth = 2;
+//    self.pactTitle.layer.borderColor = [UIColor blueColor].CGColor;
+    
+}
 
 -(void)styleStakesView
 {
@@ -625,7 +642,7 @@
         [self.stackView addArrangedSubview:view3];
         self.RemoveInvitesButton.hidden = NO;
         self.inviteFriendsLabel.hidden = YES;
-        self.addFriendsConstraint.constant = 40;
+        self.addFriendsConstraint.constant = 30;
         [view3.widthAnchor constraintEqualToAnchor:self.scrollView.widthAnchor multiplier:0.25].active = YES;
         
         
@@ -1009,6 +1026,7 @@
         } completion:^(BOOL finished) {
             self.contactButtonView.hidden = NO;
             self.addFriendsView.hidden = NO;
+            
         }];
 
         

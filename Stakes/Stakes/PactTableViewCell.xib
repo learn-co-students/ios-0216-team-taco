@@ -11,7 +11,7 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="389"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="389"/>
+                <rect key="frame" x="0.0" y="0.0" width="320" height="388"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <color key="backgroundColor" red="0.70196078431372544" green="0.89803921568627454" blue="0.9882352941176471" alpha="1" colorSpace="calibratedRGB"/>
             </tableViewCellContentView>

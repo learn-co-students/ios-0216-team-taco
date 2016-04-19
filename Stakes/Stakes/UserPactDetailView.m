@@ -101,6 +101,8 @@
 
 -(void)createView{
     
+    
+    
     self.statusBar = [[UIView alloc]init];
     [self.statusBarView addSubview:self.statusBar];
     self.statusBar.backgroundColor = [UIColor greenColor];
@@ -152,6 +154,14 @@
 -(void)setShitUp
 {
     // Do any additional setup after loading the view.
+    if ([self.pact.title isEqualToString:@"Welcome to Stakes!"]) {
+        self.deletePactButton.hidden = YES;
+        self.createdLabel.text = @"Dark Ages";
+        self.checkInsPerWeekLabel.text =@"Do the chacha once a week";
+        self.stackView.hidden = YES;
+    } else {
+    
+    
     self.createdTitle.layer.borderWidth = 2;
     self.createdTitle.layer.cornerRadius = 10;
     self.createdTitle.layer.borderColor = [UIColor whiteColor].CGColor;
@@ -181,7 +191,7 @@
 //        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(deleteAction:) name:DeletePactConfirmedNotificationName object:nil];
     
     self.sharedData = [JDDDataSource sharedDataSource];
-
+    }
 
 }
 
