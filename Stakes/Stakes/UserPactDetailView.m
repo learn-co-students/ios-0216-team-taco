@@ -23,12 +23,14 @@
 @property (strong, nonatomic) IBOutlet UIView *statusBarView;
 @property (strong, nonatomic) IBOutlet UIView *statusBar;
 @property (strong, nonatomic) IBOutlet UILabel *statusBarLabel;
-@property (strong, nonatomic) IBOutlet NSLayoutConstraint *statusBarWidthConstraint;
+@property (strong, nonatomic) IBOutlet NSLayoutConstraint *widthConstraint;
+@property (strong, nonatomic) IBOutlet NSLayoutConstraint *widthConstraintafterAnimation;
 @property (strong, nonatomic) IBOutlet UILabel *createdTitle;
 @property (strong, nonatomic) IBOutlet UILabel *createdLabel;
 @property (strong, nonatomic) IBOutlet UILabel *checkInsTitle;
 @property (strong, nonatomic) IBOutlet UILabel *checkInsPerWeekLabel;
 @property (strong, nonatomic) IBOutlet UIButton *deletePactButton;
+
 @property (strong, nonatomic) JDDDataSource *sharedData;
 
 @end
@@ -88,9 +90,29 @@
     _pact = pact;
     
     [self setShitUp];
-    [self setupStatusBar];
     
+    [self createView];
+    
+    [self setupStatusBar];
+
     self.sharedData = [JDDDataSource sharedDataSource];
+}
+
+-(void)createView{
+    
+    self.statusBar = [[UIView alloc]init];
+    [self.statusBarView addSubview:self.statusBar];
+    self.statusBar.backgroundColor = [UIColor greenColor];
+    
+    self.statusBar.translatesAutoresizingMaskIntoConstraints = NO;
+    [self.statusBar.heightAnchor constraintEqualToAnchor:self.statusBarView.heightAnchor multiplier:0.80].active = YES;
+    [self.statusBar.centerYAnchor constraintEqualToAnchor:self.statusBarView.centerYAnchor].active = YES;
+    [self.statusBar.leadingAnchor constraintEqualToAnchor:self.statusBarView.leadingAnchor].active = YES;
+    self.widthConstraint = [self.statusBar.widthAnchor constraintEqualToAnchor:self.statusBarView.widthAnchor multiplier:0.01];
+    self.widthConstraint.active = YES;
+    
+    [self.contentView layoutIfNeeded];
+    
 }
 
 -(void)setupStatusBar {
@@ -108,15 +130,19 @@
     
     if (userCheckins >= self.pact.checkInsPerTimeInterval) {
         
-        self.statusBarWidthConstraint = [self.statusBarView.widthAnchor constraintEqualToAnchor:self.statusBarView.widthAnchor multiplier:0.9];
-        self.statusBarLabel.text = @"Pact Complete!";
+        self.widthConstraint.active = NO;
+        self.widthConstraintafterAnimation = [self.statusBar.widthAnchor constraintEqualToAnchor:self.statusBarView.widthAnchor multiplier:1];
+        self.widthConstraintafterAnimation.active = YES;
         
+        self.statusBarLabel.text = @"Pact Complete!";
         
     } else {
     
-    CGFloat progress = userCheckins/self.pact.checkInsPerTimeInterval;
-    self.statusBarWidthConstraint = [self.statusBarView.widthAnchor constraintEqualToAnchor:self.statusBarView.widthAnchor multiplier:0.9* progress];
-    self.statusBarLabel.text = [NSString stringWithFormat: @"%lu/%lu",userCheckins,self.pact.checkInsPerTimeInterval];
+        self.widthConstraint.active = NO;
+        self.widthConstraintafterAnimation = [self.statusBar.widthAnchor constraintEqualToAnchor:self.statusBarView.widthAnchor multiplier:(userCheckins/self.pact.checkInsPerTimeInterval)*0.9];
+        self.widthConstraintafterAnimation.active = YES;
+        
+        self.statusBarLabel.text = [NSString stringWithFormat: @"%lu/%lu",userCheckins,self.pact.checkInsPerTimeInterval];
 
     }
     
