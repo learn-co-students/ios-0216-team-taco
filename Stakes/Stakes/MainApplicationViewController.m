@@ -12,6 +12,7 @@
 #import "UserPactsViewController.h"
 #import "JDDDataSource.h"
 #import "Firebase.h"
+#import "UserPactMainView.h"
 
 @interface MainApplicationViewController ()
 @property (weak, nonatomic) IBOutlet UIView *containerView;
@@ -79,6 +80,8 @@
             
             if (self.datasource.currentUser.pacts.count == 0) {
                 self.datasource.currentUser.pactsToShowInApp = [[NSMutableArray alloc]init];
+                
+                
                 
                 [self.datasource.currentUser.pactsToShowInApp addObject:[self.datasource createDemoPact]];
                 

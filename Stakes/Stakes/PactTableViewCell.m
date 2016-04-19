@@ -94,7 +94,29 @@
     UserPactMainView * view = [[UserPactMainView alloc]initWithFrame:CGRectZero];
         
     [stackView addArrangedSubview:view];
-    view.pact = pact;
+    if ([pact.title isEqualToString:@"Welcome to Stakes!"]) {
+        view.checkInButton.hidden = YES;
+        view.checkInLabel.hidden =YES;
+        view.stakesText.numberOfLines = 3;
+        view.pactText.numberOfLines = 3;
+        view.twitterText.numberOfLines = 3;
+        view.viewForScrollView.hidden = YES;
+        view.stackView.hidden = YES;
+        view.scrollView.hidden = YES;
+        view.CheckInButtonView.hidden = YES;
+        
+        [view.textView.topAnchor constraintEqualToAnchor:view.contentView.topAnchor].active = YES;
+        [view.textView.bottomAnchor constraintEqualToAnchor:view.contentView.bottomAnchor].active = YES;
+        
+        
+       
+        
+        view.pact = pact;
+
+    } else {
+        view.pact = pact;
+
+    }
 
     [view.widthAnchor constraintEqualToAnchor:self.contentView.widthAnchor].active = YES;
     

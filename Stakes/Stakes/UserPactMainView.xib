@@ -20,6 +20,7 @@
                 <outlet property="stakesText" destination="pix-AW-HSx" id="616-FT-aRc"/>
                 <outlet property="stakesTitle" destination="RZV-8S-OiW" id="a8l-d7-fv4"/>
                 <outlet property="textView" destination="0Dt-or-GNl" id="mkl-Wc-qz8"/>
+                <outlet property="textViewheightContraint" destination="hlF-XW-ELl" id="9kU-n4-wsT"/>
                 <outlet property="twitterText" destination="tPE-cj-xfF" id="5z5-j7-HBR"/>
                 <outlet property="viewForScrollView" destination="9YR-DT-yMz" id="Ovl-Fu-t14"/>
             </connections>
@@ -73,25 +74,25 @@
                 <view alpha="0.80000000000000004" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0Dt-or-GNl" userLabel="TextView">
                     <rect key="frame" x="0.0" y="180" width="600" height="300"/>
                     <subviews>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Twitter" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tPE-cj-xfF">
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Twitter" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tPE-cj-xfF">
                             <rect key="frame" x="0.0" y="199" width="600" height="23"/>
                             <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="17"/>
                             <color key="textColor" red="0.99598389863967896" green="0.99614673852920532" blue="0.99594932794570923" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Twitter Text" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IVA-qI-vtn" userLabel="TwitterHeader">
-                            <rect key="frame" x="0.0" y="236" width="600" height="24"/>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Twitter Text" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="3" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="IVA-qI-vtn" userLabel="TwitterHeader">
+                            <rect key="frame" x="30" y="236" width="540" height="24"/>
                             <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="17"/>
                             <color key="textColor" red="0.99598389863967896" green="0.99614673852920532" blue="0.99594932794570923" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pact Text" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ty5-97-lvX" userLabel="PactText">
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pact Text" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="3" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="Ty5-97-lvX" userLabel="PactText">
                             <rect key="frame" x="30" y="146" width="540" height="24"/>
                             <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="17"/>
                             <color key="textColor" red="0.99598389863967896" green="0.99614673852920532" blue="0.99594932794570923" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Stakes Text" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pix-AW-HSx" userLabel="StakesText">
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Stakes Text" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="3" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="pix-AW-HSx" userLabel="StakesText">
                             <rect key="frame" x="30" y="49" width="540" height="24"/>
                             <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="17"/>
                             <color key="textColor" red="0.99598389863967896" green="0.99614673852920532" blue="0.99594932794570923" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -128,7 +129,7 @@
                         <constraint firstItem="IVA-qI-vtn" firstAttribute="centerX" secondItem="0Dt-or-GNl" secondAttribute="centerX" id="eE6-li-Zdf"/>
                         <constraint firstItem="pix-AW-HSx" firstAttribute="width" secondItem="0Dt-or-GNl" secondAttribute="width" multiplier="0.9" id="nvZ-Ez-Y2a"/>
                         <constraint firstItem="RZV-8S-OiW" firstAttribute="centerY" secondItem="0Dt-or-GNl" secondAttribute="centerY" multiplier="0.15" id="tA8-F1-CbB"/>
-                        <constraint firstItem="IVA-qI-vtn" firstAttribute="width" secondItem="0Dt-or-GNl" secondAttribute="width" id="yry-an-xmK"/>
+                        <constraint firstItem="IVA-qI-vtn" firstAttribute="width" secondItem="0Dt-or-GNl" secondAttribute="width" multiplier="0.9" id="yry-an-xmK"/>
                     </constraints>
                 </view>
                 <view alpha="0.40000000000000002" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Y7Z-ew-n3z" userLabel="CheckinButtonView">
@@ -169,6 +170,8 @@
                 <constraint firstItem="9YR-DT-yMz" firstAttribute="width" secondItem="iN0-l3-epB" secondAttribute="width" id="8va-h7-vAH"/>
                 <constraint firstItem="0Dt-or-GNl" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" multiplier="1.1" id="DNU-u1-S70"/>
                 <constraint firstItem="9YR-DT-yMz" firstAttribute="height" secondItem="iN0-l3-epB" secondAttribute="height" multiplier="0.3" id="MDc-I9-wQx"/>
+                <constraint firstItem="Y7Z-ew-n3z" firstAttribute="top" secondItem="0Dt-or-GNl" secondAttribute="bottom" id="UJh-3U-ESI"/>
+                <constraint firstItem="0Dt-or-GNl" firstAttribute="top" secondItem="9YR-DT-yMz" secondAttribute="bottom" id="VHd-TV-YP9"/>
                 <constraint firstItem="Y7Z-ew-n3z" firstAttribute="width" secondItem="iN0-l3-epB" secondAttribute="width" id="XZK-fa-EES"/>
                 <constraint firstAttribute="bottom" secondItem="Y7Z-ew-n3z" secondAttribute="bottom" id="Xqv-fa-dWR"/>
                 <constraint firstItem="0Dt-or-GNl" firstAttribute="width" secondItem="iN0-l3-epB" secondAttribute="width" id="fq6-Bi-bqy"/>
@@ -179,6 +182,11 @@
                 <constraint firstItem="Y7Z-ew-n3z" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="jeI-Pv-ZXW"/>
                 <constraint firstItem="9YR-DT-yMz" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="qnC-1F-bjq"/>
             </constraints>
+            <variation key="default">
+                <mask key="constraints">
+                    <exclude reference="hlF-XW-ELl"/>
+                </mask>
+            </variation>
         </view>
     </objects>
 </document>
