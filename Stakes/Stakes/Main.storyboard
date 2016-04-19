@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
     <scenes>
@@ -75,9 +76,9 @@
                                     <constraint firstItem="RlZ-du-fW8" firstAttribute="centerY" secondItem="NRs-3V-2dd" secondAttribute="centerY" id="PyS-wk-Lh4"/>
                                 </constraints>
                             </view>
-                            <textField opaque="NO" clipsSubviews="YES" alpha="0.40000000000000002" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="hlr-fx-vps" userLabel="PhoneNumberTextField">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="hlr-fx-vps" userLabel="PhoneNumberTextField">
                                 <rect key="frame" x="113" y="237" width="150" height="26"/>
-                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" red="0.92549019607843142" green="0.93725490196078431" blue="0.94509803921568625" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="150" id="C4U-fG-f1Z"/>
                                     <constraint firstAttribute="height" constant="26" id="fEd-L4-E9Z"/>
@@ -104,11 +105,11 @@
                                 </constraints>
                                 <string key="text">Please enter your phone number (digits only).  We will use this to connect you to any pacts you were invited to, or to connect you to any pacts you invite your friends to.</string>
                                 <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="16"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
-                        <color key="backgroundColor" red="0.50196078431372548" green="0.84705882352941175" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="0.14901960780000001" green="0.1960784314" blue="0.21960784310000001" alpha="1" colorSpace="calibratedRGB"/>
                         <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="NRs-3V-2dd" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="02V-5V-gL3"/>
@@ -210,7 +211,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="lak-Xs-a7c" customClass="FZAccordionTableView">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="lak-Xs-a7c" customClass="FZAccordionTableView">
                                 <rect key="frame" x="0.0" y="62" width="375" height="605"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </tableView>
@@ -226,9 +227,9 @@
                         <color key="backgroundColor" red="0.96078431372549022" green="0.96078431372549022" blue="0.96078431372549022" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="lak-Xs-a7c" firstAttribute="width" secondItem="NCN-7v-PXa" secondAttribute="width" id="0Za-yY-o0o"/>
-                            <constraint firstItem="7Fq-mm-egu" firstAttribute="top" secondItem="lak-Xs-a7c" secondAttribute="bottom" id="5lD-8B-mhd"/>
-                            <constraint firstItem="lak-Xs-a7c" firstAttribute="top" secondItem="YUV-8f-Bep" secondAttribute="bottom" constant="-2" id="DRn-bO-zju"/>
+                            <constraint firstItem="lak-Xs-a7c" firstAttribute="top" secondItem="NCN-7v-PXa" secondAttribute="topMargin" id="0vv-ru-K0S"/>
                             <constraint firstItem="bkN-EJ-c6M" firstAttribute="centerX" secondItem="NCN-7v-PXa" secondAttribute="centerX" id="FLP-mm-dsa"/>
+                            <constraint firstItem="7Fq-mm-egu" firstAttribute="top" secondItem="lak-Xs-a7c" secondAttribute="bottom" id="H5X-GJ-Wit"/>
                             <constraint firstItem="bkN-EJ-c6M" firstAttribute="width" secondItem="NCN-7v-PXa" secondAttribute="width" id="On8-A8-ikT"/>
                             <constraint firstItem="bkN-EJ-c6M" firstAttribute="height" secondItem="NCN-7v-PXa" secondAttribute="height" id="RPr-fL-PAn"/>
                             <constraint firstItem="lak-Xs-a7c" firstAttribute="centerX" secondItem="NCN-7v-PXa" secondAttribute="centerX" id="aKT-Ya-bN7"/>

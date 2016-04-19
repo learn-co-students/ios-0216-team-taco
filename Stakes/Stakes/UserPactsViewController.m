@@ -212,7 +212,7 @@
     PactTableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:@"userPact"forIndexPath:indexPath];
 
     JDDPact *currentPact = self.sharedData.currentUser.pactsToShowInApp[indexPath.section];
-    NSLog (@"current pact is %ld", currentPact.checkIns.count);
+    NSLog (@"current pact checkins is %ld", currentPact.checkIns.count);
     cell.pact = currentPact;
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     cell.delegate = self;
