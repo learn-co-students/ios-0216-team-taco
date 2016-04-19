@@ -100,7 +100,8 @@
     transition.type = kCATransitionPush;
     transition.subtype = kCATransitionFromRight;
     [self.view.window.layer addAnimation:transition forKey:nil];
-    [self performSegueWithIdentifier:@"segueBackToUserPactsVC" sender:self];
+    [self dismissViewControllerAnimated:YES completion:nil];
+
     
 }
 

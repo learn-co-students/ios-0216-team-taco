@@ -35,6 +35,8 @@
 @property (nonatomic, ) NSInteger openSection;
 @property (nonatomic, strong) NSLayoutConstraint *createPactLabelAnchor;
 @property (nonatomic, strong) UILabel *createPactLabel;
+@property (strong, nonatomic) IBOutlet UIBarButtonItem *leftBarButton;
+@property (strong, nonatomic) IBOutlet UIBarButtonItem *logoutButton;
 
 @end
 
@@ -56,7 +58,10 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleUserWantsToDelete:) name:UserWantsToDeletePactNotificationName object:nil];
     
-    
+    self.logoutButton.title = @"logout";
+    [self.logoutButton setTintColor:[UIColor blackColor]];
+//    [self.navigationController.navigationBar setTranslucent:YES];
+    [self.navigationController.navigationBar setBackgroundColor:[UIColor colorWithRed:0 green:0 blue:0 alpha:0.0]];
     
     self.ref = self.sharedData.firebaseRef;
     
@@ -272,7 +277,10 @@
     
     if ([segue.identifier isEqualToString:@"segueToSmackTalkVC"]) {
         
-        smackTackViewController *thing = segue.destinationViewController;
+        
+        UINavigationController *navController =segue.destinationViewController;
+        
+        smackTackViewController *thing = (smackTackViewController *) navController.topViewController;
         
         thing.currentPact = self.sharedData.currentPact;
         
@@ -292,18 +300,39 @@
 - (IBAction)logoutTapped:(id)sender
 {
     
-    [self.ref unauth];
-    NSLog(@"logged out of Firebase");
-    self.sharedData.twitter = nil;
-    NSLog(@"logged out of STTwitter");
-    [[NSNotificationCenter defaultCenter] postNotificationName:UserDidLogOutNotificationName object:nil];
+    
+    
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Logout" message:@"Are you sure you want to logout?" preferredStyle:UIAlertControllerStyleAlert];
+    
+    UIAlertAction *yesLogMeOut = [UIAlertAction actionWithTitle:@"Yes" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        
+        [self.ref unauth];
+        NSLog(@"logged out of Firebase");
+        self.sharedData.twitter = nil;
+        NSLog(@"logged out of STTwitter");
+        [[NSNotificationCenter defaultCenter] postNotificationName:UserDidLogOutNotificationName object:nil];
+        
+//        [self dismissViewControllerAnimated:YES completion:nil];
+
+    }];
+    
+    UIAlertAction *noDontLogMeOut = [UIAlertAction actionWithTitle:@"No" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        
+        [self dismissViewControllerAnimated:YES completion:nil];
+
+    }];
+    
+    [alertController addAction:yesLogMeOut];
+    [alertController addAction:noDontLogMeOut];
+    
+    [self presentViewController:alertController animated:YES completion:nil];
     
 }
 
 -(void)handleUserCheckedIn:(NSNotification *)notification
 {
     
-    NSLog(@"handleUser is getting called.")   ;
+//    NSLog(@"handleUser is getting called.")   ;
     
     [self updateCheckInsForPact:notification.object withCompletion:^(BOOL success) {
         
