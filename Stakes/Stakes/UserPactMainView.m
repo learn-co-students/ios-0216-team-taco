@@ -20,20 +20,8 @@
 
 @interface UserPactMainView ()
 
-@property (strong, nonatomic) IBOutlet UserPactMainView * contentView;
-@property (strong, nonatomic) IBOutlet UIView *viewForScrollView;
-@property (strong, nonatomic) IBOutlet UIScrollView *scrollView;
-@property (strong, nonatomic) IBOutlet UIStackView *stackView;
-@property (strong, nonatomic) IBOutlet UIView *textView;
-@property (strong, nonatomic) IBOutlet UILabel *twitterText;
-@property (strong, nonatomic) IBOutlet UILabel *TwitterTitle;
-@property (strong, nonatomic) IBOutlet UILabel *pactText;
-@property (strong, nonatomic) IBOutlet UILabel *stakesText;
-@property (strong, nonatomic) IBOutlet UILabel *pactTitle;
-@property (strong, nonatomic) IBOutlet UILabel *stakesTitle;
-@property (strong, nonatomic) IBOutlet UIView *CheckInButtonView;
-@property (strong, nonatomic) IBOutlet UIButton *checkInButton;
-@property (weak, nonatomic) IBOutlet UILabel *checkInLabel;
+
+
 
 @property (nonatomic) CGFloat latitude;
 @property (nonatomic) CGFloat longitude;
@@ -251,8 +239,9 @@
     
     self.stakesText.text = self.pact.stakes;
     self.pactText.text = self.pact.pactDescription;
-    self.checkInLabel.layer.borderWidth = 1;
+    self.checkInLabel.layer.borderWidth = 2;
     self.checkInLabel.layer.cornerRadius = 10;
+    self.checkInLabel.layer.borderColor = [UIColor greenColor].CGColor;
     
     
     
@@ -263,8 +252,7 @@
         self.twitterText.hidden = NO;
 
     } else {
-        self.TwitterTitle.hidden = YES;
-        self.twitterText.hidden = YES;
+        self.TwitterTitle.text = @"Twitter shaming is disabled for this pact.";
     }
     
 }
