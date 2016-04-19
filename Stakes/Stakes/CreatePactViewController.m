@@ -16,7 +16,7 @@
 @import ContactsUI;
 @import MessageUI;
 
-@interface CreatePactViewController () <CNContactPickerDelegate, MFMessageComposeViewControllerDelegate> ;
+@interface CreatePactViewController () <CNContactPickerDelegate, MFMessageComposeViewControllerDelegate,UITextFieldDelegate> ;
 @property (strong, nonatomic) IBOutlet UIView *mainView;
 @property (weak, nonatomic) IBOutlet UILabel *DescriptionLabel;
 @property (weak, nonatomic) IBOutlet UILabel *HowOften;
@@ -67,6 +67,9 @@
     [self stylePactDescriptionView];
     [self styleTwitterPost];
     [self styleStakesView];
+    self.stakesTextView.delegate = self;
+    
+
     
     self.contactsToShow = [[NSMutableArray alloc]init];
     
@@ -76,7 +79,9 @@
     
 }
 
-
+-(void)viewDidLayoutSubviews {
+    [self styleTitleTextView];
+}
 
 
 -(void)cleanScreenFromLabels
@@ -139,30 +144,35 @@
 
 - (void)keyBoardWillShowForStakes:(NSNotification *)notification
 {
-    // grab some values from the notification
-    NSTimeInterval keyboardAnimationDuration = [notification.userInfo[UIKeyboardAnimationDurationUserInfoKey] doubleValue];
-    NSInteger keyboardAnimationCurve = [notification.userInfo[UIKeyboardAnimationCurveUserInfoKey] integerValue];
-    
-    [UIView animateKeyframesWithDuration:keyboardAnimationDuration delay:0.2 options:keyboardAnimationCurve animations:^{
+    if (self.stakesTextView.isFirstResponder) {
+        // grab some values from the notification
+        NSTimeInterval keyboardAnimationDuration = [notification.userInfo[UIKeyboardAnimationDurationUserInfoKey] doubleValue];
+        NSInteger keyboardAnimationCurve = [notification.userInfo[UIKeyboardAnimationCurveUserInfoKey] integerValue];
         
-        // Here is where you change something to make it animate!
-        self.topConstraint.constant = -80;
-    } completion:nil];
+        [UIView animateKeyframesWithDuration:keyboardAnimationDuration delay:0.2 options:keyboardAnimationCurve animations:^{
+            
+            // Here is where you change something to make it animate!
+            self.topConstraint.constant = -80;
+        } completion:nil];
+    }
 }
 
 
 
 - (void)keyBoardWillShowForTwiiter:(NSNotification *)notification
 {
-    // grab some values from the notification
-    NSTimeInterval keyboardAnimationDuration = [notification.userInfo[UIKeyboardAnimationDurationUserInfoKey] doubleValue];
-    NSInteger keyboardAnimationCurve = [notification.userInfo[UIKeyboardAnimationCurveUserInfoKey] integerValue];
-    
-    [UIView animateKeyframesWithDuration:keyboardAnimationDuration delay:0.2 options:keyboardAnimationCurve animations:^{
+    if (self.twitterShamePost.isFirstResponder) {
+        // grab some values from the notification
+        NSTimeInterval keyboardAnimationDuration = [notification.userInfo[UIKeyboardAnimationDurationUserInfoKey] doubleValue];
+        NSInteger keyboardAnimationCurve = [notification.userInfo[UIKeyboardAnimationCurveUserInfoKey] integerValue];
         
-        // Here is where you change something to make it animate!
-        self.topConstraint.constant = -140;
-    } completion:nil];
+        [UIView animateKeyframesWithDuration:keyboardAnimationDuration delay:0.2 options:keyboardAnimationCurve animations:^{
+            
+            // Here is where you change something to make it animate!
+            self.topConstraint.constant = -160;
+        } completion:nil];
+    }
+    
 }
 
 - (IBAction)twitterPostEditingBegan:(id)sender {
@@ -347,6 +357,20 @@
 // Styling of the pact form
 //========================================================================================================================================
 
+-(void)styleTitleTextView
+{
+    CALayer *border = [CALayer layer];
+    CGFloat borderWidth = 2;
+    border.borderColor = [UIColor darkGrayColor].CGColor;
+    border.frame = CGRectMake(0, self.pactTitle.frame.size.height - borderWidth, self.pactTitle.frame.size.width, self.pactTitle.frame.size.height);
+    border.borderWidth = borderWidth;
+    [self.pactTitle.layer addSublayer:border];
+    self.pactTitle.layer.masksToBounds = YES;
+    
+//    self.pactTitle.layer.borderWidth = 2;
+//    self.pactTitle.layer.borderColor = [UIColor blueColor].CGColor;
+    
+}
 
 -(void)styleStakesView
 {
@@ -625,7 +649,7 @@
         [self.stackView addArrangedSubview:view3];
         self.RemoveInvitesButton.hidden = NO;
         self.inviteFriendsLabel.hidden = YES;
-        self.addFriendsConstraint.constant = 40;
+        self.addFriendsConstraint.constant = 30;
         [view3.widthAnchor constraintEqualToAnchor:self.scrollView.widthAnchor multiplier:0.25].active = YES;
         
         
@@ -872,7 +896,7 @@
     
     Firebase *ref = [self.dataSource.firebaseRef childByAppendingPath:[NSString stringWithFormat:@"users/%@",[[NSUserDefaults standardUserDefaults] stringForKey:UserIDKey]]];
     
-    [ref observeEventType:FEventTypeValue withBlock:^(FDataSnapshot *snapshot) {
+    [ref observeSingleEventOfType:FEventTypeValue withBlock:^(FDataSnapshot *snapshot) {
         
         self.dataSource.currentUser = [self.dataSource useSnapShotAndCreateUser:snapshot];
         
@@ -945,7 +969,7 @@
         // querying firebase and creating user
         Firebase *ref = [self.dataSource.firebaseRef childByAppendingPath:[NSString stringWithFormat:@"users/%@",user]];
         
-        [ref observeEventType:FEventTypeValue withBlock:^(FDataSnapshot *snapshot) {
+        [ref observeSingleEventOfType:FEventTypeValue withBlock:^(FDataSnapshot *snapshot) {
             
             JDDUser *person = [self.dataSource useSnapShotAndCreateUser:snapshot];
             
@@ -999,6 +1023,7 @@
 
 
 - (IBAction)pactTitleEditingEnd:(id)sender {
+//    self.topConstraint.constant = 0;
     if (self.pactTitle.text.length >1) {
         [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
             
@@ -1009,6 +1034,7 @@
         } completion:^(BOOL finished) {
             self.contactButtonView.hidden = NO;
             self.addFriendsView.hidden = NO;
+            
         }];
 
         
@@ -1016,7 +1042,7 @@
         [self alertFinishFiling:@"Please, name your pact"];
     }
     
-    if (self.dataSource.currentUser.pacts.count==0 || [self.dataSource.currentUser.pacts isEqual:nil] ) {
+    if ((self.dataSource.currentUser.pacts.count==0 || [self.dataSource.currentUser.pacts isEqual:nil]) && self.contacts.count == 0) {
         
         [UIView animateWithDuration:1 animations:^{
             self.DescriptionLabel.text = @"Please add friends to the pact by tapping the add button";            self.DescriptionLabel.alpha = 1;
@@ -1032,7 +1058,8 @@
 
 
 - (IBAction)didEndEditingPactDescription:(id)sender {
-    if (self.pactDescription.text.length >2) {
+    
+    if (self.pactDescription.text.length > 2) {
         [UIView animateWithDuration:1 animations:^{
             self.pickerView.alpha = 1;
             self.repeatLabel.alpha = 1;
@@ -1040,30 +1067,34 @@
             self.HowOften.alpha =1;
         } completion:nil];
         
-        [UIView animateWithDuration:1 delay:2 options:nil animations:^{
+        [UIView animateWithDuration:1 delay:2 options:0 animations:^{
             self.stakesTextView.alpha = 1;
 
         } completion:nil];
         
     } else {
         [self alertFinishFiling:@"Please, describe your pact"];
-        self.pickerView.hidden = YES;
-        self.repeatLabel.hidden = YES;
-        self.repeatSwitch.hidden = YES;
-        self.stakesTextView.hidden = YES;
+        self.pickerView.alpha = 0;
+        self.repeatLabel.alpha = 0;
+        self.repeatSwitch.alpha = 0;
+        self.HowOften.alpha = 0;
     }
     
 }
 
 - (IBAction)didEndStakeDescription:(id)sender {
+    
+    
+    
     if (self.stakesTextView.text.length >2) {
         [UIView animateWithDuration:1 animations:^{
             self.twitterShameLabel.alpha = 1;
             self.shameSwitch.alpha = 1;
         } completion:nil];
-        
     } else {
+        [self.stakesTextView resignFirstResponder];
         [self alertFinishFiling:@"Please write youe stakes"];
+        return;
     }
     
     if (self.dataSource.currentUser.pacts.count==0 || [self.dataSource.currentUser.pacts isEqual:nil] ) {
@@ -1087,6 +1118,7 @@
     if (self.contactsToShow.count >0) {
                 [UIView animateWithDuration:1 animations:^{
                     self.pactDescription.alpha = 1;
+                    self.DescriptionLabel.alpha = 0;
                 } completion:nil];
         
                 } else {

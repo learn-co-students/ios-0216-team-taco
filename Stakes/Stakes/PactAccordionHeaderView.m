@@ -48,8 +48,9 @@
 -(void)awakeFromNib
 {
     [super awakeFromNib];
-
-
+    self.sharedData = [JDDDataSource sharedDataSource];
+    
+    
 }
 
 -(void)setPact:(JDDPact *)pact
@@ -60,32 +61,41 @@
 
 -(void)updateUI
 {
-    self.sharedData = [JDDDataSource sharedDataSource];
-    self.title.text = self.pact.title;
-    NSLog(@"updatingUI self.pact.isactive %d", self.pact.isActive);
-    if (!self.pact.isActive) {
+    if ([self.pact.title isEqualToString:@"Welcome to Stakes!"]) {  // this is for the Demo pact
+        self.pendingLabel.text = @"Demo";
         self.pendingLabel.hidden = NO;
-    } else {
-        self.pendingLabel.hidden = YES;
-    }
-    
-    NSLog(@"self.pact.users: %@", self.pact.users);
-    NSLog(@"userid %@", self.sharedData.currentUser.userID);
-    //if self.pact.users value for key current user = 1 then hide the accept pact button
-    if ([[self.pact.users valueForKey:self.sharedData.currentUser.userID] isEqualToNumber:@0]) {
-        self.acceptPactButton.hidden = NO;
-    } else {
-        self.acceptPactButton.hidden = YES;
-    }
+        self.title.text = self.pact.title;
+        self.acceptPactButton.hidden  = YES;
+        
+    } else {                                                            //This is for the rest of the pacts
 
+        self.title.text = self.pact.title;
+        NSLog(@"updatingUI self.pact.isactive %d", self.pact.isActive);
+        if (!self.pact.isActive) {
+            self.pendingLabel.text = @"Pending";
+
+            self.pendingLabel.hidden = NO;
+        } else {
+            self.pendingLabel.hidden = YES;
+        }
+        
+        NSLog(@"self.pact.users: %@", self.pact.users);
+        NSLog(@"userid %@", self.sharedData.currentUser.userID);
+        //if self.pact.users value for key current user = 1 then hide the accept pact button
+        if ([[self.pact.users valueForKey:self.sharedData.currentUser.userID] isEqualToNumber:@0]) {
+            self.acceptPactButton.hidden = NO;
+        } else {
+            self.acceptPactButton.hidden = YES;
+        }
+        
+    }
 }
-
 - (IBAction)acceptPactTapped:(id)sender
 {
     
     NSLog(@"accept tappeD");
     [[[[self.sharedData.firebaseRef childByAppendingPath:@"pacts"] childByAppendingPath:self.pact.pactID] childByAppendingPath:@"users"] updateChildValues:@{self.sharedData.currentUser.userID : [NSNumber numberWithBool:YES] }];
-
+    
     //updating the dateofCreation every time someone accepts a pact
     NSDate *currentDate = [NSDate date];
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
@@ -94,7 +104,7 @@
     [[[self.sharedData.firebaseRef childByAppendingPath:@"pacts"] childByAppendingPath:self.pact.pactID] updateChildValues:@{ @"dateOfCreation" : dateString }];
     
     [[NSNotificationCenter defaultCenter] postNotificationName:UserAcceptedPactNotificationName object:self.pact];
- 
+    
 }
 
 @end

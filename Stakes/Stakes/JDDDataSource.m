@@ -336,7 +336,7 @@
     NSLog(@"current%@", self.currentUser.pacts);
     
     __block NSUInteger numberOfPactsInDataSource = self.currentUser.pacts.count;
-    
+
     self.currentUser.pactsToShowInApp = [[NSMutableArray alloc]init];
     
     for (NSString *pactID in self.currentUser.pacts) {
@@ -406,7 +406,7 @@
             if (isUniqueUser) {
                 NSLog(@"is unique User: %@", person);
                 [pact.usersToShowInApp addObject:person];
-                NSLog(@"userToShowInAppnow holds %ld pacts!", pact.usersToShowInApp.count);
+                NSLog(@"userToShowInAppnow holds %ld users!", pact.usersToShowInApp.count);
             }
             
             remainingUsersToFetch--;

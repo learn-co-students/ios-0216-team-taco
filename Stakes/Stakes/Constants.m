@@ -22,6 +22,7 @@ NSString * const UserAcceptedPactNotificationName = @"UserAcceptedPact";
 NSString * const UserDeletedPactNotificationName = @"UserDeletedPact";
 NSString * const UserWantsToDeletePactNotificationName = @"UserWantsToDeletePact";
 NSString * const DeletePactConfirmedNotificationName = @"DeletePactConfirmed";
+NSString * const PactDeletedNotificationName = @"PactWasDeleted";
 
 
 NSString * const AccountIdentifierKey = @"AccountIdentifier";
