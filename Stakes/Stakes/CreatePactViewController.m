@@ -16,7 +16,7 @@
 @import ContactsUI;
 @import MessageUI;
 
-@interface CreatePactViewController () <CNContactPickerDelegate, MFMessageComposeViewControllerDelegate> ;
+@interface CreatePactViewController () <CNContactPickerDelegate, MFMessageComposeViewControllerDelegate,UITextFieldDelegate> ;
 @property (strong, nonatomic) IBOutlet UIView *mainView;
 @property (weak, nonatomic) IBOutlet UILabel *DescriptionLabel;
 @property (weak, nonatomic) IBOutlet UILabel *HowOften;
@@ -67,7 +67,9 @@
     [self stylePactDescriptionView];
     [self styleTwitterPost];
     [self styleStakesView];
+    self.stakesTextView.delegate = self;
     
+
     
     self.contactsToShow = [[NSMutableArray alloc]init];
     
@@ -142,30 +144,35 @@
 
 - (void)keyBoardWillShowForStakes:(NSNotification *)notification
 {
-    // grab some values from the notification
-    NSTimeInterval keyboardAnimationDuration = [notification.userInfo[UIKeyboardAnimationDurationUserInfoKey] doubleValue];
-    NSInteger keyboardAnimationCurve = [notification.userInfo[UIKeyboardAnimationCurveUserInfoKey] integerValue];
-    
-    [UIView animateKeyframesWithDuration:keyboardAnimationDuration delay:0.2 options:keyboardAnimationCurve animations:^{
+    if (self.stakesTextView.isFirstResponder) {
+        // grab some values from the notification
+        NSTimeInterval keyboardAnimationDuration = [notification.userInfo[UIKeyboardAnimationDurationUserInfoKey] doubleValue];
+        NSInteger keyboardAnimationCurve = [notification.userInfo[UIKeyboardAnimationCurveUserInfoKey] integerValue];
         
-        // Here is where you change something to make it animate!
-        self.topConstraint.constant = -80;
-    } completion:nil];
+        [UIView animateKeyframesWithDuration:keyboardAnimationDuration delay:0.2 options:keyboardAnimationCurve animations:^{
+            
+            // Here is where you change something to make it animate!
+            self.topConstraint.constant = -80;
+        } completion:nil];
+    }
 }
 
 
 
 - (void)keyBoardWillShowForTwiiter:(NSNotification *)notification
 {
-    // grab some values from the notification
-    NSTimeInterval keyboardAnimationDuration = [notification.userInfo[UIKeyboardAnimationDurationUserInfoKey] doubleValue];
-    NSInteger keyboardAnimationCurve = [notification.userInfo[UIKeyboardAnimationCurveUserInfoKey] integerValue];
-    
-    [UIView animateKeyframesWithDuration:keyboardAnimationDuration delay:0.2 options:keyboardAnimationCurve animations:^{
+    if (self.twitterShamePost.isFirstResponder) {
+        // grab some values from the notification
+        NSTimeInterval keyboardAnimationDuration = [notification.userInfo[UIKeyboardAnimationDurationUserInfoKey] doubleValue];
+        NSInteger keyboardAnimationCurve = [notification.userInfo[UIKeyboardAnimationCurveUserInfoKey] integerValue];
         
-        // Here is where you change something to make it animate!
-        self.topConstraint.constant = -140;
-    } completion:nil];
+        [UIView animateKeyframesWithDuration:keyboardAnimationDuration delay:0.2 options:keyboardAnimationCurve animations:^{
+            
+            // Here is where you change something to make it animate!
+            self.topConstraint.constant = -160;
+        } completion:nil];
+    }
+    
 }
 
 - (IBAction)twitterPostEditingBegan:(id)sender {
@@ -1016,6 +1023,7 @@
 
 
 - (IBAction)pactTitleEditingEnd:(id)sender {
+//    self.topConstraint.constant = 0;
     if (self.pactTitle.text.length >1) {
         [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
             
@@ -1034,7 +1042,7 @@
         [self alertFinishFiling:@"Please, name your pact"];
     }
     
-    if (self.dataSource.currentUser.pacts.count==0 || [self.dataSource.currentUser.pacts isEqual:nil] ) {
+    if ((self.dataSource.currentUser.pacts.count==0 || [self.dataSource.currentUser.pacts isEqual:nil]) && self.contacts.count == 0) {
         
         [UIView animateWithDuration:1 animations:^{
             self.DescriptionLabel.text = @"Please add friends to the pact by tapping the add button";            self.DescriptionLabel.alpha = 1;
@@ -1050,7 +1058,8 @@
 
 
 - (IBAction)didEndEditingPactDescription:(id)sender {
-    if (self.pactDescription.text.length >2) {
+    
+    if (self.pactDescription.text.length > 2) {
         [UIView animateWithDuration:1 animations:^{
             self.pickerView.alpha = 1;
             self.repeatLabel.alpha = 1;
@@ -1058,30 +1067,34 @@
             self.HowOften.alpha =1;
         } completion:nil];
         
-        [UIView animateWithDuration:1 delay:2 options:nil animations:^{
+        [UIView animateWithDuration:1 delay:2 options:0 animations:^{
             self.stakesTextView.alpha = 1;
 
         } completion:nil];
         
     } else {
         [self alertFinishFiling:@"Please, describe your pact"];
-        self.pickerView.hidden = YES;
-        self.repeatLabel.hidden = YES;
-        self.repeatSwitch.hidden = YES;
-        self.stakesTextView.hidden = YES;
+        self.pickerView.alpha = 0;
+        self.repeatLabel.alpha = 0;
+        self.repeatSwitch.alpha = 0;
+        self.HowOften.alpha = 0;
     }
     
 }
 
 - (IBAction)didEndStakeDescription:(id)sender {
+    
+    
+    
     if (self.stakesTextView.text.length >2) {
         [UIView animateWithDuration:1 animations:^{
             self.twitterShameLabel.alpha = 1;
             self.shameSwitch.alpha = 1;
         } completion:nil];
-        
     } else {
+        [self.stakesTextView resignFirstResponder];
         [self alertFinishFiling:@"Please write youe stakes"];
+        return;
     }
     
     if (self.dataSource.currentUser.pacts.count==0 || [self.dataSource.currentUser.pacts isEqual:nil] ) {
@@ -1105,6 +1118,7 @@
     if (self.contactsToShow.count >0) {
                 [UIView animateWithDuration:1 animations:^{
                     self.pactDescription.alpha = 1;
+                    self.DescriptionLabel.alpha = 0;
                 } completion:nil];
         
                 } else {

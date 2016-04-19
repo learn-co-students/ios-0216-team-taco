@@ -108,7 +108,6 @@
     
     [self.tableView registerNib:[UINib nibWithNibName:@"PactAccordionHeaderView" bundle:nil] forHeaderFooterViewReuseIdentifier:accordionHeaderReuseIdentifier];
     if (self.sharedData.currentUser.pacts.count ==0 || [self.sharedData.currentUser.pacts isEqual:nil] || self.sharedData.currentUser.pacts.count ==1) {
-        self.tableView.keepOneSectionOpen = YES;
         self.tableView.initialOpenSections = [NSSet setWithObjects:@(0), nil];
     } else {
  
