@@ -242,7 +242,7 @@
     NSLog(@"willOpenPactGetsCalled with pact %@",self.sharedData.currentPact);
     NSLog(@"willOpenPactGetsCalled with pact %@",self.sharedData.currentPact.stakes);
 
-    header.containerView.backgroundColor = [UIColor grayColor];
+//    header.containerView.backgroundColor = [UIColor grayColor];
 }
 
 - (void)tableView:(FZAccordionTableView *)tableView didOpenSection:(NSInteger)section withHeader:(PactAccordionHeaderView *)header {
@@ -260,7 +260,7 @@
 
 - (void)tableView:(FZAccordionTableView *)tableView willCloseSection:(NSInteger)section withHeader:(PactAccordionHeaderView *)header {
     
-    header.containerView.backgroundColor = [UIColor blackColor];
+//    header.containerView.backgroundColor = [UIColor blackColor];
 }
 
 - (void)tableView:(FZAccordionTableView *)tableView didCloseSection:(NSInteger)section withHeader:(PactAccordionHeaderView *)header {
