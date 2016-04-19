@@ -28,6 +28,7 @@
 		AFEBE6891CB334FF00FBE107 /* UserDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AFEBE6881CB334FF00FBE107 /* UserDetailViewController.m */; };
 		CB4F71CC1CB552E300F44FE6 /* MainApplicationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB4F71CB1CB552E300F44FE6 /* MainApplicationViewController.m */; };
 		CB4F71CF1CB5540400F44FE6 /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = CB4F71CE1CB5540400F44FE6 /* Constants.m */; };
+		CB89D18B1CC69F7200362C1E /* DeletePactViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB89D18A1CC69F7200362C1E /* DeletePactViewController.m */; };
 		CB8BC03A1CAD75D0003A9D5E /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB8BC0391CAD75D0003A9D5E /* LoginViewController.m */; };
 		CB8BC0421CADB3AB003A9D5E /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB8BC0411CADB3AB003A9D5E /* Accounts.framework */; };
 		CB8BC0441CADB3B2003A9D5E /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB8BC0431CADB3B2003A9D5E /* Social.framework */; };
@@ -104,6 +105,8 @@
 		CB4F71CB1CB552E300F44FE6 /* MainApplicationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainApplicationViewController.m; sourceTree = "<group>"; };
 		CB4F71CD1CB5540400F44FE6 /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
 		CB4F71CE1CB5540400F44FE6 /* Constants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Constants.m; sourceTree = "<group>"; };
+		CB89D1891CC69F7200362C1E /* DeletePactViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DeletePactViewController.h; sourceTree = "<group>"; };
+		CB89D18A1CC69F7200362C1E /* DeletePactViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DeletePactViewController.m; sourceTree = "<group>"; };
 		CB8BC0381CAD75D0003A9D5E /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		CB8BC0391CAD75D0003A9D5E /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		CB8BC0411CADB3AB003A9D5E /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
@@ -229,6 +232,8 @@
 				CBA985951CAAEE0900D1CC27 /* UserPactsViewController.m */,
 				AFEBE6871CB334FF00FBE107 /* UserDetailViewController.h */,
 				AFEBE6881CB334FF00FBE107 /* UserDetailViewController.m */,
+				CB89D1891CC69F7200362C1E /* DeletePactViewController.h */,
+				CB89D18A1CC69F7200362C1E /* DeletePactViewController.m */,
 				CBA985601CAAEC6D00D1CC27 /* LaunchScreen.storyboard */,
 				CBA9859D1CAAEE7500D1CC27 /* Main.storyboard */,
 				CBA985A11CAB0AF700D1CC27 /* dimitrysStoryboard.storyboard */,
@@ -566,6 +571,7 @@
 				AF97DCA71CC006660053E497 /* PactTableViewCell.m in Sources */,
 				CB8BC0481CAEC24A003A9D5E /* Secrets.m in Sources */,
 				CB4F71CF1CB5540400F44FE6 /* Constants.m in Sources */,
+				CB89D18B1CC69F7200362C1E /* DeletePactViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

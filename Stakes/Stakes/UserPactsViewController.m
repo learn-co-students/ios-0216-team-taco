@@ -37,6 +37,7 @@
 @property (nonatomic, strong) UILabel *createPactLabel;
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *leftBarButton;
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *logoutButton;
+@property (weak, nonatomic) IBOutlet UIVisualEffectView *blurView;
 
 @end
 
@@ -44,6 +45,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.blurView.hidden = YES;
     NSLog(@"view did load in user pacts");
     self.sharedData = [JDDDataSource sharedDataSource];
     
@@ -112,10 +114,11 @@
 -(void)viewWillAppear:(BOOL)animated{
     
     //     self.tableView.initialOpenSections = [NSSet setWithObjects:@(0), nil];
-    [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+//    [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+    NSLog(@"pacts to show in app from shared/curentuser/pactstoshowinapp %lu", self.sharedData.currentUser.pactsToShowInApp.count);
         [self.tableView reloadData];
         self.tableView.initialOpenSections = nil;
-    }];
+//    }];
     
 }
 
@@ -179,6 +182,17 @@
     return 70;
 }
 
+-(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return self.sharedData.currentUser.pactsToShowInApp.count;
+}
+
+
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return 1;
+}
+
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
 
@@ -207,18 +221,6 @@
         [self performSegueWithIdentifier:@"segueToSmackTalkVC" sender:self];
     }
     
-}
-
-
--(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
-    return self.sharedData.currentUser.pactsToShowInApp.count;
-}
-
-
--(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
-    return 1;
 }
 
 
@@ -299,7 +301,7 @@
 
 - (IBAction)logoutTapped:(id)sender
 {
-    
+    self.blurView.hidden = NO;
     
     
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Logout" message:@"Are you sure you want to logout?" preferredStyle:UIAlertControllerStyleAlert];
@@ -311,15 +313,12 @@
         self.sharedData.twitter = nil;
         NSLog(@"logged out of STTwitter");
         [[NSNotificationCenter defaultCenter] postNotificationName:UserDidLogOutNotificationName object:nil];
-        
-//        [self dismissViewControllerAnimated:YES completion:nil];
-
     }];
     
     UIAlertAction *noDontLogMeOut = [UIAlertAction actionWithTitle:@"No" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         
-        [self dismissViewControllerAnimated:YES completion:nil];
-
+        self.blurView.hidden = YES;
+        
     }];
     
     [alertController addAction:yesLogMeOut];
@@ -491,6 +490,10 @@
 //                                            //
 //                                            
 //                                        }];
+                                        self.sharedData.currentPact = nil;
+                                        [self.tableView reloadData];
+//                                        [[NSNotificationCenter defaultCenter] postNotificationName:PactDeletedNotificationName object:nil];
+                                        
 //                                           
                     
                             
@@ -529,7 +532,7 @@
 
 -(void)deletePact:(JDDPact *)pactToDelete
 {
-
+//    [self performSegueWithIdentifier:@"deleteModal" sender:self];
     [self deleteCurrentUserPact:pactToDelete withCompletion:^(BOOL done) {
         if (done) {
             [self deleteAllUserPactReferences:pactToDelete];
