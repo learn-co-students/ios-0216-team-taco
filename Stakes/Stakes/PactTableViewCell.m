@@ -28,12 +28,13 @@
     
     NSLog(@"PactTableViewCell awakeFromNib called!");
     
+    self.sharedData = [JDDDataSource sharedDataSource];
+
     [self createScrollView];
     [self createStackView];
     self.scrollView.delegate = self;
     
     [self.scrollView layoutIfNeeded];
-    self.sharedData = [JDDDataSource sharedDataSource];
 
     //    self.pact = self.sharedData.currentPact;
     [self createView];
@@ -91,7 +92,12 @@
     
     self.stackView.translatesAutoresizingMaskIntoConstraints = NO;
     
-    [self.stackView.topAnchor constraintEqualToAnchor:self.contentView.topAnchor constant:-23].active = YES;
+    if (self.sharedData.currentUser.pacts.count == 0 || [self.sharedData.currentUser.pacts isEqual:nil]) {
+        [self.stackView.topAnchor constraintEqualToAnchor:self.contentView.topAnchor constant:-22].active = YES;
+    } else {
+        [self.stackView.topAnchor constraintEqualToAnchor:self.contentView.topAnchor].active = YES;
+    }
+    
     [self.stackView.bottomAnchor constraintEqualToAnchor:self.contentView.bottomAnchor constant:10].active = YES;
     [self.stackView.leftAnchor constraintEqualToAnchor:self.scrollView.leftAnchor].active = YES;
     [self.stackView.rightAnchor constraintEqualToAnchor:self.scrollView.rightAnchor].active = YES;
