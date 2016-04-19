@@ -7,17 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <JSQMessagesViewController/JSQMessages.h>
+#import "JSQMessagesViewController.h"
+//#import "JSQMessagesKeyboardController.h"
 #import "JSQMessages.h"
 #import "JDDDataSource.h"
 #import "JDDChatRoom.h"
 #import "Firebase.h"
 #import "JDDPact.h"
 
-
-@class smackTackViewController;
-
-@interface smackTackViewController : JSQMessagesViewController <UIActionSheetDelegate, JSQMessagesComposerTextViewPasteDelegate>
+@interface smackTackViewController : JSQMessagesViewController
 
 @property (nonatomic, strong) JDDDataSource *dataSource;
 @property (nonatomic, strong) JDDChatRoom *chatroom;
