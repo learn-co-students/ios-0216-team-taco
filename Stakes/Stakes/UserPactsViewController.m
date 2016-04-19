@@ -69,14 +69,14 @@
     
     [self createPactLabelView];
     
-    [self initialAccordionTableView];
+    [self initializeAccordionView];
    
-    [self initailAccountStore];
+    [self initializeAccountStore];
 
 
 }
 
--(void)initailAccountStore
+-(void)initializeAccountStore
 {
     
     self.accountStore = [[ACAccountStore alloc] init];
@@ -95,29 +95,32 @@
 
 }
 
--(void)initialAccordionTableView
+-(void)initializeAccordionView
 {
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     self.tableView.allowMultipleSectionsOpen = NO;
     self.tableView.scrollEnabled = YES;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    self.tableView.initialOpenSections = nil;
+    self.tableView.keepOneSectionOpen = NO;
 
     UINib *cellNib = [UINib nibWithNibName:@"PactTableViewCell" bundle:nil];
     [self.tableView registerNib:cellNib forCellReuseIdentifier:@"userPact"];
     
     [self.tableView registerNib:[UINib nibWithNibName:@"PactAccordionHeaderView" bundle:nil] forHeaderFooterViewReuseIdentifier:accordionHeaderReuseIdentifier];
-    if (self.sharedData.currentUser.pacts.count ==0 || [self.sharedData.currentUser.pacts isEqual:nil] || self.sharedData.currentUser.pacts.count ==1) {
-        self.tableView.keepOneSectionOpen = YES;
-        self.tableView.initialOpenSections = [NSSet setWithObjects:@(0), nil];
-    } else {
- 
-    self.tableView.keepOneSectionOpen = NO;
-    self.tableView.initialOpenSections = nil;//[NSSet setWithObjects:@(0), nil];
     
     
-    
-    }
+//    if (self.sharedData.currentUser.pacts.count == 0 || [self.sharedData.currentUser.pacts isEqual:nil] || self.sharedData.currentUser.pacts.count ==1) {
+//        self.tableView.keepOneSectionOpen = YES;
+//        self.tableView.initialOpenSections = [NSSet setWithObjects:@(0), nil];
+//        
+//    } else {
+// 
+//    self.tableView.keepOneSectionOpen = NO;
+//    self.tableView.initialOpenSections = nil;//[NSSet setWithObjects:@(0), nil];
+//
+//    }
 }
 
 -(BOOL)prefersStatusBarHidden
@@ -186,7 +189,6 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-
     return (self.view.frame.size.height - 140);
 
 }
@@ -268,7 +270,7 @@
 
 - (void)tableView:(FZAccordionTableView *)tableView didOpenSection:(NSInteger)section withHeader:(PactAccordionHeaderView *)header {
     
-//    self.openSection = section;
+    self.openSection = section;
 
    
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:section];
@@ -316,7 +318,6 @@
 - (IBAction)logoutTapped:(id)sender
 {
     self.blurView.hidden = NO;
-    
     
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Logout" message:@"Are you sure you want to logout?" preferredStyle:UIAlertControllerStyleAlert];
     
@@ -478,10 +479,14 @@
         
         if (completionBlock) {
             
-            if (self.sharedData.currentUser.pacts.count == 0) {
+            if (self.sharedData.currentUser.pacts.count == 0 || self.sharedData.currentUser.pacts == nil) {
                 self.sharedData.currentUser.pactsToShowInApp = [[NSMutableArray alloc]init];
                 
                 [self.sharedData.currentUser.pactsToShowInApp addObject:[self.sharedData createDemoPact]];
+                [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                    [self.tableView reloadData];
+                }];
+                
                 
             } else {
                 
@@ -527,6 +532,7 @@
 
 -(void)handleUserWantsToDelete:(NSNotification *)notification
 {
+    [self.tableView toggleSection:self.openSection];
     UIAlertController *deleteAlert = [UIAlertController alertControllerWithTitle:@"Are you sure you want to delete this pact?" message:nil preferredStyle:UIAlertControllerStyleAlert];
     
     UIAlertAction *delete = [UIAlertAction actionWithTitle:@"Delete" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {

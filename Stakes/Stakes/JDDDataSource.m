@@ -336,7 +336,7 @@
     NSLog(@"current%@", self.currentUser.pacts);
     
     __block NSUInteger numberOfPactsInDataSource = self.currentUser.pacts.count;
-    
+
     self.currentUser.pactsToShowInApp = [[NSMutableArray alloc]init];
     
     for (NSString *pactID in self.currentUser.pacts) {

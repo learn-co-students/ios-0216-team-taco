@@ -889,7 +889,7 @@
     
     Firebase *ref = [self.dataSource.firebaseRef childByAppendingPath:[NSString stringWithFormat:@"users/%@",[[NSUserDefaults standardUserDefaults] stringForKey:UserIDKey]]];
     
-    [ref observeEventType:FEventTypeValue withBlock:^(FDataSnapshot *snapshot) {
+    [ref observeSingleEventOfType:FEventTypeValue withBlock:^(FDataSnapshot *snapshot) {
         
         self.dataSource.currentUser = [self.dataSource useSnapShotAndCreateUser:snapshot];
         
@@ -962,7 +962,7 @@
         // querying firebase and creating user
         Firebase *ref = [self.dataSource.firebaseRef childByAppendingPath:[NSString stringWithFormat:@"users/%@",user]];
         
-        [ref observeEventType:FEventTypeValue withBlock:^(FDataSnapshot *snapshot) {
+        [ref observeSingleEventOfType:FEventTypeValue withBlock:^(FDataSnapshot *snapshot) {
             
             JDDUser *person = [self.dataSource useSnapShotAndCreateUser:snapshot];
             
