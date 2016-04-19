@@ -182,11 +182,18 @@
 
 
 -(void)setPact:(JDDPact *)pact{
+    
     _pact = pact;
+    
     [self setShitUp];
 }
 
 -(void)setShitUp {
+    
+    NSLog(@"-------------- setShitUp -------------");
+    NSLog(@"SetShit up is called.");
+    NSLog(@"-------------- setShitUp -------------\n\n");
+
 
     // first empty the stackview
     for (UIView *subview in self.stackView.arrangedSubviews){
@@ -205,8 +212,7 @@
                 
                 view1.checkinsCount ++;
             }
-        }
-        ;
+        };
         
         NSString *valueIndicator = [NSString stringWithFormat:@"%@",[self.pact.users valueForKey:user.userID]] ;
         NSString *currentPact = [NSString stringWithFormat:@"%@",self.pact.title];

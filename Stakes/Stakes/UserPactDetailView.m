@@ -20,15 +20,19 @@
 
 @property (strong, nonatomic) IBOutlet UserPactDetailView *contentView;
 @property (strong, nonatomic) IBOutlet UIStackView *stackView;
+@property (strong, nonatomic) IBOutlet UIView *statusBarView;
+@property (strong, nonatomic) IBOutlet UIView *statusBar;
+@property (strong, nonatomic) IBOutlet UILabel *statusBarLabel;
+@property (strong, nonatomic) IBOutlet NSLayoutConstraint *widthConstraint;
+@property (strong, nonatomic) IBOutlet NSLayoutConstraint *widthConstraintafterAnimation;
 @property (strong, nonatomic) IBOutlet UILabel *createdTitle;
 @property (strong, nonatomic) IBOutlet UILabel *createdLabel;
 @property (strong, nonatomic) IBOutlet UILabel *checkInsTitle;
 @property (strong, nonatomic) IBOutlet UILabel *checkInsPerWeekLabel;
 @property (strong, nonatomic) IBOutlet UIButton *deletePactButton;
+
 @property (strong, nonatomic) JDDDataSource *sharedData;
-@property (strong, nonatomic) IBOutlet BALoadingView *loadingView;
-@property(assign,nonatomic) BACircleAnimation animationType;
-@property(assign,nonatomic) bool firstLoad;
+
 @end
 
 @implementation UserPactDetailView
@@ -67,8 +71,6 @@
     
     [self addSubview:self.contentView];
     
-    self.pact = self.sharedData.currentPact;
-    
     self.contentView.translatesAutoresizingMaskIntoConstraints = NO;
     [self.contentView.topAnchor constraintEqualToAnchor:self.topAnchor].active = YES;
     [self.contentView.leftAnchor constraintEqualToAnchor:self.leftAnchor].active = YES;
@@ -81,21 +83,73 @@
     
     [super awakeFromNib];
     
+}
+
+-(void)setPact:(JDDPact *)pact{
+    
+    _pact = pact;
+    
+    [self setShitUp];
+    
+    [self createView];
+    
+    [self setupStatusBar];
+
     self.sharedData = [JDDDataSource sharedDataSource];
+}
+
+-(void)createView{
     
-    self.pact = self.sharedData.currentPact;
+    self.statusBar = [[UIView alloc]init];
+    [self.statusBarView addSubview:self.statusBar];
+    self.statusBar.backgroundColor = [UIColor greenColor];
     
-    self.firstLoad = YES;
-    self.loadingView.hidden = YES;
+    self.statusBar.translatesAutoresizingMaskIntoConstraints = NO;
+    [self.statusBar.heightAnchor constraintEqualToAnchor:self.statusBarView.heightAnchor multiplier:0.80].active = YES;
+    [self.statusBar.centerYAnchor constraintEqualToAnchor:self.statusBarView.centerYAnchor].active = YES;
+    [self.statusBar.leadingAnchor constraintEqualToAnchor:self.statusBarView.leadingAnchor].active = YES;
+    self.widthConstraint = [self.statusBar.widthAnchor constraintEqualToAnchor:self.statusBarView.widthAnchor multiplier:0.01];
+    self.widthConstraint.active = YES;
     
-    if (self.firstLoad) {
-        [self.loadingView initialize];
-        self.loadingView.lineCap = kCALineCapRound;
-        self.loadingView.clockwise = true;
-        self.loadingView.segmentColor = [UIColor blackColor];
-        self.firstLoad = NO;
+    [self.contentView layoutIfNeeded];
+    
+}
+
+-(void)setupStatusBar {
+    
+    NSUInteger userCheckins = 0;
+    
+    for (JDDCheckIn *checkin in self.pact.checkIns) {
+        
+        if ([checkin.userID isEqualToString:self.sharedData.currentUser.userID]) {
+            
+            userCheckins ++;
+        }
+        
     }
     
+    if (userCheckins >= self.pact.checkInsPerTimeInterval) {
+        
+        self.widthConstraint.active = NO;
+        self.widthConstraintafterAnimation = [self.statusBar.widthAnchor constraintEqualToAnchor:self.statusBarView.widthAnchor multiplier:1];
+        self.widthConstraintafterAnimation.active = YES;
+        
+        self.statusBarLabel.text = @"Pact Complete!";
+        
+    } else {
+    
+        self.widthConstraint.active = NO;
+        self.widthConstraintafterAnimation = [self.statusBar.widthAnchor constraintEqualToAnchor:self.statusBarView.widthAnchor multiplier:(userCheckins/self.pact.checkInsPerTimeInterval)*0.9];
+        self.widthConstraintafterAnimation.active = YES;
+        
+        self.statusBarLabel.text = [NSString stringWithFormat: @"%lu/%lu",userCheckins,self.pact.checkInsPerTimeInterval];
+
+    }
+    
+}
+
+-(void)setShitUp
+{
     // Do any additional setup after loading the view.
     
     // first empty the stackview
@@ -109,10 +163,18 @@
     [dateFormatter setDateFormat:@"MM'-'dd'-'yyyy'"];
     
     NSString *createText = [dateFormatter stringFromDate:self.pact.dateOfCreation];
+    
     BOOL worked = createText != nil;
+    
     self.createdLabel.text = worked ? createText : @"Error";
+    
     NSLog(@"checkins %lu and timeinterval %@", self.pact.checkInsPerTimeInterval, self.pact.timeInterval);
     self.checkInsPerWeekLabel.text = [NSString stringWithFormat:@"%lu times per %@", self.pact.checkInsPerTimeInterval, self.pact.timeInterval];
+    
+//        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(deleteAction:) name:DeletePactConfirmedNotificationName object:nil];
+    
+    self.sharedData = [JDDDataSource sharedDataSource];
+
 
 }
 
@@ -123,75 +185,7 @@
 
 - (IBAction)deleteButtonTapped:(id)sender
 {
-    UIAlertController *deleteAlert = [UIAlertController alertControllerWithTitle:@"Are you sure you want to delete this pact?" message:nil preferredStyle:UIAlertControllerStyleAlert];
-    
-    UIAlertAction *delete = [UIAlertAction actionWithTitle:@"Delete" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
-        [self.loadingView startAnimation:BACircleAnimationFullCircle];
-        
-        [self deleteAction];
-    }];
-    
-    UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleDefault handler:nil];
-    [deleteAlert addAction:delete];
-    [deleteAlert addAction:cancel];
-    
-    
-//    [self presentViewController:deleteAlert animated:YES completion:^{
-//        
-//    }];
+    [[NSNotificationCenter defaultCenter] postNotificationName:UserWantsToDeletePactNotificationName object:self.pact];
 }
-
--(void)deleteAction
-{
-    
-    [self deleteCurrentUserPactReferenceWithCompletion:^(BOOL done) {
-        if (done) {
-            [self deleteAllUserPactReferences];
-            [self deletePactReferenceWithCompletion:^(BOOL doneWithPact) {
-                if (doneWithPact) {
-                    
-                    //                    [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-                    //
-                    //                        [self dismissViewControllerAnimated:YES completion:nil];
-                    //
-                    //                    }];
-                    //send notification to VC
-                    [self.loadingView stopAnimation];
-                    [[NSNotificationCenter defaultCenter] postNotificationName:UserDeletedPactNotificationName object:self.pact];
-                    
-                }
-            }];
-        }
-        
-    }];
-}
-
--(void)deleteCurrentUserPactReferenceWithCompletion:(void(^)(BOOL))completed {
-    
-    [[[[[self.sharedData.firebaseRef childByAppendingPath:@"users"] childByAppendingPath:self.sharedData.currentUser.userID] childByAppendingPath:@"pacts"] childByAppendingPath:self.pact.pactID]removeValueWithCompletionBlock:^(NSError *error, Firebase *ref) {
-        completed(YES);
-    }];
-}
-
--(void)deleteAllUserPactReferences
-{
-    for (JDDUser *user in self.pact.usersToShowInApp) {
-        NSLog(@"ARE WE IN THE LOO{):");
-        NSString *userID = user.userID;
-        [[[[[self.sharedData.firebaseRef childByAppendingPath:@"users"] childByAppendingPath:userID] childByAppendingPath:@"pacts"] childByAppendingPath:self.pact.pactID] removeValue];
-    }
-    
-}
--(void)deletePactReferenceWithCompletion:(void(^)(BOOL))referenceDeleted {
-    
-    [[[self.sharedData.firebaseRef childByAppendingPath:@"pacts"] childByAppendingPath:self.pact.pactID] removeValueWithCompletionBlock:^(NSError *error, Firebase *ref) {
-        
-        NSLog(@"in remove value completionblock");
-        referenceDeleted(YES);
-    }];
-    
-}
-
-
 
 @end

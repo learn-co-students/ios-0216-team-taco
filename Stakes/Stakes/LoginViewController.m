@@ -305,7 +305,8 @@
 {
     self.loginButton.enabled = YES;
     [UIView animateWithDuration:0.5 animations:^{
-        self.loginContainer.alpha = 0.4;
+        self.loginContainer.alpha = 1
+        ;
         self.loginButton.alpha = 1;
     }];
 }

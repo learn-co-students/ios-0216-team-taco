@@ -105,6 +105,8 @@
     self.userNameLabel.text =self.user.displayName;
     
         self.intialsLabel.text = [self.user.displayName substringToIndex:1] ;
+    NSLog(@"countOfCheckIns called!!!! - %lu", (unsigned long)self.checkinsCount);
+    
     self.countOfCheckInsLabel.text = [NSString stringWithFormat:@"%li",self.checkinsCount];
     
 }
