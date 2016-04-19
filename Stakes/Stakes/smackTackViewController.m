@@ -13,12 +13,13 @@
 
 
 
-@interface smackTackViewController ()
+@interface smackTackViewController () <UIActionSheetDelegate, JSQMessagesComposerTextViewPasteDelegate>
 
 @property (nonatomic, strong)JSQMessagesBubbleImage *outgoingBubbleImageView;
 @property (nonatomic, strong)JSQMessagesBubbleImage *incomingBubbleImageView;
 @property (nonatomic, strong)Firebase * messageRef;
 @property (nonatomic) UISwipeGestureRecognizer *swipeLeft;
+@property (nonatomic, strong) UITapGestureRecognizer *tapRecognizer;
 
 @end
 
@@ -29,7 +30,7 @@
     [super viewDidLoad];
         
     self.title = @"SmackTalk";
-        
+    
     self.dataSource = [JDDDataSource sharedDataSource];
     self.chatroom = [[JDDChatRoom alloc]init];
     [self setUpGestureRecognizer];
@@ -41,18 +42,42 @@
     self.senderDisplayName = self.dataSource.currentUser.displayName;
 
     self.messageRef = [self.dataSource.firebaseRef childByAppendingPath:[NSString stringWithFormat:@"chatrooms/%@",self.currentPact.pactID]];
-        
+    
     [self setupBubbles];
     
     [self.collectionView collectionViewLayout].outgoingAvatarViewSize = CGSizeZero;
     [self.collectionView collectionViewLayout].incomingAvatarViewSize = CGSizeZero;
-
     
+    self.collectionView.collectionViewLayout.messageBubbleFont = [UIFont fontWithName:@"Futura" size:15];
+   
+    self.tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleCollectionTapRecognizer:)];
+    [self.collectionView addGestureRecognizer:self.tapRecognizer];
+
 }
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+
+}
+
 
 -(BOOL)prefersStatusBarHidden
 {
     return YES;
+}
+
+- (void) handleCollectionTapRecognizer:(UITapGestureRecognizer*)recognizer
+{
+    
+    NSLog(@"UITapGesture recognized!");
+    
+    if(recognizer.state == UIGestureRecognizerStateEnded)
+    {
+        if([self.inputToolbar.contentView.textView isFirstResponder])
+            [self.inputToolbar.contentView.textView resignFirstResponder];
+    }
 }
 
 -(void)setUpGestureRecognizer {
@@ -75,7 +100,8 @@
     transition.type = kCATransitionPush;
     transition.subtype = kCATransitionFromRight;
     [self.view.window.layer addAnimation:transition forKey:nil];
-    [self performSegueWithIdentifier:@"segueBackToUserPactsVC" sender:self];
+    [self dismissViewControllerAnimated:YES completion:nil];
+
     
 }
 
@@ -115,6 +141,30 @@
     self.incomingBubbleImageView = [factory incomingMessagesBubbleImageWithColor:[UIColor jsq_messageBubbleLightGrayColor]];
     
 }
+
+- (UICollectionViewCell *)collectionView:(JSQMessagesCollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+   
+    JSQMessagesCollectionViewCell *cell = (JSQMessagesCollectionViewCell *)[super collectionView:collectionView cellForItemAtIndexPath:indexPath];
+    
+    JSQMessage *msg = [self.chatroom.messages objectAtIndex:indexPath.item];
+    
+    if (!msg.isMediaMessage) {
+        
+        if ([msg.senderId isEqualToString:self.senderId]) {
+            cell.textView.textColor = [UIColor whiteColor];
+        }
+        else {
+            cell.textView.textColor = [UIColor blackColor];
+        }
+        
+        cell.textView.linkTextAttributes = @{ NSForegroundColorAttributeName : cell.textView.textColor,
+                                              NSUnderlineStyleAttributeName : @(NSUnderlineStyleSingle | NSUnderlinePatternSolid) };
+    }
+    
+    return cell;
+}
+
 
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     
@@ -273,6 +323,27 @@
      *  Don't specify attributes to use the defaults.
      */
     return [[NSAttributedString alloc] initWithString:message.senderDisplayName];
+}
+
+- (CGFloat)collectionView:(JSQMessagesCollectionView *)collectionView
+                   layout:(JSQMessagesCollectionViewFlowLayout *)collectionViewLayout heightForMessageBubbleTopLabelAtIndexPath:(NSIndexPath *)indexPath
+{
+    /**
+     *  iOS7-style sender name labels
+     */
+    JSQMessage *currentMessage = [self.chatroom.messages objectAtIndex:indexPath.item];
+    if ([[currentMessage senderId] isEqualToString:self.senderId]) {
+        return 0.0f;
+    }
+    
+    if (indexPath.item - 1 > 0) {
+        JSQMessage *previousMessage = [self.chatroom.messages objectAtIndex:indexPath.item - 1];
+        if ([[previousMessage senderId] isEqualToString:[currentMessage senderId]]) {
+            return 0.0f;
+        }
+    }
+    
+    return kJSQMessagesCollectionViewCellLabelHeightDefault;
 }
 
 

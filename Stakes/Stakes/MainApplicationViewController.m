@@ -71,7 +71,7 @@
 - (void)showUserPactsViewController
 {
     
-    UITabBarController *tabBarControllerVC = [self.storyboard instantiateViewControllerWithIdentifier:@"UserPactsViewController"];
+    UINavigationController *navBarController = [self.storyboard instantiateViewControllerWithIdentifier:@"navBarVC"];
 //    UserPactsViewController *userPactsVC = [self.storyboard instantiateViewControllerWithIdentifier:UserPactsViewControllerStoryboardID];
     
     [self.datasource establishCurrentUserWithBlock:^(BOOL completionBlock) {
@@ -85,7 +85,8 @@
                 
                 [self.datasource.currentUser.pactsToShowInApp addObject:[self.datasource createDemoPact]];
                 
-                [self setEmbeddedViewController:tabBarControllerVC];
+                
+                [self setEmbeddedViewController:navBarController];
                 
             } else {
             
@@ -101,7 +102,7 @@
                                 
                                 [[NSOperationQueue mainQueue] addOperationWithBlock:^{
                                     
-                                    [self setEmbeddedViewController:tabBarControllerVC];
+                                    [self setEmbeddedViewController:navBarController];
                                     
                                     
                                 }];

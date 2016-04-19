@@ -241,18 +241,16 @@
     self.pactText.text = self.pact.pactDescription;
     self.checkInLabel.layer.borderWidth = 2;
     self.checkInLabel.layer.cornerRadius = 10;
-    self.checkInLabel.layer.borderColor = [UIColor greenColor].CGColor;
+    self.checkInLabel.layer.borderColor = [UIColor whiteColor].CGColor;
     
     
     
     
     if (self.pact.twitterPost.length > 0) {
-        self.TwitterTitle.text = self.pact.twitterPost;
-        self.TwitterTitle.hidden = NO;
-        self.twitterText.hidden = NO;
+        self.twitterText.text = self.pact.twitterPost;
 
     } else {
-        self.TwitterTitle.text = @"Twitter shaming is disabled for this pact.";
+        self.twitterText.text = @"Twitter shaming is disabled for this pact.";
     }
     
 }
