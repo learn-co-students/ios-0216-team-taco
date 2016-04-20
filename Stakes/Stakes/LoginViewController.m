@@ -119,7 +119,7 @@
                 self.phoneNumberTextField.hidden = NO;
                 self.phoneNumberLabel.hidden = NO;
             }
-            [self dismissViewControllerAnimated:YES completion:nil];
+//            [self dismissViewControllerAnimated:YES completion:nil];
             
         } else if (accounts.count == 0) {
             message = @"No Twitter accounts found. Please add an account in your phone's settings.";
@@ -131,7 +131,7 @@
                 self.phoneNumberTextField.hidden = NO;
                 self.phoneNumberLabel.hidden = NO;
             }
-            [self dismissViewControllerAnimated:YES completion:nil];
+//            [self dismissViewControllerAnimated:YES completion:nil];
             
         } else {
             [self selectTwitterAccount:accounts];

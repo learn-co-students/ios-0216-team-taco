@@ -25,22 +25,6 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    //verify credentials!!!!!
-    self.dataSource = [JDDDataSource sharedDataSource];
-    
-    if (!self.oauthToken) {
-        //        NSString *board = @"Main";
-        //        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:board bundle: nil];
-        //        LoginViewController *login = [storyboard instantiateViewControllerWithIdentifier:@"LoginViewController"];
-        //        [self.viewcon presentViewController:login animated:YES completion:nil];
-        //        self performseguewith
-    } else {
-        //+[STTwitterAPI twitterAPIWithOAuthConsumerKey:consumerSecret:oauthToken:oauthTokenSecret:]
-        
-        // call -[STTwitter verifyCredentialsWithSuccessBlock:errorBlock:] after that.
-        
-    }
-    
     return YES;
 }
 

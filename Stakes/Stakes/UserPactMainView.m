@@ -88,7 +88,6 @@
     
     [super awakeFromNib];
     
-    
     [self addObserver:self forKeyPath:@"pact.users" options:NSKeyValueObservingOptionNew context:nil];
 }
 
@@ -96,10 +95,10 @@
 - (IBAction)checkInButtonPressed:(id)sender {
        
     NSLog(@"checkin Button Pressed");
-    NSLog(@"userIs : %@", self.sharedData.currentUser.userID);
-
-    self.pact.checkIns = [[NSMutableArray alloc]init];
-
+    if (!self.pact.isActive) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:InactivePactCheckinNotificationName object:nil];
+    } else {
+    
     self.checkIn = [[JDDCheckIn alloc]init];
     NSDate * now = [NSDate date];
     self.checkIn.userID = self.sharedData.currentUser.userID;
@@ -125,9 +124,9 @@
     }
     
     [self.locationManager startUpdatingLocation];
-    
+
     [[NSNotificationCenter defaultCenter] postNotificationName:UserCheckedInNotificationName object:self.pact];
-    
+    }
 }
 
 //location geo delagates methods.
@@ -189,10 +188,6 @@
 }
 
 -(void)setShitUp {
-    
-    NSLog(@"-------------- setShitUp -------------");
-    NSLog(@"SetShit up is called.");
-    NSLog(@"-------------- setShitUp -------------\n\n");
 
     self.sharedData = [JDDDataSource sharedDataSource];
 
