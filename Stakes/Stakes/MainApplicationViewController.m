@@ -5,7 +5,7 @@
 //  Created by Jeremy Feld on 4/6/16.
 //  Copyright © 2016 JDD. All rights reserved.
 //
-
+#import <BALoadingView/BALoadingView.h>
 #import "MainApplicationViewController.h"
 #import "Constants.h"
 #import "LoginViewController.h"
@@ -17,6 +17,9 @@
 @interface MainApplicationViewController ()
 @property (weak, nonatomic) IBOutlet UIView *containerView;
 @property (nonatomic, strong) JDDDataSource *datasource;
+@property (weak, nonatomic) IBOutlet BALoadingView *loadingView;
+@property(assign,nonatomic) BACircleAnimation animationType;
+@property(assign,nonatomic) bool firstLoad;
 
 @end
 
@@ -26,7 +29,7 @@
     [super viewDidLoad];
     
     self.datasource = [JDDDataSource sharedDataSource];
-    
+            self.firstLoad = YES;
     //BOOL userIsRegistered =
     BOOL userIsLoggedIn = [[NSUserDefaults standardUserDefaults] boolForKey:LoggedInUserDefaultsKey];
     
@@ -48,6 +51,17 @@
     
 }
 
+-(void)viewDidLayoutSubviews {
+    if (self.firstLoad) {
+        [self.loadingView initialize];
+        self.loadingView.lineCap = kCALineCapRound;
+        self.loadingView.clockwise = true;
+        self.loadingView.segmentColor = [UIColor whiteColor];
+        self.firstLoad = NO;
+    }
+    [self.loadingView startAnimation:BACircleAnimationFullCircle];
+}
+
 - (void)handleUserLoggedInNotification:(NSNotification *)notification
 {
     
@@ -64,7 +78,7 @@
 - (void)showLoginViewController
 {
     LoginViewController *loginVC = [self.storyboard instantiateViewControllerWithIdentifier:LoginViewControllerStoryboardID];
-    
+    [self.loadingView stopAnimation];
     [self setEmbeddedViewController:loginVC];
 }
 
@@ -84,7 +98,7 @@
                 
                 [self.datasource.currentUser.pactsToShowInApp addObject:[self.datasource createDemoPact]];
                 
-                
+                [self.loadingView stopAnimation];
                 [self setEmbeddedViewController:navBarController];
                 
             } else {
@@ -100,7 +114,7 @@
                             if (block) {
                                 
                                 [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-                                    
+                                    [self.loadingView stopAnimation];
                                     [self setEmbeddedViewController:navBarController];
                                     
                                     

@@ -19,6 +19,14 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0kp-l0-hKg" customClass="BALoadingView">
+                                <rect key="frame" x="165" y="312" width="44" height="44"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="5ou-rh-bF1"/>
+                                    <constraint firstAttribute="width" constant="44" id="ccC-D3-FLH"/>
+                                </constraints>
+                            </view>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ase-rt-bqJ">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                             </containerView>
@@ -26,7 +34,9 @@
                         <color key="backgroundColor" red="0.14901960780000001" green="0.1960784314" blue="0.21960784310000001" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="ase-rt-bqJ" firstAttribute="height" secondItem="X2F-aw-srG" secondAttribute="height" id="021-L7-ZRl"/>
+                            <constraint firstItem="0kp-l0-hKg" firstAttribute="centerX" secondItem="X2F-aw-srG" secondAttribute="centerX" id="1zG-jx-QCB"/>
                             <constraint firstItem="ase-rt-bqJ" firstAttribute="width" secondItem="X2F-aw-srG" secondAttribute="width" id="G5q-FC-YJj"/>
+                            <constraint firstItem="0kp-l0-hKg" firstAttribute="centerY" secondItem="X2F-aw-srG" secondAttribute="centerY" id="SaD-CM-7Wz"/>
                             <constraint firstItem="ase-rt-bqJ" firstAttribute="centerY" secondItem="X2F-aw-srG" secondAttribute="centerY" id="bEi-qB-EQR"/>
                             <constraint firstItem="ase-rt-bqJ" firstAttribute="centerX" secondItem="X2F-aw-srG" secondAttribute="centerX" id="kIv-Vx-xU0"/>
                         </constraints>
@@ -34,6 +44,7 @@
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <connections>
                         <outlet property="containerView" destination="ase-rt-bqJ" id="aNY-Nc-M7P"/>
+                        <outlet property="loadingView" destination="0kp-l0-hKg" id="gaP-M2-2rS"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UU9-Wo-Nch" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -54,7 +65,27 @@
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NRs-3V-2dd">
                                 <rect key="frame" x="0.0" y="292" width="375" height="83"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RlZ-du-fW8">
+                                        <rect key="frame" x="143" y="20" width="88" height="44"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="44" id="bvu-tp-E7y"/>
+                                            <constraint firstAttribute="width" constant="88" id="ruF-oC-fTo"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="31"/>
+                                        <state key="normal" title="login">
+                                            <color key="titleColor" red="0.0" green="1" blue="0.0" alpha="0.75" colorSpace="calibratedRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="loginTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Lbv-lA-IAe"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
                                 <color key="backgroundColor" red="0.98039215686274506" green="0.98039215686274506" blue="0.98039215686274506" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstItem="RlZ-du-fW8" firstAttribute="centerX" secondItem="NRs-3V-2dd" secondAttribute="centerX" id="10E-d1-i3F"/>
+                                    <constraint firstItem="RlZ-du-fW8" firstAttribute="centerY" secondItem="NRs-3V-2dd" secondAttribute="centerY" id="74O-sl-Uw0"/>
+                                </constraints>
                             </view>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="hlr-fx-vps" userLabel="PhoneNumberTextField">
                                 <rect key="frame" x="113" y="237" width="150" height="26"/>
@@ -88,20 +119,6 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RlZ-du-fW8">
-                                <rect key="frame" x="143" y="312" width="88" height="44"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="44" id="bvu-tp-E7y"/>
-                                    <constraint firstAttribute="width" constant="88" id="ruF-oC-fTo"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="31"/>
-                                <state key="normal" title="login">
-                                    <color key="titleColor" red="0.0" green="1" blue="0.0" alpha="0.75" colorSpace="calibratedRGB"/>
-                                </state>
-                                <connections>
-                                    <action selector="loginTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Lbv-lA-IAe"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.14901960780000001" green="0.1960784314" blue="0.21960784310000001" alpha="1" colorSpace="calibratedRGB"/>
                         <gestureRecognizers/>
