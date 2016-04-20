@@ -61,10 +61,10 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleUserWantsToDelete:) name:UserWantsToDeletePactNotificationName object:nil];
     
     [self.logoutButton setTintColor:[UIColor blackColor]];
-//    [self.navigationController.navigationBar setTranslucent:YES];
-    [self.navigationController.navigationBar setBackgroundColor:[UIColor colorWithRed:0 green:0 blue:0 alpha:0.0]];
-    [self.navigationController.navigationBar setBackgroundImage:[[UIImage alloc] init] forBarMetrics:UIBarMetricsDefault];
-    [self.navigationController.navigationBar setShadowImage:[[UIImage alloc]init]];
+    [self.navigationController.navigationBar setTranslucent:YES];
+//    [self.navigationController.navigationBar setBackgroundColor:[UIColor colorWithRed:0 green:0 blue:0 alpha:0.7]];
+//    [self.navigationController.navigationBar setBackgroundImage:[[UIImage alloc] init] forBarMetrics:UIBarMetricsDefault];
+//    [self.navigationController.navigationBar setShadowImage:[[UIImage alloc]init]];
 
     
     self.navigationController.hidesBarsOnSwipe = YES;

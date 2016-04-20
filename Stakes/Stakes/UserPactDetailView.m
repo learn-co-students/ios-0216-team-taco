@@ -19,10 +19,9 @@
 @interface UserPactDetailView ()
 
 @property (strong, nonatomic) IBOutlet UserPactDetailView *contentView;
-@property (strong, nonatomic) IBOutlet UIStackView *stackView;
+
 @property (strong, nonatomic) IBOutlet UIView *statusBarView;
 @property (strong, nonatomic) IBOutlet UIView *statusBar;
-@property (strong, nonatomic) IBOutlet UILabel *statusBarLabel;
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint *widthConstraint;
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint *widthConstraintafterAnimation;
 @property (strong, nonatomic) IBOutlet UILabel *createdTitle;
@@ -30,6 +29,19 @@
 @property (strong, nonatomic) IBOutlet UILabel *checkInsTitle;
 @property (strong, nonatomic) IBOutlet UILabel *checkInsPerWeekLabel;
 @property (strong, nonatomic) IBOutlet UIButton *deletePactButton;
+@property (strong, nonatomic) IBOutlet UILabel *timeInterval;
+@property (strong, nonatomic) IBOutlet UILabel *checkInsNumber;
+@property (strong, nonatomic) IBOutlet UILabel *repeatingLabel;
+@property (strong, nonatomic) IBOutlet UILabel *activeLabel;
+@property (strong, nonatomic) IBOutlet UILabel *createdDateLabel;
+@property (strong, nonatomic) IBOutlet UILabel *expirationDateLabel;
+@property (strong, nonatomic) IBOutlet UILabel *numberOfDaysLeftLabel;
+@property (strong, nonatomic) IBOutlet UILabel *topCheckinsLabel;
+@property (strong, nonatomic) IBOutlet UILabel *topCheckinsNeededLabel;
+@property (strong, nonatomic) IBOutlet UILabel *completedLabel;
+@property (strong, nonatomic) IBOutlet UILabel *slashLabel;
+@property (assign, nonatomic) BOOL hasUserCompletedPact;
+@property (nonatomic, assign) NSUInteger userCheckins;
 
 @property (strong, nonatomic) JDDDataSource *sharedData;
 
@@ -92,107 +104,204 @@
     
     [self setShitUp];
     
-    [self createView];
-    
-    [self setupStatusBar];
-
     self.sharedData = [JDDDataSource sharedDataSource];
+    
+    [self hasCompletedPact];
+    
+    if (self.pact.isActive) {
+        
+        [self setShitUp];
+        
+    } else {
+        
+        [self setupIfInactive];
+        
+    }
 }
 
--(void)createView{
+
+-(void)setupIfInactive {
     
-    
-    
-    self.statusBar = [[UIView alloc]init];
-    [self.statusBarView addSubview:self.statusBar];
-    self.statusBar.backgroundColor = [UIColor greenColor];
-    
-    self.statusBar.translatesAutoresizingMaskIntoConstraints = NO;
-    [self.statusBar.heightAnchor constraintEqualToAnchor:self.statusBarView.heightAnchor multiplier:0.80].active = YES;
-    [self.statusBar.centerYAnchor constraintEqualToAnchor:self.statusBarView.centerYAnchor].active = YES;
-    [self.statusBar.leadingAnchor constraintEqualToAnchor:self.statusBarView.leadingAnchor].active = YES;
+    self.contentView.translatesAutoresizingMaskIntoConstraints = NO;
     self.widthConstraint = [self.statusBar.widthAnchor constraintEqualToAnchor:self.statusBarView.widthAnchor multiplier:0.01];
     self.widthConstraint.active = YES;
     
-    [self.contentView layoutIfNeeded];
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
+    [dateFormatter setDateFormat:@"MM'-'dd'-'yyyy'"];
     
+    //statusBar
+    self.completedLabel.hidden = YES;
+    self.topCheckinsLabel.text = @"0";
+    self.topCheckinsNeededLabel.text = [NSString stringWithFormat:@"%lu",self.pact.checkInsPerTimeInterval];
+    // days left label
+    self.numberOfDaysLeftLabel.text = @"0";
+    // pact details
+    self.expirationDateLabel.text = @"N/A";
+    self.createdDateLabel.text = [dateFormatter stringFromDate:self.pact.dateOfCreation];
+    self.activeLabel.text = @"Inactive";
+    
+    if (self.pact.repeating) {
+        
+        self.repeatingLabel.text = @"Repeating";
+        
+    } else {
+        
+        self.repeatingLabel.text = @"Not Repeating";
+    }
+    self.checkInsNumber.text = [NSString stringWithFormat:@"%lu",self.pact.checkInsPerTimeInterval];
+    self.timeInterval.text = self.pact.timeInterval;
 }
 
--(void)setupStatusBar {
+-(void)hasCompletedPact {
     
-    NSUInteger userCheckins = 0;
+    self.hasUserCompletedPact = NO;
+    
+    self.userCheckins = 0;
     
     for (JDDCheckIn *checkin in self.pact.checkIns) {
         
         if ([checkin.userID isEqualToString:self.sharedData.currentUser.userID]) {
             
-            userCheckins ++;
+            self.userCheckins++;
+            
         }
         
     }
     
-    if (userCheckins >= self.pact.checkInsPerTimeInterval) {
+    if (self.pact.checkInsPerTimeInterval <= self.userCheckins) {
         
-        self.widthConstraint.active = NO;
-        self.widthConstraintafterAnimation = [self.statusBar.widthAnchor constraintEqualToAnchor:self.statusBarView.widthAnchor multiplier:1];
-        self.widthConstraintafterAnimation.active = YES;
-        
-        self.statusBarLabel.text = @"Pact Complete!";
-        
-    } else {
-    
-        self.widthConstraint.active = NO;
-        self.widthConstraintafterAnimation = [self.statusBar.widthAnchor constraintEqualToAnchor:self.statusBarView.widthAnchor multiplier:(userCheckins/self.pact.checkInsPerTimeInterval)*0.9];
-        self.widthConstraintafterAnimation.active = YES;
-        
-        self.statusBarLabel.text = [NSString stringWithFormat: @"%lu/%lu",userCheckins,self.pact.checkInsPerTimeInterval];
-
+        self.hasUserCompletedPact = YES;
     }
     
 }
 
++ (NSInteger)daysBetweenDate:(NSDate*)fromDateTime andDate:(NSDate*)toDateTime
+{
+    NSDate *fromDate;
+    NSDate *toDate;
+    
+    NSCalendar *calendar = [NSCalendar currentCalendar];
+    
+    [calendar rangeOfUnit:NSCalendarUnitDay startDate:&fromDate
+                 interval:NULL forDate:fromDateTime];
+    [calendar rangeOfUnit:NSCalendarUnitDay startDate:&toDate
+                 interval:NULL forDate:toDateTime];
+    
+    NSDateComponents *difference = [calendar components:NSCalendarUnitDay
+                                               fromDate:fromDate toDate:toDate options:0];
+    
+    return [difference day];
+}
+
+
 -(void)setShitUp
 {
-    // Do any additional setup after loading the view.
-  
-//    self.createdTitle.layer.borderWidth = 2;
-//    self.createdTitle.layer.cornerRadius = 10;
-//    self.createdTitle.layer.borderColor = [UIColor whiteColor].CGColor;
-//    self.checkInsTitle.layer.borderWidth = 2;
-//    self.checkInsTitle.layer.cornerRadius = 10;
-//    self.checkInsTitle.layer.borderColor = [UIColor whiteColor].CGColor;
-
+    
     if ([self.pact.title isEqualToString:@"Welcome to Stakes!"]) {
+        
+        self.contentView.translatesAutoresizingMaskIntoConstraints = NO;
+        self.widthConstraint = [self.statusBar.widthAnchor constraintEqualToAnchor:self.statusBarView.widthAnchor multiplier:0.01];
+        self.widthConstraint.active = YES;
+        
         self.deletePactButton.hidden = YES;
         self.createdLabel.text = @"Dark Ages";
-        self.checkInsPerWeekLabel.text =@"Do the chacha once a week";
-        self.stackView.hidden = YES;
+        self.checkInsNumber.text = [NSString stringWithFormat:@"%d",1];
+        self.timeInterval.text = @"week";
+        
     } else {
-    
-    // first empty the stackview
-    for (UIView *subview in self.stackView.arrangedSubviews){
-        [self.stackView removeArrangedSubview:subview];
-    }
-    
-    // then for each user, createa a UserDescriptionView and add it to the stackview
-    
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
-    [dateFormatter setDateFormat:@"MM'-'dd'-'yyyy'"];
-    
-    NSString *createText = [dateFormatter stringFromDate:self.pact.dateOfCreation];
-    
-    BOOL worked = createText != nil;
-    
-    self.createdLabel.text = worked ? createText : @"Error";
-    
-    NSLog(@"checkins %lu and timeinterval %@", self.pact.checkInsPerTimeInterval, self.pact.timeInterval);
-    self.checkInsPerWeekLabel.text = [NSString stringWithFormat:@"%lu times per %@", self.pact.checkInsPerTimeInterval, self.pact.timeInterval];
-    
-//        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(deleteAction:) name:DeletePactConfirmedNotificationName object:nil];
-    
-    self.sharedData = [JDDDataSource sharedDataSource];
-    }
+        
+        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
+        [dateFormatter setDateFormat:@"MM'-'dd'-'yyyy'"];
+        
+        NSDictionary *timeIntervalNSNumbers = @{
+                                                @"day":[NSNumber numberWithInteger:1],
+                                                @"week":[NSNumber numberWithInteger:7],
+                                                @"month":[NSNumber numberWithInteger:30],
+                                                @"year":[NSNumber numberWithInteger:365],
+                                                };
+        
+        if (self.hasUserCompletedPact) {
+            // user has not completed pact
+            
+            self.contentView.translatesAutoresizingMaskIntoConstraints = NO;
+            self.widthConstraint = [self.statusBar.widthAnchor constraintEqualToAnchor:self.statusBarView.widthAnchor multiplier:1];
+            self.widthConstraint.active = YES;
+            
+            //statusBar
+            self.completedLabel.hidden = NO;
+            self.topCheckinsLabel.hidden = YES;
+            self.topCheckinsNeededLabel.hidden = YES;
+            // days left label
+            self.numberOfDaysLeftLabel.text = [NSString stringWithFormat:@"%lu",[UserPactDetailView daysBetweenDate:self.pact.dateOfCreation andDate:[NSDate dateWithTimeInterval:60*60*24* [timeIntervalNSNumbers[self.pact.timeInterval]intValue] sinceDate:self.pact.dateOfCreation]]];
+            // pact details
+            self.expirationDateLabel.text = [dateFormatter stringFromDate:[NSDate dateWithTimeInterval:60*60*24* [timeIntervalNSNumbers[self.pact.timeInterval]intValue] sinceDate:self.pact.dateOfCreation]];
+            self.createdDateLabel.text = [dateFormatter stringFromDate:self.pact.dateOfCreation];
+            
+            if (self.pact.isActive) {
+                
+                self.activeLabel.text = @"Active";
+                
+            } else {
+                
+                self.activeLabel.text = @"Inactive";
+            }
 
+            if (self.pact.repeating) {
+                
+                self.repeatingLabel.text = @"Repeating";
+                
+            } else {
+                
+                self.repeatingLabel.text = @"Not Repeating";
+            }
+            self.checkInsNumber.text = [NSString stringWithFormat:@"%lu",self.pact.checkInsPerTimeInterval];
+            self.timeInterval.text = self.pact.timeInterval;
+            
+        } else {
+            
+            // user has not completed pact
+            
+            self.contentView.translatesAutoresizingMaskIntoConstraints = NO;
+            self.widthConstraint = [self.statusBar.widthAnchor constraintEqualToAnchor:self.statusBarView.widthAnchor multiplier:self.userCheckins*100/self.pact.checkInsPerTimeInterval*100/100];
+            self.widthConstraint.active = YES;
+            
+            //statusBar
+            self.completedLabel.hidden = YES;
+            self.topCheckinsLabel.hidden = NO;
+            self.topCheckinsLabel.text = [NSString stringWithFormat:@"%lu",self.userCheckins];
+            self.topCheckinsNeededLabel.hidden = NO;
+            self.topCheckinsNeededLabel.text = [NSString stringWithFormat:@"%lu",self.pact.checkInsPerTimeInterval];
+
+            // days left label
+            self.numberOfDaysLeftLabel.text = [NSString stringWithFormat:@"%lu",[UserPactDetailView daysBetweenDate:self.pact.dateOfCreation andDate:[NSDate dateWithTimeInterval:60*60*24* [timeIntervalNSNumbers[self.pact.timeInterval]intValue] sinceDate:self.pact.dateOfCreation]]];
+            // pact details
+            self.expirationDateLabel.text = [dateFormatter stringFromDate:[NSDate dateWithTimeInterval:60*60*24* [timeIntervalNSNumbers[self.pact.timeInterval]intValue] sinceDate:self.pact.dateOfCreation]];
+            self.createdDateLabel.text = [dateFormatter stringFromDate:self.pact.dateOfCreation];
+            
+            if (self.pact.isActive) {
+                
+                self.activeLabel.text = @"Active";
+                
+            } else {
+                
+                self.activeLabel.text = @"Inactive";
+            }
+            
+            if (self.pact.repeating) {
+                
+                self.repeatingLabel.text = @"Repeating";
+                
+            } else {
+                
+                self.repeatingLabel.text = @"Not Repeating";
+            }
+            self.checkInsNumber.text = [NSString stringWithFormat:@"%lu",self.pact.checkInsPerTimeInterval];
+            self.timeInterval.text = self.pact.timeInterval;
+            
+            
+        }
+    }
+    
 }
 
 -(BOOL)prefersStatusBarHidden
