@@ -61,7 +61,7 @@
 
 -(void)updateUI
 {
-    if ([self.pact.title isEqualToString:@"Welcome to Stakes!"]) {  // this is for the Demo pact
+    if ([self.pact.title isEqualToString:@"Tap On Me :)"]) {  // this is for the Demo pact
         self.pendingLabel.text = @"Demo";
         self.pendingLabel.hidden = NO;
         self.title.text = self.pact.title;

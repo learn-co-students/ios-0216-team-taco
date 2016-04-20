@@ -12,5 +12,6 @@
 
 @interface UserPactsViewController : UIViewController 
 
+@property (weak, nonatomic) IBOutlet UINavigationItem *ViewTitle;
 
 @end

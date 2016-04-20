@@ -200,8 +200,17 @@
 
 -(void)setShitUp
 {
+    // Do any additional setup after loading the view.
+  
+//    self.createdTitle.layer.borderWidth = 2;
+//    self.createdTitle.layer.cornerRadius = 10;
+//    self.createdTitle.layer.borderColor = [UIColor whiteColor].CGColor;
+//    self.checkInsTitle.layer.borderWidth = 2;
+//    self.checkInsTitle.layer.cornerRadius = 10;
+//    self.checkInsTitle.layer.borderColor = [UIColor whiteColor].CGColor;
+
+    if ([self.pact.title isEqualToString:@"Tap On Me :)"]) {
     
-    if ([self.pact.title isEqualToString:@"Welcome to Stakes!"]) {
         
         self.contentView.translatesAutoresizingMaskIntoConstraints = NO;
         self.widthConstraint = [self.statusBar.widthAnchor constraintEqualToAnchor:self.statusBarView.widthAnchor multiplier:0.01];
