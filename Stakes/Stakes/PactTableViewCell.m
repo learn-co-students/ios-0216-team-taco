@@ -166,11 +166,7 @@
     
     self.messageShapeTrailingAnchor.constant = -(scrollView.contentOffset.x *2)-(self.contentView.frame.size.width/3.3);
     self.messageImageView.alpha = -(scrollView.contentOffset.x)/(self.contentView.frame.size.width/4);
-    
-    
-    
-    NSLog(@"alpha is %f", self.messageImageView.alpha);
-    
+
     if (scrollView.contentOffset.x < - (self.contentView.frame.size.width/4)) {
         
         didSwipeToCertainPoint = YES;

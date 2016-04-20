@@ -55,16 +55,14 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleUserCheckedIn:) name:UserCheckedInNotificationName object:nil];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleUserAccepted:) name:UserAcceptedPactNotificationName object:nil];
-    
-//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleUserDeletedPact:) name:UserDeletedPactNotificationName object:nil];
-    
+        
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleUserWantsToDelete:) name:UserWantsToDeletePactNotificationName object:nil];
     
     [self.logoutButton setTintColor:[UIColor blackColor]];
     [self.navigationController.navigationBar setTranslucent:YES];
-//    [self.navigationController.navigationBar setBackgroundColor:[UIColor colorWithRed:0 green:0 blue:0 alpha:0.7]];
-//    [self.navigationController.navigationBar setBackgroundImage:[[UIImage alloc] init] forBarMetrics:UIBarMetricsDefault];
-//    [self.navigationController.navigationBar setShadowImage:[[UIImage alloc]init]];
+    
+//    self.navigationItem.titleView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"navBarIcon"] ];
+//    [self.navigationItem.titleView sizeThatFits: CGSizeMake(self.navigationController.navigationBar.frame.size.height-5, self.navigationController.navigationBar.frame.size.height-5)];
 
     
     self.navigationController.hidesBarsOnSwipe = YES;

@@ -85,7 +85,7 @@
             
             if (self.dataSource.currentUser.pacts.count == 0) {
                 
-                //do nothing
+                completionHandler(UIBackgroundFetchResultNewData);
                 
             } else {
                 
@@ -103,37 +103,62 @@
                             
                             
                             NSLog(@"time interval %@",pact.timeInterval);
+                            
                             pactCount --;
                             
                             NSDateFormatter *checkInDateFormatter = [[NSDateFormatter alloc]init];
                             [checkInDateFormatter setDateFormat:@"yyyy'-'MM'-'dd'-'hh:mm'"];
+                            
                             if (pact.isActive) {
                                 
                                 if ([self checkIfPactHasExpiredWithStartDate:pact.dateOfCreation andTimeInterval:pact.timeInterval]){
                                     
+                                    
                                     NSLog(@"time interval %@",pact.timeInterval);
-                                    NSLog(@"ok a pact has expired!");
-                                    
-                                    
-                                    
-                                    if ([self hasUserAccomplishedCheckinGoalWithPact:pact] == NO) {
+                                    NSLog(@"%@ pact has expired!", pact.title);
+                                
+                                    if ([self hasUserAccomplishedCheckinGoalWithPact:pact] == NO) { // this needs to be changed with date variable
                                         
-                                        NSLog(@"ok someone hasn't completed their pact!");
+                                        NSLog(@"ok user hasn't completed their pact!");
                                         
                                         [self sendTwitterShameMessageWithPact:pact];
                                         
                                         NSLog(@"twitterShame Sent is: %@",pact.twitterPost);
                                         NSLog(@"OH SHIT TWITTER SHAME");
                                         
-                                        if (pactCount == 0) {
+                                        if (pactCount == 1) {
+                                            
                                             completionHandler(UIBackgroundFetchResultNewData);
                                         }
+                                    }
+                                    
+                                    if (pact.repeating) {
+                                        
+                                        [[self.dataSource.firebaseRef childByAppendingPath: [NSString stringWithFormat:@"pacts/%@/dateOfCreation",pact.pactID]] setValue:[checkInDateFormatter stringFromDate:[NSDate date]]];
+                                    } else {
+                                        
+                                        [[self.dataSource.firebaseRef childByAppendingPath: [NSString stringWithFormat:@"pacts/%@/isActive",pact.pactID]] setValue:[NSNumber numberWithBool:NO]];
+                                        
+                                    }
+                                    
+                                } else {
+                                    
+                                    NSLog(@"%@ pact has not expired!", pact.title);
+
+                                    if (pactCount == 1) {
+                                        completionHandler(UIBackgroundFetchResultNewData);
                                     }
                                     
                                 }
                             } else {
                                 
-                                pactCount --;
+                                NSLog(@"%@ pact is not active!", pact.title);
+                                
+                                if (pactCount == 1) {
+                                    completionHandler(UIBackgroundFetchResultNewData);
+                                }
+                                
+                                
                             }
                         }
                     }

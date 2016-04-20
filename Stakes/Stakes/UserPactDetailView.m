@@ -138,7 +138,7 @@
     self.topCheckinsNeededLabel.hidden = YES;
     self.slashLabel.hidden = YES;
     // days left label
-    self.numberOfDaysLeftLabel.text = @"0";
+    self.numberOfDaysLeftLabel.text = @"N/A";
     // pact details
     self.expirationDateLabel.text = @"N/A";
     self.createdDateLabel.text = [dateFormatter stringFromDate:self.pact.dateOfCreation];
