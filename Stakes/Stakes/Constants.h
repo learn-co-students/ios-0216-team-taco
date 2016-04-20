@@ -23,6 +23,7 @@ extern NSString * const UserDeletedPactNotificationName;
 extern NSString * const UserWantsToDeletePactNotificationName;
 extern NSString * const DeletePactConfirmedNotificationName;
 extern NSString * const PactDeletedNotificationName;
+extern NSString * const InactivePactCheckinNotificationName;
 
 extern NSString * const AccountIdentifierKey;
 extern NSString * const UserDidRegisterKey;

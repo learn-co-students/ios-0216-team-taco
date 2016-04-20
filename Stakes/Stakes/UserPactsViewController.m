@@ -61,8 +61,9 @@
     [self.logoutButton setTintColor:[UIColor blackColor]];
     [self.navigationController.navigationBar setTranslucent:YES];
     
-//    self.navigationItem.titleView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"navBarIcon"] ];
-//    [self.navigationItem.titleView sizeThatFits: CGSizeMake(self.navigationController.navigationBar.frame.size.height-5, self.navigationController.navigationBar.frame.size.height-5)];
+
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleInactivePactCheckInNotification:) name:InactivePactCheckinNotificationName object:nil];
+
 
     
     self.navigationController.hidesBarsOnSwipe = YES;
@@ -90,8 +91,12 @@
         NSLog(@"Twitter verified");
     } errorBlock:^(NSError *error) {
         NSLog(@"%@", error.localizedDescription);
-        NSString *message = [NSString stringWithFormat:@"There was an error signing in to Twitter: %@", error.localizedDescription];
-        //        [self showAlertWithMessage:message];
+        UIAlertController *inactiveAlert = [UIAlertController alertControllerWithTitle:@"Oops!" message:[NSString stringWithFormat:@"There was an error signing in to Twitter: %@", error.localizedDescription] preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            //
+        }];
+        [inactiveAlert addAction:okAction];
+        [self presentViewController:inactiveAlert animated:YES completion:nil];
     }];
 
 }
@@ -341,9 +346,10 @@
 -(void)handleUserCheckedIn:(NSNotification *)notification
 {
     
-//    NSLog(@"handleUser is getting called.")   ;
+    JDDPact *pact = (JDDPact *)notification.object;
+
     
-    [self updateCheckInsForPact:notification.object withCompletion:^(BOOL success) {
+    [self updateCheckInsForPact:pact withCompletion:^(BOOL success) {
         
         NSLog(@"Back in block.")    ;
         if (success) {
@@ -351,7 +357,7 @@
                 
                 NSLog(@"RELOADING DATA:");
                 [self.tableView reloadData];
-//                [self.tableView.cell.pact reloadData];
+                
             }];
         }
     }];
@@ -366,14 +372,12 @@
     
     for (NSString *pactID in self.sharedData.currentUser.pacts) {
         if ([pactID isEqualToString:updatedPact.pactID]) {
-            
             [[[self.sharedData.firebaseRef childByAppendingPath:@"pacts"] childByAppendingPath:pactID]  observeSingleEventOfType:FEventTypeValue withBlock:^(FDataSnapshot *snapshot) {
                 
                 [updatedPact.checkIns removeAllObjects];
                 updatedPact.checkIns = [[NSMutableArray alloc]init];
                 
                 for (NSString *checkin in snapshot.value[@"checkins"]) {
-                    
                     
                     JDDCheckIn *check = [[JDDCheckIn alloc]init];
                     
@@ -390,7 +394,7 @@
                 
             }];
         }
-        break;
+
     }
 }
 
@@ -595,6 +599,17 @@
         referenceDeleted(YES);
     }];
 
+}
+
+-(void)handleInactivePactCheckInNotification:(NSNotification *)notification
+{
+    UIAlertController *inactiveAlert = [UIAlertController alertControllerWithTitle:@"C'mon now!" message:@"No head starts. Your friends need to join the pact first." preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        //
+    }];
+    [inactiveAlert addAction:okAction];
+ 
+    [self presentViewController:inactiveAlert animated:YES completion:nil];
 }
 
 @end
