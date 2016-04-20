@@ -117,7 +117,7 @@
     UserPactMainView * view = [[UserPactMainView alloc]initWithFrame:CGRectZero];
     
     [stackView addArrangedSubview:view];
-    if ([pact.title isEqualToString:@"Welcome to Stakes!"]) {
+    if ([pact.title isEqualToString:@"Tap On Me :)"]) {
         view.checkInButton.hidden = YES;
         view.checkInLabel.hidden =YES;
         view.stakesText.numberOfLines = 3;

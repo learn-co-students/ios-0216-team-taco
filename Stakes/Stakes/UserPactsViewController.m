@@ -1,4 +1,4 @@
-    //
+//
 //  UserPactsViewController.m
 //  stakes
 //
@@ -35,7 +35,6 @@
 @property (nonatomic, ) NSInteger openSection;
 @property (nonatomic, strong) NSLayoutConstraint *createPactLabelAnchor;
 @property (nonatomic, strong) UILabel *createPactLabel;
-@property (strong, nonatomic) IBOutlet UIBarButtonItem *leftBarButton;
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *logoutButton;
 @property (weak, nonatomic) IBOutlet UIVisualEffectView *blurView;
 
@@ -50,22 +49,22 @@
     self.sharedData = [JDDDataSource sharedDataSource];
     
     NSLog(@"sharedata in initial VC in that other VC is = %@", self.sharedData.currentUser.displayName);
-
+    
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleUserCheckedIn:) name:UserCheckedInNotificationName object:nil];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleUserAccepted:) name:UserAcceptedPactNotificationName object:nil];
     
-//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleUserDeletedPact:) name:UserDeletedPactNotificationName object:nil];
+    //    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleUserDeletedPact:) name:UserDeletedPactNotificationName object:nil];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleUserWantsToDelete:) name:UserWantsToDeletePactNotificationName object:nil];
     
     [self.logoutButton setTintColor:[UIColor blackColor]];
-//    [self.navigationController.navigationBar setTranslucent:YES];
+    //    [self.navigationController.navigationBar setTranslucent:YES];
     [self.navigationController.navigationBar setBackgroundColor:[UIColor colorWithRed:0 green:0 blue:0 alpha:0.0]];
     [self.navigationController.navigationBar setBackgroundImage:[[UIImage alloc] init] forBarMetrics:UIBarMetricsDefault];
     [self.navigationController.navigationBar setShadowImage:[[UIImage alloc]init]];
-
+    
     
     self.navigationController.hidesBarsOnSwipe = YES;
     
@@ -73,11 +72,12 @@
     [self createPactLabelView];
     
     [self initializeAccordionView];
-   
+    
     [self initializeAccountStore];
-
-
+    
+    
 }
+
 
 -(void)initializeAccountStore
 {
@@ -95,7 +95,7 @@
         NSString *message = [NSString stringWithFormat:@"There was an error signing in to Twitter: %@", error.localizedDescription];
         //        [self showAlertWithMessage:message];
     }];
-
+    
 }
 
 -(void)initializeAccordionView
@@ -107,21 +107,12 @@
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.tableView.initialOpenSections = nil;
     self.tableView.keepOneSectionOpen = NO;
-
+    
     UINib *cellNib = [UINib nibWithNibName:@"PactTableViewCell" bundle:nil];
     [self.tableView registerNib:cellNib forCellReuseIdentifier:@"userPact"];
     
     [self.tableView registerNib:[UINib nibWithNibName:@"PactAccordionHeaderView" bundle:nil] forHeaderFooterViewReuseIdentifier:accordionHeaderReuseIdentifier];
-//    if (self.sharedData.currentUser.pacts.count == 0 || [self.sharedData.currentUser.pacts isEqual:nil] || self.sharedData.currentUser.pacts.count ==1) {
-//        self.tableView.keepOneSectionOpen = YES;
-//        self.tableView.initialOpenSections = [NSSet setWithObjects:@(0), nil];
-//        
-//    } else {
-// 
-//    self.tableView.keepOneSectionOpen = NO;
-//    self.tableView.initialOpenSections = nil;//[NSSet setWithObjects:@(0), nil];
-//
-//    }
+    
 }
 
 -(BOOL)prefersStatusBarHidden
@@ -131,12 +122,12 @@
 
 -(void)viewWillAppear:(BOOL)animated{
     
-    //     self.tableView.initialOpenSections = [NSSet setWithObjects:@(0), nil];
-//    [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+    //    [[NSOperationQueue mainQueue] addOperationWithBlock:^{
     NSLog(@"pacts to show in app from shared/curentuser/pactstoshowinapp %lu", self.sharedData.currentUser.pactsToShowInApp.count);
-        [self.tableView reloadData];
-        self.tableView.initialOpenSections = nil;
-//    }];
+    [self.tableView reloadData];
+    self.tableView.initialOpenSections = nil;
+    //    }];
+    
     
 }
 
@@ -180,7 +171,7 @@
         transition.type = kCATransitionPush;
         transition.subtype = kCATransitionFromBottom;
         [self.view.window.layer addAnimation:transition forKey:nil];
-
+        
         [self performSegueWithIdentifier:@"segueToCreatePact" sender:self];
         
     }
@@ -191,7 +182,7 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     return (self.view.frame.size.height - 140);
-
+    
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
@@ -212,9 +203,9 @@
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-
+    
     PactTableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:@"userPact"forIndexPath:indexPath];
-
+    
     JDDPact *currentPact = self.sharedData.currentUser.pactsToShowInApp[indexPath.section];
     NSLog (@"current pact checkins is %ld", currentPact.checkIns.count);
     cell.pact = currentPact;
@@ -264,20 +255,20 @@
     NSLog(@"willOpenPactGetsCalled with pact %@",self.sharedData.currentPact.title);
     NSLog(@"willOpenPactGetsCalled with pact %@",self.sharedData.currentPact);
     NSLog(@"willOpenPactGetsCalled with pact %@",self.sharedData.currentPact.stakes);
-
+    
 }
 
 - (void)tableView:(FZAccordionTableView *)tableView didOpenSection:(NSInteger)section withHeader:(PactAccordionHeaderView *)header {
     
     self.openSection = section;
-
-   
+    
+    
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:section];
     [tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionTop animated:YES];
     
     self.view.userInteractionEnabled =YES;
-
-
+    
+    
 }
 
 - (void)tableView:(FZAccordionTableView *)tableView willCloseSection:(NSInteger)section withHeader:(PactAccordionHeaderView *)header {
@@ -286,7 +277,7 @@
 
 - (void)tableView:(FZAccordionTableView *)tableView didCloseSection:(NSInteger)section withHeader:(PactAccordionHeaderView *)header {
     
-
+    
 }
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
@@ -324,7 +315,7 @@
         self.sharedData.twitter = nil;
         NSLog(@"logged out of STTwitter");
         [[NSNotificationCenter defaultCenter] postNotificationName:UserDidLogOutNotificationName object:nil];
-
+        
     }];
     
     UIAlertAction *noDontLogMeOut = [UIAlertAction actionWithTitle:@"No" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
@@ -343,7 +334,7 @@
 -(void)handleUserCheckedIn:(NSNotification *)notification
 {
     
-//    NSLog(@"handleUser is getting called.")   ;
+    //    NSLog(@"handleUser is getting called.")   ;
     
     [self updateCheckInsForPact:notification.object withCompletion:^(BOOL success) {
         
@@ -353,7 +344,7 @@
                 
                 NSLog(@"RELOADING DATA:");
                 [self.tableView reloadData];
-//                [self.tableView.cell.pact reloadData];
+                //                [self.tableView.cell.pact reloadData];
             }];
         }
     }];
@@ -388,7 +379,7 @@
                 
                 NSLog(@"COMPLETION BLOCK");
                 completionBlock(YES);
-
+                
                 
             }];
         }
@@ -491,33 +482,33 @@
                     
                     if (completionBlock) {
                         
+                        
+                        [self.sharedData observeEventForUsersFromFirebaseWithCompletionBlock:^(BOOL block) {
                             
-                            [self.sharedData observeEventForUsersFromFirebaseWithCompletionBlock:^(BOOL block) {
+                            if (block) {
                                 
-                                if (block) {
+                                [[NSOperationQueue mainQueue] addOperationWithBlock:^{
                                     
-                                    [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-                                        
-                                        [self.tableView reloadData];
-//                                        [self.tableView toggleSection:self.openSection];
-//                                        [UIView animateWithDuration:0.5 delay:1 options:UIViewAnimationOptionCurveLinear animations:^{
-//                                            //
-//                                        } completion:^(BOOL finished) {
-//                                            //
-//                                            
-//                                        }];
-                                        self.sharedData.currentPact = nil;
-                                        [self.tableView reloadData];
-//                                        [[NSNotificationCenter defaultCenter] postNotificationName:PactDeletedNotificationName object:nil];
-                                        
-//                                           
-                    
-                            
-                                    }];
-                                }
-                            }];
-                            
-                     
+                                    [self.tableView reloadData];
+                                    //                                        [self.tableView toggleSection:self.openSection];
+                                    //                                        [UIView animateWithDuration:0.5 delay:1 options:UIViewAnimationOptionCurveLinear animations:^{
+                                    //                                            //
+                                    //                                        } completion:^(BOOL finished) {
+                                    //                                            //
+                                    //
+                                    //                                        }];
+                                    self.sharedData.currentPact = nil;
+                                    [self.tableView reloadData];
+                                    //                                        [[NSNotificationCenter defaultCenter] postNotificationName:PactDeletedNotificationName object:nil];
+                                    
+                                    //
+                                    
+                                    
+                                }];
+                            }
+                        }];
+                        
+                        
                     }
                 }];
                 
@@ -533,7 +524,7 @@
     UIAlertController *deleteAlert = [UIAlertController alertControllerWithTitle:@"Are you sure you want to delete this pact?" message:nil preferredStyle:UIAlertControllerStyleAlert];
     
     UIAlertAction *delete = [UIAlertAction actionWithTitle:@"Delete" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
-//        [self.loadingView startAnimation:BACircleAnimationFullCircle];
+        //        [self.loadingView startAnimation:BACircleAnimationFullCircle];
         
         [self deletePact:notification.object];
         
@@ -544,12 +535,12 @@
     [deleteAlert addAction:cancel];
     
     
-        [self presentViewController:deleteAlert animated:YES completion:nil];
+    [self presentViewController:deleteAlert animated:YES completion:nil];
 }
 
 -(void)deletePact:(JDDPact *)pactToDelete
 {
-//    [self performSegueWithIdentifier:@"deleteModal" sender:self];
+    //    [self performSegueWithIdentifier:@"deleteModal" sender:self];
     [self deleteCurrentUserPact:pactToDelete withCompletion:^(BOOL done) {
         if (done) {
             [self deleteAllUserPactReferences:pactToDelete];
@@ -557,16 +548,16 @@
                 if (doneWithPact) {
                     
                     [self updateAfterPactDeleted];
-
+                    
                 }
             }];
         }
-
+        
     }];
 }
 
 -(void)deleteCurrentUserPact:(JDDPact *)pactToDelete withCompletion:(void(^)(BOOL))completed {
-
+    
     [[[[[self.sharedData.firebaseRef childByAppendingPath:@"users"] childByAppendingPath:self.sharedData.currentUser.userID] childByAppendingPath:@"pacts"] childByAppendingPath:pactToDelete.pactID]removeValueWithCompletionBlock:^(NSError *error, Firebase *ref) {
         completed(YES);
     }];
@@ -580,7 +571,7 @@
                 NSLog(@"ARE WE IN THE LOO{):");
                 [[[[[self.sharedData.firebaseRef childByAppendingPath:@"users"] childByAppendingPath:user] childByAppendingPath:@"pacts"] childByAppendingPath:pactToDelete.pactID] removeValue];
             }
-
+            
             
         }
         
@@ -590,13 +581,32 @@
     
 }
 -(void)deletePactReference:(JDDPact *)pactToDelete WithCompletion:(void(^)(BOOL))referenceDeleted {
-
+    
     [[[self.sharedData.firebaseRef childByAppendingPath:@"pacts"] childByAppendingPath:pactToDelete.pactID] removeValueWithCompletionBlock:^(NSError *error, Firebase *ref) {
-
+        
         NSLog(@"in remove value completionblock");
         referenceDeleted(YES);
     }];
-
+    
+}
+-(void)AlertOnboarding: (NSString *)message
+{
+    
+    
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Welcome!" message:message preferredStyle:UIAlertControllerStyleAlert];
+    
+    UIAlertAction* ok = [UIAlertAction
+                         actionWithTitle:@"OK"
+                         style:UIAlertActionStyleDefault
+                         handler:^(UIAlertAction * action)
+                         {
+                             [alert dismissViewControllerAnimated:YES completion:nil];
+                             
+                         }];
+    
+    [alert addAction: ok];
+    
+    [self presentViewController:alert animated:YES completion:nil];
 }
 
 @end

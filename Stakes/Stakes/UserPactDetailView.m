@@ -162,7 +162,7 @@
 //    self.checkInsTitle.layer.cornerRadius = 10;
 //    self.checkInsTitle.layer.borderColor = [UIColor whiteColor].CGColor;
 
-    if ([self.pact.title isEqualToString:@"Welcome to Stakes!"]) {
+    if ([self.pact.title isEqualToString:@"Tap On Me :)"]) {
         self.deletePactButton.hidden = YES;
         self.createdLabel.text = @"Dark Ages";
         self.checkInsPerWeekLabel.text =@"Do the chacha once a week";

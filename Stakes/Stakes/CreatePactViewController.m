@@ -16,7 +16,7 @@
 @import ContactsUI;
 @import MessageUI;
 
-@interface CreatePactViewController () <CNContactPickerDelegate, MFMessageComposeViewControllerDelegate,UITextFieldDelegate> ;
+@interface CreatePactViewController () <CNContactPickerDelegate, MFMessageComposeViewControllerDelegate,UITextFieldDelegate, UITextViewDelegate> ;
 @property (strong, nonatomic) IBOutlet UIView *mainView;
 @property (weak, nonatomic) IBOutlet UILabel *DescriptionLabel;
 @property (weak, nonatomic) IBOutlet UILabel *HowOften;
@@ -25,7 +25,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *welcomeLabel;
 @property (weak, nonatomic) IBOutlet UIPickerView *frequencyPicker;
 @property (weak, nonatomic) IBOutlet UIPickerView *timeIntervalPicker;
-@property (weak, nonatomic) IBOutlet UITextField *twitterShamePost;
+@property (weak, nonatomic) IBOutlet UITextView *twitterShamePost;
 @property (weak, nonatomic) IBOutlet UITextField *pactTitle;
 @property (weak, nonatomic) IBOutlet UILabel *repeatLabel;
 @property (weak, nonatomic) IBOutlet UISwitch *repeatSwitch;
@@ -67,8 +67,8 @@
     [self stylePactDescriptionView];
     [self styleTwitterPost];
     [self styleStakesView];
-    self.stakesTextView.delegate = self;
-    
+    self.twitterShamePost.delegate = self;
+    [self.pactTitle becomeFirstResponder];
 
     
     self.contactsToShow = [[NSMutableArray alloc]init];
@@ -81,6 +81,21 @@
 
 -(void)viewDidLayoutSubviews {
     [self styleTitleTextView];
+}
+
+- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(nonnull NSString *)text {
+    // Prevent crashing undo bug – see note below.
+    if(range.length + range.location > textView.text.length)
+    {
+        return NO;
+    }
+    if([text isEqualToString:@"\n"]) {
+        [textView resignFirstResponder];
+        return NO;
+    }
+    NSUInteger newLength = [textView.text length] + [text length] - range.length;
+    NSLog(@"Twitter char post length: %li", newLength);
+    return newLength <= 139;
 }
 
 
@@ -159,28 +174,28 @@
 
 
 
-- (void)keyBoardWillShowForTwiiter:(NSNotification *)notification
-{
-    if (self.twitterShamePost.isFirstResponder) {
-        // grab some values from the notification
-        NSTimeInterval keyboardAnimationDuration = [notification.userInfo[UIKeyboardAnimationDurationUserInfoKey] doubleValue];
-        NSInteger keyboardAnimationCurve = [notification.userInfo[UIKeyboardAnimationCurveUserInfoKey] integerValue];
-        
-        [UIView animateKeyframesWithDuration:keyboardAnimationDuration delay:0.2 options:keyboardAnimationCurve animations:^{
-            
-            // Here is where you change something to make it animate!
-            self.topConstraint.constant = -160;
-        } completion:nil];
-    }
-    
-}
 
+    
+
+- (void)textViewDidBeginEditing:(UITextView *)textView
+{
+    self.twitterShamePost = textView;
+    [UIView animateWithDuration:0.25 animations:^{
+        self.topConstraint.constant = -160;
+
+    }];
+
+ 
+    
+   }
 - (IBAction)twitterPostEditingBegan:(id)sender {
     
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(keyBoardWillShowForTwiiter:)
                                                  name:UIKeyboardWillShowNotification
                                                object:nil];
+    
+    
     
 }
 
@@ -828,16 +843,15 @@
 }
 
 
-
-
-
-
-- (IBAction)dismissShameKeboard:(id)sender {
+- (void)textViewDidEndEditing:(UITextView *)textView
+{
     self.topConstraint.constant = 0;
     
-    self.twitterShamePost = (UITextField*) sender;
+    self.twitterShamePost = textView;
     [self.twitterShamePost resignFirstResponder];
 }
+
+
 
 
 
@@ -1042,7 +1056,7 @@
         [self alertFinishFiling:@"Please, name your pact"];
     }
     
-    if ((self.dataSource.currentUser.pacts.count==0 || [self.dataSource.currentUser.pacts isEqual:nil]) && self.contacts.count == 0) {
+    if ((self.dataSource.currentUser.pacts.count==0 || [self.dataSource.currentUser.pacts isEqual:nil]) && self.contacts.count == 0 && self.pactTitle.text.length >1) {
         
         [UIView animateWithDuration:1 animations:^{
             self.DescriptionLabel.text = @"Please add friends to the pact by tapping the add button";            self.DescriptionLabel.alpha = 1;
@@ -1088,16 +1102,19 @@
     
     if (self.stakesTextView.text.length >2) {
         [UIView animateWithDuration:1 animations:^{
-            self.twitterShameLabel.alpha = 1;
             self.shameSwitch.alpha = 1;
+            self.twitterShameLabel.alpha =1;
+
+          
         } completion:nil];
-    } else {
+        
+    }    else {
         [self.stakesTextView resignFirstResponder];
         [self alertFinishFiling:@"Please write youe stakes"];
         return;
     }
     
-    if (self.dataSource.currentUser.pacts.count==0 || [self.dataSource.currentUser.pacts isEqual:nil] ) {
+    if ((self.dataSource.currentUser.pacts.count==0 || [self.dataSource.currentUser.pacts isEqual:nil]) && !self.shameSwitch.on) {
         
         [UIView animateWithDuration:1 animations:^{
             self.twitterOnboardingLabel.text = @"Enable Twitter to bomb your friends Twitter if they don't follow the pact";            self.twitterOnboardingLabel.alpha = 1;
@@ -1107,7 +1124,7 @@
     } else {
         self.DescriptionLabel.hidden = YES;
     }
-
+    
 }
 
 
