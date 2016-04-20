@@ -122,17 +122,21 @@
 
 -(void)setupIfInactive {
     
-    self.contentView.translatesAutoresizingMaskIntoConstraints = NO;
-    self.widthConstraint = [self.statusBar.widthAnchor constraintEqualToAnchor:self.statusBarView.widthAnchor multiplier:0.01];
-    self.widthConstraint.active = YES;
+//    self.contentView.translatesAutoresizingMaskIntoConstraints = NO;
+//    self.widthConstraint = [self.statusBar.widthAnchor constraintEqualToAnchor:self.statusBarView.widthAnchor multiplier:0.01];
+//    self.widthConstraint.active = YES;
+    
+    self.statusBar.hidden = YES;
     
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
     [dateFormatter setDateFormat:@"MM'-'dd'-'yyyy'"];
     
     //statusBar
-    self.completedLabel.hidden = YES;
-    self.topCheckinsLabel.text = @"0";
-    self.topCheckinsNeededLabel.text = [NSString stringWithFormat:@"%lu",self.pact.checkInsPerTimeInterval];
+    self.completedLabel.hidden = NO;
+    self.completedLabel.text = @"Inactive";
+    self.topCheckinsLabel.hidden = YES;
+    self.topCheckinsNeededLabel.hidden = YES;
+    self.slashLabel.hidden = YES;
     // days left label
     self.numberOfDaysLeftLabel.text = @"0";
     // pact details

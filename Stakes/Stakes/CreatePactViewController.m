@@ -69,7 +69,6 @@
     [self styleStakesView];
     self.stakesTextView.delegate = self;
     
-
     
     self.contactsToShow = [[NSMutableArray alloc]init];
     

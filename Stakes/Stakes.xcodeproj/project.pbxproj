@@ -22,6 +22,7 @@
 		AF97DCB11CC15B450053E497 /* PactTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AF97DCB01CC15B450053E497 /* PactTableViewCell.xib */; };
 		AF97DCB31CC16AF20053E497 /* UserPactDetailView.xib in Resources */ = {isa = PBXBuildFile; fileRef = AF97DCB21CC16AF20053E497 /* UserPactDetailView.xib */; };
 		AF97DCB61CC16B0C0053E497 /* UserPactDetailView.m in Sources */ = {isa = PBXBuildFile; fileRef = AF97DCB51CC16B0C0053E497 /* UserPactDetailView.m */; };
+		AF9B006D1CC7C63200A438F1 /* Stakes Logo2.pdf in Resources */ = {isa = PBXBuildFile; fileRef = AF9B006C1CC7C63200A438F1 /* Stakes Logo2.pdf */; };
 		AFB5216A1CAC450800A993E8 /* smackTackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AFB521691CAC450800A993E8 /* smackTackViewController.m */; };
 		AFC0645E1CAD736D00DBA069 /* UserPactMainView.m in Sources */ = {isa = PBXBuildFile; fileRef = AFC0645D1CAD736D00DBA069 /* UserPactMainView.m */; };
 		AFC064621CAD8DA800DBA069 /* Group 2.png in Resources */ = {isa = PBXBuildFile; fileRef = AFC0645F1CAD8DA800DBA069 /* Group 2.png */; };
@@ -94,6 +95,7 @@
 		AF97DCB21CC16AF20053E497 /* UserPactDetailView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UserPactDetailView.xib; sourceTree = "<group>"; };
 		AF97DCB41CC16B0C0053E497 /* UserPactDetailView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserPactDetailView.h; sourceTree = "<group>"; };
 		AF97DCB51CC16B0C0053E497 /* UserPactDetailView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserPactDetailView.m; sourceTree = "<group>"; };
+		AF9B006C1CC7C63200A438F1 /* Stakes Logo2.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = "Stakes Logo2.pdf"; path = "Assets.xcassets/Stakes Logo2.pdf"; sourceTree = "<group>"; };
 		AFB521681CAC450800A993E8 /* smackTackViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = smackTackViewController.h; sourceTree = "<group>"; };
 		AFB521691CAC450800A993E8 /* smackTackViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = smackTackViewController.m; sourceTree = "<group>"; };
 		AFC0645C1CAD736D00DBA069 /* UserPactMainView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserPactMainView.h; sourceTree = "<group>"; };
@@ -226,6 +228,7 @@
 				CBA985881CAAEE0900D1CC27 /* CreatePactViewController.h */,
 				CBA985891CAAEE0900D1CC27 /* CreatePactViewController.m */,
 				CBA985921CAAEE0900D1CC27 /* PactDetailViewController.h */,
+				AF9B006C1CC7C63200A438F1 /* Stakes Logo2.pdf */,
 				CBA985931CAAEE0900D1CC27 /* PactDetailViewController.m */,
 				AF772A491CC6B44A0008CD78 /* Assets.xcassets */,
 				CBA985941CAAEE0900D1CC27 /* UserPactsViewController.h */,
@@ -466,6 +469,7 @@
 				CBA9859E1CAAEE7500D1CC27 /* Main.storyboard in Resources */,
 				3F52B0881CAB3EBC0031BF59 /* Israel.jpg in Resources */,
 				AFC064631CAD8DA800DBA069 /* Pic 1.png in Resources */,
+				AF9B006D1CC7C63200A438F1 /* Stakes Logo2.pdf in Resources */,
 				AFC064621CAD8DA800DBA069 /* Group 2.png in Resources */,
 				CBA985621CAAEC6D00D1CC27 /* LaunchScreen.storyboard in Resources */,
 				AF97DCAF1CC03D8B0053E497 /* UserPactMainView.xib in Resources */,

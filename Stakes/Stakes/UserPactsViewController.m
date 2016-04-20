@@ -135,7 +135,7 @@
 //    [[NSOperationQueue mainQueue] addOperationWithBlock:^{
     NSLog(@"pacts to show in app from shared/curentuser/pactstoshowinapp %lu", self.sharedData.currentUser.pactsToShowInApp.count);
         [self.tableView reloadData];
-        self.tableView.initialOpenSections = nil;
+//        self.tableView.initialOpenSections = nil;
 //    }];
     
 }

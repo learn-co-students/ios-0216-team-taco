@@ -98,8 +98,8 @@
         [self.stackView.topAnchor constraintEqualToAnchor:self.contentView.topAnchor constant:0].active = YES;
         [self.stackView.bottomAnchor constraintEqualToAnchor:self.contentView.bottomAnchor].active = YES;
     } else {
-        [self.stackView.topAnchor constraintEqualToAnchor:self.contentView.topAnchor constant:-22].active = YES;
-        [self.stackView.bottomAnchor constraintEqualToAnchor:self.contentView.bottomAnchor constant:-20].active = YES;
+        [self.stackView.topAnchor constraintEqualToAnchor:self.contentView.topAnchor constant:-20].active = YES;
+        [self.stackView.bottomAnchor constraintEqualToAnchor:self.contentView.bottomAnchor].active = YES;
     }
     
     
