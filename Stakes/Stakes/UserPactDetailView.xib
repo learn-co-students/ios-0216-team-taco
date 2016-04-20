@@ -36,14 +36,14 @@
             <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BZD-xv-adJ">
+                <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BZD-xv-adJ">
                     <rect key="frame" x="-1" y="0.0" width="601" height="150"/>
                     <subviews>
-                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uui-TC-WO3">
+                        <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uui-TC-WO3">
                             <rect key="frame" x="60" y="15" width="480" height="120"/>
                             <color key="backgroundColor" red="0.14901960780000001" green="0.1960784314" blue="0.21960784310000001" alpha="1" colorSpace="calibratedRGB"/>
                         </view>
-                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4EU-rO-Vmw" userLabel="StatusBar">
+                        <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4EU-rO-Vmw" userLabel="StatusBar">
                             <rect key="frame" x="60" y="15" width="480" height="120"/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         </view>
@@ -115,8 +115,8 @@
                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XhW-gH-c0v" userLabel="Pact Detail View">
-                    <rect key="frame" x="30" y="300" width="540" height="240"/>
+                <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XhW-gH-c0v" userLabel="Pact Detail View">
+                    <rect key="frame" x="30" y="298" width="540" height="240"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hVO-yU-cua">
                             <rect key="frame" x="311" y="48" width="189" height="120"/>
@@ -178,7 +178,7 @@
                             <nil key="highlightedColor"/>
                         </label>
                     </subviews>
-                    <color key="backgroundColor" red="0.89515224358974355" green="0.89515224358974355" blue="0.89515224358974355" alpha="1" colorSpace="calibratedRGB"/>
+                    <color key="backgroundColor" red="0.81176470588235294" green="0.84705882352941175" blue="0.86274509803921573" alpha="1" colorSpace="calibratedRGB"/>
                     <color key="tintColor" red="0.98197115384615385" green="0.98197115384615385" blue="0.98197115384615385" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
                         <constraint firstItem="oD6-g1-IA7" firstAttribute="centerY" secondItem="XhW-gH-c0v" secondAttribute="centerY" multiplier="0.6" id="3dG-v6-o3p"/>
