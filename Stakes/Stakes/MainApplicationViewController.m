@@ -72,7 +72,6 @@
 {
     
     UINavigationController *navBarController = [self.storyboard instantiateViewControllerWithIdentifier:@"navBarVC"];
-//    UserPactsViewController *userPactsVC = [self.storyboard instantiateViewControllerWithIdentifier:UserPactsViewControllerStoryboardID];
     
     [self.datasource establishCurrentUserWithBlock:^(BOOL completionBlock) {
         

@@ -54,17 +54,17 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleUserCheckedIn:) name:UserCheckedInNotificationName object:nil];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleUserAccepted:) name:UserAcceptedPactNotificationName object:nil];
-    
-    //    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleUserDeletedPact:) name:UserDeletedPactNotificationName object:nil];
-    
+
+        
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleUserWantsToDelete:) name:UserWantsToDeletePactNotificationName object:nil];
     
     [self.logoutButton setTintColor:[UIColor blackColor]];
-    //    [self.navigationController.navigationBar setTranslucent:YES];
-    [self.navigationController.navigationBar setBackgroundColor:[UIColor colorWithRed:0 green:0 blue:0 alpha:0.0]];
-    [self.navigationController.navigationBar setBackgroundImage:[[UIImage alloc] init] forBarMetrics:UIBarMetricsDefault];
-    [self.navigationController.navigationBar setShadowImage:[[UIImage alloc]init]];
+    [self.navigationController.navigationBar setTranslucent:YES];
     
+
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleInactivePactCheckInNotification:) name:InactivePactCheckinNotificationName object:nil];
+
+
     
     self.navigationController.hidesBarsOnSwipe = YES;
     
@@ -92,8 +92,12 @@
         NSLog(@"Twitter verified");
     } errorBlock:^(NSError *error) {
         NSLog(@"%@", error.localizedDescription);
-        NSString *message = [NSString stringWithFormat:@"There was an error signing in to Twitter: %@", error.localizedDescription];
-        //        [self showAlertWithMessage:message];
+        UIAlertController *inactiveAlert = [UIAlertController alertControllerWithTitle:@"Oops!" message:[NSString stringWithFormat:@"There was an error signing in to Twitter: %@", error.localizedDescription] preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            //
+        }];
+        [inactiveAlert addAction:okAction];
+        [self presentViewController:inactiveAlert animated:YES completion:nil];
     }];
     
 }
@@ -124,10 +128,10 @@
     
     //    [[NSOperationQueue mainQueue] addOperationWithBlock:^{
     NSLog(@"pacts to show in app from shared/curentuser/pactstoshowinapp %lu", self.sharedData.currentUser.pactsToShowInApp.count);
-    [self.tableView reloadData];
-    self.tableView.initialOpenSections = nil;
-    //    }];
-    
+
+        [self.tableView reloadData];
+//        self.tableView.initialOpenSections = nil;
+//    }];
     
 }
 
@@ -334,9 +338,11 @@
 -(void)handleUserCheckedIn:(NSNotification *)notification
 {
     
-    //    NSLog(@"handleUser is getting called.")   ;
+
+    JDDPact *pact = (JDDPact *)notification.object;
+
     
-    [self updateCheckInsForPact:notification.object withCompletion:^(BOOL success) {
+    [self updateCheckInsForPact:pact withCompletion:^(BOOL success) {
         
         NSLog(@"Back in block.")    ;
         if (success) {
@@ -344,7 +350,7 @@
                 
                 NSLog(@"RELOADING DATA:");
                 [self.tableView reloadData];
-                //                [self.tableView.cell.pact reloadData];
+
             }];
         }
     }];
@@ -359,14 +365,12 @@
     
     for (NSString *pactID in self.sharedData.currentUser.pacts) {
         if ([pactID isEqualToString:updatedPact.pactID]) {
-            
             [[[self.sharedData.firebaseRef childByAppendingPath:@"pacts"] childByAppendingPath:pactID]  observeSingleEventOfType:FEventTypeValue withBlock:^(FDataSnapshot *snapshot) {
                 
                 [updatedPact.checkIns removeAllObjects];
                 updatedPact.checkIns = [[NSMutableArray alloc]init];
                 
                 for (NSString *checkin in snapshot.value[@"checkins"]) {
-                    
                     
                     JDDCheckIn *check = [[JDDCheckIn alloc]init];
                     
@@ -383,7 +387,7 @@
                 
             }];
         }
-        break;
+
     }
 }
 
@@ -607,6 +611,17 @@
     [alert addAction: ok];
     
     [self presentViewController:alert animated:YES completion:nil];
+}
+
+-(void)handleInactivePactCheckInNotification:(NSNotification *)notification
+{
+    UIAlertController *inactiveAlert = [UIAlertController alertControllerWithTitle:@"C'mon now!" message:@"No head starts. Your friends need to join the pact first." preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        //
+    }];
+    [inactiveAlert addAction:okAction];
+ 
+    [self presentViewController:inactiveAlert animated:YES completion:nil];
 }
 
 @end

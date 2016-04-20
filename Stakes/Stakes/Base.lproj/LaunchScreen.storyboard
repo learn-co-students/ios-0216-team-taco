@@ -3,6 +3,8 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
@@ -16,12 +18,36 @@
                     <view key="view" contentMode="scaleToFill" id="Ze5-6b-2t3">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        <subviews>
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pacts" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0sZ-DG-Iwd">
+                                <rect key="frame" x="232" y="381" width="137" height="78"/>
+                                <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="60"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="Stakes Logo2" translatesAutoresizingMaskIntoConstraints="NO" id="MQP-2x-I6C">
+                                <rect key="frame" x="211" y="165" width="180" height="150"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="MQP-2x-I6C" secondAttribute="height" multiplier="1.2:1" id="t3d-Qf-Fov"/>
+                                </constraints>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" red="0.14901960784313725" green="0.19607843137254902" blue="0.2196078431372549" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="0sZ-DG-Iwd" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="7Sy-VU-gta"/>
+                            <constraint firstItem="MQP-2x-I6C" firstAttribute="height" secondItem="Ze5-6b-2t3" secondAttribute="height" multiplier="0.3" id="evD-L6-tnw"/>
+                            <constraint firstItem="MQP-2x-I6C" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" multiplier="0.8" id="vmF-Aw-2b8"/>
+                            <constraint firstItem="MQP-2x-I6C" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="wFy-va-Fin"/>
+                            <constraint firstItem="0sZ-DG-Iwd" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" multiplier="1.4" id="zBM-ap-zib"/>
+                        </constraints>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iYj-Kq-Ea1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="53" y="375"/>
+            <point key="canvasLocation" x="51" y="356"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="Stakes Logo2" width="500" height="500"/>
+    </resources>
 </document>

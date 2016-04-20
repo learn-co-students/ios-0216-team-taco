@@ -22,10 +22,14 @@
                                 <constraint firstAttribute="height" constant="2" id="bqF-wq-nRu"/>
                             </constraints>
                         </view>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kpp-cD-41a">
-                            <rect key="frame" x="8" y="64" width="80" height="32"/>
-                            <fontDescription key="fontDescription" name="Futura-MediumItalic" family="Futura" pointSize="15"/>
-                            <state key="normal" title="Accept Pact">
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="contactAdd" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kpp-cD-41a">
+                            <rect key="frame" x="8" y="58" width="44" height="44"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="44" id="Gor-PY-0Ku"/>
+                                <constraint firstAttribute="height" constant="44" id="MeE-vW-hT5"/>
+                            </constraints>
+                            <color key="tintColor" red="0.0" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            <state key="normal">
                                 <color key="titleColor" red="0.0" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="titleShadowColor" red="0.0" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                             </state>

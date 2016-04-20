@@ -18,7 +18,7 @@
 
 @interface CreatePactViewController () <CNContactPickerDelegate, MFMessageComposeViewControllerDelegate,UITextFieldDelegate, UITextViewDelegate> ;
 @property (strong, nonatomic) IBOutlet UIView *mainView;
-@property (weak, nonatomic) IBOutlet UILabel *DescriptionLabel;
+@property (weak, nonatomic) IBOutlet UILabel *descriptionLabel;
 @property (weak, nonatomic) IBOutlet UILabel *HowOften;
 @property (weak, nonatomic) IBOutlet UITextField *pactDescription;
 @property (weak, nonatomic) IBOutlet UILabel *twitterShameLabel;
@@ -68,8 +68,9 @@
     [self styleTwitterPost];
     [self styleStakesView];
     self.twitterShamePost.delegate = self;
-    [self.pactTitle becomeFirstResponder];
-
+    [self.pactTitle becomeFirstResponder]; 
+    self.stakesTextView.delegate = self;
+    
     
     self.contactsToShow = [[NSMutableArray alloc]init];
     
@@ -128,7 +129,7 @@
     self.shameSwitch.on = NO;
     self.twitterShamePost.alpha = 0;
     
-    self.DescriptionLabel.alpha = 0;
+    self.descriptionLabel.alpha = 0;
 
 }
 
@@ -621,7 +622,7 @@
     }
     
     if (self.contacts.count >0) {
-        self.DescriptionLabel.alpha = 0;
+        self.descriptionLabel.alpha = 0;
     }
     
 }
@@ -637,7 +638,7 @@
         self.inviteFriendsLabel.hidden = NO;
         self.addFriendsConstraint.constant = 0;
         self.RemoveInvitesButton.hidden = YES;
-        self.DescriptionLabel.alpha = 1;
+        self.descriptionLabel.alpha = 1;
         self.pactDescription.alpha = 0;
         self.pickerView.alpha = 0;
         self.repeatLabel.alpha = 0;
@@ -876,7 +877,7 @@
         
         // Configure the fields of the interface.
         composeVC.recipients = self.contacts;
-        composeVC.body = @"Hey Guys I created a pact to hit the gym download the app to keep tracking our progress";
+        composeVC.body = @"Hey - I just created a pact! Download pacts and let's track our progress!";
         
         // Present the view controller modally.
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
@@ -1053,18 +1054,19 @@
 
         
     } else {
-        [self alertFinishFiling:@"Please, name your pact"];
+        [self alertFinishFiling:@"Please pick a pact name that is at least 3 characters"];
     }
     
     if ((self.dataSource.currentUser.pacts.count==0 || [self.dataSource.currentUser.pacts isEqual:nil]) && self.contacts.count == 0 && self.pactTitle.text.length >1) {
         
         [UIView animateWithDuration:1 animations:^{
-            self.DescriptionLabel.text = @"Please add friends to the pact by tapping the add button";            self.DescriptionLabel.alpha = 1;
+            self.descriptionLabel.text = @"Please add friends to the pact by tapping the plus button";
+            self.descriptionLabel.alpha = 1;
         } completion:nil];
         
     
     } else {
-        self.DescriptionLabel.hidden = YES;
+        self.descriptionLabel.hidden = YES;
     }
 }
 
@@ -1087,7 +1089,7 @@
         } completion:nil];
         
     } else {
-        [self alertFinishFiling:@"Please, describe your pact"];
+        [self alertFinishFiling:@"Please enter a pact description"];
         self.pickerView.alpha = 0;
         self.repeatLabel.alpha = 0;
         self.repeatSwitch.alpha = 0;
@@ -1110,19 +1112,20 @@
         
     }    else {
         [self.stakesTextView resignFirstResponder];
-        [self alertFinishFiling:@"Please write youe stakes"];
+        [self alertFinishFiling:@"Please enter your stakes"];
         return;
     }
     
     if ((self.dataSource.currentUser.pacts.count==0 || [self.dataSource.currentUser.pacts isEqual:nil]) && !self.shameSwitch.on) {
         
         [UIView animateWithDuration:1 animations:^{
-            self.twitterOnboardingLabel.text = @"Enable Twitter to bomb your friends Twitter if they don't follow the pact";            self.twitterOnboardingLabel.alpha = 1;
+            self.twitterOnboardingLabel.text = @"Enable Twitter Shame to call out your friends on Twitter! This tweet will post if you don't meet your check-in goals.";
+            self.twitterOnboardingLabel.alpha = 1;
         } completion:nil];
         
         
     } else {
-        self.DescriptionLabel.hidden = YES;
+        self.descriptionLabel.hidden = YES;
     }
     
 }
@@ -1135,11 +1138,11 @@
     if (self.contactsToShow.count >0) {
                 [UIView animateWithDuration:1 animations:^{
                     self.pactDescription.alpha = 1;
-                    self.DescriptionLabel.alpha = 0;
+                    self.descriptionLabel.alpha = 0;
                 } completion:nil];
         
                 } else {
-        [self alertFinishFiling:@"Please, choose members to add to the pact"];
+        [self alertFinishFiling:@"Please add friends to your pact"];
         self.pactDescription.hidden = YES;
         
     }

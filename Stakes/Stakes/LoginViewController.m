@@ -83,6 +83,8 @@
 - (IBAction)loginTapped:(id)sender
 {
     self.loginContainer.hidden = YES;
+    self.phoneNumberTextField.hidden = YES;
+    self.phoneNumberLabel.hidden = YES;
     self.loadingView.hidden = NO;
     [self.loadingView startAnimation:BACircleAnimationFullCircle];
 
@@ -110,10 +112,26 @@
         if (error) {
             message = [NSString stringWithFormat:@"There was an error logging into Twitter: %@", error.localizedDescription]; // That's cute
             [self showAlertWithMessage:message];
+            [self.loadingView stopAnimation];
+            self.loadingView.hidden = YES;
+            self.loginContainer.hidden = NO;
+            if (!self.userDidRegister) {
+                self.phoneNumberTextField.hidden = NO;
+                self.phoneNumberLabel.hidden = NO;
+            }
+//            [self dismissViewControllerAnimated:YES completion:nil];
             
         } else if (accounts.count == 0) {
             message = @"No Twitter accounts found. Please add an account in your phone's settings.";
             [self showAlertWithMessage:message];
+            [self.loadingView stopAnimation];
+            self.loadingView.hidden = YES;
+            self.loginContainer.hidden = NO;
+            if (!self.userDidRegister) {
+                self.phoneNumberTextField.hidden = NO;
+                self.phoneNumberLabel.hidden = NO;
+            }
+//            [self dismissViewControllerAnimated:YES completion:nil];
             
         } else {
             [self selectTwitterAccount:accounts];
@@ -139,6 +157,10 @@
         [self.loadingView stopAnimation];
         self.loadingView.hidden = YES;
         self.loginContainer.hidden = NO;
+        if (!self.userDidRegister) {
+            self.phoneNumberTextField.hidden = NO;
+            self.phoneNumberLabel.hidden = NO;
+        }
         [self dismissViewControllerAnimated:YES completion:nil];
     }];
     [selectAccount addAction:cancel];
@@ -155,6 +177,10 @@
             [self.loadingView stopAnimation];
             self.loadingView.hidden = YES;
             self.loginContainer.hidden = NO;
+            if (!self.userDidRegister) {
+                self.phoneNumberTextField.hidden = NO;
+                self.phoneNumberLabel.hidden = NO;
+            }
             [self showAlertWithMessage:message];
         } else {
             if (self.userDidRegister) { // this person has registered the app at some point in time
@@ -228,6 +254,10 @@
         [self.loadingView stopAnimation];
         self.loadingView.hidden = YES;
         self.loginContainer.hidden = NO;
+        if (!self.userDidRegister) {
+            self.phoneNumberTextField.hidden = NO;
+            self.phoneNumberLabel.hidden = NO;
+        }
         [self showAlertWithMessage:message];
     }];
 }
