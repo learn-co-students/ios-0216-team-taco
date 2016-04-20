@@ -100,7 +100,7 @@
                                     
                                     NSLog(@"time interval %@",pact.timeInterval);
                                     NSLog(@"%@ pact has expired!", pact.title);
-                                
+                                    
                                     if ([self hasUserAccomplishedCheckinGoalWithPact:pact] == NO) { // this needs to be changed with date variable
                                         
                                         NSLog(@"ok user hasn't completed their pact!");
@@ -128,7 +128,7 @@
                                 } else {
                                     
                                     NSLog(@"%@ pact has not expired!", pact.title);
-
+                                    
                                     if (pactCount == 1) {
                                         completionHandler(UIBackgroundFetchResultNewData);
                                     }
@@ -180,10 +180,10 @@
         
     }
     
-        if ([[NSDate date] compare: executionDate] == NSOrderedDescending){
-    
-            boolToReturn = YES;
-        }
+    if ([[NSDate date] compare: executionDate] == NSOrderedDescending){
+        
+        boolToReturn = YES;
+    }
     
     return (boolToReturn);
 }
@@ -225,24 +225,23 @@
     
     NSLog(@"twitterShameSent!");
     
-        NSLog(@"trying to send a tweet");
+    NSLog(@"trying to send a tweet");
     
-        NSString *tweet = pact.twitterPost;
+    NSString *tweet = pact.twitterPost;
     
-        [self.dataSource.twitter postStatusUpdate:tweet
-                                inReplyToStatusID:nil
-                                         latitude:nil
-                                        longitude:nil
-                                          placeID:nil
-                               displayCoordinates:nil
-                                         trimUser:nil
-                                     successBlock:^(NSDictionary *status) {
-                                         NSLog(@"SUCCESSFUL TWEET");
-                                     } errorBlock:^(NSError *error) {
-                                         NSLog(@"THERE WAS AN ERROR TWEETING");
-                                         NSString *message = [NSString stringWithFormat:@"You didn't really want to send that, did you? There was an error sending your Tweet: %@", error.localizedDescription];
-                                         NSLog(@"ERROR TWEETING: %@", error.localizedDescription);
-                                     }];
+    [self.dataSource.twitter postStatusUpdate:tweet
+                            inReplyToStatusID:nil
+                                     latitude:nil
+                                    longitude:nil
+                                      placeID:nil
+                           displayCoordinates:nil
+                                     trimUser:nil
+                                 successBlock:^(NSDictionary *status) {
+                                     NSLog(@"SUCCESSFUL TWEET");
+                                 } errorBlock:^(NSError *error) {
+                                     NSLog(@"THERE WAS AN ERROR TWEETING");
+                                     NSLog(@"ERROR TWEETING: %@", error.localizedDescription);
+                                 }];
     
 }
 

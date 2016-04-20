@@ -235,9 +235,7 @@
     
     self.stakesText.text = self.pact.stakes;
     self.pactText.text = self.pact.pactDescription;
-    self.checkInLabel.layer.borderWidth = 5;
-    self.checkInLabel.layer.cornerRadius = 10;
-    self.checkInLabel.layer.borderColor = [UIColor whiteColor].CGColor;
+    self.checkInLabel.layer.cornerRadius = 15;
     
     
     

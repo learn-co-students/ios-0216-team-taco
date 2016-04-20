@@ -17,6 +17,7 @@
 @import MessageUI;
 
 @interface CreatePactViewController () <CNContactPickerDelegate, MFMessageComposeViewControllerDelegate,UITextFieldDelegate, UITextViewDelegate> ;
+
 @property (strong, nonatomic) IBOutlet UIView *mainView;
 @property (weak, nonatomic) IBOutlet UILabel *descriptionLabel;
 @property (weak, nonatomic) IBOutlet UILabel *HowOften;
@@ -48,9 +49,10 @@
 @property (weak, nonatomic) IBOutlet UIView *addFriendsView;
 @property (weak, nonatomic) IBOutlet UIView *contactButtonView;
 @property (weak, nonatomic) IBOutlet UIView *pickerView;
-
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *addFriendsConstraint;
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
+@property (weak, nonatomic) IBOutlet UIButton *doneButton;
+@property (weak, nonatomic) IBOutlet UIButton *cancelButton;
 
 @end
 
@@ -71,12 +73,15 @@
     [self.pactTitle becomeFirstResponder]; 
     self.stakesTextView.delegate = self;
     
+    self.doneButton.layer.cornerRadius = 15;
+    self.cancelButton.layer.cornerRadius = 15;
     
     self.contactsToShow = [[NSMutableArray alloc]init];
     
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(dismissKeyboard)];
     
     [self.view addGestureRecognizer:tap];
+    
     
 }
 
@@ -1116,10 +1121,10 @@
         return;
     }
     
-    if ((self.dataSource.currentUser.pacts.count==0 || [self.dataSource.currentUser.pacts isEqual:nil]) && !self.shameSwitch.on) {
+    if (!self.shameSwitch.on) {
         
         [UIView animateWithDuration:1 animations:^{
-            self.twitterOnboardingLabel.text = @"Enable Twitter Shame to call out your friends on Twitter! This tweet will post if you don't meet your check-in goals.";
+            self.twitterOnboardingLabel.text = @"Enable Twitter Shame to call out your friends on Twitter! This tweet will automatically post if you don't meet your check-in goals.";
             self.twitterOnboardingLabel.alpha = 1;
         } completion:nil];
         
@@ -1146,12 +1151,8 @@
         self.pactDescription.hidden = YES;
         
     }
-    
-    
+        
 }
-
-
-
 
 -(void)alertFinishFiling: (NSString *)message
 {

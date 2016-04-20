@@ -23,22 +23,19 @@
 @property (nonatomic, strong) JDDDataSource *sharedData;
 @property (nonatomic, strong) Firebase *firebaseReference;
 @property (nonatomic, strong) TwitterAuthHelper *twitterAuthHelper;
-
-
 @property (nonatomic, strong) ACAccountStore *accountStore;
 @property (nonatomic, strong) NSString *userQuery;
-@property (weak, nonatomic) IBOutlet UIButton *loginButton;
-@property (weak, nonatomic) IBOutlet UILabel *phoneNumberLabel;
-@property (weak, nonatomic) IBOutlet UIView *loginContainer;
+@property (nonatomic, weak) IBOutlet UIButton *loginButton;
+@property (nonatomic, weak) IBOutlet UILabel *phoneNumberLabel;
+@property (nonatomic, weak) IBOutlet UIView *loginContainer;
 @property (nonatomic, strong) IBOutlet UITextField *phoneNumberTextField;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *phoneNumberTextFieldWidth;
+@property (nonatomic, weak) IBOutlet NSLayoutConstraint *phoneNumberTextFieldWidth;
 @property (nonatomic) BOOL userDidRegister;
 @property (nonatomic) BOOL userFoundInFirebase;
-@property (strong, nonatomic) IBOutlet UITapGestureRecognizer *tapGesture;
-@property (strong, nonatomic) IBOutlet BALoadingView *loadingView;
-@property(assign,nonatomic) BACircleAnimation animationType;
-@property(assign,nonatomic) bool firstLoad;
-
+@property (nonatomic, strong) IBOutlet UITapGestureRecognizer *tapGesture;
+@property (nonatomic, strong) IBOutlet BALoadingView *loadingView;
+@property(nonatomic, assign) BACircleAnimation animationType;
+@property(nonatomic, assign) bool firstLoad;
 
 @end
 
@@ -59,18 +56,21 @@
     self.loginContainer.alpha = 0.1;
     
     if (self.userDidRegister) {
+        
         self.phoneNumberTextField.hidden = YES;
         self.phoneNumberLabel.hidden = YES;
         [self enableLoginButton];
     }
     
-        self.firstLoad = YES;
+    self.firstLoad = YES;
     self.loadingView.hidden = YES;
     
 }
 
--(void)viewDidLayoutSubviews {
+-(void)viewDidLayoutSubviews
+{
     if (self.firstLoad) {
+        
         [self.loadingView initialize];
         self.loadingView.lineCap = kCALineCapRound;
         self.loadingView.clockwise = true;
@@ -87,14 +87,17 @@
     self.phoneNumberLabel.hidden = YES;
     self.loadingView.hidden = NO;
     [self.loadingView startAnimation:BACircleAnimationFullCircle];
-
+    
     
     NSLog(@"login");
     if (self.userDidRegister) {
+        
         self.userQuery = [[NSUserDefaults standardUserDefaults] objectForKey:UserIDKey];
         NSLog(@"LOGIN TAPPED< self.userquery: %@", self.userQuery);
         [self startAuthProcess];
+        
     } else {
+        
         self.userQuery = self.phoneNumberTextField.text;
         [self checkForUserInFirebase];
     }
@@ -119,7 +122,7 @@
                 self.phoneNumberTextField.hidden = NO;
                 self.phoneNumberLabel.hidden = NO;
             }
-//            [self dismissViewControllerAnimated:YES completion:nil];
+            //            [self dismissViewControllerAnimated:YES completion:nil];
             
         } else if (accounts.count == 0) {
             message = @"No Twitter accounts found. Please add an account in your phone's settings.";
@@ -131,7 +134,7 @@
                 self.phoneNumberTextField.hidden = NO;
                 self.phoneNumberLabel.hidden = NO;
             }
-//            [self dismissViewControllerAnimated:YES completion:nil];
+            //            [self dismissViewControllerAnimated:YES completion:nil];
             
         } else {
             [self selectTwitterAccount:accounts];
@@ -157,10 +160,13 @@
         [self.loadingView stopAnimation];
         self.loadingView.hidden = YES;
         self.loginContainer.hidden = NO;
+        
         if (!self.userDidRegister) {
+            
             self.phoneNumberTextField.hidden = NO;
             self.phoneNumberLabel.hidden = NO;
         }
+        
         [self dismissViewControllerAnimated:YES completion:nil];
     }];
     [selectAccount addAction:cancel];
@@ -172,18 +178,26 @@
 {
     
     [self.twitterAuthHelper authenticateAccount:account withCallback:^(NSError *error, FAuthData *authData) {
+        
         if (error) {
+            
             NSString *message = [NSString stringWithFormat:@"There was an error authenticating your account: %@", error.localizedDescription];
             [self.loadingView stopAnimation];
             self.loadingView.hidden = YES;
             self.loginContainer.hidden = NO;
+            
             if (!self.userDidRegister) {
+                
                 self.phoneNumberTextField.hidden = NO;
                 self.phoneNumberLabel.hidden = NO;
             }
+            
             [self showAlertWithMessage:message];
+            
         } else {
+            
             if (self.userDidRegister) { // this person has registered the app at some point in time
+                
                 NSLog(@"IN AUTHENTICATE IN FIREBASE, AUTH DATA %@", authData);
                 NSDictionary *userDictionary = [self createUserDictionary:authData];
                 JDDUser *user = [self createUserFromData:authData];
@@ -193,11 +207,11 @@
                 self.sharedData.currentUser = user; // this is setting the current user
                 NSLog(@"shared data %@", self.sharedData.currentUser.userID);
                 NSLog(@"user id %@", user.userID);
-//                [[NSUserDefaults standardUserDefaults] setObject:user.userID forKey:UserIDKey];
+                //                [[NSUserDefaults standardUserDefaults] setObject:user.userID forKey:UserIDKey];
                 NSLog(@"user exists... in did register...setting user default key for user ID: %@", user.userID);
                 
                 [[[self.firebaseReference childByAppendingPath:@"users"] childByAppendingPath:user.userID] updateChildValues:userDictionary];
-
+                
                 [self loginWithiOSAccount:account];
                 
             } else if (self.userFoundInFirebase){ // this person exists in firebase
@@ -249,6 +263,7 @@
         [self saveAccount:account];
         
     } errorBlock:^(NSError *error) {
+        
         NSLog(@"%@", error.localizedDescription);
         NSString *message = [NSString stringWithFormat:@"There was an error signing in to Twitter: %@", error.localizedDescription];
         [self.loadingView stopAnimation];
@@ -258,6 +273,7 @@
             self.phoneNumberTextField.hidden = NO;
             self.phoneNumberLabel.hidden = NO;
         }
+        
         [self showAlertWithMessage:message];
     }];
 }

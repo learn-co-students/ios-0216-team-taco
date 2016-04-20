@@ -214,7 +214,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="gAo-2P-30P">
                         <barButtonItem key="rightBarButtonItem" image="logout3" style="plain" id="4Wf-yc-XOJ">
-                            <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="tintColor" red="0.14901960780000001" green="0.1960784314" blue="0.21960784310000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <connections>
                                 <action selector="logoutTapped:" destination="6hU-6R-OlN" id="LYb-HA-vat"/>
                             </connections>
@@ -241,6 +241,7 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="4Q9-xx-ddQ">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="tintColor" red="0.14901960784313725" green="0.19607843137254902" blue="0.2196078431372549" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>

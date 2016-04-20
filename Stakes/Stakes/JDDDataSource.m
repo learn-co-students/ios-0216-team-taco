@@ -10,9 +10,8 @@
 #import "JDDDataSource.h"
 #import "UIImageView+AFNetworking.h"
 #import "Constants.h"
+
 @import UIKit;
-
-
 
 @implementation JDDDataSource
 
@@ -50,9 +49,9 @@
     
     JDDPact *pact = [[JDDPact alloc]init];
     
-    pact.title = @"Tap On Me :)";
-    pact.pactDescription = @"Swipe down to create a pact and invite your friends! If you have multiple pacts, tap a header to open one.";
-    pact.stakes = @"Swipe left to see the open pact's details, and swipe right to access the chat feature for that pact.";
+    pact.title = @"Welcome - Tap Me!";
+    pact.pactDescription = @"Swipe down to create a pact and invite your friends!";
+    pact.stakes = @"Swipe left to see pact details, and swipe right to access chat.";
     pact.users = [[NSMutableDictionary alloc]init];
     
     
@@ -61,7 +60,7 @@
     pact.repeating = YES;
     
     pact.allowsShaming = YES;
-    pact.twitterPost = @"If you don't meet your check-in goal, the agreed upon Tweet will automatically bomb your feed.";
+    pact.twitterPost = @"If you don't meet your check-in goal, the agreed upon Tweet will automatically send.";
     
     pact.users = [[NSMutableDictionary alloc] initWithDictionary:@{self.currentUser.userID : @1 }];
     
@@ -434,10 +433,5 @@
     }
     
 }
-
-
-
-
-
 
 @end
