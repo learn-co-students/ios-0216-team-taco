@@ -50,8 +50,8 @@
     JDDPact *pact = [[JDDPact alloc]init];
     
     pact.title = @"Tap Here To Start";
-    pact.pactDescription = @"To create a new pact with your friends";
-    pact.stakes = @"To see pact's status";
+    pact.pactDescription = @"To create a new pact";
+    pact.stakes = @"To see a pact's details";
 
     pact.users = [[NSMutableDictionary alloc]init];
     
@@ -59,6 +59,7 @@
     pact.checkInsPerTimeInterval = 3;
     pact.timeInterval = @"week";
     pact.repeating = YES;
+    pact.isActive = YES;
     
     pact.allowsShaming = YES;
     pact.twitterPost = @"To message with your pact friends";

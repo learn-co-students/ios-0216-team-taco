@@ -254,7 +254,7 @@
 
 - (void)tableView:(FZAccordionTableView *)tableView willOpenSection:(NSInteger)section withHeader:(PactAccordionHeaderView *)header {
     
-    self.sharedData.isSectionOpen = YES;
+//    self.sharedData.isSectionOpen = YES;
     self.view.userInteractionEnabled = NO;
 
     self.sharedData.currentPact = self.sharedData.currentUser.pactsToShowInApp[section];
@@ -263,10 +263,10 @@
     NSLog(@"willOpenPactGetsCalled with pact %@",self.sharedData.currentPact);
     NSLog(@"willOpenPactGetsCalled with pact %@",self.sharedData.currentPact.stakes);
     
-    if ([self.sharedData.currentUser.pacts isEqual:nil] || self.sharedData.currentUser.pacts.count == 0) {
-        
-        [header setPact:self.sharedData.currentPact];
-    }
+//    if ([self.sharedData.currentUser.pacts isEqual:nil] || self.sharedData.currentUser.pacts.count == 0) {
+//        
+//        [header setPact:self.sharedData.currentPact];
+//    }
     
     
 }
@@ -486,6 +486,7 @@
                 self.sharedData.currentUser.pactsToShowInApp = [[NSMutableArray alloc]init];
                 
                 [self.sharedData.currentUser.pactsToShowInApp addObject:[self.sharedData createDemoPact]];
+                
                 [[NSOperationQueue mainQueue] addOperationWithBlock:^{
                     [self.tableView reloadData];
                 }];
