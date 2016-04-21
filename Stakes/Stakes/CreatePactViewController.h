@@ -13,5 +13,6 @@
 @interface CreatePactViewController : UIViewController <UIPickerViewDataSource, UIPickerViewDelegate>
 
 @property (nonatomic, strong) JDDDataSource *dataSource;
+@property (weak, nonatomic) IBOutlet UISwitch *shameSwitch;
 
 @end

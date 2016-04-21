@@ -44,6 +44,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+
+    
+    
     self.blurView.hidden = YES;
     NSLog(@"view did load in user pacts");
     self.sharedData = [JDDDataSource sharedDataSource];

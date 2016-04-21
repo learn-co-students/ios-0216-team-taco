@@ -49,9 +49,10 @@
     
     JDDPact *pact = [[JDDPact alloc]init];
     
-    pact.title = @"Welcome - Tap Me!";
-    pact.pactDescription = @"Swipe down to create a pact and invite your friends!";
-    pact.stakes = @"Swipe left to see pact details, and swipe right to access chat.";
+    pact.title = @"Tap Here To Start";
+    pact.pactDescription = @"To create a new pact with your friends";
+    pact.stakes = @"To see pact's status";
+
     pact.users = [[NSMutableDictionary alloc]init];
     
     
@@ -60,7 +61,8 @@
     pact.repeating = YES;
     
     pact.allowsShaming = YES;
-    pact.twitterPost = @"If you don't meet your check-in goal, the agreed upon Tweet will automatically send.";
+    pact.twitterPost = @"To message with your pact friends";
+
     
     pact.users = [[NSMutableDictionary alloc] initWithDictionary:@{self.currentUser.userID : @1 }];
     

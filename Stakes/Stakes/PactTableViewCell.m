@@ -58,9 +58,10 @@
     for (UIView *subviews in self.stackView.arrangedSubviews) {
         [subviews removeFromSuperview];
     }
-    
+
     [self createMainPactViewAtIndex:0 withPact:pact inStackView:self.stackView];
     [self createPactDetailViewAtIndex:1 withPact:pact inStackView:self.stackView];
+    
     
 }
 
@@ -70,6 +71,13 @@
     
     [self.contentView addSubview:self.scrollView];
     
+    if ([self.sharedData.currentPact.title isEqualToString:@"Tap Here To Start"]) {
+        self.scrollView.scrollEnabled = NO;
+        
+    } else {
+        self.scrollView.scrollEnabled = YES;
+  
+    }
     self.scrollView.translatesAutoresizingMaskIntoConstraints = NO;
     [self.scrollView.topAnchor constraintEqualToAnchor:self.contentView.topAnchor].active = YES;
     [self.scrollView.leftAnchor constraintEqualToAnchor:self.contentView.leftAnchor].active = YES;
@@ -80,7 +88,6 @@
     
     self.scrollView.userInteractionEnabled = YES;
     self.scrollView.showsHorizontalScrollIndicator = NO;
-    self.scrollView.scrollEnabled = YES;
     self.scrollView.pagingEnabled = YES;
     
     [self.scrollView setContentOffset:CGPointMake(self.contentView.frame.size.width,0) animated:YES];
@@ -89,7 +96,9 @@
 
 -(void)createStackView {
     
+   
     self.stackView = [[UIStackView alloc]init];
+    
     [self.scrollView addSubview:self.stackView];
     
     self.stackView.translatesAutoresizingMaskIntoConstraints = NO;
@@ -109,6 +118,13 @@
     self.stackView.axis = UILayoutConstraintAxisHorizontal;
     self.stackView.distribution = UIStackViewDistributionFillEqually;
     self.stackView.alignment = UIStackViewAlignmentFill;
+    
+    if (self.sharedData.currentUser.pacts == 0 || [self.sharedData.currentUser.pacts isEqual:nil]) {
+        self.scrollView.scrollEnabled = NO;
+        [self.scrollView setContentOffset:CGPointMake(0,0) animated:YES];
+    } else {
+        self.scrollView.scrollEnabled = YES;
+    }
 }
 
 
@@ -117,17 +133,19 @@
     UserPactMainView * view = [[UserPactMainView alloc]initWithFrame:CGRectZero];
     
     [stackView addArrangedSubview:view];
-    if ([pact.title isEqualToString:@"Tap On Me :)"]) {
+    if ([pact.title isEqualToString:@"Tap Here To Start"]) {
         view.checkInButton.hidden = YES;
         view.checkInLabel.hidden =YES;
-        view.stakesText.numberOfLines = 3;
-        view.pactText.numberOfLines = 3;
-        view.twitterText.numberOfLines = 3;
+        view.stakesText.numberOfLines = 1;
+        view.pactText.numberOfLines = 1;
+        view.twitterText.numberOfLines = 1;
         view.viewForScrollView.hidden = YES;
         view.stackView.hidden = YES;
         view.scrollView.hidden = YES;
         view.CheckInButtonView.hidden = YES;
-        
+        view.pactTitle.text = @"Swipe Down";
+        view.stakesTitle.text = @"Swipe Left";
+        view.twitterTitle.text = @"Swipe Right";
         [view.textView.topAnchor constraintEqualToAnchor:view.contentView.topAnchor].active = YES;
         [view.textView.bottomAnchor constraintEqualToAnchor:view.contentView.bottomAnchor].active = YES;
         
