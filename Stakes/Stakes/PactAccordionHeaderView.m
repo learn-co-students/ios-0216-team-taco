@@ -68,17 +68,16 @@
 -(void)updateUI
 {
     
-//    if ([self.pact.title isEqualToString:@"Tap Here To Start"]) {  // this is for the Demo pact
-//        self.pendingLabel.hidden = YES;
-//    }
+    if ([self.pact.title isEqualToString:@"Tap Here To Start"]) {  // this is for the Demo pact
+        self.pendingLabel.hidden = YES;
 //        if (!self.sharedData.isSectionOpen) {
 //            self.title.text = self.pact.title;
 //        } else {
 //            self.title.text = @"Welcome To Pacts";
 //        }
-//        self.acceptPactButton.hidden  = YES;
-//        
-//    } else {                                                            //This is for the rest of the pacts
+        self.acceptPactButton.hidden  = YES;
+        
+    } else {                                                            //This is for the rest of the pacts
 
         self.title.text = self.pact.title;
         NSLog(@"updatingUI self.pact.isactive %d", self.pact.isActive);
