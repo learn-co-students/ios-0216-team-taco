@@ -498,15 +498,26 @@
 - (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component
 {
     if (pickerView == self.frequencyPicker) {
-        self.frequencyString = self.FrequencyPickerDataSourceArray[row];
+//        self.frequencyString = self.FrequencyPickerDataSourceArray[row];
         return self.FrequencyPickerDataSourceArray[row];
     } else {
-        self.timeIntervalString = self.timeInterval[row];
+//        self.timeIntervalString = self.timeInterval[row];
         return self.timeInterval[row];
     }
     
     return nil;
 }
+
+-(void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
+{
+    if (pickerView == self.frequencyPicker) {
+        self.frequencyString = self.FrequencyPickerDataSourceArray[row];
+    } else if (pickerView == self.timeIntervalPicker) {
+        self.timeIntervalString = self.timeInterval[row];
+    }
+}
+
+
 
 
 - (IBAction)addFriendsButton:(id)sender {
