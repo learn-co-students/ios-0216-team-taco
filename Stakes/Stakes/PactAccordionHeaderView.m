@@ -68,6 +68,8 @@
 -(void)updateUI
 {
     
+    
+    
     if ([self.pact.title isEqualToString:@"Tap Here To Start"]) {  // this is for the Demo pact
         self.pendingLabel.hidden = YES;
         if (!self.sharedData.isSectionOpen) {
