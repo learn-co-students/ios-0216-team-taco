@@ -254,7 +254,7 @@
 
 - (void)tableView:(FZAccordionTableView *)tableView willOpenSection:(NSInteger)section withHeader:(PactAccordionHeaderView *)header {
     
-//    self.sharedData.isSectionOpen = YES;
+    self.sharedData.isSectionOpen = YES;
     self.view.userInteractionEnabled = NO;
 
     self.sharedData.currentPact = self.sharedData.currentUser.pactsToShowInApp[section];
@@ -263,10 +263,10 @@
     NSLog(@"willOpenPactGetsCalled with pact %@",self.sharedData.currentPact);
     NSLog(@"willOpenPactGetsCalled with pact %@",self.sharedData.currentPact.stakes);
     
-//    if ([self.sharedData.currentUser.pacts isEqual:nil] || self.sharedData.currentUser.pacts.count == 0) {
-//        
-//        [header setPact:self.sharedData.currentPact];
-//    }
+    if ([self.sharedData.currentUser.pacts isEqual:nil] || self.sharedData.currentUser.pacts.count == 0) {
+        
+        [header setPact:self.sharedData.currentPact];
+    }
     
     
 }
@@ -369,7 +369,7 @@
 -(void)updateCheckInsForPact:(JDDPact *)updatedPact withCompletion:(void (^)(BOOL success))completionBlock
 {
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
-    [dateFormatter setDateFormat:@"yyyy'-'MM'-'dd'-'hh:mm'"];
+    [dateFormatter setDateFormat:@"yyyy'-'MM'-'dd'-'HH:mm'"];
     
     for (NSString *pactID in self.sharedData.currentUser.pacts) {
         if ([pactID isEqualToString:updatedPact.pactID]) {

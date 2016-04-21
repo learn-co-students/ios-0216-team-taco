@@ -181,12 +181,12 @@
     [super didReceiveMemoryWarning];
 }
 
--(void)addMessage:(NSString*)stringFromTextField withUser: (NSString *)userID andDisplayName:(NSString *)displayName andDate:(NSDate *)date{
+-(void)addMessage:(NSString*)stringFromTextField withUser: (NSString *)userID andDisplayName:(NSString *)displayName andDate:(NSDate *)date {
     
     JSQMessage *message = [[JSQMessage alloc]initWithSenderId:userID senderDisplayName:displayName
                                                          date:date text:stringFromTextField];
     
-    
+    // i just changed that from DATE
     [self.chatroom.messages addObject:message];
     
 }
@@ -194,7 +194,7 @@
 -(void)addMessageWithSenderId:(NSString*)senderId displayName:(NSString *)displayName date:(NSString *)dateString longitude:(NSNumber *)longitude andLatitude:(NSNumber*)latitude {
     
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
-    [dateFormatter setDateFormat:@"yyyy'-'MM'-'dd'-'hh:mm'"];
+    [dateFormatter setDateFormat:@"yyyy'-'MM'-'dd'-'HH:mm'"];
     
     CLLocation * location = [[CLLocation alloc]initWithLatitude:[latitude floatValue] longitude:[longitude floatValue]];
 
@@ -211,7 +211,7 @@
     Firebase *itemRef = [self.messageRef childByAutoId];
     
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
-    [dateFormatter setDateFormat:@"yyyy'-'MM'-'dd'-'hh:mm'"];
+    [dateFormatter setDateFormat:@"yyyy'-'MM'-'dd'-'HH:mm'"];
     
     NSDictionary * message = @{ @"text": text,
                                 @"senderId":self.dataSource.currentUser.userID,
@@ -230,7 +230,7 @@
     NSLog(@"ref : %@",self.messageRef.description);
     
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
-    [dateFormatter setDateFormat:@"yyyy'-'MM'-'dd'-'hh:mm'"];
+    [dateFormatter setDateFormat:@"yyyy'-'MM'-'dd'-'HH:mm'"];
     
     FQuery *query = [self.messageRef queryLimitedToLast:35];
     

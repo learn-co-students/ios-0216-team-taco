@@ -254,7 +254,7 @@
                                     [[NSOperationQueue mainQueue] addOperationWithBlock:^{
                                         
                                         
-                                        //                                        [self dismissViewControllerAnimated:YES completion:nil];// We dont need this here
+                                        //[self dismissViewControllerAnimated:YES completion:nil];// We dont need this here
                                         
                                     }];
                                 }
@@ -296,7 +296,7 @@
     self.pactReference = [self.dataSource.firebaseRef childByAppendingPath:@"pacts"];
     
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
-    [dateFormatter setDateFormat:@"yyyy'-'MM'-'dd'-'hh:mm'"];
+    [dateFormatter setDateFormat:@"yyyy'-'MM'-'dd'-'HH:mm'"];
     
     // this dictionary is creating with the users that will be added into the pact when it is created in firebase
     // this data is structured as such @{userID : NSNumber as BOOL whether they have accepted the pact or not}

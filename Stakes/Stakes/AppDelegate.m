@@ -95,7 +95,7 @@
                             pactCount --;
                             
                             NSDateFormatter *checkInDateFormatter = [[NSDateFormatter alloc]init];
-                            [checkInDateFormatter setDateFormat:@"yyyy'-'MM'-'dd'-'hh:mm'"];
+                            [checkInDateFormatter setDateFormat:@"yyyy'-'MM'-'dd'-'HH:mm'"];
                             
                             if (pact.isActive) {
                                 
