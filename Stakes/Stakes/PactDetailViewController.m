@@ -42,31 +42,31 @@
     // then for each user, createa a UserDescriptionView and add it to the stackview
     for (JDDUser *user in self.pact.usersToShowInApp){
         
-        UserDescriptionView *view2 = [[UserDescriptionView alloc]init];
+//        UserDescriptionView *view2 = [[UserDescriptionView alloc]init];
+//        
+//        for (JDDCheckIn *checkin in self.pact.checkIns) {
+//            
+//            if ([checkin.userID isEqualToString:user.userID]) {
+//                
+//                view2.checkinsCount ++;
+//            }
+//        }
         
-        for (JDDCheckIn *checkin in self.pact.checkIns) {
-            
-            if ([checkin.userID isEqualToString:user.userID]) {
-                
-                view2.checkinsCount ++;
-            }
-        }
-        ;
         NSString *valueIndicator = [NSString stringWithFormat:@"%@",[self.pact.users valueForKey:user.userID]] ;
         
         user.isReady = valueIndicator;
-        view2.user = user;
-        NSLog(@"Is the view's user ready? %@", view2.user.isReady);
+//        view2.user = user;
+//        NSLog(@"Is the view's user ready? %@", view2.user.isReady);
         // same as [view setUser:user];
-        [self.stackview addArrangedSubview:view2];
-        
-        
-        
-            [view2.widthAnchor constraintEqualToAnchor:self.scrollview.widthAnchor multiplier:0.33].active = YES;
-        
+//        [self.stackview addArrangedSubview:view2];
+//        
+//        
+//        
+//            [view2.widthAnchor constraintEqualToAnchor:self.scrollview.widthAnchor multiplier:0.33].active = YES;
+//        
         
         [self.stackview layoutSubviews];//give subviews a size
-        view2.clipsToBounds = YES;
+//        view2.clipsToBounds = YES;
         
     }
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];

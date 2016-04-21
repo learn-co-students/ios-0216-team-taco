@@ -169,7 +169,7 @@
         JDDCheckIn *check = [[JDDCheckIn alloc]init];
         
         check.userID = snapshot.value[@"checkins"][checkin][@"userID"];
-        check.checkInDate = [dateFormatter dateFromString:snapshot.value[@"checkins"][checkin][@"userID"]];
+        check.checkInDate = [dateFormatter dateFromString:snapshot.value[@"checkins"][checkin][@"checkInDate"]];
         check.checkInID = snapshot.value[@"checkins"][checkin][@"checkInID"];
         
         [pact.checkIns addObject:check];
@@ -189,7 +189,6 @@
     
     checkIn.checkInID = snapshot.value[@"checkInID"];
     checkIn.checkInDate = [dateFormatter dateFromString:snapshot.value[@"checkInDate"]];
-    
     checkIn.userID = snapshot.value[@"userID"];
     
     return checkIn;

@@ -31,6 +31,7 @@
 @property (nonatomic, strong) JDDDataSource *sharedData;
 @property (nonatomic, strong) JDDCheckIn *checkIn;
 @property (nonatomic,strong) Firebase *firebase;
+@property (nonatomic) NSUInteger checkinsForUserPerTimeInterval;
 
 @end
 
@@ -91,6 +92,22 @@
     [self addObserver:self forKeyPath:@"pact.users" options:NSKeyValueObservingOptionNew context:nil];
 }
 
+-(void)determineCheckinsPerTimeIntervalForUser:(JDDUser *)user {
+    
+    self.checkinsForUserPerTimeInterval =0;
+    
+    for (JDDCheckIn *checkin in self.pact.checkIns) {
+        
+        if ([checkin.userID isEqualToString:user.userID] && [checkin.checkInDate compare:self.pact.dateOfCreation]==NSOrderedDescending) {
+            
+            self.checkinsForUserPerTimeInterval ++;
+            
+        }
+        
+    }
+    
+}
+
 
 - (IBAction)checkInButtonPressed:(id)sender {
        
@@ -108,7 +125,7 @@
     
     Firebase *newCheckin = [checkinRef childByAutoId];
     
-    self.checkIn.checkInID = [newCheckin.description stringByReplacingOccurrencesOfString:checkinRef.description withString:@""];
+    self.checkIn.checkInID = [newCheckin.description stringByReplacingOccurrencesOfString:[NSString stringWithFormat:@"%@/", checkinRef.description] withString:@""];
     
     NSMutableDictionary *finalCheckinDictionary = [self.sharedData createDictionaryToSendToFirebaseWithJDDCheckIn:self.checkIn];
     
@@ -202,13 +219,9 @@
        
         UserDescriptionView *view1 = [[UserDescriptionView alloc]init];
         
-        for (JDDCheckIn *checkin in self.pact.checkIns) {
-            
-            if ([checkin.userID isEqualToString:user.userID]) {
-                
-                view1.checkinsCount ++;
-            }
-        };
+        [self determineCheckinsPerTimeIntervalForUser:user];
+        
+        view1.checkinsCount = self.checkinsForUserPerTimeInterval;
         
         NSString *valueIndicator = [NSString stringWithFormat:@"%@",[self.pact.users valueForKey:user.userID]] ;
         NSString *currentPact = [NSString stringWithFormat:@"%@",self.pact.title];

@@ -122,10 +122,6 @@
 
 -(void)setupIfInactive {
     
-//    self.contentView.translatesAutoresizingMaskIntoConstraints = NO;
-//    self.widthConstraint = [self.statusBar.widthAnchor constraintEqualToAnchor:self.statusBarView.widthAnchor multiplier:0.01];
-//    self.widthConstraint.active = YES;
-    
     self.statusBar.hidden = YES;
     
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
@@ -164,7 +160,7 @@
     
     for (JDDCheckIn *checkin in self.pact.checkIns) {
         
-        if ([checkin.userID isEqualToString:self.sharedData.currentUser.userID]) {
+        if ([checkin.userID isEqualToString:self.sharedData.currentUser.userID] && [checkin.checkInDate compare:self.pact.dateOfCreation] == NSOrderedDescending) {
             
             self.userCheckins++;
             
@@ -201,26 +197,18 @@
 -(void)setShitUp
 {
     // Do any additional setup after loading the view.
-  
-//    self.createdTitle.layer.borderWidth = 2;
-//    self.createdTitle.layer.cornerRadius = 10;
-//    self.createdTitle.layer.borderColor = [UIColor whiteColor].CGColor;
-//    self.checkInsTitle.layer.borderWidth = 2;
-//    self.checkInsTitle.layer.cornerRadius = 10;
-//    self.checkInsTitle.layer.borderColor = [UIColor whiteColor].CGColor;
 
     if ([self.pact.title isEqualToString:@"Tap Here To Start"]) {
-    
-        
-        self.contentView.translatesAutoresizingMaskIntoConstraints = NO;
-        self.widthConstraint = [self.statusBar.widthAnchor constraintEqualToAnchor:self.statusBarView.widthAnchor multiplier:0.01];
-        self.widthConstraint.active = YES;
-        
-        self.deletePactButton.hidden = YES;
-        self.createdLabel.text = @"Dark Ages";
-        self.checkInsNumber.text = [NSString stringWithFormat:@"%d",1];
-        self.timeInterval.text = @"week";
-        
+//        
+//        self.contentView.translatesAutoresizingMaskIntoConstraints = NO;
+//        self.widthConstraint = [self.statusBar.widthAnchor constraintEqualToAnchor:self.statusBarView.widthAnchor multiplier:0.01];
+//        self.widthConstraint.active = YES;
+//        
+//        self.deletePactButton.hidden = YES;
+//        self.createdLabel.text = @"Dark Ages";
+//        self.checkInsNumber.text = [NSString stringWithFormat:@"%d",1];
+//        self.timeInterval.text = @"week";
+//        
     } else {
         
         NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
@@ -234,7 +222,7 @@
                                                 };
         
         if (self.hasUserCompletedPact) {
-            // user has not completed pact
+            // user has completed pact
             
             self.contentView.translatesAutoresizingMaskIntoConstraints = NO;
             self.widthConstraint = [self.statusBar.widthAnchor constraintEqualToAnchor:self.statusBarView.widthAnchor multiplier:1];
@@ -244,6 +232,8 @@
             self.completedLabel.hidden = NO;
             self.topCheckinsLabel.hidden = YES;
             self.topCheckinsNeededLabel.hidden = YES;
+            self.slashLabel.hidden = YES;
+        
             // days left label
             self.numberOfDaysLeftLabel.text = [NSString stringWithFormat:@"%lu",[UserPactDetailView daysBetweenDate:self.pact.dateOfCreation andDate:[NSDate dateWithTimeInterval:60*60*24* [timeIntervalNSNumbers[self.pact.timeInterval]intValue] sinceDate:self.pact.dateOfCreation]]];
             // pact details
@@ -316,6 +306,8 @@
     }
     
 }
+
+
 
 -(BOOL)prefersStatusBarHidden
 {
