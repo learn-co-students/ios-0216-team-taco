@@ -89,17 +89,17 @@
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Time/s per" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="uyh-Ck-oSo">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Time/s per" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="7" translatesAutoresizingMaskIntoConstraints="NO" id="uyh-Ck-oSo">
                                         <rect key="frame" x="390" y="23" width="70" height="45"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="70" id="P60-ro-l0z"/>
+                                            <constraint firstAttribute="width" constant="50" id="P60-ro-l0z"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="16"/>
+                                        <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="13"/>
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <pickerView contentMode="scaleAspectFill" semanticContentAttribute="playback" translatesAutoresizingMaskIntoConstraints="NO" id="a5f-VN-aAU">
-                                        <rect key="frame" x="341" y="9" width="39" height="72"/>
+                                        <rect key="frame" x="361" y="9" width="39" height="72"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="39" id="XFh-9G-C17"/>
                                             <constraint firstAttribute="height" constant="100" id="t9L-Ov-1Un"/>
@@ -167,7 +167,7 @@
                                     <action selector="shameToggleTapped:" destination="i4d-Ov-NqA" eventType="valueChanged" id="Bxl-LI-ov2"/>
                                 </connections>
                             </switch>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="UdZ-vU-QxZ">
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" text="Ex. &quot;I am a bad friend for not  doing what I promissed, I am a dissapointment :(&quot;" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="UdZ-vU-QxZ">
                                 <rect key="frame" x="30" y="494" width="540" height="60"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
@@ -285,12 +285,12 @@
                                     <action selector="dismissDiscriptionKeyboard:" destination="i4d-Ov-NqA" eventType="primaryActionTriggered" id="3sc-zy-6xh"/>
                                 </connections>
                             </textField>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="OnboardingTwitter" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="3" baselineAdjustment="alignBaselines" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="vcT-np-rWw">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="OnboardingTwitter" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="3" baselineAdjustment="alignBaselines" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="vcT-np-rWw">
                                 <rect key="frame" x="125" y="484" width="350" height="26"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="350" id="i0d-7c-LX4"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="20"/>
+                                <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="16"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>

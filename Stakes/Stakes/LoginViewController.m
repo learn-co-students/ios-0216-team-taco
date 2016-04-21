@@ -243,7 +243,10 @@
         
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:LoggedInUserDefaultsKey];
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:UserDidRegisterKey];
-        
+        if (![[NSUserDefaults standardUserDefaults] boolForKey:@"wasLaunchedBefore"]) {// this is just to know if someone is a firstTime user
+            NSLog(@"First launch");
+            [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"wasLaunchedBefore"];
+        }
         [[NSNotificationCenter defaultCenter] postNotificationName:UserDidLogInNotificationName object:nil];
         
         [self saveAccount:account];

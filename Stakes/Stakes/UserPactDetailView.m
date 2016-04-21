@@ -209,7 +209,7 @@
 //    self.checkInsTitle.layer.cornerRadius = 10;
 //    self.checkInsTitle.layer.borderColor = [UIColor whiteColor].CGColor;
 
-    if ([self.pact.title isEqualToString:@"Tap On Me :)"]) {
+    if ([self.pact.title isEqualToString:@"Tap Here To Start"]) {
     
         
         self.contentView.translatesAutoresizingMaskIntoConstraints = NO;

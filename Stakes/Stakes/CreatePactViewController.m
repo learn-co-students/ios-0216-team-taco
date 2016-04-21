@@ -29,7 +29,6 @@
 @property (weak, nonatomic) IBOutlet UITextField *pactTitle;
 @property (weak, nonatomic) IBOutlet UILabel *repeatLabel;
 @property (weak, nonatomic) IBOutlet UISwitch *repeatSwitch;
-@property (weak, nonatomic) IBOutlet UISwitch *shameSwitch;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *topConstraint;
 @property (weak, nonatomic) IBOutlet UILabel *twitterOnboardingLabel;
 @property (weak, nonatomic) IBOutlet UITextField *stakesTextView;

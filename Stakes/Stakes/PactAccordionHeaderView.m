@@ -61,9 +61,8 @@
 
 -(void)updateUI
 {
-    if ([self.pact.title isEqualToString:@"Tap On Me :)"]) {  // this is for the Demo pact
-        self.pendingLabel.text = @"Demo";
-        self.pendingLabel.hidden = NO;
+    if ([self.pact.title isEqualToString:@"Tap Here To Start"]) {  // this is for the Demo pact
+        self.pendingLabel.hidden = YES;
         self.title.text = self.pact.title;
         self.acceptPactButton.hidden  = YES;
         
