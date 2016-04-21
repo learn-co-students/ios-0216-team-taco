@@ -46,11 +46,10 @@
     [super viewDidLoad];
 
     
-    
     self.blurView.hidden = YES;
     NSLog(@"view did load in user pacts");
     self.sharedData = [JDDDataSource sharedDataSource];
-    
+    self.sharedData.isSectionOpen = NO;
     NSLog(@"sharedata in initial VC in that other VC is = %@", self.sharedData.currentUser.displayName);
     
     
@@ -255,13 +254,20 @@
 
 - (void)tableView:(FZAccordionTableView *)tableView willOpenSection:(NSInteger)section withHeader:(PactAccordionHeaderView *)header {
     
+    self.sharedData.isSectionOpen = YES;
     self.view.userInteractionEnabled = NO;
-    
+
     self.sharedData.currentPact = self.sharedData.currentUser.pactsToShowInApp[section];
     
     NSLog(@"willOpenPactGetsCalled with pact %@",self.sharedData.currentPact.title);
     NSLog(@"willOpenPactGetsCalled with pact %@",self.sharedData.currentPact);
     NSLog(@"willOpenPactGetsCalled with pact %@",self.sharedData.currentPact.stakes);
+    
+    if ([self.sharedData.currentUser.pacts isEqual:nil] || self.sharedData.currentUser.pacts.count == 0) {
+        
+        [header setPact:self.sharedData.currentPact];
+    }
+    
     
 }
 

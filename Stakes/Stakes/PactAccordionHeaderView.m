@@ -9,11 +9,17 @@
 
 #import "PactAccordionHeaderView.h"
 #import "Constants.h"
+
+#import "UserPactsViewController.h"
 @interface PactAccordionHeaderView ()
+
+
+
 @property (weak, nonatomic) IBOutlet UILabel *title;
 @property (weak, nonatomic) IBOutlet UIButton *acceptPactButton;
 @property (strong, nonatomic) JDDDataSource *sharedData;
 @property (weak, nonatomic) IBOutlet UILabel *pendingLabel;
+
 
 @end
 
@@ -61,9 +67,14 @@
 
 -(void)updateUI
 {
+    
     if ([self.pact.title isEqualToString:@"Tap Here To Start"]) {  // this is for the Demo pact
         self.pendingLabel.hidden = YES;
-        self.title.text = self.pact.title;
+        if (!self.sharedData.isSectionOpen) {
+            self.title.text = self.pact.title;
+        } else {
+            self.title.text = @"Welcome To Pacts";
+        }
         self.acceptPactButton.hidden  = YES;
         
     } else {                                                            //This is for the rest of the pacts

@@ -19,22 +19,6 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Stakes/CreatePactViewController.m"
-            timestampString = "482875253.482125"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "85"
-            endingLineNumber = "85"
-            landmarkName = "-textView:shouldChangeTextInRange:replacementText:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
             filePath = "Stakes/LoginViewController.m"
             timestampString = "482871260.091937"
             startingColumnNumber = "9223372036854775807"
@@ -43,6 +27,38 @@
             endingLineNumber = "246"
             landmarkName = "-loginWithiOSAccount:"
             landmarkType = "5">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__64-[LoginViewController authenticateInFirebaseWithTwitterAccount:]_block_invoke"
+                  moduleName = "Stakes"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/dimitryknyajanski/Development/code/ios-0216-team-taco/Stakes/Stakes/LoginViewController.m"
+                  timestampString = "482945400.842894"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "246"
+                  endingLineNumber = "246"
+                  offsetFromSymbolStart = "3210">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__destroy_helper_block_.192"
+                  moduleName = "Stakes"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/dimitryknyajanski/Development/code/ios-0216-team-taco/Stakes/Stakes/LoginViewController.m"
+                  timestampString = "482945400.843862"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "246"
+                  endingLineNumber = "246"
+                  offsetFromSymbolStart = "59">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -52,11 +68,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Stakes/PactTableViewCell.m"
-            timestampString = "482938836.812469"
+            timestampString = "482945104.54223"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "73"
-            endingLineNumber = "73"
+            startingLineNumber = "76"
+            endingLineNumber = "76"
             landmarkName = "-createScrollView"
             landmarkType = "5">
          </BreakpointContent>
@@ -68,11 +84,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Stakes/PactTableViewCell.m"
-            timestampString = "482875716.362686"
+            timestampString = "482943631.69592"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "53"
-            endingLineNumber = "53"
+            startingLineNumber = "54"
+            endingLineNumber = "54"
             landmarkName = "-setPact:"
             landmarkType = "5">
          </BreakpointContent>
@@ -83,28 +99,12 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Stakes/PactTableViewCell.m"
-            timestampString = "482938836.812469"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "132"
-            endingLineNumber = "132"
-            landmarkName = "-createMainPactViewAtIndex:withPact:inStackView:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
             filePath = "Stakes/PactAccordionHeaderView.m"
-            timestampString = "482937945.18171"
+            timestampString = "482944258.818944"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "63"
-            endingLineNumber = "63"
+            startingLineNumber = "70"
+            endingLineNumber = "70"
             landmarkName = "-updateUI"
             landmarkType = "5">
          </BreakpointContent>
@@ -116,12 +116,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Stakes/UserPactsViewController.m"
-            timestampString = "482938057.606269"
+            timestampString = "482945357.266247"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "256"
-            endingLineNumber = "256"
-            landmarkName = "-tableView:willOpenSection:withHeader:"
+            startingLineNumber = "51"
+            endingLineNumber = "51"
+            landmarkName = "-viewDidLoad"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -131,13 +131,29 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Stakes/PactTableViewCell.m"
-            timestampString = "482938836.812469"
+            filePath = "Stakes/UserPactsViewController.m"
+            timestampString = "482945357.266247"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "123"
-            endingLineNumber = "123"
-            landmarkName = "-createStackView"
+            startingLineNumber = "240"
+            endingLineNumber = "240"
+            landmarkName = "-tableView:viewForHeaderInSection:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Stakes/UserPactsViewController.m"
+            timestampString = "482945357.266247"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "266"
+            endingLineNumber = "266"
+            landmarkName = "-tableView:willOpenSection:withHeader:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
