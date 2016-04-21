@@ -110,4 +110,38 @@
     self.countOfCheckInsLabel.text = [NSString stringWithFormat:@"%li",self.checkinsCount];
     
 }
+
+-(BOOL)checkIfCheckinHappenedWithPactStartDate:(NSDate *)startDate andTimeInterval:(NSString *)timeInterval {
+    
+    BOOL boolToReturn = NO;
+    
+    NSDate *executionDate = [[NSDate alloc]init];
+    
+    if ([timeInterval isEqualToString:@"day"]) {
+        
+        executionDate = [startDate dateByAddingTimeInterval:60*60*24];
+        
+    } else if ([timeInterval isEqualToString:@"week"]) {
+        
+        executionDate = [startDate dateByAddingTimeInterval:60*60*24 *7];
+        
+    } else if ([timeInterval isEqualToString:@"month"]) {
+        
+        executionDate = [startDate dateByAddingTimeInterval:60*60*24 *30.5];
+        
+    } else if ([timeInterval isEqualToString:@"year"]) {
+        
+        executionDate = [startDate dateByAddingTimeInterval:60*60*24 *365];
+        
+    }
+    
+    if ([[NSDate date] compare: executionDate] == NSOrderedDescending){
+        
+        boolToReturn = YES;
+    }
+    
+    return (boolToReturn);
+}
+
+
 @end

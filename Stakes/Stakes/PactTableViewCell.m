@@ -35,17 +35,9 @@
     
     [self.scrollView layoutIfNeeded];
 
-    //    self.pact = self.sharedData.currentPact;
     [self createView];
     
-    //    [self createMainPactViewAtIndex:0 withPact:self.sharedData.currentPact inStackView:self.stackView];
-    //    [self createPactDetailViewAtIndex:1 withPact:self.sharedData.currentPact inStackView:self.stackView];
-    
-    
-    
-    //    [[NSBundle mainBundle] loadNibNamed:@"PactTableViewCell" owner:self options:nil];
-    //
-    //    [self addSubview:self.viewOfContent];
+ 
 
     
 }
@@ -59,9 +51,11 @@
         [subviews removeFromSuperview];
     }
 
-    [self createMainPactViewAtIndex:0 withPact:pact inStackView:self.stackView];
-    [self createPactDetailViewAtIndex:1 withPact:pact inStackView:self.stackView];
     
+    [self createMainPactViewAtIndex:0 withPact:pact inStackView:self.stackView];
+    if (![self.pact.title isEqualToString:@"Tap Here To Start"]) {
+        [self createPactDetailViewAtIndex:1 withPact:pact inStackView:self.stackView];
+    }
     
 }
 
@@ -121,7 +115,6 @@
     
     if (self.sharedData.currentUser.pacts == 0 || [self.sharedData.currentUser.pacts isEqual:nil]) {
         self.scrollView.scrollEnabled = NO;
-        [self.scrollView setContentOffset:CGPointMake(0,0) animated:YES];
     } else {
         self.scrollView.scrollEnabled = YES;
     }
@@ -158,12 +151,8 @@
         view.pact = pact;
 
     }
-
-    //    view.pact = self.sharedData.currentPact;
     
     [view.widthAnchor constraintEqualToAnchor:self.contentView.widthAnchor].active = YES;
-    //    [view.heightAnchor constraintEqualToAnchor:self.contentView.heightAnchor].active = YES;
-
     
 }
 
@@ -171,7 +160,6 @@
     
     UserPactDetailView *view = [[UserPactDetailView alloc]initWithFrame:CGRectZero];
     view.pact = pact;
-    //    view.pact = self.sharedData.currentPact;
 
     [stackView insertArrangedSubview:view atIndex:index];
     

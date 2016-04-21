@@ -25,6 +25,9 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    [application setMinimumBackgroundFetchInterval:UIApplicationBackgroundFetchIntervalMinimum];
+
+    
     return YES;
 }
 
@@ -55,11 +58,12 @@
 
 -(void)application:(UIApplication *)application performFetchWithCompletionHandler:(nonnull void (^)(UIBackgroundFetchResult))completionHandler {
     
-    [application setMinimumBackgroundFetchInterval:UIApplicationBackgroundFetchIntervalMinimum];
+//    [application setMinimumBackgroundFetchInterval:UIApplicationBackgroundFetchIntervalMinimum];
     
     NSLog(@"background Fetch has started");
     
     self.currentDate = [NSDate date];
+    self.dataSource = [JDDDataSource sharedDataSource];
     
     [self.dataSource establishCurrentUserWithBlock:^(BOOL completionBlock) {
         
@@ -121,7 +125,12 @@
                                         [[self.dataSource.firebaseRef childByAppendingPath: [NSString stringWithFormat:@"pacts/%@/dateOfCreation",pact.pactID]] setValue:[checkInDateFormatter stringFromDate:[NSDate date]]];
                                     } else {
                                         
+                                        for (NSString *userID in pact.users) {
+                                        [[self.dataSource.firebaseRef childByAppendingPath: [NSString stringWithFormat:@"pacts/%@/users/%@",pact.pactID, userID]] setValue:[NSNumber numberWithBool:NO]];
+                                        }
+                                        
                                         [[self.dataSource.firebaseRef childByAppendingPath: [NSString stringWithFormat:@"pacts/%@/isActive",pact.pactID]] setValue:[NSNumber numberWithBool:NO]];
+                                        
                                         
                                     }
                                     

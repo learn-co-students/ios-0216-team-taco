@@ -96,7 +96,7 @@
 		AF97DCB01CC15B450053E497 /* PactTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PactTableViewCell.xib; sourceTree = "<group>"; };
 		AF97DCB21CC16AF20053E497 /* UserPactDetailView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UserPactDetailView.xib; sourceTree = "<group>"; };
 		AF97DCB41CC16B0C0053E497 /* UserPactDetailView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserPactDetailView.h; sourceTree = "<group>"; };
-		AF97DCB51CC16B0C0053E497 /* UserPactDetailView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserPactDetailView.m; sourceTree = "<group>"; };
+		AF97DCB51CC16B0C0053E497 /* UserPactDetailView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserPactDetailView.m; sourceTree = "<group>"; usesTabs = 0; };
 		AF9B006C1CC7C63200A438F1 /* Stakes Logo2.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = "Stakes Logo2.pdf"; path = "Assets.xcassets/Stakes Logo2.pdf"; sourceTree = "<group>"; };
 		AF9B006E1CC7E6B500A438F1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		AF9B00701CC7E6C300A438F1 /* navBarIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = navBarIcon.png; path = Assets.xcassets/navBarIcon.png; sourceTree = "<group>"; };

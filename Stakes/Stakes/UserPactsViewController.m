@@ -341,7 +341,6 @@
 -(void)handleUserCheckedIn:(NSNotification *)notification
 {
     
-
     JDDPact *pact = (JDDPact *)notification.object;
 
     
@@ -378,10 +377,13 @@
                     JDDCheckIn *check = [[JDDCheckIn alloc]init];
                     
                     check.userID = snapshot.value[@"checkins"][checkin][@"userID"];
-                    check.checkInDate = [dateFormatter dateFromString:snapshot.value[@"checkins"][checkin][@"userID"]];
+                    check.checkInDate = [dateFormatter dateFromString:snapshot.value[@"checkins"][checkin][@"checkInDate"]];
                     check.checkInID = snapshot.value[@"checkins"][checkin][@"checkInID"];
                     
-                    [updatedPact.checkIns addObject:check];
+                    if ([check.checkInDate compare:updatedPact.dateOfCreation] == NSOrderedDescending){
+                        
+                        [updatedPact.checkIns addObject:check];
+                    }
                 }
                 
                 NSLog(@"COMPLETION BLOCK");
