@@ -63,7 +63,7 @@
     pact.allowsShaming = YES;
     pact.twitterPost = @"To message with your pact friends";
 
-    
+//    pact.dateOfCreation = [NSDate date];
     pact.users = [[NSMutableDictionary alloc] initWithDictionary:@{self.currentUser.userID : @1 }];
     
     NSLog(@"self.currentuser in datasource %@", self.currentUser.displayName);

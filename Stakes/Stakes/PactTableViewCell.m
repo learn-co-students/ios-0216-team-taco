@@ -10,6 +10,7 @@
 #import "UserPactMainView.h"
 #import "UserPactDetailView.h"
 #import "JDDDataSource.h"
+#import "UserPactsViewController.h"
 
 @interface PactTableViewCell ()
 
@@ -52,7 +53,9 @@
 
 -(void)setPact:(JDDPact *)pact {
     [self createStackView];
-
+    
+    
+    
     _pact = pact;
    
     for (UIView *subviews in self.stackView.arrangedSubviews) {

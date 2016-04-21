@@ -27,6 +27,7 @@
 @property (nonatomic, strong) JDDPact *currentPact;
 @property (nonatomic, strong) STTwitterAPI *twitter;
 @property (nonatomic, strong) ACAccountStore *accountStore;
+@property (nonatomic) BOOL isSectionOpen;
 
 + (instancetype)sharedDataSource;
 
