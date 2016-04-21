@@ -76,30 +76,30 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Welcome" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="30" translatesAutoresizingMaskIntoConstraints="NO" id="1K8-4Y-dya">
-                                <rect key="frame" x="30" y="40" width="540" height="45"/>
-                                <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="34"/>
+                                <rect key="frame" x="30" y="40" width="540" height="46.5"/>
+                                <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="34"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6iD-Vp-NXD" userLabel="pickerView">
                                 <rect key="frame" x="30" y="220" width="540" height="90"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="How often will you do this?" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="7" translatesAutoresizingMaskIntoConstraints="NO" id="wNk-to-jbh">
-                                        <rect key="frame" x="0.0" y="35" width="311" height="20"/>
-                                        <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="16"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="How often will you do it?" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="7" translatesAutoresizingMaskIntoConstraints="NO" id="wNk-to-jbh">
+                                        <rect key="frame" x="0.0" y="34" width="311" height="22"/>
+                                        <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="16"/>
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Time/s per" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="7" translatesAutoresizingMaskIntoConstraints="NO" id="uyh-Ck-oSo">
-                                        <rect key="frame" x="390" y="23" width="70" height="45"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="time(s) per" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="uyh-Ck-oSo">
+                                        <rect key="frame" x="390" y="23.5" width="70" height="44"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="50" id="P60-ro-l0z"/>
+                                            <constraint firstAttribute="width" constant="70" id="P60-ro-l0z"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="13"/>
+                                        <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="16"/>
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <pickerView contentMode="scaleAspectFill" semanticContentAttribute="playback" translatesAutoresizingMaskIntoConstraints="NO" id="a5f-VN-aAU">
-                                        <rect key="frame" x="361" y="9" width="39" height="72"/>
+                                        <rect key="frame" x="341" y="9" width="39" height="72"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="39" id="XFh-9G-C17"/>
                                             <constraint firstAttribute="height" constant="100" id="t9L-Ov-1Un"/>
@@ -167,38 +167,16 @@
                                     <action selector="shameToggleTapped:" destination="i4d-Ov-NqA" eventType="valueChanged" id="Bxl-LI-ov2"/>
                                 </connections>
                             </switch>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" text="Ex. &quot;I am a bad friend for not  doing what I promissed, I am a dissapointment :(&quot;" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="UdZ-vU-QxZ">
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="UdZ-vU-QxZ">
                                 <rect key="frame" x="30" y="494" width="540" height="60"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="60" id="NRk-DD-UIi"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences" spellCheckingType="yes" returnKeyType="go"/>
                             </textView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Hne-Dh-8f5">
-                                <rect key="frame" x="300" y="540" width="300" height="60"/>
-                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.75" colorSpace="calibratedRGB"/>
-                                <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="18"/>
-                                <state key="normal" title="Cancel">
-                                    <color key="titleColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                </state>
-                                <connections>
-                                    <action selector="cancelButtonPressed:" destination="i4d-Ov-NqA" eventType="touchUpInside" id="TEM-Ua-Fkl"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zfu-8l-5oA">
-                                <rect key="frame" x="0.0" y="540" width="300" height="60"/>
-                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.75" colorSpace="calibratedRGB"/>
-                                <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="18"/>
-                                <state key="normal" title="Done">
-                                    <color key="titleColor" red="0.0" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                </state>
-                                <connections>
-                                    <action selector="createPactTapped:" destination="i4d-Ov-NqA" eventType="touchUpInside" id="ffZ-eF-3EI"/>
-                                </connections>
-                            </button>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="What Is At Stake?" textAlignment="center" minimumFontSize="14" translatesAutoresizingMaskIntoConstraints="NO" id="F1N-JR-b0z">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="What are the stakes?" textAlignment="center" minimumFontSize="14" translatesAutoresizingMaskIntoConstraints="NO" id="F1N-JR-b0z">
                                 <rect key="frame" x="30" y="370" width="540" height="60"/>
                                 <fontDescription key="fontDescription" name="Avenir-Medium" family="Avenir" pointSize="20"/>
                                 <textInputTraits key="textInputTraits" returnKeyType="done"/>
@@ -252,7 +230,7 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Name Your New Pact" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ZjD-Gz-bxB">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Name your pact..." textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ZjD-Gz-bxB">
                                 <rect key="frame" x="30" y="20" width="540" height="37"/>
                                 <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="28"/>
                                 <textInputTraits key="textInputTraits"/>
@@ -263,17 +241,18 @@
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zz6-xj-ozg">
                                 <rect key="frame" x="535" y="92" width="55" height="30"/>
+                                <color key="tintColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <state key="normal" title="Remove"/>
                                 <connections>
                                     <action selector="removeContactButton:" destination="i4d-Ov-NqA" eventType="touchUpInside" id="1iW-gH-5eq"/>
                                 </connections>
                             </button>
-                            <textField opaque="NO" contentMode="scaleAspectFill" contentHorizontalAlignment="fill" contentVerticalAlignment="top" placeholder="What Are You Going to Do" textAlignment="center" minimumFontSize="13" translatesAutoresizingMaskIntoConstraints="NO" id="ykR-kl-pm0">
+                            <textField opaque="NO" contentMode="scaleAspectFill" contentHorizontalAlignment="fill" contentVerticalAlignment="top" placeholder="What are you going to do?" textAlignment="center" minimumFontSize="13" translatesAutoresizingMaskIntoConstraints="NO" id="ykR-kl-pm0">
                                 <rect key="frame" x="30" y="172" width="540" height="28"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="70" id="Rx3-1t-RBH"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" name="Avenir-Medium" family="Avenir" pointSize="20"/>
+                                <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="20"/>
                                 <textInputTraits key="textInputTraits" returnKeyType="done"/>
                                 <variation key="default">
                                     <mask key="constraints">
@@ -286,11 +265,11 @@
                                 </connections>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="OnboardingTwitter" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="3" baselineAdjustment="alignBaselines" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="vcT-np-rWw">
-                                <rect key="frame" x="125" y="484" width="350" height="26"/>
+                                <rect key="frame" x="125" y="482.5" width="350" height="27.5"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="350" id="i0d-7c-LX4"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="16"/>
+                                <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="15"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -314,7 +293,7 @@
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add Members" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="4" translatesAutoresizingMaskIntoConstraints="NO" id="wdH-k0-fHb">
                                         <rect key="frame" x="0.0" y="69" width="137" height="29"/>
-                                        <fontDescription key="fontDescription" name="Avenir-Medium" family="Avenir" pointSize="12"/>
+                                        <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="12"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
@@ -332,19 +311,47 @@
                                     </mask>
                                 </variation>
                             </view>
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="bkM-du-02p">
+                                <rect key="frame" x="30" y="520" width="540" height="60"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zfu-8l-5oA">
+                                        <rect key="frame" x="0.0" y="0.0" width="263" height="60"/>
+                                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.75" colorSpace="calibratedRGB"/>
+                                        <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="18"/>
+                                        <state key="normal" title="Done">
+                                            <color key="titleColor" red="0.0" green="1" blue="0.0" alpha="0.75" colorSpace="calibratedRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="createPactTapped:" destination="i4d-Ov-NqA" eventType="touchUpInside" id="ffZ-eF-3EI"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Hne-Dh-8f5">
+                                        <rect key="frame" x="278" y="0.0" width="263" height="60"/>
+                                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.75" colorSpace="calibratedRGB"/>
+                                        <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="18"/>
+                                        <state key="normal" title="Cancel">
+                                            <color key="titleColor" red="1" green="0.0" blue="0.0" alpha="0.75" colorSpace="calibratedRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="cancelButtonPressed:" destination="i4d-Ov-NqA" eventType="touchUpInside" id="TEM-Ua-Fkl"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </stackView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="8qU-gr-VOt" firstAttribute="centerY" secondItem="Et9-hf-pi4" secondAttribute="centerY" id="07j-cL-HCk"/>
                             <constraint firstItem="UdZ-vU-QxZ" firstAttribute="width" secondItem="Et9-hf-pi4" secondAttribute="width" multiplier="0.9" id="0NW-WT-1WZ"/>
-                            <constraint firstItem="zfu-8l-5oA" firstAttribute="leading" secondItem="Et9-hf-pi4" secondAttribute="leading" id="0hE-Fk-JvR"/>
                             <constraint firstItem="1BE-hl-lEJ" firstAttribute="width" secondItem="Et9-hf-pi4" secondAttribute="width" multiplier="0.7" id="2pt-Up-bQ5"/>
+                            <constraint firstItem="bkM-du-02p" firstAttribute="width" secondItem="Et9-hf-pi4" secondAttribute="width" multiplier="0.9" id="2uC-W3-CRq"/>
                             <constraint firstItem="kwf-BE-ogz" firstAttribute="centerX" secondItem="Et9-hf-pi4" secondAttribute="centerX" id="3Kf-rm-4SG"/>
                             <constraint firstItem="vcT-np-rWw" firstAttribute="centerX" secondItem="Et9-hf-pi4" secondAttribute="centerX" id="5OT-xr-1eR"/>
                             <constraint firstItem="1BE-hl-lEJ" firstAttribute="centerY" secondItem="Et9-hf-pi4" secondAttribute="centerY" multiplier="0.37" id="6bl-M7-P1M"/>
                             <constraint firstItem="Zz6-xj-ozg" firstAttribute="centerY" secondItem="1BE-hl-lEJ" secondAttribute="centerY" id="7qH-uW-mjC"/>
                             <constraint firstItem="1BE-hl-lEJ" firstAttribute="leading" secondItem="q3F-wn-wxm" secondAttribute="trailing" constant="3" id="7tF-F0-khs"/>
+                            <constraint firstItem="bkM-du-02p" firstAttribute="centerX" secondItem="Et9-hf-pi4" secondAttribute="centerX" id="9Gs-uZ-31a"/>
                             <constraint firstItem="1K8-4Y-dya" firstAttribute="top" secondItem="O7d-SW-TVn" secondAttribute="bottom" constant="20" id="9sp-dq-Rur"/>
                             <constraint firstItem="ykR-kl-pm0" firstAttribute="top" secondItem="1BE-hl-lEJ" secondAttribute="bottom" constant="20" id="A7l-Ci-TQe"/>
                             <constraint firstItem="1BE-hl-lEJ" firstAttribute="leading" secondItem="q3F-wn-wxm" secondAttribute="trailing" id="AdL-J6-NDb"/>
@@ -352,7 +359,6 @@
                             <constraint firstItem="q3F-wn-wxm" firstAttribute="height" secondItem="1BE-hl-lEJ" secondAttribute="height" id="FkN-Nf-dOx"/>
                             <constraint firstItem="UdZ-vU-QxZ" firstAttribute="top" secondItem="kwf-BE-ogz" secondAttribute="bottom" constant="17" id="J20-nb-rBn"/>
                             <constraint firstItem="q3F-wn-wxm" firstAttribute="top" secondItem="1BE-hl-lEJ" secondAttribute="top" id="JTJ-uP-nNu"/>
-                            <constraint firstItem="zfu-8l-5oA" firstAttribute="height" secondItem="Et9-hf-pi4" secondAttribute="height" multiplier="0.1" id="KSl-YH-JVy"/>
                             <constraint firstAttribute="trailingMargin" secondItem="Zz6-xj-ozg" secondAttribute="trailing" constant="-10" id="Kn1-fR-7XG"/>
                             <constraint firstItem="8qU-gr-VOt" firstAttribute="width" secondItem="Et9-hf-pi4" secondAttribute="width" multiplier="0.9" id="MrD-5w-rwx"/>
                             <constraint firstItem="6iD-Vp-NXD" firstAttribute="top" secondItem="ykR-kl-pm0" secondAttribute="bottom" constant="20" id="Mxl-HO-uwV"/>
@@ -361,7 +367,6 @@
                             <constraint firstAttribute="trailingMargin" secondItem="Qkw-Cs-hWq" secondAttribute="trailing" constant="15" id="QVq-6l-IcB"/>
                             <constraint firstItem="6iD-Vp-NXD" firstAttribute="width" secondItem="Et9-hf-pi4" secondAttribute="width" multiplier="0.9" id="RRa-54-v9i"/>
                             <constraint firstItem="TqF-Rr-nsV" firstAttribute="top" secondItem="6iD-Vp-NXD" secondAttribute="bottom" constant="8" id="RY1-hy-RaT"/>
-                            <constraint firstAttribute="trailing" secondItem="Hne-Dh-8f5" secondAttribute="trailing" id="Rtw-w1-x4G"/>
                             <constraint firstItem="F1N-JR-b0z" firstAttribute="height" secondItem="Et9-hf-pi4" secondAttribute="height" multiplier="0.1" id="Tic-P6-HoU"/>
                             <constraint firstItem="1BE-hl-lEJ" firstAttribute="leading" secondItem="q3F-wn-wxm" secondAttribute="trailing" id="Uon-85-kLj"/>
                             <constraint firstItem="6iD-Vp-NXD" firstAttribute="centerY" secondItem="Et9-hf-pi4" secondAttribute="centerY" multiplier="0.9" id="Vmm-HX-qsY"/>
@@ -372,26 +377,23 @@
                             <constraint firstItem="Zz6-xj-ozg" firstAttribute="leading" secondItem="1BE-hl-lEJ" secondAttribute="trailing" constant="-57" id="afI-8S-VXH"/>
                             <constraint firstItem="ykR-kl-pm0" firstAttribute="width" secondItem="Et9-hf-pi4" secondAttribute="width" multiplier="0.9" id="bXD-Q9-JNx"/>
                             <constraint firstItem="6iD-Vp-NXD" firstAttribute="height" secondItem="Et9-hf-pi4" secondAttribute="height" multiplier="0.15" id="cag-fo-aw8"/>
-                            <constraint firstItem="Hne-Dh-8f5" firstAttribute="height" secondItem="Et9-hf-pi4" secondAttribute="height" multiplier="0.1" id="ceN-cS-fUI"/>
                             <constraint firstItem="1K8-4Y-dya" firstAttribute="width" secondItem="Et9-hf-pi4" secondAttribute="width" multiplier="0.9" id="cxa-Jr-gMm"/>
                             <constraint firstItem="ZjD-Gz-bxB" firstAttribute="top" secondItem="O7d-SW-TVn" secondAttribute="bottom" id="dbq-0R-u3U"/>
                             <constraint firstItem="1BE-hl-lEJ" firstAttribute="height" secondItem="Et9-hf-pi4" secondAttribute="height" multiplier="0.15" id="fJv-Fa-5ZI"/>
                             <constraint firstItem="ykR-kl-pm0" firstAttribute="centerX" secondItem="Et9-hf-pi4" secondAttribute="centerX" id="fly-o3-Isb"/>
                             <constraint firstItem="UdZ-vU-QxZ" firstAttribute="centerX" secondItem="Et9-hf-pi4" secondAttribute="centerX" id="fnR-fi-dHJ"/>
+                            <constraint firstItem="cdF-GR-QuQ" firstAttribute="top" secondItem="vcT-np-rWw" secondAttribute="bottom" constant="110" id="fqI-B3-cgV"/>
                             <constraint firstItem="F1N-JR-b0z" firstAttribute="centerY" secondItem="Et9-hf-pi4" secondAttribute="centerY" multiplier="1.3" id="gIz-HA-oPp"/>
-                            <constraint firstItem="cdF-GR-QuQ" firstAttribute="top" secondItem="Hne-Dh-8f5" secondAttribute="bottom" id="h7t-v7-kqp"/>
                             <constraint firstItem="ykR-kl-pm0" firstAttribute="centerY" secondItem="Et9-hf-pi4" secondAttribute="centerY" multiplier="0.65" id="haY-QD-4O9"/>
                             <constraint firstItem="ZjD-Gz-bxB" firstAttribute="centerX" secondItem="Et9-hf-pi4" secondAttribute="centerX" id="hfm-Ro-tY4"/>
                             <constraint firstItem="ACI-JZ-z8A" firstAttribute="centerY" secondItem="FFv-f3-573" secondAttribute="centerY" id="hlT-jK-uNp"/>
                             <constraint firstItem="F1N-JR-b0z" firstAttribute="centerX" secondItem="Et9-hf-pi4" secondAttribute="centerX" id="hs3-q4-4EO"/>
-                            <constraint firstItem="Hne-Dh-8f5" firstAttribute="width" secondItem="Et9-hf-pi4" secondAttribute="width" multiplier="0.5" id="jsI-t6-4BB"/>
+                            <constraint firstItem="bkM-du-02p" firstAttribute="height" secondItem="Et9-hf-pi4" secondAttribute="height" multiplier="0.1" id="jiD-8f-Mkm"/>
+                            <constraint firstItem="cdF-GR-QuQ" firstAttribute="top" secondItem="bkM-du-02p" secondAttribute="bottom" constant="20" id="kFw-YA-5Hz"/>
                             <constraint firstItem="6iD-Vp-NXD" firstAttribute="centerX" secondItem="Et9-hf-pi4" secondAttribute="centerX" id="mJy-VB-RWl"/>
                             <constraint firstAttribute="trailingMargin" secondItem="1BE-hl-lEJ" secondAttribute="trailing" id="mQl-uf-Kff"/>
                             <constraint firstAttribute="trailingMargin" secondItem="TqF-Rr-nsV" secondAttribute="trailing" constant="15" id="o7S-FY-LKZ"/>
-                            <constraint firstItem="zfu-8l-5oA" firstAttribute="width" secondItem="Et9-hf-pi4" secondAttribute="width" multiplier="0.5" id="pzL-so-Y9q"/>
-                            <constraint firstItem="cdF-GR-QuQ" firstAttribute="top" secondItem="zfu-8l-5oA" secondAttribute="bottom" id="qCd-Sf-DDi"/>
                             <constraint firstItem="kwf-BE-ogz" firstAttribute="top" secondItem="F1N-JR-b0z" secondAttribute="bottom" constant="18" id="r4L-aP-xTH"/>
-                            <constraint firstItem="zfu-8l-5oA" firstAttribute="top" secondItem="vcT-np-rWw" secondAttribute="bottom" constant="30" id="rJo-dr-qIz"/>
                             <constraint firstItem="1K8-4Y-dya" firstAttribute="centerX" secondItem="Et9-hf-pi4" secondAttribute="centerX" id="rjj-Zd-Hog"/>
                             <constraint firstItem="1BE-hl-lEJ" firstAttribute="width" secondItem="Et9-hf-pi4" secondAttribute="width" id="t09-mQ-y3R"/>
                             <constraint firstItem="ykR-kl-pm0" firstAttribute="top" secondItem="ZjD-Gz-bxB" secondAttribute="bottom" constant="120" id="t9j-YB-viE"/>
@@ -420,7 +422,10 @@
                         <outlet property="RemoveInvitesButton" destination="Zz6-xj-ozg" id="wCX-UK-6oz"/>
                         <outlet property="addFriendsConstraint" destination="mQl-uf-Kff" id="jXv-mJ-KRf"/>
                         <outlet property="addFriendsView" destination="1BE-hl-lEJ" id="6ec-Yg-g7A"/>
+                        <outlet property="cancelButton" destination="Hne-Dh-8f5" id="rjn-eL-Uw2"/>
                         <outlet property="contactButtonView" destination="q3F-wn-wxm" id="NRU-Q8-kT1"/>
+                        <outlet property="descriptionLabel" destination="8qU-gr-VOt" id="VSO-wQ-LzC"/>
+                        <outlet property="doneButton" destination="zfu-8l-5oA" id="9Fq-dh-0aH"/>
                         <outlet property="frequencyPicker" destination="a5f-VN-aAU" id="Z1c-tg-aUZ"/>
                         <outlet property="inviteFriendsLabel" destination="wdH-k0-fHb" id="jfq-zk-k4O"/>
                         <outlet property="mainView" destination="Et9-hf-pi4" id="iQW-oN-RMQ"/>

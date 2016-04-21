@@ -5,36 +5,42 @@
 //  Created by Jeremy Feld on 4/6/16.
 //  Copyright © 2016 JDD. All rights reserved.
 //
+#import <BALoadingView/BALoadingView.h>
 
-#import "MainApplicationViewController.h"
 #import "Constants.h"
-#import "LoginViewController.h"
-#import "UserPactsViewController.h"
-#import "JDDDataSource.h"
 #import "Firebase.h"
+#import "JDDDataSource.h"
+#import "LoginViewController.h"
+#import "MainApplicationViewController.h"
 #import "UserPactMainView.h"
+#import "UserPactsViewController.h"
 
 @interface MainApplicationViewController ()
-@property (weak, nonatomic) IBOutlet UIView *containerView;
+
+@property (nonatomic, weak) IBOutlet UIView *containerView;
 @property (nonatomic, strong) JDDDataSource *datasource;
+@property (nonatomic, weak) IBOutlet BALoadingView *loadingView;
+@property(nonatomic, assign) BACircleAnimation animationType;
+@property(nonatomic, assign) bool firstLoad;
 
 @end
 
 @implementation MainApplicationViewController
 
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
     [super viewDidLoad];
     
     self.datasource = [JDDDataSource sharedDataSource];
+    self.firstLoad = YES;
     
-    //BOOL userIsRegistered =
     BOOL userIsLoggedIn = [[NSUserDefaults standardUserDefaults] boolForKey:LoggedInUserDefaultsKey];
     
     if (userIsLoggedIn) {
         
         [self showUserPactsViewController];
         
-    }else {
+    } else {
         
         [self showLoginViewController];
         
@@ -44,8 +50,21 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleUserLoggedOutNotification:) name:UserDidLogOutNotificationName object:nil];
     
+}
+
+-(void)viewDidLayoutSubviews
+{
+    if (self.firstLoad) {
+        
+        [self.loadingView initialize];
+        self.loadingView.lineCap = kCALineCapRound;
+        self.loadingView.clockwise = true;
+        self.loadingView.segmentColor = [UIColor whiteColor];
+        self.firstLoad = NO;
+        
+    }
     
-    
+    [self.loadingView startAnimation:BACircleAnimationFullCircle];
 }
 
 - (void)handleUserLoggedInNotification:(NSNotification *)notification
@@ -64,7 +83,7 @@
 - (void)showLoginViewController
 {
     LoginViewController *loginVC = [self.storyboard instantiateViewControllerWithIdentifier:LoginViewControllerStoryboardID];
-    
+    [self.loadingView stopAnimation];
     [self setEmbeddedViewController:loginVC];
 }
 
@@ -80,38 +99,36 @@
             if (self.datasource.currentUser.pacts.count == 0) {
                 self.datasource.currentUser.pactsToShowInApp = [[NSMutableArray alloc]init];
                 
-                
-                
                 [self.datasource.currentUser.pactsToShowInApp addObject:[self.datasource createDemoPact]];
                 
-                
+                [self.loadingView stopAnimation];
                 [self setEmbeddedViewController:navBarController];
                 
             } else {
-            
-            [self.datasource methodToPullDownPactsFromFirebaseWithCompletionBlock:^(BOOL completionBlock) {
                 
-                if (completionBlock) {
+                [self.datasource methodToPullDownPactsFromFirebaseWithCompletionBlock:^(BOOL completionBlock) {
                     
-                    [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                    if (completionBlock) {
                         
-                        [self.datasource observeEventForUsersFromFirebaseWithCompletionBlock:^(BOOL block) {
+                        [[NSOperationQueue mainQueue] addOperationWithBlock:^{
                             
-                            if (block) {
+                            [self.datasource observeEventForUsersFromFirebaseWithCompletionBlock:^(BOOL block) {
                                 
-                                [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                                if (block) {
                                     
-                                    [self setEmbeddedViewController:navBarController];
-                                    
-                                    
-                                }];
-                            }
+                                    [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                                        
+                                        [self.loadingView stopAnimation];
+                                        [self setEmbeddedViewController:navBarController];
+                                        
+                                    }];
+                                }
+                            }];
+                            
                         }];
-                        
-                    }];
-                }
-            }];
-            
+                    }
+                }];
+                
             }
         }
     }];
@@ -122,21 +139,27 @@
 -(void)setEmbeddedViewController:(UIViewController *)viewController
 {
     if([self.childViewControllers containsObject:viewController]) {
+        
         return;
     }
     
     for(UIViewController *vc in self.childViewControllers) {
+        
         [vc willMoveToParentViewController:nil];
         
         if(vc.isViewLoaded) {
+            
             [vc.view removeFromSuperview];
+            
         }
         
         [vc removeFromParentViewController];
     }
     
     if(!viewController) {
+        
         return;
+        
     }
     
     [self addChildViewController:viewController];
@@ -149,7 +172,5 @@
     
     [viewController didMoveToParentViewController:self];
 }
-
-
 
 @end

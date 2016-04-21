@@ -36,7 +36,7 @@
                         <constraints>
                             <constraint firstItem="0sZ-DG-Iwd" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="7Sy-VU-gta"/>
                             <constraint firstItem="MQP-2x-I6C" firstAttribute="height" secondItem="Ze5-6b-2t3" secondAttribute="height" multiplier="0.3" id="evD-L6-tnw"/>
-                            <constraint firstItem="MQP-2x-I6C" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" multiplier="0.8" id="vmF-Aw-2b8"/>
+                            <constraint firstItem="MQP-2x-I6C" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="vmF-Aw-2b8"/>
                             <constraint firstItem="MQP-2x-I6C" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="wFy-va-Fin"/>
                             <constraint firstItem="0sZ-DG-Iwd" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" multiplier="1.4" id="zBM-ap-zib"/>
                         </constraints>

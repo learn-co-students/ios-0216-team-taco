@@ -23,8 +23,8 @@
 @property (nonatomic, strong) Firebase *firebaseRef;
 @property (nonatomic, strong) JDDUser *currentUser;
 @property (nonatomic, strong) JDDUser *User;
-@property (strong, nonatomic) NSArray *pactMembers;
-@property (strong, nonatomic) JDDPact *currentPact;
+@property (nonatomic, strong) NSArray *pactMembers;
+@property (nonatomic, strong) JDDPact *currentPact;
 @property (nonatomic, strong) STTwitterAPI *twitter;
 @property (nonatomic, strong) ACAccountStore *accountStore;
 

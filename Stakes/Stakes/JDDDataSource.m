@@ -10,9 +10,8 @@
 #import "JDDDataSource.h"
 #import "UIImageView+AFNetworking.h"
 #import "Constants.h"
+
 @import UIKit;
-
-
 
 @implementation JDDDataSource
 
@@ -53,6 +52,7 @@
     pact.title = @"Tap Here To Start";
     pact.pactDescription = @"To create a new pact with your friends";
     pact.stakes = @"To see pact's status";
+
     pact.users = [[NSMutableDictionary alloc]init];
     
     
@@ -62,6 +62,7 @@
     
     pact.allowsShaming = YES;
     pact.twitterPost = @"To message with your pact friends";
+
     
     pact.users = [[NSMutableDictionary alloc] initWithDictionary:@{self.currentUser.userID : @1 }];
     
@@ -434,10 +435,5 @@
     }
     
 }
-
-
-
-
-
 
 @end
