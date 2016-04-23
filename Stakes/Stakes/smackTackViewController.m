@@ -55,14 +55,6 @@
 
 }
 
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    
-
-}
-
-
 -(BOOL)prefersStatusBarHidden
 {
     return YES;
@@ -106,7 +98,9 @@
 }
 
 -(void)viewDidAppear:(BOOL)animated {
-
+    
+    [super viewDidAppear:YES];
+    
     [self observeMessages];
     
 }

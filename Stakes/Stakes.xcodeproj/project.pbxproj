@@ -12,6 +12,8 @@
 		3F4DDABE1CB5695F0000ACE2 /* UserDescriptionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3F4DDABD1CB5695F0000ACE2 /* UserDescriptionView.xib */; };
 		3F4DDAC41CB58E8A0000ACE2 /* UserDescriptionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F4DDAC31CB58E8A0000ACE2 /* UserDescriptionView.m */; };
 		3F52B0881CAB3EBC0031BF59 /* Israel.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3F52B0871CAB3EBC0031BF59 /* Israel.jpg */; };
+		3FDF94FB1CC9780A00D45ACE /* background.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 3FDF94FA1CC9780A00D45ACE /* background.jpeg */; };
+		3FDF94FD1CC9B15000D45ACE /* grey-background-for-site1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3FDF94FC1CC9B15000D45ACE /* grey-background-for-site1.jpg */; };
 		AF27C4DB1CB6FC92001AA278 /* JDDChatRoom.m in Sources */ = {isa = PBXBuildFile; fileRef = AF27C4DA1CB6FC92001AA278 /* JDDChatRoom.m */; };
 		AF2883481CAC12C6003FD3E2 /* JDDDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = AF2883471CAC12C6003FD3E2 /* JDDDataSource.m */; };
 		AF6449F91CC45BDA002568C9 /* MessageShape.png in Resources */ = {isa = PBXBuildFile; fileRef = AF6449F81CC45BDA002568C9 /* MessageShape.png */; };
@@ -82,6 +84,8 @@
 		3F4DDAC21CB58E8A0000ACE2 /* UserDescriptionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserDescriptionView.h; sourceTree = "<group>"; };
 		3F4DDAC31CB58E8A0000ACE2 /* UserDescriptionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserDescriptionView.m; sourceTree = "<group>"; };
 		3F52B0871CAB3EBC0031BF59 /* Israel.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = Israel.jpg; sourceTree = "<group>"; };
+		3FDF94FA1CC9780A00D45ACE /* background.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = background.jpeg; path = ../../../../../Downloads/background.jpeg; sourceTree = "<group>"; };
+		3FDF94FC1CC9B15000D45ACE /* grey-background-for-site1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = "grey-background-for-site1.jpg"; path = "../../../../../Downloads/grey-background-for-site1.jpg"; sourceTree = "<group>"; };
 		79BEE4D5993F024270E6A571 /* Pods-Stakes.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Stakes.release.xcconfig"; path = "Pods/Target Support Files/Pods-Stakes/Pods-Stakes.release.xcconfig"; sourceTree = "<group>"; };
 		AF27C4D91CB6FC92001AA278 /* JDDChatRoom.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JDDChatRoom.h; sourceTree = "<group>"; };
 		AF27C4DA1CB6FC92001AA278 /* JDDChatRoom.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JDDChatRoom.m; sourceTree = "<group>"; };
@@ -232,6 +236,7 @@
 				CBA985881CAAEE0900D1CC27 /* CreatePactViewController.h */,
 				CBA985891CAAEE0900D1CC27 /* CreatePactViewController.m */,
 				AF9B006E1CC7E6B500A438F1 /* Assets.xcassets */,
+				3FDF94FA1CC9780A00D45ACE /* background.jpeg */,
 				CBA985921CAAEE0900D1CC27 /* PactDetailViewController.h */,
 				AF9B006C1CC7C63200A438F1 /* Stakes Logo2.pdf */,
 				CBA985931CAAEE0900D1CC27 /* PactDetailViewController.m */,
@@ -324,6 +329,7 @@
 		CBA985521CAAEC6D00D1CC27 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				3FDF94FC1CC9B15000D45ACE /* grey-background-for-site1.jpg */,
 				3F52B0871CAB3EBC0031BF59 /* Israel.jpg */,
 				CBA985531CAAEC6D00D1CC27 /* main.m */,
 				CBED55671CB2BFB0005F0D4E /* TwitterAuthHelper.h */,
@@ -468,12 +474,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				AFC064641CAD8DA800DBA069 /* Screen Shot 2016-03-28 at 4.13.09 PM.png in Resources */,
+				3FDF94FD1CC9B15000D45ACE /* grey-background-for-site1.jpg in Resources */,
 				AF6449F91CC45BDA002568C9 /* MessageShape.png in Resources */,
 				AF97DCB11CC15B450053E497 /* PactTableViewCell.xib in Resources */,
 				AF9B006F1CC7E6B500A438F1 /* Assets.xcassets in Resources */,
 				AF97DCB31CC16AF20053E497 /* UserPactDetailView.xib in Resources */,
 				3F4DDABE1CB5695F0000ACE2 /* UserDescriptionView.xib in Resources */,
 				CBA9859E1CAAEE7500D1CC27 /* Main.storyboard in Resources */,
+				3FDF94FB1CC9780A00D45ACE /* background.jpeg in Resources */,
 				3F52B0881CAB3EBC0031BF59 /* Israel.jpg in Resources */,
 				AF9B00711CC7E6C300A438F1 /* navBarIcon.png in Resources */,
 				AFC064631CAD8DA800DBA069 /* Pic 1.png in Resources */,

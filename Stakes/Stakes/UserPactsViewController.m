@@ -52,7 +52,6 @@
     self.sharedData.isSectionOpen = NO;
     NSLog(@"sharedata in initial VC in that other VC is = %@", self.sharedData.currentUser.displayName);
     
-    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleUserCheckedIn:) name:UserCheckedInNotificationName object:nil];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleUserAccepted:) name:UserAcceptedPactNotificationName object:nil];
@@ -118,7 +117,13 @@
     [self.tableView registerNib:cellNib forCellReuseIdentifier:@"userPact"];
     
     [self.tableView registerNib:[UINib nibWithNibName:@"PactAccordionHeaderView" bundle:nil] forHeaderFooterViewReuseIdentifier:accordionHeaderReuseIdentifier];
-    
+    UIImageView *tempImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"grey-background-for-site1.jpg"]];
+//    [tempImageView setFrame:self.tableView.frame];
+//
+    self.tableView.backgroundView = tempImageView;
+//    [tempImageView release];
+//    UIColor *yourColor = [UIColor colorWithRed:65.0f/255.0f green:200.0f/255.0f blue:255.0f/255.0f alpha:1.0f];
+//    self.tableView.backgroundColor = yourColor ;
 }
 
 -(BOOL)prefersStatusBarHidden

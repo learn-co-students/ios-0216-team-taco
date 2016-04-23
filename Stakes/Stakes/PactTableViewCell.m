@@ -31,10 +31,10 @@
     
     self.sharedData = [JDDDataSource sharedDataSource];
 
-    [self createScrollView];
+    
     self.scrollView.delegate = self;
     
-    [self.scrollView layoutIfNeeded];
+//    [self.scrollView layoutIfNeeded];
 
     [self createView];
     
@@ -44,9 +44,15 @@
 }
 
 -(void)setPact:(JDDPact *)pact {
-    [self createStackView];
     
-    
+    if (!self.scrollView) {
+        [self createScrollView];
+
+    }
+    if (!self.stackView) {
+        [self createStackView];
+    }
+
     
     _pact = pact;
    
@@ -69,13 +75,17 @@
     
     [self.contentView addSubview:self.scrollView];
     
-    if ([self.sharedData.currentPact.title isEqualToString:@"Tap Here To Start"]) {
+    BOOL pactIsDemoPact = [self.sharedData.currentPact.title isEqualToString:@"Tap Here To Start"];
+    
+    if (pactIsDemoPact) {
         self.scrollView.scrollEnabled = NO;
         
     } else {
         self.scrollView.scrollEnabled = YES;
   
     }
+    
+    
     self.scrollView.translatesAutoresizingMaskIntoConstraints = NO;
     [self.scrollView.topAnchor constraintEqualToAnchor:self.contentView.topAnchor].active = YES;
     [self.scrollView.leftAnchor constraintEqualToAnchor:self.contentView.leftAnchor].active = YES;
@@ -85,10 +95,11 @@
 
     
     self.scrollView.userInteractionEnabled = YES;
-    self.scrollView.showsHorizontalScrollIndicator = NO;
+    self.scrollView.showsHorizontalScrollIndicator = YES;
     self.scrollView.pagingEnabled = YES;
     
-    [self.scrollView setContentOffset:CGPointMake(self.contentView.frame.size.width,0) animated:YES];
+//    [self.scrollView setContentOffset:CGPointMake(self.contentView.frame.size.width,0) animated:YES];
+    [self.scrollView setContentOffset:CGPointZero];
     
 }
 
@@ -98,7 +109,6 @@
     self.stackView = [[UIStackView alloc]init];
     
     [self.scrollView addSubview:self.stackView];
-    
     self.stackView.translatesAutoresizingMaskIntoConstraints = NO;
     
     if (self.sharedData.currentUser.pacts.count == 0 || [self.sharedData.currentUser.pacts isEqual:nil]) {
@@ -106,7 +116,7 @@
         [self.stackView.bottomAnchor constraintEqualToAnchor:self.contentView.bottomAnchor].active = YES;
     } else {
         [self.stackView.topAnchor constraintEqualToAnchor:self.contentView.topAnchor constant:-20].active = YES;
-        [self.stackView.bottomAnchor constraintEqualToAnchor:self.contentView.bottomAnchor].active = YES;
+        [self.stackView.bottomAnchor constraintEqualToAnchor:self.contentView.bottomAnchor ].active = YES;
     }
     
     
@@ -131,7 +141,10 @@
     UserPactMainView * view = [[UserPactMainView alloc]initWithFrame:CGRectZero];
     
     [stackView addArrangedSubview:view];
-    if ([pact.title isEqualToString:@"Tap Here To Start"]) {
+    
+    BOOL pactIsDemoPact =[pact.title isEqualToString:@"Tap Here To Start"];
+    
+    if (pactIsDemoPact) {
         view.checkInButton.hidden = YES;
         view.checkInLabel.hidden =YES;
         view.stakesText.numberOfLines = 1;
