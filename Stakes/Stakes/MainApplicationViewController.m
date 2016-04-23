@@ -163,6 +163,7 @@
     }
     
     [self addChildViewController:viewController];
+    
     [self.containerView addSubview:viewController.view];
     
     [viewController.view.topAnchor constraintEqualToAnchor:self.view.topAnchor].active = YES;
@@ -171,6 +172,10 @@
     [viewController.view.rightAnchor constraintEqualToAnchor:self.view.rightAnchor].active = YES;
     
     [viewController didMoveToParentViewController:self];
+    
+    
+    
 }
+
 
 @end

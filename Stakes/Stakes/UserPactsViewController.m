@@ -47,10 +47,11 @@
 
     
     self.blurView.hidden = YES;
-    NSLog(@"view did load in user pacts");
+    
     self.sharedData = [JDDDataSource sharedDataSource];
-    self.sharedData.isSectionOpen = NO;
-    NSLog(@"sharedata in initial VC in that other VC is = %@", self.sharedData.currentUser.displayName);
+    
+    self.sharedData.isSectionOpen = NO; //set to no to make sure app will show the right pactTitle for first time user
+    
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleUserCheckedIn:) name:UserCheckedInNotificationName object:nil];
     
@@ -59,7 +60,9 @@
         
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleUserWantsToDelete:) name:UserWantsToDeletePactNotificationName object:nil];
     
+    
     [self.logoutButton setTintColor:[UIColor blackColor]];
+    
     [self.navigationController.navigationBar setTranslucent:YES];
     
 
@@ -70,7 +73,8 @@
     self.navigationController.hidesBarsOnSwipe = YES;
     
     self.ref = self.sharedData.firebaseRef;
-    [self createPactLabelView];
+    
+    [self createPactLabelView]; //The label that appears when you pull down
     
     [self initializeAccordionView];
     
@@ -84,16 +88,24 @@
 {
     
     self.accountStore = [[ACAccountStore alloc] init];
-    NSLog(@"accountstore accounts %@", self.accountStore.accounts);
+    
+    
     NSString *accountKey = [[NSUserDefaults standardUserDefaults] objectForKey:AccountIdentifierKey];
+    
     ACAccount *account =  [self.accountStore accountWithIdentifier:accountKey];
-    NSLog(@"account %@", account);
+    
     self.sharedData.twitter = [STTwitterAPI twitterAPIOSWithAccount:account delegate:self];
+    
     [self.sharedData.twitter verifyCredentialsWithUserSuccessBlock:^(NSString *username, NSString *userID) {
+        
         NSLog(@"Twitter verified");
+        
     } errorBlock:^(NSError *error) {
+        
         NSLog(@"%@", error.localizedDescription);
+        
         UIAlertController *inactiveAlert = [UIAlertController alertControllerWithTitle:@"Oops!" message:[NSString stringWithFormat:@"There was an error signing in to Twitter: %@", error.localizedDescription] preferredStyle:UIAlertControllerStyleAlert];
+        
         UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             //
         }];
@@ -117,14 +129,15 @@
     [self.tableView registerNib:cellNib forCellReuseIdentifier:@"userPact"];
     
     [self.tableView registerNib:[UINib nibWithNibName:@"PactAccordionHeaderView" bundle:nil] forHeaderFooterViewReuseIdentifier:accordionHeaderReuseIdentifier];
+    
+    
+   //=======================BackgroundImage for the tableView
     UIImageView *tempImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"grey-background-for-site1.jpg"]];
-//    [tempImageView setFrame:self.tableView.frame];
-//
+
     self.tableView.backgroundView = tempImageView;
-//    [tempImageView release];
-//    UIColor *yourColor = [UIColor colorWithRed:65.0f/255.0f green:200.0f/255.0f blue:255.0f/255.0f alpha:1.0f];
-//    self.tableView.backgroundColor = yourColor ;
+
 }
+
 
 -(BOOL)prefersStatusBarHidden
 {
@@ -133,12 +146,8 @@
 
 -(void)viewWillAppear:(BOOL)animated{
     
-    //    [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-    NSLog(@"pacts to show in app from shared/curentuser/pactstoshowinapp %lu", self.sharedData.currentUser.pactsToShowInApp.count);
 
         [self.tableView reloadData];
-//        self.tableView.initialOpenSections = nil;
-//    }];
     
 }
 
@@ -171,10 +180,11 @@
 
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView {
     
-    self.createPactLabelAnchor.constant = -(scrollView.contentOffset.y*2) -(self.view.frame.size.height/5);
-    self.createPactLabel.alpha = -(scrollView.contentOffset.y)/(self.view.frame.size.height/6);
+    self.createPactLabelAnchor.constant = -(scrollView.contentOffset.y*2) -(self.view.frame.size.height/4);
     
-    if (scrollView.contentOffset.y < -(self.view.frame.size.height/6)) {
+    self.createPactLabel.alpha = -(scrollView.contentOffset.y)/(self.view.frame.size.height/4);
+    
+    if (scrollView.contentOffset.y < -(self.view.frame.size.height/4)) {
         
         CATransition *transition = [CATransition animation];
         transition.duration = 0.75;
@@ -243,7 +253,9 @@
 
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-    
+   
+    [self sortPactsArray:self.sharedData.currentUser.pactsToShowInApp]; // method will sorts pacts and will show the most recent one on top of the tableView
+   
     JDDPact *currentPact = self.sharedData.currentUser.pactsToShowInApp[section];
     
     PactAccordionHeaderView *accordianHeaderView = [tableView dequeueReusableHeaderFooterViewWithIdentifier:accordionHeaderReuseIdentifier];
@@ -254,6 +266,13 @@
     
 }
 
+-(void)sortPactsArray:(NSMutableArray *)unsortedPacts {
+    
+    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"dateOfCreation" ascending:false];
+    
+    [self.sharedData.currentUser.pactsToShowInApp sortUsingDescriptors:[NSArray arrayWithObject:sortDescriptor]];
+    
+}
 
 #pragma mark - <FZAccordionTableViewDelegate> -
 

@@ -55,10 +55,10 @@
 
     
     _pact = pact;
-   
-    for (UIView *subviews in self.stackView.arrangedSubviews) {
-        [subviews removeFromSuperview];
-    }
+//   
+//    for (UIView *subviews in self.stackView.arrangedSubviews) {
+//        [subviews removeFromSuperview];
+//    }
 
     
     [self createMainPactViewAtIndex:0 withPact:pact inStackView:self.stackView];
