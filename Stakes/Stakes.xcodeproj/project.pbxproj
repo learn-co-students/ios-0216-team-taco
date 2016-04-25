@@ -16,7 +16,6 @@
 		AF2883481CAC12C6003FD3E2 /* JDDDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = AF2883471CAC12C6003FD3E2 /* JDDDataSource.m */; };
 		AF6449F91CC45BDA002568C9 /* MessageShape.png in Resources */ = {isa = PBXBuildFile; fileRef = AF6449F81CC45BDA002568C9 /* MessageShape.png */; };
 		AF772A441CC6B1CA0008CD78 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AF772A431CC6B1CA0008CD78 /* Assets.xcassets */; };
-		AF772A4A1CC6B44A0008CD78 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AF772A491CC6B44A0008CD78 /* Assets.xcassets */; };
 		AF97DCA71CC006660053E497 /* PactTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AF97DCA51CC006660053E497 /* PactTableViewCell.m */; };
 		AF97DCAF1CC03D8B0053E497 /* UserPactMainView.xib in Resources */ = {isa = PBXBuildFile; fileRef = AF97DCAE1CC03D8B0053E497 /* UserPactMainView.xib */; };
 		AF97DCB11CC15B450053E497 /* PactTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AF97DCB01CC15B450053E497 /* PactTableViewCell.xib */; };
@@ -33,13 +32,13 @@
 		CB4F71CC1CB552E300F44FE6 /* MainApplicationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB4F71CB1CB552E300F44FE6 /* MainApplicationViewController.m */; };
 		CB4F71CF1CB5540400F44FE6 /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = CB4F71CE1CB5540400F44FE6 /* Constants.m */; };
 		CB68668D1CCE65AF00F5CF19 /* Secrets.m in Sources */ = {isa = PBXBuildFile; fileRef = CB68668C1CCE65AF00F5CF19 /* Secrets.m */; };
+		CB68668F1CCE6E9A00F5CF19 /* StakesLogoWFill.png in Resources */ = {isa = PBXBuildFile; fileRef = CB68668E1CCE6E9A00F5CF19 /* StakesLogoWFill.png */; };
 		CB8BC03A1CAD75D0003A9D5E /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB8BC0391CAD75D0003A9D5E /* LoginViewController.m */; };
 		CB8BC0421CADB3AB003A9D5E /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB8BC0411CADB3AB003A9D5E /* Accounts.framework */; };
 		CB8BC0441CADB3B2003A9D5E /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB8BC0431CADB3B2003A9D5E /* Social.framework */; };
 		CB8BC0461CADB3BA003A9D5E /* Twitter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB8BC0451CADB3BA003A9D5E /* Twitter.framework */; };
 		CBA985541CAAEC6D00D1CC27 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = CBA985531CAAEC6D00D1CC27 /* main.m */; };
 		CBA985571CAAEC6D00D1CC27 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = CBA985561CAAEC6D00D1CC27 /* AppDelegate.m */; };
-		CBA9855F1CAAEC6D00D1CC27 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CBA9855E1CAAEC6D00D1CC27 /* Assets.xcassets */; };
 		CBA985621CAAEC6D00D1CC27 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CBA985601CAAEC6D00D1CC27 /* LaunchScreen.storyboard */; };
 		CBA9856D1CAAEC6D00D1CC27 /* StakesTests.m in Sources */ = {isa = PBXBuildFile; fileRef = CBA9856C1CAAEC6D00D1CC27 /* StakesTests.m */; };
 		CBA985781CAAEC6D00D1CC27 /* StakesUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = CBA985771CAAEC6D00D1CC27 /* StakesUITests.m */; };
@@ -89,7 +88,6 @@
 		AF2883471CAC12C6003FD3E2 /* JDDDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JDDDataSource.m; sourceTree = "<group>"; };
 		AF6449F81CC45BDA002568C9 /* MessageShape.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = MessageShape.png; path = Assets.xcassets/MessageShape.png; sourceTree = "<group>"; };
 		AF772A431CC6B1CA0008CD78 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		AF772A491CC6B44A0008CD78 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		AF97DCA41CC006660053E497 /* PactTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PactTableViewCell.h; sourceTree = "<group>"; };
 		AF97DCA51CC006660053E497 /* PactTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PactTableViewCell.m; sourceTree = "<group>"; };
 		AF97DCAE1CC03D8B0053E497 /* UserPactMainView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UserPactMainView.xib; sourceTree = "<group>"; };
@@ -112,6 +110,7 @@
 		CB4F71CD1CB5540400F44FE6 /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
 		CB4F71CE1CB5540400F44FE6 /* Constants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Constants.m; sourceTree = "<group>"; };
 		CB68668C1CCE65AF00F5CF19 /* Secrets.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Secrets.m; sourceTree = "<group>"; };
+		CB68668E1CCE6E9A00F5CF19 /* StakesLogoWFill.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = StakesLogoWFill.png; sourceTree = "<group>"; };
 		CB8BC0381CAD75D0003A9D5E /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		CB8BC0391CAD75D0003A9D5E /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		CB8BC0411CADB3AB003A9D5E /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
@@ -121,7 +120,6 @@
 		CBA985531CAAEC6D00D1CC27 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		CBA985551CAAEC6D00D1CC27 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		CBA985561CAAEC6D00D1CC27 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		CBA9855E1CAAEC6D00D1CC27 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CBA985611CAAEC6D00D1CC27 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		CBA985631CAAEC6D00D1CC27 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CBA985681CAAEC6D00D1CC27 /* StakesTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = StakesTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -234,8 +232,8 @@
 				AF9B006E1CC7E6B500A438F1 /* Assets.xcassets */,
 				CBA985921CAAEE0900D1CC27 /* PactDetailViewController.h */,
 				AF9B006C1CC7C63200A438F1 /* Stakes Logo2.pdf */,
+				CB68668E1CCE6E9A00F5CF19 /* StakesLogoWFill.png */,
 				CBA985931CAAEE0900D1CC27 /* PactDetailViewController.m */,
-				AF772A491CC6B44A0008CD78 /* Assets.xcassets */,
 				AF9B00701CC7E6C300A438F1 /* navBarIcon.png */,
 				CBA985941CAAEE0900D1CC27 /* UserPactsViewController.h */,
 				CBA985951CAAEE0900D1CC27 /* UserPactsViewController.m */,
@@ -315,7 +313,6 @@
 				CBA2BACF1CBC482D007F8995 /* Storyboards & VCs */,
 				CBA2BACE1CBC47FC007F8995 /* Model Classes */,
 				CBA2BAD01CBC4844007F8995 /* Custom Views */,
-				CBA9855E1CAAEC6D00D1CC27 /* Assets.xcassets */,
 				CBA985631CAAEC6D00D1CC27 /* Info.plist */,
 			);
 			path = Stakes;
@@ -477,16 +474,15 @@
 				3F52B0881CAB3EBC0031BF59 /* Israel.jpg in Resources */,
 				AF9B00711CC7E6C300A438F1 /* navBarIcon.png in Resources */,
 				AFC064631CAD8DA800DBA069 /* Pic 1.png in Resources */,
+				CB68668F1CCE6E9A00F5CF19 /* StakesLogoWFill.png in Resources */,
 				AF9B006D1CC7C63200A438F1 /* Stakes Logo2.pdf in Resources */,
 				AFC064621CAD8DA800DBA069 /* Group 2.png in Resources */,
 				CBA985621CAAEC6D00D1CC27 /* LaunchScreen.storyboard in Resources */,
 				AF97DCAF1CC03D8B0053E497 /* UserPactMainView.xib in Resources */,
 				CBA985E81CAC286400D1CC27 /* PactAccordionHeaderView.xib in Resources */,
-				AF772A4A1CC6B44A0008CD78 /* Assets.xcassets in Resources */,
 				CBA985A01CAB0AE600D1CC27 /* dylansStoryboard.storyboard in Resources */,
 				CBA985A21CAB0AF700D1CC27 /* dimitrysStoryboard.storyboard in Resources */,
 				AF772A441CC6B1CA0008CD78 /* Assets.xcassets in Resources */,
-				CBA9855F1CAAEC6D00D1CC27 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
