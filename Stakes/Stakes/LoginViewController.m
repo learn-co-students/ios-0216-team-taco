@@ -46,6 +46,15 @@
     [super viewDidLoad];
     self.sharedData = [JDDDataSource sharedDataSource];
     self.accountStore = [[ACAccountStore alloc] init];
+    
+    self.view.translatesAutoresizingMaskIntoConstraints = NO;
+    self.loginButton.translatesAutoresizingMaskIntoConstraints = NO;
+    self.phoneNumberLabel.translatesAutoresizingMaskIntoConstraints = NO;
+    self.loginContainer.translatesAutoresizingMaskIntoConstraints = NO;
+    self.loginButton.translatesAutoresizingMaskIntoConstraints = NO;
+    self.loadingView.translatesAutoresizingMaskIntoConstraints = NO;
+    self.phoneNumberTextField.translatesAutoresizingMaskIntoConstraints = NO;
+    
     self.firebaseReference = self.sharedData.firebaseRef;
     self.userDidRegister = [[NSUserDefaults standardUserDefaults] boolForKey:UserDidRegisterKey];
     
