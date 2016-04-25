@@ -25,8 +25,8 @@
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="Stakes Logo2" translatesAutoresizingMaskIntoConstraints="NO" id="MQP-2x-I6C">
-                                <rect key="frame" x="211" y="165" width="180" height="150"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="pacts1024.png" translatesAutoresizingMaskIntoConstraints="NO" id="MQP-2x-I6C">
+                                <rect key="frame" x="210" y="165" width="180" height="150"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="MQP-2x-I6C" secondAttribute="height" multiplier="1.2:1" id="t3d-Qf-Fov"/>
                                 </constraints>
@@ -48,6 +48,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="Stakes Logo2" width="500" height="500"/>
+        <image name="pacts1024.png" width="1024" height="1024"/>
     </resources>
 </document>

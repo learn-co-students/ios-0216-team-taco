@@ -33,6 +33,7 @@
 		CB4F71CF1CB5540400F44FE6 /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = CB4F71CE1CB5540400F44FE6 /* Constants.m */; };
 		CB68668D1CCE65AF00F5CF19 /* Secrets.m in Sources */ = {isa = PBXBuildFile; fileRef = CB68668C1CCE65AF00F5CF19 /* Secrets.m */; };
 		CB68668F1CCE6E9A00F5CF19 /* StakesLogoWFill.png in Resources */ = {isa = PBXBuildFile; fileRef = CB68668E1CCE6E9A00F5CF19 /* StakesLogoWFill.png */; };
+		CB6866911CCE877000F5CF19 /* pacts1024.png in Resources */ = {isa = PBXBuildFile; fileRef = CB6866901CCE877000F5CF19 /* pacts1024.png */; };
 		CB8BC03A1CAD75D0003A9D5E /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB8BC0391CAD75D0003A9D5E /* LoginViewController.m */; };
 		CB8BC0421CADB3AB003A9D5E /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB8BC0411CADB3AB003A9D5E /* Accounts.framework */; };
 		CB8BC0441CADB3B2003A9D5E /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB8BC0431CADB3B2003A9D5E /* Social.framework */; };
@@ -111,6 +112,7 @@
 		CB4F71CE1CB5540400F44FE6 /* Constants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Constants.m; sourceTree = "<group>"; };
 		CB68668C1CCE65AF00F5CF19 /* Secrets.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Secrets.m; sourceTree = "<group>"; };
 		CB68668E1CCE6E9A00F5CF19 /* StakesLogoWFill.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = StakesLogoWFill.png; sourceTree = "<group>"; };
+		CB6866901CCE877000F5CF19 /* pacts1024.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pacts1024.png; sourceTree = "<group>"; };
 		CB8BC0381CAD75D0003A9D5E /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		CB8BC0391CAD75D0003A9D5E /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		CB8BC0411CADB3AB003A9D5E /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
@@ -233,6 +235,7 @@
 				CBA985921CAAEE0900D1CC27 /* PactDetailViewController.h */,
 				AF9B006C1CC7C63200A438F1 /* Stakes Logo2.pdf */,
 				CB68668E1CCE6E9A00F5CF19 /* StakesLogoWFill.png */,
+				CB6866901CCE877000F5CF19 /* pacts1024.png */,
 				CBA985931CAAEE0900D1CC27 /* PactDetailViewController.m */,
 				AF9B00701CC7E6C300A438F1 /* navBarIcon.png */,
 				CBA985941CAAEE0900D1CC27 /* UserPactsViewController.h */,
@@ -466,6 +469,7 @@
 			files = (
 				AFC064641CAD8DA800DBA069 /* Screen Shot 2016-03-28 at 4.13.09 PM.png in Resources */,
 				AF6449F91CC45BDA002568C9 /* MessageShape.png in Resources */,
+				CB6866911CCE877000F5CF19 /* pacts1024.png in Resources */,
 				AF97DCB11CC15B450053E497 /* PactTableViewCell.xib in Resources */,
 				AF9B006F1CC7E6B500A438F1 /* Assets.xcassets in Resources */,
 				AF97DCB31CC16AF20053E497 /* UserPactDetailView.xib in Resources */,
