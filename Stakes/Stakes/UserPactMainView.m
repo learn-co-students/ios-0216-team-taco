@@ -230,9 +230,14 @@
         user.currentPactIn = currentPact;
         view1.borderView.layer.borderWidth = 1.0;
         view1.user = user;
-        NSLog(@"Is the view's user ready? %@", view1.user.isReady);
-        // same as [view setUser:user];
-        [self.stackView addArrangedSubview:view1];
+        if ([self.sharedData.currentUser.displayName isEqual: user.displayName]) {
+            [self.stackView insertArrangedSubview:view1 atIndex:0];
+        } else {
+            [self.stackView addArrangedSubview:view1];
+
+        }
+        
+        
         
         
 //        if (self.pact.users.count == 2) {

@@ -132,9 +132,9 @@
     
     
    //=======================BackgroundImage for the tableView
-    UIImageView *tempImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"grey-background-for-site1.jpg"]];
-
-    self.tableView.backgroundView = tempImageView;
+//    UIImageView *tempImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"grey-background-for-site1.jpg"]];
+//
+//    self.tableView.backgroundView = tempImageView;
 
 }
 

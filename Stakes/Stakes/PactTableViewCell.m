@@ -30,16 +30,17 @@
     NSLog(@"PactTableViewCell awakeFromNib called!");
     
     self.sharedData = [JDDDataSource sharedDataSource];
-
+    
     
     self.scrollView.delegate = self;
     
-//    [self.scrollView layoutIfNeeded];
-
+    [self.scrollView layoutIfNeeded];
+    [self.stackView layoutIfNeeded];
+    
     [self createView];
     
- 
-
+    
+    
     
 }
 
@@ -47,24 +48,24 @@
     
     if (!self.scrollView) {
         [self createScrollView];
-
+        
     }
     if (!self.stackView) {
         [self createStackView];
     }
-
+    
     
     _pact = pact;
-//   
-//    for (UIView *subviews in self.stackView.arrangedSubviews) {
-//        [subviews removeFromSuperview];
-//    }
-
+    
+    for (UIView *subviews in self.stackView.arrangedSubviews) {
+        [subviews removeFromSuperview];
+    }
+    
     
     [self createMainPactViewAtIndex:0 withPact:pact inStackView:self.stackView];
     
     [self createPactDetailViewAtIndex:1 withPact:pact inStackView:self.stackView];
-
+    
     
     
 }
@@ -82,7 +83,7 @@
         
     } else {
         self.scrollView.scrollEnabled = YES;
-  
+        
     }
     
     
@@ -92,20 +93,18 @@
     [self.scrollView.rightAnchor constraintEqualToAnchor:self.contentView.rightAnchor
      ].active = YES;
     [self.scrollView.bottomAnchor constraintEqualToAnchor:self.contentView.bottomAnchor].active = YES;
-
+    
     
     self.scrollView.userInteractionEnabled = YES;
-    self.scrollView.showsHorizontalScrollIndicator = YES;
+    self.scrollView.showsHorizontalScrollIndicator = NO;
     self.scrollView.pagingEnabled = YES;
     
-//    [self.scrollView setContentOffset:CGPointMake(self.contentView.frame.size.width,0) animated:YES];
-    [self.scrollView setContentOffset:CGPointZero];
     
 }
 
 -(void)createStackView {
     
-   
+    
     self.stackView = [[UIStackView alloc]init];
     
     [self.scrollView addSubview:self.stackView];
@@ -127,12 +126,8 @@
     self.stackView.distribution = UIStackViewDistributionFillEqually;
     self.stackView.alignment = UIStackViewAlignmentFill;
     
-    if (self.sharedData.currentUser.pacts == 0 || [self.sharedData.currentUser.pacts isEqual:nil]) {
-        self.scrollView.scrollEnabled = NO;
-        [self.scrollView setContentOffset:CGPointZero];
-    } else {
-        self.scrollView.scrollEnabled = YES;
-    }
+    
+
 }
 
 
@@ -161,16 +156,26 @@
         [view.textView.bottomAnchor constraintEqualToAnchor:view.contentView.bottomAnchor].active = YES;
         
         
-       
+        
         
         view.pact = pact;
-
+        
     } else {
         view.pact = pact;
+        
+    }
+    
+    if (self.sharedData.currentUser.pacts == 0 || [self.sharedData.currentUser.pacts isEqual:nil]) {
+        self.scrollView.scrollEnabled = NO;
+        [self.scrollView setContentOffset:CGPointZero];
+    } else {
+        self.scrollView.scrollEnabled = YES;
+        [self.scrollView setContentOffset:CGPointZero];
 
     }
     
     [view.widthAnchor constraintEqualToAnchor:self.contentView.widthAnchor].active = YES;
+    
     
 }
 
@@ -178,7 +183,7 @@
     
     UserPactDetailView *view = [[UserPactDetailView alloc]initWithFrame:CGRectZero];
     view.pact = pact;
-
+    
     [stackView insertArrangedSubview:view atIndex:index];
     
 }
@@ -190,7 +195,7 @@
     
     self.messageShapeTrailingAnchor.constant = -(scrollView.contentOffset.x *2)-(self.contentView.frame.size.width/3.3);
     self.messageImageView.alpha = -(scrollView.contentOffset.x)/(self.contentView.frame.size.width/4);
-
+    
     if (scrollView.contentOffset.x < - (self.contentView.frame.size.width/4)) {
         
         didSwipeToCertainPoint = YES;

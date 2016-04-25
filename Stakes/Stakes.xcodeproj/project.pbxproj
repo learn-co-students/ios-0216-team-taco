@@ -14,6 +14,7 @@
 		3F52B0881CAB3EBC0031BF59 /* Israel.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3F52B0871CAB3EBC0031BF59 /* Israel.jpg */; };
 		3FDF94FB1CC9780A00D45ACE /* background.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 3FDF94FA1CC9780A00D45ACE /* background.jpeg */; };
 		3FDF94FD1CC9B15000D45ACE /* grey-background-for-site1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3FDF94FC1CC9B15000D45ACE /* grey-background-for-site1.jpg */; };
+		3FFA58861CCE6BBA009A0467 /* Secrets.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FFA58851CCE6BBA009A0467 /* Secrets.m */; };
 		AF27C4DB1CB6FC92001AA278 /* JDDChatRoom.m in Sources */ = {isa = PBXBuildFile; fileRef = AF27C4DA1CB6FC92001AA278 /* JDDChatRoom.m */; };
 		AF2883481CAC12C6003FD3E2 /* JDDDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = AF2883471CAC12C6003FD3E2 /* JDDDataSource.m */; };
 		AF6449F91CC45BDA002568C9 /* MessageShape.png in Resources */ = {isa = PBXBuildFile; fileRef = AF6449F81CC45BDA002568C9 /* MessageShape.png */; };
@@ -38,7 +39,6 @@
 		CB8BC0421CADB3AB003A9D5E /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB8BC0411CADB3AB003A9D5E /* Accounts.framework */; };
 		CB8BC0441CADB3B2003A9D5E /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB8BC0431CADB3B2003A9D5E /* Social.framework */; };
 		CB8BC0461CADB3BA003A9D5E /* Twitter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB8BC0451CADB3BA003A9D5E /* Twitter.framework */; };
-		CB8BC0481CAEC24A003A9D5E /* Secrets.m in Sources */ = {isa = PBXBuildFile; fileRef = CB8BC0471CAEC24A003A9D5E /* Secrets.m */; };
 		CBA985541CAAEC6D00D1CC27 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = CBA985531CAAEC6D00D1CC27 /* main.m */; };
 		CBA985571CAAEC6D00D1CC27 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = CBA985561CAAEC6D00D1CC27 /* AppDelegate.m */; };
 		CBA9855F1CAAEC6D00D1CC27 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CBA9855E1CAAEC6D00D1CC27 /* Assets.xcassets */; };
@@ -86,6 +86,7 @@
 		3F52B0871CAB3EBC0031BF59 /* Israel.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = Israel.jpg; sourceTree = "<group>"; };
 		3FDF94FA1CC9780A00D45ACE /* background.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = background.jpeg; path = ../../../../../Downloads/background.jpeg; sourceTree = "<group>"; };
 		3FDF94FC1CC9B15000D45ACE /* grey-background-for-site1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = "grey-background-for-site1.jpg"; path = "../../../../../Downloads/grey-background-for-site1.jpg"; sourceTree = "<group>"; };
+		3FFA58851CCE6BBA009A0467 /* Secrets.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Secrets.m; sourceTree = "<group>"; };
 		79BEE4D5993F024270E6A571 /* Pods-Stakes.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Stakes.release.xcconfig"; path = "Pods/Target Support Files/Pods-Stakes/Pods-Stakes.release.xcconfig"; sourceTree = "<group>"; };
 		AF27C4D91CB6FC92001AA278 /* JDDChatRoom.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JDDChatRoom.h; sourceTree = "<group>"; };
 		AF27C4DA1CB6FC92001AA278 /* JDDChatRoom.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JDDChatRoom.m; sourceTree = "<group>"; };
@@ -120,7 +121,6 @@
 		CB8BC0411CADB3AB003A9D5E /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
 		CB8BC0431CADB3B2003A9D5E /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
 		CB8BC0451CADB3BA003A9D5E /* Twitter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Twitter.framework; path = System/Library/Frameworks/Twitter.framework; sourceTree = SDKROOT; };
-		CB8BC0471CAEC24A003A9D5E /* Secrets.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Secrets.m; sourceTree = "<group>"; };
 		CBA9854F1CAAEC6D00D1CC27 /* Stakes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Stakes.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CBA985531CAAEC6D00D1CC27 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		CBA985551CAAEC6D00D1CC27 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -276,9 +276,9 @@
 			isa = PBXGroup;
 			children = (
 				CBA985851CAAED4500D1CC27 /* Secrets.h */,
-				CB8BC0471CAEC24A003A9D5E /* Secrets.m */,
 				CB4F71CD1CB5540400F44FE6 /* Constants.h */,
 				CB4F71CE1CB5540400F44FE6 /* Constants.m */,
+				3FFA58851CCE6BBA009A0467 /* Secrets.m */,
 			);
 			name = Secrets/Constants;
 			sourceTree = "<group>";
@@ -569,6 +569,7 @@
 			files = (
 				AF97DCB61CC16B0C0053E497 /* UserPactDetailView.m in Sources */,
 				CBA9859C1CAAEE0900D1CC27 /* UserPactsViewController.m in Sources */,
+				3FFA58861CCE6BBA009A0467 /* Secrets.m in Sources */,
 				CBA9859A1CAAEE0900D1CC27 /* JDDUser.m in Sources */,
 				AF2883481CAC12C6003FD3E2 /* JDDDataSource.m in Sources */,
 				CBA985571CAAEC6D00D1CC27 /* AppDelegate.m in Sources */,
@@ -586,7 +587,6 @@
 				CB4F71CC1CB552E300F44FE6 /* MainApplicationViewController.m in Sources */,
 				CB8BC03A1CAD75D0003A9D5E /* LoginViewController.m in Sources */,
 				AF97DCA71CC006660053E497 /* PactTableViewCell.m in Sources */,
-				CB8BC0481CAEC24A003A9D5E /* Secrets.m in Sources */,
 				CB4F71CF1CB5540400F44FE6 /* Constants.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
