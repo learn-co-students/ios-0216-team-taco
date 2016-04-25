@@ -714,7 +714,7 @@
 				INFOPLIST_FILE = Stakes/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = JDDStakes;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.flatironschool.team-taco";
 				PRODUCT_NAME = pacts;
 				PROVISIONING_PROFILE = "";
 			};
@@ -730,7 +730,7 @@
 				INFOPLIST_FILE = Stakes/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = JDDStakes;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.flatironschool.team-taco";
 				PRODUCT_NAME = pacts;
 				PROVISIONING_PROFILE = "";
 			};
