@@ -116,16 +116,16 @@
 		CB8BC0411CADB3AB003A9D5E /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
 		CB8BC0431CADB3B2003A9D5E /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
 		CB8BC0451CADB3BA003A9D5E /* Twitter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Twitter.framework; path = System/Library/Frameworks/Twitter.framework; sourceTree = SDKROOT; };
-		CBA9854F1CAAEC6D00D1CC27 /* Stakes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Stakes.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		CBA9854F1CAAEC6D00D1CC27 /* pacts.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = pacts.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CBA985531CAAEC6D00D1CC27 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		CBA985551CAAEC6D00D1CC27 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		CBA985561CAAEC6D00D1CC27 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		CBA985611CAAEC6D00D1CC27 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		CBA985631CAAEC6D00D1CC27 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		CBA985681CAAEC6D00D1CC27 /* StakesTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = StakesTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		CBA985681CAAEC6D00D1CC27 /* pacts.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = pacts.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		CBA9856C1CAAEC6D00D1CC27 /* StakesTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StakesTests.m; sourceTree = "<group>"; };
 		CBA9856E1CAAEC6D00D1CC27 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		CBA985731CAAEC6D00D1CC27 /* StakesUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = StakesUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		CBA985731CAAEC6D00D1CC27 /* pacts.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = pacts.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		CBA985771CAAEC6D00D1CC27 /* StakesUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StakesUITests.m; sourceTree = "<group>"; };
 		CBA985791CAAEC6D00D1CC27 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CBA985851CAAED4500D1CC27 /* Secrets.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Secrets.h; sourceTree = "<group>"; };
@@ -295,9 +295,9 @@
 		CBA985501CAAEC6D00D1CC27 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				CBA9854F1CAAEC6D00D1CC27 /* Stakes.app */,
-				CBA985681CAAEC6D00D1CC27 /* StakesTests.xctest */,
-				CBA985731CAAEC6D00D1CC27 /* StakesUITests.xctest */,
+				CBA9854F1CAAEC6D00D1CC27 /* pacts.app */,
+				CBA985681CAAEC6D00D1CC27 /* pacts.xctest */,
+				CBA985731CAAEC6D00D1CC27 /* pacts.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -353,9 +353,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		CBA9854E1CAAEC6D00D1CC27 /* Stakes */ = {
+		CBA9854E1CAAEC6D00D1CC27 /* pacts */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = CBA9857C1CAAEC6D00D1CC27 /* Build configuration list for PBXNativeTarget "Stakes" */;
+			buildConfigurationList = CBA9857C1CAAEC6D00D1CC27 /* Build configuration list for PBXNativeTarget "pacts" */;
 			buildPhases = (
 				1C4F8A89CE5FDB69E85DDB22 /* Check Pods Manifest.lock */,
 				CBA9854B1CAAEC6D00D1CC27 /* Sources */,
@@ -368,14 +368,14 @@
 			);
 			dependencies = (
 			);
-			name = Stakes;
+			name = pacts;
 			productName = Stakes;
-			productReference = CBA9854F1CAAEC6D00D1CC27 /* Stakes.app */;
+			productReference = CBA9854F1CAAEC6D00D1CC27 /* pacts.app */;
 			productType = "com.apple.product-type.application";
 		};
-		CBA985671CAAEC6D00D1CC27 /* StakesTests */ = {
+		CBA985671CAAEC6D00D1CC27 /* pactsTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = CBA9857F1CAAEC6D00D1CC27 /* Build configuration list for PBXNativeTarget "StakesTests" */;
+			buildConfigurationList = CBA9857F1CAAEC6D00D1CC27 /* Build configuration list for PBXNativeTarget "pactsTests" */;
 			buildPhases = (
 				CBA985641CAAEC6D00D1CC27 /* Sources */,
 				CBA985651CAAEC6D00D1CC27 /* Frameworks */,
@@ -386,14 +386,14 @@
 			dependencies = (
 				CBA9856A1CAAEC6D00D1CC27 /* PBXTargetDependency */,
 			);
-			name = StakesTests;
+			name = pactsTests;
 			productName = StakesTests;
-			productReference = CBA985681CAAEC6D00D1CC27 /* StakesTests.xctest */;
+			productReference = CBA985681CAAEC6D00D1CC27 /* pacts.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		CBA985721CAAEC6D00D1CC27 /* StakesUITests */ = {
+		CBA985721CAAEC6D00D1CC27 /* pactsUITests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = CBA985821CAAEC6D00D1CC27 /* Build configuration list for PBXNativeTarget "StakesUITests" */;
+			buildConfigurationList = CBA985821CAAEC6D00D1CC27 /* Build configuration list for PBXNativeTarget "pactsUITests" */;
 			buildPhases = (
 				CBA9856F1CAAEC6D00D1CC27 /* Sources */,
 				CBA985701CAAEC6D00D1CC27 /* Frameworks */,
@@ -404,9 +404,9 @@
 			dependencies = (
 				CBA985751CAAEC6D00D1CC27 /* PBXTargetDependency */,
 			);
-			name = StakesUITests;
+			name = pactsUITests;
 			productName = StakesUITests;
-			productReference = CBA985731CAAEC6D00D1CC27 /* StakesUITests.xctest */;
+			productReference = CBA985731CAAEC6D00D1CC27 /* pacts.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 /* End PBXNativeTarget section */
@@ -439,7 +439,7 @@
 					};
 				};
 			};
-			buildConfigurationList = CBA9854A1CAAEC6D00D1CC27 /* Build configuration list for PBXProject "Stakes" */;
+			buildConfigurationList = CBA9854A1CAAEC6D00D1CC27 /* Build configuration list for PBXProject "pacts" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -452,9 +452,9 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				CBA9854E1CAAEC6D00D1CC27 /* Stakes */,
-				CBA985671CAAEC6D00D1CC27 /* StakesTests */,
-				CBA985721CAAEC6D00D1CC27 /* StakesUITests */,
+				CBA9854E1CAAEC6D00D1CC27 /* pacts */,
+				CBA985671CAAEC6D00D1CC27 /* pactsTests */,
+				CBA985721CAAEC6D00D1CC27 /* pactsUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -600,12 +600,12 @@
 /* Begin PBXTargetDependency section */
 		CBA9856A1CAAEC6D00D1CC27 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = CBA9854E1CAAEC6D00D1CC27 /* Stakes */;
+			target = CBA9854E1CAAEC6D00D1CC27 /* pacts */;
 			targetProxy = CBA985691CAAEC6D00D1CC27 /* PBXContainerItemProxy */;
 		};
 		CBA985751CAAEC6D00D1CC27 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = CBA9854E1CAAEC6D00D1CC27 /* Stakes */;
+			target = CBA9854E1CAAEC6D00D1CC27 /* pacts */;
 			targetProxy = CBA985741CAAEC6D00D1CC27 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -715,7 +715,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = JDDStakes;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = pacts;
 				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
@@ -731,7 +731,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = JDDStakes;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = pacts;
 				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
@@ -743,8 +743,8 @@
 				INFOPLIST_FILE = StakesTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = JDD.StakesTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Stakes.app/Stakes";
+				PRODUCT_NAME = pacts;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/pacts.app/pacts";
 			};
 			name = Debug;
 		};
@@ -755,8 +755,8 @@
 				INFOPLIST_FILE = StakesTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = JDD.StakesTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Stakes.app/Stakes";
+				PRODUCT_NAME = pacts;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/pacts.app/pacts";
 			};
 			name = Release;
 		};
@@ -766,7 +766,7 @@
 				INFOPLIST_FILE = StakesUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = JDD.StakesUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = pacts;
 				TEST_TARGET_NAME = Stakes;
 			};
 			name = Debug;
@@ -777,7 +777,7 @@
 				INFOPLIST_FILE = StakesUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = JDD.StakesUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = pacts;
 				TEST_TARGET_NAME = Stakes;
 			};
 			name = Release;
@@ -785,7 +785,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		CBA9854A1CAAEC6D00D1CC27 /* Build configuration list for PBXProject "Stakes" */ = {
+		CBA9854A1CAAEC6D00D1CC27 /* Build configuration list for PBXProject "pacts" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				CBA9857A1CAAEC6D00D1CC27 /* Debug */,
@@ -794,7 +794,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		CBA9857C1CAAEC6D00D1CC27 /* Build configuration list for PBXNativeTarget "Stakes" */ = {
+		CBA9857C1CAAEC6D00D1CC27 /* Build configuration list for PBXNativeTarget "pacts" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				CBA9857D1CAAEC6D00D1CC27 /* Debug */,
@@ -803,7 +803,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		CBA9857F1CAAEC6D00D1CC27 /* Build configuration list for PBXNativeTarget "StakesTests" */ = {
+		CBA9857F1CAAEC6D00D1CC27 /* Build configuration list for PBXNativeTarget "pactsTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				CBA985801CAAEC6D00D1CC27 /* Debug */,
@@ -812,7 +812,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		CBA985821CAAEC6D00D1CC27 /* Build configuration list for PBXNativeTarget "StakesUITests" */ = {
+		CBA985821CAAEC6D00D1CC27 /* Build configuration list for PBXNativeTarget "pactsUITests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				CBA985831CAAEC6D00D1CC27 /* Debug */,
