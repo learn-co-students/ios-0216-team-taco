@@ -892,7 +892,7 @@
         
         // Configure the fields of the interface.
         composeVC.recipients = self.contacts;
-        composeVC.body = @"Hey - I just created a pact! Download pacts and let's track our progress!";
+        composeVC.body = @"Hey - I just created a pact! Download pacts and let's track our progress: http://apple.co/1WlZ4U0 ";
         
         // Present the view controller modally.
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
