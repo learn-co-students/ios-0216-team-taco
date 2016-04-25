@@ -81,7 +81,6 @@
     
     [self.view addGestureRecognizer:tap];
     
-    
 }
 
 -(void)viewDidLayoutSubviews {
@@ -229,6 +228,12 @@
         self.createdPact.repeating = self.repeatSwitch.on;
         self.createdPact.timeInterval = self.timeIntervalString;
         self.createdPact.checkInsPerTimeInterval = [self.frequencyString integerValue];
+        if (!self.createdPact.timeInterval) {
+            self.createdPact.timeInterval = @"day";
+        }
+        if (!self.createdPact.checkInsPerTimeInterval) {
+            self.createdPact.checkInsPerTimeInterval = 1;
+        }
         self.createdPact.dateOfCreation = currentDate;
         self.createdPact.isActive = NO;
         
