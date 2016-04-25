@@ -12,14 +12,10 @@
 		3F4DDABE1CB5695F0000ACE2 /* UserDescriptionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3F4DDABD1CB5695F0000ACE2 /* UserDescriptionView.xib */; };
 		3F4DDAC41CB58E8A0000ACE2 /* UserDescriptionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F4DDAC31CB58E8A0000ACE2 /* UserDescriptionView.m */; };
 		3F52B0881CAB3EBC0031BF59 /* Israel.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3F52B0871CAB3EBC0031BF59 /* Israel.jpg */; };
-		3FDF94FB1CC9780A00D45ACE /* background.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 3FDF94FA1CC9780A00D45ACE /* background.jpeg */; };
-		3FDF94FD1CC9B15000D45ACE /* grey-background-for-site1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3FDF94FC1CC9B15000D45ACE /* grey-background-for-site1.jpg */; };
-		3FFA58861CCE6BBA009A0467 /* Secrets.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FFA58851CCE6BBA009A0467 /* Secrets.m */; };
 		AF27C4DB1CB6FC92001AA278 /* JDDChatRoom.m in Sources */ = {isa = PBXBuildFile; fileRef = AF27C4DA1CB6FC92001AA278 /* JDDChatRoom.m */; };
 		AF2883481CAC12C6003FD3E2 /* JDDDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = AF2883471CAC12C6003FD3E2 /* JDDDataSource.m */; };
 		AF6449F91CC45BDA002568C9 /* MessageShape.png in Resources */ = {isa = PBXBuildFile; fileRef = AF6449F81CC45BDA002568C9 /* MessageShape.png */; };
 		AF772A441CC6B1CA0008CD78 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AF772A431CC6B1CA0008CD78 /* Assets.xcassets */; };
-		AF772A4A1CC6B44A0008CD78 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AF772A491CC6B44A0008CD78 /* Assets.xcassets */; };
 		AF97DCA71CC006660053E497 /* PactTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AF97DCA51CC006660053E497 /* PactTableViewCell.m */; };
 		AF97DCAF1CC03D8B0053E497 /* UserPactMainView.xib in Resources */ = {isa = PBXBuildFile; fileRef = AF97DCAE1CC03D8B0053E497 /* UserPactMainView.xib */; };
 		AF97DCB11CC15B450053E497 /* PactTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AF97DCB01CC15B450053E497 /* PactTableViewCell.xib */; };
@@ -35,13 +31,15 @@
 		AFC064641CAD8DA800DBA069 /* Screen Shot 2016-03-28 at 4.13.09 PM.png in Resources */ = {isa = PBXBuildFile; fileRef = AFC064611CAD8DA800DBA069 /* Screen Shot 2016-03-28 at 4.13.09 PM.png */; };
 		CB4F71CC1CB552E300F44FE6 /* MainApplicationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB4F71CB1CB552E300F44FE6 /* MainApplicationViewController.m */; };
 		CB4F71CF1CB5540400F44FE6 /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = CB4F71CE1CB5540400F44FE6 /* Constants.m */; };
+		CB68668D1CCE65AF00F5CF19 /* Secrets.m in Sources */ = {isa = PBXBuildFile; fileRef = CB68668C1CCE65AF00F5CF19 /* Secrets.m */; };
+		CB68668F1CCE6E9A00F5CF19 /* StakesLogoWFill.png in Resources */ = {isa = PBXBuildFile; fileRef = CB68668E1CCE6E9A00F5CF19 /* StakesLogoWFill.png */; };
+		CB6866911CCE877000F5CF19 /* pacts1024.png in Resources */ = {isa = PBXBuildFile; fileRef = CB6866901CCE877000F5CF19 /* pacts1024.png */; };
 		CB8BC03A1CAD75D0003A9D5E /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB8BC0391CAD75D0003A9D5E /* LoginViewController.m */; };
 		CB8BC0421CADB3AB003A9D5E /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB8BC0411CADB3AB003A9D5E /* Accounts.framework */; };
 		CB8BC0441CADB3B2003A9D5E /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB8BC0431CADB3B2003A9D5E /* Social.framework */; };
 		CB8BC0461CADB3BA003A9D5E /* Twitter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB8BC0451CADB3BA003A9D5E /* Twitter.framework */; };
 		CBA985541CAAEC6D00D1CC27 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = CBA985531CAAEC6D00D1CC27 /* main.m */; };
 		CBA985571CAAEC6D00D1CC27 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = CBA985561CAAEC6D00D1CC27 /* AppDelegate.m */; };
-		CBA9855F1CAAEC6D00D1CC27 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CBA9855E1CAAEC6D00D1CC27 /* Assets.xcassets */; };
 		CBA985621CAAEC6D00D1CC27 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CBA985601CAAEC6D00D1CC27 /* LaunchScreen.storyboard */; };
 		CBA9856D1CAAEC6D00D1CC27 /* StakesTests.m in Sources */ = {isa = PBXBuildFile; fileRef = CBA9856C1CAAEC6D00D1CC27 /* StakesTests.m */; };
 		CBA985781CAAEC6D00D1CC27 /* StakesUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = CBA985771CAAEC6D00D1CC27 /* StakesUITests.m */; };
@@ -84,9 +82,6 @@
 		3F4DDAC21CB58E8A0000ACE2 /* UserDescriptionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserDescriptionView.h; sourceTree = "<group>"; };
 		3F4DDAC31CB58E8A0000ACE2 /* UserDescriptionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserDescriptionView.m; sourceTree = "<group>"; };
 		3F52B0871CAB3EBC0031BF59 /* Israel.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = Israel.jpg; sourceTree = "<group>"; };
-		3FDF94FA1CC9780A00D45ACE /* background.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = background.jpeg; path = ../../../../../Downloads/background.jpeg; sourceTree = "<group>"; };
-		3FDF94FC1CC9B15000D45ACE /* grey-background-for-site1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = "grey-background-for-site1.jpg"; path = "../../../../../Downloads/grey-background-for-site1.jpg"; sourceTree = "<group>"; };
-		3FFA58851CCE6BBA009A0467 /* Secrets.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Secrets.m; sourceTree = "<group>"; };
 		79BEE4D5993F024270E6A571 /* Pods-Stakes.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Stakes.release.xcconfig"; path = "Pods/Target Support Files/Pods-Stakes/Pods-Stakes.release.xcconfig"; sourceTree = "<group>"; };
 		AF27C4D91CB6FC92001AA278 /* JDDChatRoom.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JDDChatRoom.h; sourceTree = "<group>"; };
 		AF27C4DA1CB6FC92001AA278 /* JDDChatRoom.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JDDChatRoom.m; sourceTree = "<group>"; };
@@ -94,7 +89,6 @@
 		AF2883471CAC12C6003FD3E2 /* JDDDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JDDDataSource.m; sourceTree = "<group>"; };
 		AF6449F81CC45BDA002568C9 /* MessageShape.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = MessageShape.png; path = Assets.xcassets/MessageShape.png; sourceTree = "<group>"; };
 		AF772A431CC6B1CA0008CD78 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		AF772A491CC6B44A0008CD78 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		AF97DCA41CC006660053E497 /* PactTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PactTableViewCell.h; sourceTree = "<group>"; };
 		AF97DCA51CC006660053E497 /* PactTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PactTableViewCell.m; sourceTree = "<group>"; };
 		AF97DCAE1CC03D8B0053E497 /* UserPactMainView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UserPactMainView.xib; sourceTree = "<group>"; };
@@ -116,22 +110,24 @@
 		CB4F71CB1CB552E300F44FE6 /* MainApplicationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainApplicationViewController.m; sourceTree = "<group>"; };
 		CB4F71CD1CB5540400F44FE6 /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
 		CB4F71CE1CB5540400F44FE6 /* Constants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Constants.m; sourceTree = "<group>"; };
+		CB68668C1CCE65AF00F5CF19 /* Secrets.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Secrets.m; sourceTree = "<group>"; };
+		CB68668E1CCE6E9A00F5CF19 /* StakesLogoWFill.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = StakesLogoWFill.png; sourceTree = "<group>"; };
+		CB6866901CCE877000F5CF19 /* pacts1024.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pacts1024.png; sourceTree = "<group>"; };
 		CB8BC0381CAD75D0003A9D5E /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		CB8BC0391CAD75D0003A9D5E /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		CB8BC0411CADB3AB003A9D5E /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
 		CB8BC0431CADB3B2003A9D5E /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
 		CB8BC0451CADB3BA003A9D5E /* Twitter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Twitter.framework; path = System/Library/Frameworks/Twitter.framework; sourceTree = SDKROOT; };
-		CBA9854F1CAAEC6D00D1CC27 /* Stakes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Stakes.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		CBA9854F1CAAEC6D00D1CC27 /* pacts.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = pacts.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CBA985531CAAEC6D00D1CC27 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		CBA985551CAAEC6D00D1CC27 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		CBA985561CAAEC6D00D1CC27 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		CBA9855E1CAAEC6D00D1CC27 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CBA985611CAAEC6D00D1CC27 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		CBA985631CAAEC6D00D1CC27 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		CBA985681CAAEC6D00D1CC27 /* StakesTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = StakesTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		CBA985681CAAEC6D00D1CC27 /* pacts.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = pacts.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		CBA9856C1CAAEC6D00D1CC27 /* StakesTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StakesTests.m; sourceTree = "<group>"; };
 		CBA9856E1CAAEC6D00D1CC27 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		CBA985731CAAEC6D00D1CC27 /* StakesUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = StakesUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		CBA985731CAAEC6D00D1CC27 /* pacts.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = pacts.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		CBA985771CAAEC6D00D1CC27 /* StakesUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StakesUITests.m; sourceTree = "<group>"; };
 		CBA985791CAAEC6D00D1CC27 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CBA985851CAAED4500D1CC27 /* Secrets.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Secrets.h; sourceTree = "<group>"; };
@@ -237,8 +233,11 @@
 				CBA985891CAAEE0900D1CC27 /* CreatePactViewController.m */,
 				AF9B006E1CC7E6B500A438F1 /* Assets.xcassets */,
 				CBA985921CAAEE0900D1CC27 /* PactDetailViewController.h */,
+				AF9B006C1CC7C63200A438F1 /* Stakes Logo2.pdf */,
+				CB68668E1CCE6E9A00F5CF19 /* StakesLogoWFill.png */,
+				CB6866901CCE877000F5CF19 /* pacts1024.png */,
 				CBA985931CAAEE0900D1CC27 /* PactDetailViewController.m */,
-				AF772A491CC6B44A0008CD78 /* Assets.xcassets */,
+				AF9B00701CC7E6C300A438F1 /* navBarIcon.png */,
 				CBA985941CAAEE0900D1CC27 /* UserPactsViewController.h */,
 				CBA985951CAAEE0900D1CC27 /* UserPactsViewController.m */,
 				CBA985601CAAEC6D00D1CC27 /* LaunchScreen.storyboard */,
@@ -259,6 +258,7 @@
 				AFC0645D1CAD736D00DBA069 /* UserPactMainView.m */,
 				AF97DCAE1CC03D8B0053E497 /* UserPactMainView.xib */,
 				CBA985E91CAC288000D1CC27 /* PactAccordionHeaderView.h */,
+				AF6449F81CC45BDA002568C9 /* MessageShape.png */,
 				CBA985EA1CAC288000D1CC27 /* PactAccordionHeaderView.m */,
 				CBA985E71CAC286400D1CC27 /* PactAccordionHeaderView.xib */,
 				3F4DDABD1CB5695F0000ACE2 /* UserDescriptionView.xib */,
@@ -276,9 +276,9 @@
 			isa = PBXGroup;
 			children = (
 				CBA985851CAAED4500D1CC27 /* Secrets.h */,
+				CB68668C1CCE65AF00F5CF19 /* Secrets.m */,
 				CB4F71CD1CB5540400F44FE6 /* Constants.h */,
 				CB4F71CE1CB5540400F44FE6 /* Constants.m */,
-				3FFA58851CCE6BBA009A0467 /* Secrets.m */,
 			);
 			name = Secrets/Constants;
 			sourceTree = "<group>";
@@ -298,9 +298,9 @@
 		CBA985501CAAEC6D00D1CC27 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				CBA9854F1CAAEC6D00D1CC27 /* Stakes.app */,
-				CBA985681CAAEC6D00D1CC27 /* StakesTests.xctest */,
-				CBA985731CAAEC6D00D1CC27 /* StakesUITests.xctest */,
+				CBA9854F1CAAEC6D00D1CC27 /* pacts.app */,
+				CBA985681CAAEC6D00D1CC27 /* pacts.xctest */,
+				CBA985731CAAEC6D00D1CC27 /* pacts.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -316,7 +316,6 @@
 				CBA2BACF1CBC482D007F8995 /* Storyboards & VCs */,
 				CBA2BACE1CBC47FC007F8995 /* Model Classes */,
 				CBA2BAD01CBC4844007F8995 /* Custom Views */,
-				CBA9855E1CAAEC6D00D1CC27 /* Assets.xcassets */,
 				CBA985631CAAEC6D00D1CC27 /* Info.plist */,
 			);
 			path = Stakes;
@@ -325,12 +324,7 @@
 		CBA985521CAAEC6D00D1CC27 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				AF6449F81CC45BDA002568C9 /* MessageShape.png */,
-				AF9B006C1CC7C63200A438F1 /* Stakes Logo2.pdf */,
-				3FDF94FC1CC9B15000D45ACE /* grey-background-for-site1.jpg */,
-				3FDF94FA1CC9780A00D45ACE /* background.jpeg */,
 				3F52B0871CAB3EBC0031BF59 /* Israel.jpg */,
-				AF9B00701CC7E6C300A438F1 /* navBarIcon.png */,
 				CBA985531CAAEC6D00D1CC27 /* main.m */,
 				CBED55671CB2BFB0005F0D4E /* TwitterAuthHelper.h */,
 				CBED55681CB2BFB0005F0D4E /* TwitterAuthHelper.m */,
@@ -362,9 +356,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		CBA9854E1CAAEC6D00D1CC27 /* Stakes */ = {
+		CBA9854E1CAAEC6D00D1CC27 /* pacts */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = CBA9857C1CAAEC6D00D1CC27 /* Build configuration list for PBXNativeTarget "Stakes" */;
+			buildConfigurationList = CBA9857C1CAAEC6D00D1CC27 /* Build configuration list for PBXNativeTarget "pacts" */;
 			buildPhases = (
 				1C4F8A89CE5FDB69E85DDB22 /* Check Pods Manifest.lock */,
 				CBA9854B1CAAEC6D00D1CC27 /* Sources */,
@@ -377,14 +371,14 @@
 			);
 			dependencies = (
 			);
-			name = Stakes;
+			name = pacts;
 			productName = Stakes;
-			productReference = CBA9854F1CAAEC6D00D1CC27 /* Stakes.app */;
+			productReference = CBA9854F1CAAEC6D00D1CC27 /* pacts.app */;
 			productType = "com.apple.product-type.application";
 		};
-		CBA985671CAAEC6D00D1CC27 /* StakesTests */ = {
+		CBA985671CAAEC6D00D1CC27 /* pactsTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = CBA9857F1CAAEC6D00D1CC27 /* Build configuration list for PBXNativeTarget "StakesTests" */;
+			buildConfigurationList = CBA9857F1CAAEC6D00D1CC27 /* Build configuration list for PBXNativeTarget "pactsTests" */;
 			buildPhases = (
 				CBA985641CAAEC6D00D1CC27 /* Sources */,
 				CBA985651CAAEC6D00D1CC27 /* Frameworks */,
@@ -395,14 +389,14 @@
 			dependencies = (
 				CBA9856A1CAAEC6D00D1CC27 /* PBXTargetDependency */,
 			);
-			name = StakesTests;
+			name = pactsTests;
 			productName = StakesTests;
-			productReference = CBA985681CAAEC6D00D1CC27 /* StakesTests.xctest */;
+			productReference = CBA985681CAAEC6D00D1CC27 /* pacts.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		CBA985721CAAEC6D00D1CC27 /* StakesUITests */ = {
+		CBA985721CAAEC6D00D1CC27 /* pactsUITests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = CBA985821CAAEC6D00D1CC27 /* Build configuration list for PBXNativeTarget "StakesUITests" */;
+			buildConfigurationList = CBA985821CAAEC6D00D1CC27 /* Build configuration list for PBXNativeTarget "pactsUITests" */;
 			buildPhases = (
 				CBA9856F1CAAEC6D00D1CC27 /* Sources */,
 				CBA985701CAAEC6D00D1CC27 /* Frameworks */,
@@ -413,9 +407,9 @@
 			dependencies = (
 				CBA985751CAAEC6D00D1CC27 /* PBXTargetDependency */,
 			);
-			name = StakesUITests;
+			name = pactsUITests;
 			productName = StakesUITests;
-			productReference = CBA985731CAAEC6D00D1CC27 /* StakesUITests.xctest */;
+			productReference = CBA985731CAAEC6D00D1CC27 /* pacts.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 /* End PBXNativeTarget section */
@@ -429,7 +423,7 @@
 				TargetAttributes = {
 					CBA9854E1CAAEC6D00D1CC27 = {
 						CreatedOnToolsVersion = 7.3;
-						DevelopmentTeam = 6JWFNK8C5B;
+						DevelopmentTeam = KXY9EDFTF5;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
 								enabled = 1;
@@ -448,7 +442,7 @@
 					};
 				};
 			};
-			buildConfigurationList = CBA9854A1CAAEC6D00D1CC27 /* Build configuration list for PBXProject "Stakes" */;
+			buildConfigurationList = CBA9854A1CAAEC6D00D1CC27 /* Build configuration list for PBXProject "pacts" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -461,9 +455,9 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				CBA9854E1CAAEC6D00D1CC27 /* Stakes */,
-				CBA985671CAAEC6D00D1CC27 /* StakesTests */,
-				CBA985721CAAEC6D00D1CC27 /* StakesUITests */,
+				CBA9854E1CAAEC6D00D1CC27 /* pacts */,
+				CBA985671CAAEC6D00D1CC27 /* pactsTests */,
+				CBA985721CAAEC6D00D1CC27 /* pactsUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -474,27 +468,25 @@
 			buildActionMask = 2147483647;
 			files = (
 				AFC064641CAD8DA800DBA069 /* Screen Shot 2016-03-28 at 4.13.09 PM.png in Resources */,
-				3FDF94FD1CC9B15000D45ACE /* grey-background-for-site1.jpg in Resources */,
 				AF6449F91CC45BDA002568C9 /* MessageShape.png in Resources */,
+				CB6866911CCE877000F5CF19 /* pacts1024.png in Resources */,
 				AF97DCB11CC15B450053E497 /* PactTableViewCell.xib in Resources */,
 				AF9B006F1CC7E6B500A438F1 /* Assets.xcassets in Resources */,
 				AF97DCB31CC16AF20053E497 /* UserPactDetailView.xib in Resources */,
 				3F4DDABE1CB5695F0000ACE2 /* UserDescriptionView.xib in Resources */,
 				CBA9859E1CAAEE7500D1CC27 /* Main.storyboard in Resources */,
-				3FDF94FB1CC9780A00D45ACE /* background.jpeg in Resources */,
 				3F52B0881CAB3EBC0031BF59 /* Israel.jpg in Resources */,
 				AF9B00711CC7E6C300A438F1 /* navBarIcon.png in Resources */,
 				AFC064631CAD8DA800DBA069 /* Pic 1.png in Resources */,
+				CB68668F1CCE6E9A00F5CF19 /* StakesLogoWFill.png in Resources */,
 				AF9B006D1CC7C63200A438F1 /* Stakes Logo2.pdf in Resources */,
 				AFC064621CAD8DA800DBA069 /* Group 2.png in Resources */,
 				CBA985621CAAEC6D00D1CC27 /* LaunchScreen.storyboard in Resources */,
 				AF97DCAF1CC03D8B0053E497 /* UserPactMainView.xib in Resources */,
 				CBA985E81CAC286400D1CC27 /* PactAccordionHeaderView.xib in Resources */,
-				AF772A4A1CC6B44A0008CD78 /* Assets.xcassets in Resources */,
 				CBA985A01CAB0AE600D1CC27 /* dylansStoryboard.storyboard in Resources */,
 				CBA985A21CAB0AF700D1CC27 /* dimitrysStoryboard.storyboard in Resources */,
 				AF772A441CC6B1CA0008CD78 /* Assets.xcassets in Resources */,
-				CBA9855F1CAAEC6D00D1CC27 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -569,7 +561,7 @@
 			files = (
 				AF97DCB61CC16B0C0053E497 /* UserPactDetailView.m in Sources */,
 				CBA9859C1CAAEE0900D1CC27 /* UserPactsViewController.m in Sources */,
-				3FFA58861CCE6BBA009A0467 /* Secrets.m in Sources */,
+				CB68668D1CCE65AF00F5CF19 /* Secrets.m in Sources */,
 				CBA9859A1CAAEE0900D1CC27 /* JDDUser.m in Sources */,
 				AF2883481CAC12C6003FD3E2 /* JDDDataSource.m in Sources */,
 				CBA985571CAAEC6D00D1CC27 /* AppDelegate.m in Sources */,
@@ -612,12 +604,12 @@
 /* Begin PBXTargetDependency section */
 		CBA9856A1CAAEC6D00D1CC27 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = CBA9854E1CAAEC6D00D1CC27 /* Stakes */;
+			target = CBA9854E1CAAEC6D00D1CC27 /* pacts */;
 			targetProxy = CBA985691CAAEC6D00D1CC27 /* PBXContainerItemProxy */;
 		};
 		CBA985751CAAEC6D00D1CC27 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = CBA9854E1CAAEC6D00D1CC27 /* Stakes */;
+			target = CBA9854E1CAAEC6D00D1CC27 /* pacts */;
 			targetProxy = CBA985741CAAEC6D00D1CC27 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -726,8 +718,8 @@
 				INFOPLIST_FILE = Stakes/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = JDDStakes;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.flatironschool.team-taco";
+				PRODUCT_NAME = pacts;
 				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
@@ -742,8 +734,8 @@
 				INFOPLIST_FILE = Stakes/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = JDDStakes;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.flatironschool.team-taco";
+				PRODUCT_NAME = pacts;
 				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
@@ -755,8 +747,8 @@
 				INFOPLIST_FILE = StakesTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = JDD.StakesTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Stakes.app/Stakes";
+				PRODUCT_NAME = pacts;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/pacts.app/pacts";
 			};
 			name = Debug;
 		};
@@ -767,8 +759,8 @@
 				INFOPLIST_FILE = StakesTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = JDD.StakesTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Stakes.app/Stakes";
+				PRODUCT_NAME = pacts;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/pacts.app/pacts";
 			};
 			name = Release;
 		};
@@ -778,7 +770,7 @@
 				INFOPLIST_FILE = StakesUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = JDD.StakesUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = pacts;
 				TEST_TARGET_NAME = Stakes;
 			};
 			name = Debug;
@@ -789,7 +781,7 @@
 				INFOPLIST_FILE = StakesUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = JDD.StakesUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = pacts;
 				TEST_TARGET_NAME = Stakes;
 			};
 			name = Release;
@@ -797,7 +789,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		CBA9854A1CAAEC6D00D1CC27 /* Build configuration list for PBXProject "Stakes" */ = {
+		CBA9854A1CAAEC6D00D1CC27 /* Build configuration list for PBXProject "pacts" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				CBA9857A1CAAEC6D00D1CC27 /* Debug */,
@@ -806,7 +798,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		CBA9857C1CAAEC6D00D1CC27 /* Build configuration list for PBXNativeTarget "Stakes" */ = {
+		CBA9857C1CAAEC6D00D1CC27 /* Build configuration list for PBXNativeTarget "pacts" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				CBA9857D1CAAEC6D00D1CC27 /* Debug */,
@@ -815,7 +807,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		CBA9857F1CAAEC6D00D1CC27 /* Build configuration list for PBXNativeTarget "StakesTests" */ = {
+		CBA9857F1CAAEC6D00D1CC27 /* Build configuration list for PBXNativeTarget "pactsTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				CBA985801CAAEC6D00D1CC27 /* Debug */,
@@ -824,7 +816,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		CBA985821CAAEC6D00D1CC27 /* Build configuration list for PBXNativeTarget "StakesUITests" */ = {
+		CBA985821CAAEC6D00D1CC27 /* Build configuration list for PBXNativeTarget "pactsUITests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				CBA985831CAAEC6D00D1CC27 /* Debug */,

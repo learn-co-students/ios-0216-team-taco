@@ -83,8 +83,8 @@
                                 </subviews>
                                 <color key="backgroundColor" red="0.98039215686274506" green="0.98039215686274506" blue="0.98039215686274506" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstItem="RlZ-du-fW8" firstAttribute="centerX" secondItem="NRs-3V-2dd" secondAttribute="centerX" id="10E-d1-i3F"/>
-                                    <constraint firstItem="RlZ-du-fW8" firstAttribute="centerY" secondItem="NRs-3V-2dd" secondAttribute="centerY" id="74O-sl-Uw0"/>
+                                    <constraint firstItem="RlZ-du-fW8" firstAttribute="centerX" secondItem="NRs-3V-2dd" secondAttribute="centerX" id="hhD-oh-Kwa"/>
+                                    <constraint firstItem="RlZ-du-fW8" firstAttribute="centerY" secondItem="NRs-3V-2dd" secondAttribute="centerY" id="jP4-Xf-lvI"/>
                                 </constraints>
                             </view>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="hlr-fx-vps" userLabel="PhoneNumberTextField">
@@ -109,10 +109,10 @@
                                     <constraint firstAttribute="height" constant="44" id="mub-ux-bZv"/>
                                 </constraints>
                             </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="5" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zLz-az-Jx6">
-                                <rect key="frame" x="19" y="119" width="338" height="96"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="5" baselineAdjustment="alignBaselines" minimumFontSize="5" translatesAutoresizingMaskIntoConstraints="NO" id="zLz-az-Jx6">
+                                <rect key="frame" x="19" y="117" width="338" height="100"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="96" id="61G-SU-9js"/>
+                                    <constraint firstAttribute="height" constant="100" id="61G-SU-9js"/>
                                 </constraints>
                                 <string key="text">Please enter your phone number (digits only).  We will use this to connect you to any pacts you were invited to, or to connect you to any pacts you invite your friends to.</string>
                                 <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="16"/>
@@ -123,17 +123,17 @@
                         <color key="backgroundColor" red="0.14901960780000001" green="0.1960784314" blue="0.21960784310000001" alpha="1" colorSpace="calibratedRGB"/>
                         <gestureRecognizers/>
                         <constraints>
-                            <constraint firstItem="NRs-3V-2dd" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="02V-5V-gL3"/>
-                            <constraint firstItem="hlr-fx-vps" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" multiplier="0.75" id="0YR-4i-CC2"/>
-                            <constraint firstItem="IVQ-KW-l9e" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="6hs-Ee-5QP"/>
-                            <constraint firstItem="zLz-az-Jx6" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" multiplier="0.5" id="M0k-zI-HuY"/>
-                            <constraint firstItem="NRs-3V-2dd" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="P1i-Mu-ZFN"/>
+                            <constraint firstItem="NRs-3V-2dd" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="09d-5l-Nqv"/>
+                            <constraint firstItem="zLz-az-Jx6" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" multiplier="0.5" id="BdT-Z9-ngg"/>
+                            <constraint firstItem="IVQ-KW-l9e" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Cqe-iT-pe8"/>
+                            <constraint firstItem="NRs-3V-2dd" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="Evq-gH-04u"/>
+                            <constraint firstItem="hlr-fx-vps" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="FAH-e6-xlQ"/>
+                            <constraint firstItem="hlr-fx-vps" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" multiplier="0.75" id="WKm-KJ-ira"/>
                             <constraint firstItem="zLz-az-Jx6" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" multiplier="0.9" id="akl-7B-owd"/>
                             <constraint firstItem="NRs-3V-2dd" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" id="dR0-LR-Xbf"/>
-                            <constraint firstItem="IVQ-KW-l9e" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="dZ6-yV-VjT"/>
-                            <constraint firstItem="zLz-az-Jx6" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="h95-8E-yLd"/>
                             <constraint firstItem="NRs-3V-2dd" firstAttribute="height" secondItem="8bC-Xf-vdC" secondAttribute="height" multiplier="0.125" id="kmk-U3-e5o"/>
-                            <constraint firstItem="hlr-fx-vps" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="qpS-n4-XVJ"/>
+                            <constraint firstItem="zLz-az-Jx6" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="nqh-v3-qyx"/>
+                            <constraint firstItem="IVQ-KW-l9e" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="pI3-t6-nuL"/>
                         </constraints>
                         <connections>
                             <outletCollection property="gestureRecognizers" destination="WFh-zu-wrV" appends="YES" id="N2s-oU-ZGm"/>

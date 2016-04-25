@@ -393,7 +393,7 @@
 -(void)updateCheckInsForPact:(JDDPact *)updatedPact withCompletion:(void (^)(BOOL success))completionBlock
 {
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
-    [dateFormatter setDateFormat:@"yyyy'-'MM'-'dd'-'hh:mm'"];
+    [dateFormatter setDateFormat:@"yyyy'-'MM'-'dd'-'HH:mm'"];
     
     for (NSString *pactID in self.sharedData.currentUser.pacts) {
         if ([pactID isEqualToString:updatedPact.pactID]) {
@@ -510,6 +510,7 @@
                 self.sharedData.currentUser.pactsToShowInApp = [[NSMutableArray alloc]init];
                 
                 [self.sharedData.currentUser.pactsToShowInApp addObject:[self.sharedData createDemoPact]];
+                
                 [[NSOperationQueue mainQueue] addOperationWithBlock:^{
                     [self.tableView reloadData];
                 }];

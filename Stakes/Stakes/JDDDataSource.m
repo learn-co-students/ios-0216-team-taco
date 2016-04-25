@@ -50,8 +50,8 @@
     JDDPact *pact = [[JDDPact alloc]init];
     
     pact.title = @"Tap Here To Start";
-    pact.pactDescription = @"To create a new pact with your friends";
-    pact.stakes = @"To see pact's status";
+    pact.pactDescription = @"To create a new pact";
+    pact.stakes = @"To see a pact's details";
 
     pact.users = [[NSMutableDictionary alloc]init];
     
@@ -59,6 +59,7 @@
     pact.checkInsPerTimeInterval = 3;
     pact.timeInterval = @"week";
     pact.repeating = YES;
+    pact.isActive = YES;
     
     pact.allowsShaming = YES;
     pact.twitterPost = @"To message with your pact friends";
@@ -126,7 +127,7 @@
 -(JDDPact *)useSnapShotAndCreatePact:(FDataSnapshot*)snapshot {
     
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
-    [dateFormatter setDateFormat:@"yyyy'-'MM'-'dd'-'hh:mm'"];
+    [dateFormatter setDateFormat:@"yyyy'-'MM'-'dd'-'HH:mm'"];
 
     JDDPact *pact = [[JDDPact alloc]init];
     
@@ -183,7 +184,7 @@
 -(JDDCheckIn *)useSnapShotAndCreateCheckIn:(FDataSnapshot*)snapshot {
 
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
-    [dateFormatter setDateFormat:@"yyyy'-'MM'-'dd'-'hh:mm'"];
+    [dateFormatter setDateFormat:@"yyyy'-'MM'-'dd'-'HH:mm'"];
     
     JDDCheckIn *checkIn = [[JDDCheckIn alloc]init];
     
@@ -237,10 +238,10 @@
 -(NSMutableDictionary*)createDictionaryToSendToFirebaseWithJDDPact:(JDDPact*)pact {
     
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
-    [dateFormatter setDateFormat:@"yyyy'-'MM'-'dd'-'hh:mm'"];
+    [dateFormatter setDateFormat:@"yyyy'-'MM'-'dd'-'HH:mm'"];
     
     NSDateFormatter *checkInDateFormatter = [[NSDateFormatter alloc]init];
-    [checkInDateFormatter setDateFormat:@"yyyy'-'MM'-'dd'-'hh:mm'"];
+    [checkInDateFormatter setDateFormat:@"yyyy'-'MM'-'dd'-'HH:mm'"];
     
  
     NSLog(@"\n\n\n\n\n\n creating a pact... what is pact.isActive???? %d", pact.isActive);
@@ -304,7 +305,7 @@
 -(NSMutableDictionary*)createDictionaryToSendToFirebaseWithJDDCheckIn:(JDDCheckIn*)checkin {
 
     NSDateFormatter *checkInDateFormatter = [[NSDateFormatter alloc]init];
-    [checkInDateFormatter setDateFormat:@"yyyy'-'MM'-'dd'-'hh:mm'"];
+    [checkInDateFormatter setDateFormat:@"yyyy'-'MM'-'dd'-'HH:mm'"];
     
     NSMutableDictionary * dictionaryToSend = [[NSMutableDictionary alloc]initWithDictionary:@{
                                         @"checkInID" :checkin.checkInID,

@@ -127,6 +127,7 @@
     
     self.checkIn.checkInID = [newCheckin.description stringByReplacingOccurrencesOfString:[NSString stringWithFormat:@"%@/", checkinRef.description] withString:@""];
     
+        
     NSMutableDictionary *finalCheckinDictionary = [self.sharedData createDictionaryToSendToFirebaseWithJDDCheckIn:self.checkIn];
     
     [newCheckin setValue:finalCheckinDictionary];
@@ -162,7 +163,7 @@
     self.longitude = self.location.coordinate.longitude;
     
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
-    [dateFormatter setDateFormat:@"yyyy'-'MM'-'dd'-'hh:mm'"];
+    [dateFormatter setDateFormat:@"yyyy'-'MM'-'dd'-'HH:mm'"];
     
     NSMutableDictionary *JSQMessageDictionary = [[NSMutableDictionary alloc]initWithDictionary:@{
                                                                                                  @"senderId" : self.sharedData.currentUser.userID,
