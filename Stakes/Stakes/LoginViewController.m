@@ -36,6 +36,8 @@
 @property (nonatomic, strong) IBOutlet BALoadingView *loadingView;
 @property(nonatomic, assign) BACircleAnimation animationType;
 @property(nonatomic, assign) bool firstLoad;
+@property (weak, nonatomic) IBOutlet UIButton *privacyPolicyButton;
+@property (weak, nonatomic) IBOutlet UITextView *privacyPolicyTextField;
 
 @end
 
@@ -47,13 +49,15 @@
     self.sharedData = [JDDDataSource sharedDataSource];
     self.accountStore = [[ACAccountStore alloc] init];
     
+    self.privacyPolicyTextField.hidden = YES;
+    
     self.view.translatesAutoresizingMaskIntoConstraints = NO;
-    self.loginButton.translatesAutoresizingMaskIntoConstraints = NO;
-    self.phoneNumberLabel.translatesAutoresizingMaskIntoConstraints = NO;
-    self.loginContainer.translatesAutoresizingMaskIntoConstraints = NO;
-    self.loginButton.translatesAutoresizingMaskIntoConstraints = NO;
-    self.loadingView.translatesAutoresizingMaskIntoConstraints = NO;
-    self.phoneNumberTextField.translatesAutoresizingMaskIntoConstraints = NO;
+//    self.loginButton.translatesAutoresizingMaskIntoConstraints = NO;
+//    self.phoneNumberLabel.translatesAutoresizingMaskIntoConstraints = NO;
+//    self.loginContainer.translatesAutoresizingMaskIntoConstraints = NO;
+//    self.loginButton.translatesAutoresizingMaskIntoConstraints = NO;
+//    self.loadingView.translatesAutoresizingMaskIntoConstraints = NO;
+//    self.phoneNumberTextField.translatesAutoresizingMaskIntoConstraints = NO;
     
     self.firebaseReference = self.sharedData.firebaseRef;
     self.userDidRegister = [[NSUserDefaults standardUserDefaults] boolForKey:UserDidRegisterKey];
@@ -421,6 +425,14 @@
 - (IBAction)screenTapped:(id)sender
 {
     [self.phoneNumberTextField resignFirstResponder];
+}
+
+- (IBAction)privacyPolicyTapped:(id)sender {
+    if (self.privacyPolicyTextField.hidden == YES) {
+        self.privacyPolicyTextField.hidden = NO;
+    } else {
+        self.privacyPolicyTextField.hidden = YES;
+    }
 }
 
 @end

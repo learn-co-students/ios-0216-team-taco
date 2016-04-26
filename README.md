@@ -1,17 +1,55 @@
-# OH HEY! Welcome to your new project.
+Privacy Policy
 
-One of your teammates should clone this repository to their machine. Then, go through these steps:
+Last updated: April 26, 2016
 
-1. Add a `.gitignore` to the cloned directory. The [Github suggested one for Objective-C](https://github.com/github/gitignore/blob/master/Objective-C.gitignore) is a good start.
-2. Uncomment the `Pods/` line in the `.gitignore`. We want to ignore the Pods directory. Trust me on this.
-3. Add a line that just says `Secrets.m` (or `Constants.m`, your preference) to the `.gitignore`. We want git to ignore your API keys and secrets, since this is going to be open source.
-4. Make a new Xcode project in the cloned directory.
-5. Run `pod init` in the directory, and add a pod (any pod) to the `Podfile`. Then run `pod install`. This will set up the workspace for the project, so everyone starts on the same foot.
-6. Add `Secrets.h` and `Secrets.m` files to your project (using `File > New > Cocoa Class`).
-7. In terminal, you'll probably need to do `git reset HEAD` and then `git add .`. This is just necessary when making changes to the `.gitignore`.
-8. Once you've done that, run `git status` and ensure that the `Secrets.m` file and `<username>.xcuserdata` files are **not** in the list.
-9. Commit! `git commit -m "Initial Commit"`
-10. Push! `git push origin master`
+This page informs you of our policies regarding the collection, use and disclosure of
+Personal Information we receive from users of the pacts application.
 
-Now your teammates can clone this repository and start branching and coding!
+We use your Personal Information only for providing and improving pacts. By using pacts, you
+agree to the collection and use of information in accordance with this policy.  
 
+How We Use Your Information
+We use information you provide to authenticate you and deliver content to you and from you.  While we collect this information, we only use it to provide you with an incredible experience in our application!  We do not share this information.
+
+Information Collection And Use
+To use our application, we may ask you to provide us with certain personally identifiable information
+that can be used to contact or identify you. Personally identifiable information may include, but is not
+limited to your name ("Personal Information").  We ask you to sign in to our application with a phone number and a Twitter account.
+
+Phone Number
+We collect your phone number in order to keep track of your pacts in our application.
+
+Twitter
+To use our application, you must sign in with a Twitter account.  We collect your Twitter username, your Twitter Display Name, and the URL to your Twitter Profile Picture.  While you must sign in using a Twitter Account and collect that information.  We will only ever post a Tweet to your account if you give us permission by activating a pact with that feature enabled.
+
+We do not receive or store your passwords for Twitter.
+
+Pact Information
+When you create a pact, we collect the information about that pact, including the phone numbers of pact participants, 
+
+Communication Content
+When you use pacts, we collect content that you send including the message, pictures, files, videos, and check-ins with geo-location.  This includes when communication was sent as well as by whom
+
+Geo-location information
+When you check-in to a pact, if you grant permission to your device's location services, your location will be posted in the chat feature, and that location will be collected.
+
+Security
+The security of your Personal Information is important to us, but remember that no method of
+transmission over the Internet, or method of electronic storage, is 100% secure. While we strive to
+use commercially acceptable means to protect your Personal Information, we cannot guarantee its
+absolute security.
+
+Changes To This Privacy Policy
+This Privacy Policy is effective as of April 26, 2016 and will remain in effect except with respect to any
+changes in its provisions in the future, which will be in effect immediately after being posted on this
+page.
+
+We reserve the right to update or change our Privacy Policy at any time and you should check this
+Privacy Policy periodically. Your continued use of the Service after we post any modifications to the
+Privacy Policy on this page will constitute your acknowledgment of the modifications and your
+consent to abide and be bound by the modified Privacy Policy.
+
+If we make any material changes to this Privacy Policy, we will notify you either through the Twitter Account you have provided us, or by placing a notice on our website.
+
+Contact Us
+If you have any questions about this Privacy Policy, please contact us on Twitter: @pacts_app

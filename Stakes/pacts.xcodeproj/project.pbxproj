@@ -12,7 +12,6 @@
 		3F4DDAC41CB58E8A0000ACE2 /* UserDescriptionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F4DDAC31CB58E8A0000ACE2 /* UserDescriptionView.m */; };
 		3F52B0881CAB3EBC0031BF59 /* Israel.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3F52B0871CAB3EBC0031BF59 /* Israel.jpg */; };
 		4A012FEA50F46E0278EE7E65 /* Pods_pacts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D5AA13E50DFCF248610A8412 /* Pods_pacts.framework */; };
-		5BF72C621CCEC5DF00E9C3BD /* Secrets.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BF72C611CCEC5DF00E9C3BD /* Secrets.m */; };
 		AF27C4DB1CB6FC92001AA278 /* JDDChatRoom.m in Sources */ = {isa = PBXBuildFile; fileRef = AF27C4DA1CB6FC92001AA278 /* JDDChatRoom.m */; };
 		AF2883481CAC12C6003FD3E2 /* JDDDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = AF2883471CAC12C6003FD3E2 /* JDDDataSource.m */; };
 		AF6449F91CC45BDA002568C9 /* MessageShape.png in Resources */ = {isa = PBXBuildFile; fileRef = AF6449F81CC45BDA002568C9 /* MessageShape.png */; };
@@ -34,6 +33,7 @@
 		CB4F71CF1CB5540400F44FE6 /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = CB4F71CE1CB5540400F44FE6 /* Constants.m */; };
 		CB68668F1CCE6E9A00F5CF19 /* StakesLogoWFill.png in Resources */ = {isa = PBXBuildFile; fileRef = CB68668E1CCE6E9A00F5CF19 /* StakesLogoWFill.png */; };
 		CB6866911CCE877000F5CF19 /* pacts1024.png in Resources */ = {isa = PBXBuildFile; fileRef = CB6866901CCE877000F5CF19 /* pacts1024.png */; };
+		CB6866931CCEF72B00F5CF19 /* Secrets.m in Sources */ = {isa = PBXBuildFile; fileRef = CB6866921CCEF72B00F5CF19 /* Secrets.m */; };
 		CB8BC03A1CAD75D0003A9D5E /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB8BC0391CAD75D0003A9D5E /* LoginViewController.m */; };
 		CB8BC0421CADB3AB003A9D5E /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB8BC0411CADB3AB003A9D5E /* Accounts.framework */; };
 		CB8BC0441CADB3B2003A9D5E /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB8BC0431CADB3B2003A9D5E /* Social.framework */; };
@@ -83,7 +83,6 @@
 		3F4DDAC21CB58E8A0000ACE2 /* UserDescriptionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserDescriptionView.h; sourceTree = "<group>"; };
 		3F4DDAC31CB58E8A0000ACE2 /* UserDescriptionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserDescriptionView.m; sourceTree = "<group>"; };
 		3F52B0871CAB3EBC0031BF59 /* Israel.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = Israel.jpg; sourceTree = "<group>"; };
-		5BF72C611CCEC5DF00E9C3BD /* Secrets.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Secrets.m; sourceTree = "<group>"; };
 		79BEE4D5993F024270E6A571 /* Pods-Stakes.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Stakes.release.xcconfig"; path = "Pods/Target Support Files/Pods-Stakes/Pods-Stakes.release.xcconfig"; sourceTree = "<group>"; };
 		AF27C4D91CB6FC92001AA278 /* JDDChatRoom.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JDDChatRoom.h; sourceTree = "<group>"; };
 		AF27C4DA1CB6FC92001AA278 /* JDDChatRoom.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JDDChatRoom.m; sourceTree = "<group>"; };
@@ -115,6 +114,7 @@
 		CB4F71CE1CB5540400F44FE6 /* Constants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Constants.m; sourceTree = "<group>"; };
 		CB68668E1CCE6E9A00F5CF19 /* StakesLogoWFill.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = StakesLogoWFill.png; sourceTree = "<group>"; };
 		CB6866901CCE877000F5CF19 /* pacts1024.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pacts1024.png; sourceTree = "<group>"; };
+		CB6866921CCEF72B00F5CF19 /* Secrets.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Secrets.m; sourceTree = "<group>"; };
 		CB8BC0381CAD75D0003A9D5E /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		CB8BC0391CAD75D0003A9D5E /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		CB8BC0411CADB3AB003A9D5E /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
@@ -282,7 +282,7 @@
 			isa = PBXGroup;
 			children = (
 				CBA985851CAAED4500D1CC27 /* Secrets.h */,
-				5BF72C611CCEC5DF00E9C3BD /* Secrets.m */,
+				CB6866921CCEF72B00F5CF19 /* Secrets.m */,
 				CB4F71CD1CB5540400F44FE6 /* Constants.h */,
 				CB4F71CE1CB5540400F44FE6 /* Constants.m */,
 			);
@@ -535,7 +535,7 @@
 			files = (
 				AF97DCB61CC16B0C0053E497 /* UserPactDetailView.m in Sources */,
 				CBA9859C1CAAEE0900D1CC27 /* UserPactsViewController.m in Sources */,
-				5BF72C621CCEC5DF00E9C3BD /* Secrets.m in Sources */,
+				CB6866931CCEF72B00F5CF19 /* Secrets.m in Sources */,
 				CBA9859A1CAAEE0900D1CC27 /* JDDUser.m in Sources */,
 				AF2883481CAC12C6003FD3E2 /* JDDDataSource.m in Sources */,
 				CBA985571CAAEC6D00D1CC27 /* AppDelegate.m in Sources */,
