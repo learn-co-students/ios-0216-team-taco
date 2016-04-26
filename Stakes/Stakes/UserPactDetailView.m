@@ -235,7 +235,7 @@
             self.slashLabel.hidden = YES;
         
             // days left label
-            NSUInteger timeInt = [timeIntervalNSNumbers[self.pact.timeInterval]intValue];
+            NSTimeInterval timeInt = [timeIntervalNSNumbers[self.pact.timeInterval]intValue];
             NSDate *endDate = [NSDate dateWithTimeInterval:60*60*24*timeInt sinceDate:self.pact.dateOfCreation];
             
             
