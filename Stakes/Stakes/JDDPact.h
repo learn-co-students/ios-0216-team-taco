@@ -19,9 +19,9 @@
 @property (nonatomic, strong) NSMutableDictionary *users;
 @property (nonatomic, strong) NSMutableArray *usersToShowInApp;
 @property (nonatomic, strong) NSString *pactID; // this should be the unique identifier for a pact throughout the application - and what gets writted to firebase.
-@property (nonatomic, assign) NSDate *dateOfCreation;
+@property (nonatomic, strong) NSDate *dateOfCreation;
 @property (nonatomic) BOOL isActive;
-@property (nonatomic, assign) NSDate * currentExpirationDate;
+@property (nonatomic, strong) NSDate * currentExpirationDate;
 
 //CheckIn Information
 @property (nonatomic) NSUInteger checkInsPerTimeInterval;

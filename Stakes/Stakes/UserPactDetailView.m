@@ -235,7 +235,11 @@
             self.slashLabel.hidden = YES;
         
             // days left label
-            self.numberOfDaysLeftLabel.text = [NSString stringWithFormat:@"%lu",[UserPactDetailView daysBetweenDate:self.pact.dateOfCreation andDate:[NSDate dateWithTimeInterval:60*60*24* [timeIntervalNSNumbers[self.pact.timeInterval]intValue] sinceDate:self.pact.dateOfCreation]]];
+            NSUInteger timeInt = [timeIntervalNSNumbers[self.pact.timeInterval]intValue];
+            NSDate *endDate = [NSDate dateWithTimeInterval:60*60*24*timeInt sinceDate:self.pact.dateOfCreation];
+            
+            
+            self.numberOfDaysLeftLabel.text = [NSString stringWithFormat:@"%li",(long)[UserPactDetailView daysBetweenDate:self.pact.dateOfCreation andDate:endDate]];
             // pact details
             self.expirationDateLabel.text = [dateFormatter stringFromDate:[NSDate dateWithTimeInterval:60*60*24* [timeIntervalNSNumbers[self.pact.timeInterval]intValue] sinceDate:self.pact.dateOfCreation]];
             self.createdDateLabel.text = [dateFormatter stringFromDate:self.pact.dateOfCreation];
@@ -257,7 +261,7 @@
                 
                 self.repeatingLabel.text = @"Not Repeating";
             }
-            self.checkInsNumber.text = [NSString stringWithFormat:@"%lu",self.pact.checkInsPerTimeInterval];
+            self.checkInsNumber.text = [NSString stringWithFormat:@"%lu",(unsigned long)self.pact.checkInsPerTimeInterval];
             self.timeInterval.text = self.pact.timeInterval;
             
         } else {
@@ -271,12 +275,17 @@
             //statusBar
             self.completedLabel.hidden = YES;
             self.topCheckinsLabel.hidden = NO;
-            self.topCheckinsLabel.text = [NSString stringWithFormat:@"%lu",self.userCheckins];
+            self.topCheckinsLabel.text = [NSString stringWithFormat:@"%lu",(unsigned long)self.userCheckins];
             self.topCheckinsNeededLabel.hidden = NO;
-            self.topCheckinsNeededLabel.text = [NSString stringWithFormat:@"%lu",self.pact.checkInsPerTimeInterval];
+            self.topCheckinsNeededLabel.text = [NSString stringWithFormat:@"%lu",(unsigned long)self.pact.checkInsPerTimeInterval];
 
             // days left label
-            self.numberOfDaysLeftLabel.text = [NSString stringWithFormat:@"%lu",[UserPactDetailView daysBetweenDate:self.pact.dateOfCreation andDate:[NSDate dateWithTimeInterval:60*60*24* [timeIntervalNSNumbers[self.pact.timeInterval]intValue] sinceDate:self.pact.dateOfCreation]]];
+            
+            NSTimeInterval timeInt = [timeIntervalNSNumbers[self.pact.timeInterval]intValue];
+            NSDate *endDate = [NSDate dateWithTimeInterval:60*60*24*timeInt sinceDate:self.pact.dateOfCreation];
+            
+            
+            self.numberOfDaysLeftLabel.text = [NSString stringWithFormat:@"%li",(long)[UserPactDetailView daysBetweenDate:self.pact.dateOfCreation andDate:endDate]];
             // pact details
             self.expirationDateLabel.text = [dateFormatter stringFromDate:[NSDate dateWithTimeInterval:60*60*24* [timeIntervalNSNumbers[self.pact.timeInterval]intValue] sinceDate:self.pact.dateOfCreation]];
             self.createdDateLabel.text = [dateFormatter stringFromDate:self.pact.dateOfCreation];

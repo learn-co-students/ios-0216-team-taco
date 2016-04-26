@@ -135,7 +135,7 @@
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="top" misplaced="YES" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xpS-pX-icX">
                                 <rect key="frame" x="61" y="434" width="240" height="128"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <mutableString key="text">Privacy Policy 
+                                <string key="text">Privacy Policy 
 Last updated: April 26, 2016
 
 This page informs you of our policies regarding the collection, use and disclosure of Personal Information we receive from users of the pacts application.
@@ -184,7 +184,7 @@ consent to abide and be bound by the modified Privacy Policy.
 If we make any material changes to this Privacy Policy, we will notify you either through the Twitter Account you have provided us, or by placing a notice on our website.
 
 Contact Us
-If you have any questions about this Privacy Policy, please contact us on Twitter: @pacts_app</mutableString>
+If you have any questions about this Privacy Policy, please contact us on Twitter: @pacts_app</string>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="15"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
