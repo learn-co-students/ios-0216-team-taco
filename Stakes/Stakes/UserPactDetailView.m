@@ -5,8 +5,6 @@
 //  Created by Dylan Straughan on 4/15/16.
 //  Copyright © 2016 JDD. All rights reserved.
 
-#import <BALoadingView/BALoadingView.h>
-
 #import "UserPactDetailView.h"
 #import "JDDDataSource.h"
 #import "JDDUser.h"
