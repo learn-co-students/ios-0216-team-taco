@@ -42,7 +42,7 @@
 
 -(instancetype)initWithCoder:(NSCoder *)aDecoder
 {
-   
+    
     self = [super initWithCoder:aDecoder];
     
     if (self) {
@@ -110,40 +110,40 @@
 
 
 - (IBAction)checkInButtonPressed:(id)sender {
-       
+    
     NSLog(@"checkin Button Pressed");
     if (!self.pact.isActive) {
         [[NSNotificationCenter defaultCenter] postNotificationName:InactivePactCheckinNotificationName object:nil];
     } else {
-    
-    self.checkIn = [[JDDCheckIn alloc]init];
-    NSDate * now = [NSDate date];
-    self.checkIn.userID = self.sharedData.currentUser.userID;
-    self.checkIn.checkInDate = now;
-    
-    Firebase *checkinRef = [self.sharedData.firebaseRef childByAppendingPath:[NSString stringWithFormat:@"pacts/%@/checkins",self.pact.pactID]];
-    
-    Firebase *newCheckin = [checkinRef childByAutoId];
-    
-    self.checkIn.checkInID = [newCheckin.description stringByReplacingOccurrencesOfString:[NSString stringWithFormat:@"%@/", checkinRef.description] withString:@""];
-    
         
-    NSMutableDictionary *finalCheckinDictionary = [self.sharedData createDictionaryToSendToFirebaseWithJDDCheckIn:self.checkIn];
-    
-    [newCheckin setValue:finalCheckinDictionary];
-    
-    self.locationManager = [[CLLocationManager alloc]init];
-    self.locationManager.desiredAccuracy = kCLLocationAccuracyBest;
-    self.locationManager.delegate = self;
-    [self.locationManager requestWhenInUseAuthorization];
-    if ([self.locationManager respondsToSelector:@selector
-         (requestWhenInUseAuthorization)]) {
+        self.checkIn = [[JDDCheckIn alloc]init];
+        NSDate * now = [NSDate date];
+        self.checkIn.userID = self.sharedData.currentUser.userID;
+        self.checkIn.checkInDate = now;
+        
+        Firebase *checkinRef = [self.sharedData.firebaseRef childByAppendingPath:[NSString stringWithFormat:@"pacts/%@/checkins",self.pact.pactID]];
+        
+        Firebase *newCheckin = [checkinRef childByAutoId];
+        
+        self.checkIn.checkInID = [newCheckin.description stringByReplacingOccurrencesOfString:[NSString stringWithFormat:@"%@/", checkinRef.description] withString:@""];
+        
+        
+        NSMutableDictionary *finalCheckinDictionary = [self.sharedData createDictionaryToSendToFirebaseWithJDDCheckIn:self.checkIn];
+        
+        [newCheckin setValue:finalCheckinDictionary];
+        
+        self.locationManager = [[CLLocationManager alloc]init];
+        self.locationManager.desiredAccuracy = kCLLocationAccuracyBest;
+        self.locationManager.delegate = self;
         [self.locationManager requestWhenInUseAuthorization];
-    }
-    
-    [self.locationManager startUpdatingLocation];
-
-    [[NSNotificationCenter defaultCenter] postNotificationName:UserCheckedInNotificationName object:self.pact];
+        if ([self.locationManager respondsToSelector:@selector
+             (requestWhenInUseAuthorization)]) {
+            [self.locationManager requestWhenInUseAuthorization];
+        }
+        
+        [self.locationManager startUpdatingLocation];
+        
+        [[NSNotificationCenter defaultCenter] postNotificationName:UserCheckedInNotificationName object:self.pact];
     }
 }
 
@@ -185,15 +185,15 @@
                                                                                                  }];
     
     [[[self.sharedData.firebaseRef childByAppendingPath:[NSString stringWithFormat:@"chatrooms/%@",self.pact.pactID]] childByAutoId] setValue:locationDictionary];
-
+    
     
     [self.locationManager stopUpdatingLocation];
-
+    
 }
 //===================================================================================================================
 
 -(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSString *,id> *)change context:(void *)context{
- 
+    
     NSLog(@"observed changes %@", change);
 }
 
@@ -206,9 +206,9 @@
 }
 
 -(void)setShitUp {
-
+    
     self.sharedData = [JDDDataSource sharedDataSource];
-
+    
     // first empty the stackview
     for (UIView *subview in self.stackView.arrangedSubviews){
         [self.stackView removeArrangedSubview:subview];
@@ -217,7 +217,7 @@
     
     // then for each user, createa a UserDescriptionView and add it to the stackview
     for (JDDUser *user in self.pact.usersToShowInApp){
-       
+        
         UserDescriptionView *view1 = [[UserDescriptionView alloc]init];
         
         [self determineCheckinsPerTimeIntervalForUser:user];
@@ -226,21 +226,21 @@
         
         NSString *valueIndicator = [NSString stringWithFormat:@"%@",[self.pact.users valueForKey:user.userID]] ;
         NSString *currentPact = [NSString stringWithFormat:@"%@",self.pact.title];
-  
+        
         user.isReady = valueIndicator;
         user.currentPactIn = currentPact;
         view1.borderView.layer.borderWidth = 1.0;
         view1.user = user;
-        NSLog(@"Is the view's user ready? %@", view1.user.isReady);
-        // same as [view setUser:user];
-        [self.stackView addArrangedSubview:view1];
         
+        BOOL isCurrentUser = [user.displayName isEqualToString:self.sharedData.currentUser.displayName];
         
-//        if (self.pact.users.count == 2) {
-            [view1.widthAnchor constraintEqualToAnchor:self.scrollView.widthAnchor multiplier:0.33].active = YES;
-//        } else {
-//        [view1.widthAnchor constraintEqualToAnchor:self.scrollView.widthAnchor multiplier:0.33].active = YES;
-//        }
+        if (isCurrentUser) {
+            [self.stackView insertArrangedSubview:view1 atIndex:0];
+        } else {
+            [self.stackView addArrangedSubview:view1];
+        }
+        
+        [view1.widthAnchor constraintEqualToAnchor:self.scrollView.widthAnchor multiplier:0.33].active = YES;
         
         [self.stackView layoutSubviews];//give subviews a size
         view1.clipsToBounds = YES;
@@ -256,7 +256,7 @@
     
     if (self.pact.twitterPost.length > 0) {
         self.twitterText.text = self.pact.twitterPost;
-
+        
     } else {
         self.twitterText.text = @"Twitter shaming is disabled for this pact.";
     }
@@ -264,8 +264,8 @@
 }
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-            PactDetailViewController *pactVC = segue.destinationViewController;
-            pactVC.pact = self.pact;
+    PactDetailViewController *pactVC = segue.destinationViewController;
+    pactVC.pact = self.pact;
 }
 
 
