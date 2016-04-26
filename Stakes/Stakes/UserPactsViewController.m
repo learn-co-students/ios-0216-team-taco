@@ -163,13 +163,13 @@
 
 #pragma gestureRecognizers for segues
 
-
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView {
     
-    self.createPactLabelAnchor.constant = -(scrollView.contentOffset.y*2) -(self.view.frame.size.height/5);
-    self.createPactLabel.alpha = -(scrollView.contentOffset.y)/(self.view.frame.size.height/6);
+    self.createPactLabelAnchor.constant = -(scrollView.contentOffset.y*2) -(self.view.frame.size.height/4);
     
-    if (scrollView.contentOffset.y < -(self.view.frame.size.height/6)) {
+    self.createPactLabel.alpha = -(scrollView.contentOffset.y)/(self.view.frame.size.height/4);
+    
+    if (scrollView.contentOffset.y < -(self.view.frame.size.height/4)) {
         
         CATransition *transition = [CATransition animation];
         transition.duration = 0.75;
@@ -182,6 +182,7 @@
         
     }
 }
+
 
 #pragma stuff for tableView
 
@@ -237,7 +238,10 @@
 }
 
 
+
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    
+    [self sortPactsArray:self.sharedData.currentUser.pactsToShowInApp]; // method will sorts pacts and will show the most recent one on top of the tableView
     
     JDDPact *currentPact = self.sharedData.currentUser.pactsToShowInApp[section];
     
@@ -249,6 +253,13 @@
     
 }
 
+-(void)sortPactsArray:(NSMutableArray *)unsortedPacts {
+    
+    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"dateOfCreation" ascending:false];
+    
+    [self.sharedData.currentUser.pactsToShowInApp sortUsingDescriptors:[NSArray arrayWithObject:sortDescriptor]];
+    
+}
 
 #pragma mark - <FZAccordionTableViewDelegate> -
 

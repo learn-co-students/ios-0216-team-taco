@@ -239,11 +239,7 @@
 				CBA985891CAAEE0900D1CC27 /* CreatePactViewController.m */,
 				AF9B006E1CC7E6B500A438F1 /* Assets.xcassets */,
 				CBA985921CAAEE0900D1CC27 /* PactDetailViewController.h */,
-				AF9B006C1CC7C63200A438F1 /* Stakes Logo2.pdf */,
-				CB68668E1CCE6E9A00F5CF19 /* StakesLogoWFill.png */,
-				CB6866901CCE877000F5CF19 /* pacts1024.png */,
 				CBA985931CAAEE0900D1CC27 /* PactDetailViewController.m */,
-				AF9B00701CC7E6C300A438F1 /* navBarIcon.png */,
 				CBA985941CAAEE0900D1CC27 /* UserPactsViewController.h */,
 				CBA985951CAAEE0900D1CC27 /* UserPactsViewController.m */,
 				CBA985601CAAEC6D00D1CC27 /* LaunchScreen.storyboard */,
@@ -330,6 +326,10 @@
 		CBA985521CAAEC6D00D1CC27 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				AF9B006C1CC7C63200A438F1 /* Stakes Logo2.pdf */,
+				CB68668E1CCE6E9A00F5CF19 /* StakesLogoWFill.png */,
+				AF9B00701CC7E6C300A438F1 /* navBarIcon.png */,
+				CB6866901CCE877000F5CF19 /* pacts1024.png */,
 				3F52B0871CAB3EBC0031BF59 /* Israel.jpg */,
 				CBA985531CAAEC6D00D1CC27 /* main.m */,
 				CBED55671CB2BFB0005F0D4E /* TwitterAuthHelper.h */,
