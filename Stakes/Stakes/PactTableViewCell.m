@@ -29,36 +29,46 @@
     
     NSLog(@"PactTableViewCell awakeFromNib called!");
     
-    self.sharedData = [JDDDataSource sharedDataSource];
-
-    [self createScrollView];
-    self.scrollView.delegate = self;
-    
-    [self.scrollView layoutIfNeeded];
-
-    [self createView];
-    
- 
-
-    
 }
 
 -(void)setPact:(JDDPact *)pact {
-    [self createStackView];
+    
+    self.sharedData = [JDDDataSource sharedDataSource];
+    
+    
+    if (!self.scrollView) {
+        [self createScrollView];
+        
+    }
+    if (!self.stackView) {
+        [self createStackView];
+    }
+    
+    self.scrollView.delegate = self;
+    
+    [self.scrollView layoutIfNeeded];
+    [self.stackView layoutIfNeeded];
     
     
     
     _pact = pact;
-   
+    
+    
     for (UIView *subviews in self.stackView.arrangedSubviews) {
         [subviews removeFromSuperview];
     }
-
+    
     
     [self createMainPactViewAtIndex:0 withPact:pact inStackView:self.stackView];
     
     [self createPactDetailViewAtIndex:1 withPact:pact inStackView:self.stackView];
-
+    
+    
+    
+    
+    
+    
+    [self createView];
     
     
 }
@@ -69,45 +79,34 @@
     
     [self.contentView addSubview:self.scrollView];
     
-    if ([self.sharedData.currentPact.title isEqualToString:@"Tap Here To Start"]) {
-        self.scrollView.scrollEnabled = NO;
-        
-    } else {
-        self.scrollView.scrollEnabled = YES;
-  
-    }
+    
+    
+    
+    
     self.scrollView.translatesAutoresizingMaskIntoConstraints = NO;
     [self.scrollView.topAnchor constraintEqualToAnchor:self.contentView.topAnchor].active = YES;
     [self.scrollView.leftAnchor constraintEqualToAnchor:self.contentView.leftAnchor].active = YES;
     [self.scrollView.rightAnchor constraintEqualToAnchor:self.contentView.rightAnchor
      ].active = YES;
     [self.scrollView.bottomAnchor constraintEqualToAnchor:self.contentView.bottomAnchor].active = YES;
-
+    
     
     self.scrollView.userInteractionEnabled = YES;
     self.scrollView.showsHorizontalScrollIndicator = NO;
     self.scrollView.pagingEnabled = YES;
     
-    [self.scrollView setContentOffset:CGPointMake(self.contentView.frame.size.width,0) animated:YES];
     
 }
 
 -(void)createStackView {
     
-   
+    
     self.stackView = [[UIStackView alloc]init];
     
     [self.scrollView addSubview:self.stackView];
-    
     self.stackView.translatesAutoresizingMaskIntoConstraints = NO;
     
-    if (self.sharedData.currentUser.pacts.count == 0 || [self.sharedData.currentUser.pacts isEqual:nil]) {
-        [self.stackView.topAnchor constraintEqualToAnchor:self.contentView.topAnchor constant:0].active = YES;
-        [self.stackView.bottomAnchor constraintEqualToAnchor:self.contentView.bottomAnchor].active = YES;
-    } else {
-        [self.stackView.topAnchor constraintEqualToAnchor:self.contentView.topAnchor constant:-20].active = YES;
-        [self.stackView.bottomAnchor constraintEqualToAnchor:self.contentView.bottomAnchor].active = YES;
-    }
+    
     
     
     [self.stackView.leftAnchor constraintEqualToAnchor:self.scrollView.leftAnchor].active = YES;
@@ -117,21 +116,19 @@
     self.stackView.distribution = UIStackViewDistributionFillEqually;
     self.stackView.alignment = UIStackViewAlignmentFill;
     
-    if (self.sharedData.currentUser.pacts == 0 || [self.sharedData.currentUser.pacts isEqual:nil]) {
-        self.scrollView.scrollEnabled = NO;
-        [self.scrollView setContentOffset:CGPointZero];
-    } else {
-        self.scrollView.scrollEnabled = YES;
-    }
+    
+    
 }
-
 
 -(void)createMainPactViewAtIndex:(NSUInteger)index withPact:(JDDPact *)pact inStackView:(UIStackView *)stackView{
     
     UserPactMainView * view = [[UserPactMainView alloc]initWithFrame:CGRectZero];
     
     [stackView addArrangedSubview:view];
-    if ([pact.title isEqualToString:@"Tap Here To Start"]) {
+    
+    BOOL pactIsDemoPact =[pact.title isEqualToString:@"Tap Here To Start"];
+    
+    if (pactIsDemoPact) {
         view.checkInButton.hidden = YES;
         view.checkInLabel.hidden =YES;
         view.stakesText.numberOfLines = 1;
@@ -148,25 +145,50 @@
         [view.textView.bottomAnchor constraintEqualToAnchor:view.contentView.bottomAnchor].active = YES;
         
         
-       
+        
         
         view.pact = pact;
-
+        
     } else {
         view.pact = pact;
-
+        
+    }
+    
+    BOOL pactIsNotCreated = (self.sharedData.currentUser.pacts.count == 0 || [self.sharedData.currentUser.pacts isEqual:nil]);
+    
+    if (pactIsNotCreated) {
+        self.scrollView.scrollEnabled = NO;
+        [self.scrollView setContentOffset:CGPointZero];
+        
+        [self.stackView.topAnchor constraintEqualToAnchor:self.contentView.topAnchor constant:0].active = YES;
+        [self.stackView.bottomAnchor constraintEqualToAnchor:self.contentView.bottomAnchor].active = YES;
+        
+    } else {
+        
+        self.scrollView.scrollEnabled = YES;
+        [self.scrollView setContentOffset:CGPointZero];
+        
+        [self.stackView.topAnchor constraintEqualToAnchor:self.contentView.topAnchor constant:-20].active = YES;
+        [self.stackView.bottomAnchor constraintEqualToAnchor:self.contentView.bottomAnchor ].active = YES;
+        
     }
     
     [view.widthAnchor constraintEqualToAnchor:self.contentView.widthAnchor].active = YES;
+    
     
 }
 
 -(void)createPactDetailViewAtIndex:(NSUInteger)index withPact:(JDDPact *)pact inStackView:(UIStackView *)stackView{
     
     UserPactDetailView *view = [[UserPactDetailView alloc]initWithFrame:CGRectZero];
-    view.pact = pact;
-
-    [stackView insertArrangedSubview:view atIndex:index];
+    
+    BOOL pactIsDemoPact =[pact.title isEqualToString:@"Tap Here To Start"];
+    
+    if (!pactIsDemoPact) {
+        view.pact = pact;
+        
+        [stackView insertArrangedSubview:view atIndex:index];
+    }
     
 }
 
@@ -177,7 +199,7 @@
     
     self.messageShapeTrailingAnchor.constant = -(scrollView.contentOffset.x *2)-(self.contentView.frame.size.width/3.3);
     self.messageImageView.alpha = -(scrollView.contentOffset.x)/(self.contentView.frame.size.width/4);
-
+    
     if (scrollView.contentOffset.x < - (self.contentView.frame.size.width/4)) {
         
         didSwipeToCertainPoint = YES;
