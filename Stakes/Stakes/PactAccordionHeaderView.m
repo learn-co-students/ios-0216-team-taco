@@ -67,7 +67,8 @@
 
 -(void)updateUI
 {
-    
+    [self.pendingLabel setTransform:CGAffineTransformMakeRotation(-M_PI / 2)];
+
     if ([self.pact.title isEqualToString:@"Tap Here To Start"]) {  // this is for the Demo pact
         self.pendingLabel.hidden = YES;
         if (!self.sharedData.isSectionOpen) {

@@ -52,6 +52,7 @@
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (weak, nonatomic) IBOutlet UIButton *doneButton;
 @property (weak, nonatomic) IBOutlet UIButton *cancelButton;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *buttonsTopConstraint;
 
 @end
 
@@ -64,22 +65,32 @@
     [self.RemoveInvitesButton setTransform:CGAffineTransformMakeRotation(-M_PI / 2)];
     [self initializePickers];
     [self cleanScreenFromLabels];
-    //    [self imageStyle]; //this is for styling the proile Images
     [self stylePactDescriptionView];
     [self styleTwitterPost];
     [self styleStakesView];
     self.twitterShamePost.delegate = self;
     [self.pactTitle becomeFirstResponder];
     self.stakesTextView.delegate = self;
-    
     self.doneButton.layer.cornerRadius = 15;
     self.cancelButton.layer.cornerRadius = 15;
-    
+    self.pactTitle.delegate = self;
     self.contactsToShow = [[NSMutableArray alloc]init];
+    
     
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(dismissKeyboard)];
     
     [self.view addGestureRecognizer:tap];
+    
+    CGFloat iphoneSize = [[UIScreen mainScreen] bounds].size.height;
+    if (iphoneSize == 568) {
+        self.buttonsTopConstraint.constant = 50;
+        
+    } else if (iphoneSize == 736) {
+        
+        self.buttonsTopConstraint.constant = 60;
+    } else {
+        self.buttonsTopConstraint.constant = 30;
+    }
     
 }
 
@@ -89,6 +100,7 @@
 
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(nonnull NSString *)text {
     // Prevent crashing undo bug – see note below.
+    
     if(range.length + range.location > textView.text.length)
     {
         return NO;
@@ -98,8 +110,8 @@
         return NO;
     }
     NSUInteger newLength = [textView.text length] + [text length] - range.length;
-    NSLog(@"Twitter char post length: %li", newLength);
     return newLength <= 139;
+    
 }
 
 
@@ -117,6 +129,7 @@
         self.welcomeLabel.hidden = NO;
         
     }
+    
     self.RemoveInvitesButton.hidden = YES;
     self.pactDescription.alpha = 0;
     self.stakesTextView.alpha = 0;
@@ -145,15 +158,45 @@
     [self.twitterShamePost resignFirstResponder];
     [self.pactDescription resignFirstResponder];
     [self.pactTitle resignFirstResponder];
-    if (self.pactTitle.text.length >0) {
+    if (self.stakesTextView.text.length >0) {
         [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
             
-            self.topConstraint.constant = 10;
+            CGFloat iphoneSize = [[UIScreen mainScreen] bounds].size.height;
+            if (iphoneSize == 568) {
+                if (self.topConstraint.constant == 0) {
+                    self.topConstraint.constant = -50;
+                } else {
+                    self.topConstraint.constant = 0;
+                }
+                
+            } else if (iphoneSize == 736) {
+                
+                self.buttonsTopConstraint.constant = 110;
+            } else {
+                
+                self.buttonsTopConstraint.constant = 80;
+            }
+            
             [self.view layoutIfNeeded];
             
         } completion:^(BOOL finished) {
             
         }];
+        
+        if (self.shameSwitch.on) {
+            CGFloat iphoneSize = [[UIScreen mainScreen] bounds].size.height;
+            if (iphoneSize == 568) {
+                self.buttonsTopConstraint.constant = 40;
+            } else if (iphoneSize == 736) {
+                
+                self.buttonsTopConstraint.constant = 100;
+                
+            } else {
+                
+                self.buttonsTopConstraint.constant = 80;
+            }
+            
+        }
         
     }
 }
@@ -184,20 +227,16 @@
 - (void)textViewDidBeginEditing:(UITextView *)textView
 {
     self.twitterShamePost = textView;
+    self.twitterShamePost.text = @"";
     [UIView animateWithDuration:0.25 animations:^{
-        self.topConstraint.constant = -160;
-        
+        CGFloat iphoneSize = [[UIScreen mainScreen] bounds].size.height;
+        if (iphoneSize == 568) {
+            self.topConstraint.constant = -220;
+            self.buttonsTopConstraint.constant = 70;
+        } else {
+            self.topConstraint.constant = -160;
+        }
     }];
-    
-    
-    
-}
-- (IBAction)twitterPostEditingBegan:(id)sender {
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(keyBoardWillShowForTwiiter:)
-                                                 name:UIKeyboardWillShowNotification
-                                               object:nil];
     
     
     
@@ -542,6 +581,7 @@
 - (IBAction)shameToggleTapped:(id)sender {
     
     if (self.shameSwitch.on) {
+        self.twitterShamePost.text = @"I am a terrible friend and I disaapointed all my pact members";
         self.twitterShamePost.hidden = NO;
         self.twitterOnboardingLabel.alpha = 0;
         [UIView animateWithDuration:1 animations:^{
@@ -571,7 +611,6 @@
     //may need an if statement to make sure this doesn't fire if contacts.count == 0
     self.contacts = [[NSMutableArray alloc]init];
     NSString *PhoneNumber = [[NSString alloc]init];
-    NSString *givenName = [[NSString alloc]init];
     
     for(CNContact *contact in contacts){
         
@@ -585,26 +624,26 @@
                 
                 
                 if ([contact.phoneNumbers[i].label isEqual:@"_$!<Mobile>!$_"] || [contact.phoneNumbers[i].label isEqual:@"iPhone"] || !contact.phoneNumbers[i].label){
-                                                                            
                     
-                  PhoneNumber = [self updateUIandFireBasewith:contact atIndex:i];
-                        
-
+                    
+                    PhoneNumber = [self updateUIandFireBasewith:contact atIndex:i];
+                    
+                    
                 } else if (contact.phoneNumbers.count ==1){
                     
-                     PhoneNumber = [self updateUIandFireBasewith:contact atIndex:i];
+                    PhoneNumber = [self updateUIandFireBasewith:contact atIndex:i];
                     
                 }
             }
             
-        
+            
             
         } else {
             
             [self dismissViewControllerAnimated:YES completion:^{
                 [self alertFinishFiling:@"This contact has no number registered"];
             }];
-
+            
         }
     }
     
@@ -682,7 +721,7 @@
         
         
     }];
-
+    
     return contactPhone;
 }
 
@@ -904,10 +943,22 @@
 
 - (void)textViewDidEndEditing:(UITextView *)textView
 {
-    self.topConstraint.constant = 0;
     
     self.twitterShamePost = textView;
-    [self.twitterShamePost resignFirstResponder];
+    self.topConstraint.constant = 0;
+  
+    CGFloat iphoneSize = [[UIScreen mainScreen] bounds].size.height;
+    if (iphoneSize == 568) {
+        self.buttonsTopConstraint.constant = 5;
+    } else if (iphoneSize == 736) {
+        
+        self.buttonsTopConstraint.constant = 110;
+        
+    } else {
+        
+        self.buttonsTopConstraint.constant = 80;
+    }
+    
 }
 
 
@@ -926,7 +977,6 @@
 -(void)sendMessageToInvites
 {
     if (![MFMessageComposeViewController canSendText]) {
-        NSLog(@"Message services are not available.");
         [self alertMessagingNotAvailable];
     } else {
         
@@ -984,7 +1034,6 @@
 
 -(void)methodToPullDownPactsFromFirebaseWithCompletionBlock:(void(^)(BOOL))completionBlock {
     
-    NSLog(@"current%@", self.dataSource.currentUser.pacts);
     
     __block NSUInteger numberOfPactsInDataSource = self.dataSource.currentUser.pacts.count;
     
@@ -1010,9 +1059,7 @@
             }
             
             if (isUniquePact) {
-                NSLog(@"is unique Pact: %@", currentPact);
                 [self.dataSource.currentUser.pactsToShowInApp addObject:[self.dataSource useSnapShotAndCreatePact:snapshotForPacts]];
-                NSLog(@"self.pacts now holds %ld pacts!", self.dataSource.currentUser.pactsToShowInApp.count);
             }
             
             numberOfPactsInDataSource--;
@@ -1051,15 +1098,12 @@
             for (JDDUser * pactUser in pact.usersToShowInApp){
                 
                 if ([pactUser.userID isEqualToString:person.userID]) {
-                    NSLog(@"WE ALREADY HAVE THIS User!!!!!");
                     isUniqueUser = NO;
                 }
             }
             
             if (isUniqueUser) {
-                NSLog(@"is unique User: %@", person);
                 [pact.usersToShowInApp addObject:person];
-                NSLog(@"userToShowInAppnow holds %ld pacts!", pact.usersToShowInApp.count);
             }
             
             remainingUsersToFetch--;
@@ -1096,11 +1140,23 @@
 
 
 - (IBAction)pactTitleEditingEnd:(id)sender {
-    //    self.topConstraint.constant = 0;
     if (self.pactTitle.text.length >1) {
         [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
             
-            self.topConstraint.constant = 10;
+            
+            CGFloat iphoneSize = [[UIScreen mainScreen] bounds].size.height;
+            if (iphoneSize == 568) { //iphone 4"
+                self.topConstraint.constant = 0;
+            } else if (iphoneSize == 736) { //iphone 5.5"
+                self.topConstraint.constant = 0;
+                
+                self.buttonsTopConstraint.constant = 150;
+                
+            } else { //iphoe 4.7"
+                self.topConstraint.constant = 0;
+                self.buttonsTopConstraint.constant = 120;
+            }
+            
             self.welcomeLabel.hidden = YES;
             [self.view layoutIfNeeded];
             
@@ -1139,6 +1195,8 @@
             self.repeatLabel.alpha = 1;
             self.repeatSwitch.alpha = 1;
             self.HowOften.alpha =1;
+            [self.view layoutIfNeeded];
+            
         } completion:nil];
         
         [UIView animateWithDuration:1 delay:2 options:0 animations:^{
@@ -1164,6 +1222,7 @@
         [UIView animateWithDuration:1 animations:^{
             self.shameSwitch.alpha = 1;
             self.twitterShameLabel.alpha =1;
+            [self.view layoutIfNeeded];
             
             
         } completion:nil];
@@ -1179,12 +1238,28 @@
         [UIView animateWithDuration:1 animations:^{
             self.twitterOnboardingLabel.text = @"Enable Twitter Shame to call out your friends on Twitter! This tweet will automatically post if you don't meet your check-in goals.";
             self.twitterOnboardingLabel.alpha = 1;
+            [self.view layoutIfNeeded];
+            
         } completion:nil];
         
         
     } else {
         self.descriptionLabel.hidden = YES;
     }
+    
+    CGFloat iphoneSize = [[UIScreen mainScreen] bounds].size.height;
+    if (iphoneSize == 568) {
+        self.topConstraint.constant = 0;
+        self.buttonsTopConstraint.constant = 10;
+    } else if (iphoneSize == 736) {
+        
+        self.buttonsTopConstraint.constant = 110;
+        
+    } else {
+        
+        self.buttonsTopConstraint.constant = 80;
+    }
+    
     
 }
 
@@ -1227,5 +1302,24 @@
     [self presentViewController:alert animated:YES completion:nil];
 }
 
-
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+    // Prevent crashing undo bug – see note below.
+    
+    if(range.length + range.location > textField.text.length)
+        
+    {
+        return NO;
+    }
+    
+    if ([textField isEqual: self.pactTitle]) {
+        
+        NSUInteger newLength = [textField.text length] + [string length] - range.length;
+        return newLength <= 12;
+    } else if ([textField isEqual:self.stakesTextView]) {
+        NSUInteger newLength = [textField.text length] + [string length] - range.length;
+        return newLength <= 30;
+    }
+    
+    return NO;
+}
 @end

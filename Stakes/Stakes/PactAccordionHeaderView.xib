@@ -37,8 +37,8 @@
                                 <action selector="acceptPactTapped:" destination="iN0-l3-epB" eventType="touchUpInside" id="xO0-tf-2KL"/>
                             </connections>
                         </button>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Test" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="D3q-1L-wcU" userLabel="pact title">
-                            <rect key="frame" x="111" y="-1" width="518" height="161"/>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Test" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="D3q-1L-wcU" userLabel="pact title">
+                            <rect key="frame" x="74" y="-1" width="592" height="161"/>
                             <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="25"/>
                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -64,7 +64,7 @@
                         <constraint firstItem="BQs-D1-0xJ" firstAttribute="centerX" secondItem="IIh-UQ-CM4" secondAttribute="centerX" id="VWm-lR-FaX"/>
                         <constraint firstItem="D3q-1L-wcU" firstAttribute="height" secondItem="IIh-UQ-CM4" secondAttribute="height" id="WgS-PW-qXP"/>
                         <constraint firstItem="kpp-cD-41a" firstAttribute="leading" secondItem="IIh-UQ-CM4" secondAttribute="leading" constant="8" id="YSf-rW-aGa"/>
-                        <constraint firstItem="D3q-1L-wcU" firstAttribute="width" secondItem="IIh-UQ-CM4" secondAttribute="width" multiplier="0.7" id="bCd-QJ-URC"/>
+                        <constraint firstItem="D3q-1L-wcU" firstAttribute="width" secondItem="IIh-UQ-CM4" secondAttribute="width" multiplier="0.8" id="bCd-QJ-URC"/>
                         <constraint firstItem="kpp-cD-41a" firstAttribute="centerY" secondItem="IIh-UQ-CM4" secondAttribute="centerY" id="cXM-wI-3IN"/>
                         <constraint firstItem="D3q-1L-wcU" firstAttribute="centerX" secondItem="IIh-UQ-CM4" secondAttribute="centerX" id="o0j-Rj-lpc"/>
                         <constraint firstItem="Pay-J3-Wsg" firstAttribute="leading" secondItem="IIh-UQ-CM4" secondAttribute="leading" id="rBp-ni-5pB"/>
@@ -77,25 +77,36 @@
                         </mask>
                     </variation>
                 </view>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pending" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dNs-Jr-nGt">
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Pending" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="6" translatesAutoresizingMaskIntoConstraints="NO" id="dNs-Jr-nGt">
                     <rect key="frame" x="672" y="70" width="60" height="20"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="60" id="26e-4L-IBT"/>
                     </constraints>
-                    <fontDescription key="fontDescription" name="Futura-MediumItalic" family="Futura" pointSize="15"/>
+                    <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="12"/>
                     <color key="textColor" red="1" green="0.0" blue="0.0" alpha="0.80463362068965516" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
+                    <variation key="default">
+                        <mask key="constraints">
+                            <exclude reference="26e-4L-IBT"/>
+                        </mask>
+                    </variation>
                 </label>
             </subviews>
             <constraints>
                 <constraint firstItem="IIh-UQ-CM4" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="F0d-Hq-Jjq"/>
                 <constraint firstItem="dNs-Jr-nGt" firstAttribute="leading" secondItem="IIh-UQ-CM4" secondAttribute="trailing" constant="-68" id="KIC-ZQ-a1N"/>
                 <constraint firstItem="IIh-UQ-CM4" firstAttribute="height" secondItem="iN0-l3-epB" secondAttribute="height" id="Q7d-jf-6Wh"/>
+                <constraint firstItem="dNs-Jr-nGt" firstAttribute="trailing" secondItem="IIh-UQ-CM4" secondAttribute="trailing" constant="7" id="TmQ-0W-CJq"/>
                 <constraint firstItem="IIh-UQ-CM4" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="ZzK-ox-Ga9"/>
                 <constraint firstItem="dNs-Jr-nGt" firstAttribute="centerY" secondItem="IIh-UQ-CM4" secondAttribute="centerY" id="q1C-1o-WtI"/>
                 <constraint firstItem="IIh-UQ-CM4" firstAttribute="width" secondItem="iN0-l3-epB" secondAttribute="width" id="yKN-KE-fOF"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <variation key="default">
+                <mask key="constraints">
+                    <exclude reference="KIC-ZQ-a1N"/>
+                </mask>
+            </variation>
             <connections>
                 <outlet property="acceptPactButton" destination="kpp-cD-41a" id="PJ8-MN-fpy"/>
                 <outlet property="containerView" destination="IIh-UQ-CM4" id="cH5-Im-PFu"/>
