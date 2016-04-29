@@ -69,7 +69,7 @@
     [self styleTwitterPost];
     [self styleStakesView];
     self.twitterShamePost.delegate = self;
-    [self.pactTitle becomeFirstResponder]; 
+    [self.pactTitle becomeFirstResponder];
     self.stakesTextView.delegate = self;
     
     self.doneButton.layer.cornerRadius = 15;
@@ -115,7 +115,7 @@
     } else {
         self.welcomeLabel.text = [NSString stringWithFormat:@"Hi, %@",self.dataSource.currentUser.displayName];
         self.welcomeLabel.hidden = NO;
- 
+        
     }
     self.RemoveInvitesButton.hidden = YES;
     self.pactDescription.alpha = 0;
@@ -133,7 +133,7 @@
     self.twitterShamePost.alpha = 0;
     
     self.descriptionLabel.alpha = 0;
-
+    
 }
 
 
@@ -152,9 +152,9 @@
             [self.view layoutIfNeeded];
             
         } completion:^(BOOL finished) {
-          
+            
         }];
-
+        
     }
 }
 
@@ -179,19 +179,19 @@
 
 
 
-    
+
 
 - (void)textViewDidBeginEditing:(UITextView *)textView
 {
     self.twitterShamePost = textView;
     [UIView animateWithDuration:0.25 animations:^{
         self.topConstraint.constant = -160;
-
+        
     }];
-
- 
     
-   }
+    
+    
+}
 - (IBAction)twitterPostEditingBegan:(id)sender {
     
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -392,8 +392,8 @@
     [self.pactTitle.layer addSublayer:border];
     self.pactTitle.layer.masksToBounds = YES;
     
-//    self.pactTitle.layer.borderWidth = 2;
-//    self.pactTitle.layer.borderColor = [UIColor blueColor].CGColor;
+    //    self.pactTitle.layer.borderWidth = 2;
+    //    self.pactTitle.layer.borderColor = [UIColor blueColor].CGColor;
     
 }
 
@@ -503,10 +503,10 @@
 - (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component
 {
     if (pickerView == self.frequencyPicker) {
-//        self.frequencyString = self.FrequencyPickerDataSourceArray[row];
+        //        self.frequencyString = self.FrequencyPickerDataSourceArray[row];
         return self.FrequencyPickerDataSourceArray[row];
     } else {
-//        self.timeIntervalString = self.timeInterval[row];
+        //        self.timeIntervalString = self.timeInterval[row];
         return self.timeInterval[row];
     }
     
@@ -546,14 +546,15 @@
         self.twitterOnboardingLabel.alpha = 0;
         [UIView animateWithDuration:1 animations:^{
             self.twitterShamePost.alpha =1;
-
+            
         } completion:nil];
-
+        
     } else {
         self.twitterShamePost.hidden = YES;
         
     }
 }
+
 
 
 // this is the method that gets fired when user hits done in contact picker.
@@ -569,84 +570,121 @@
     
     //may need an if statement to make sure this doesn't fire if contacts.count == 0
     self.contacts = [[NSMutableArray alloc]init];
+    NSString *PhoneNumber = [[NSString alloc]init];
+    NSString *givenName = [[NSString alloc]init];
     
     for(CNContact *contact in contacts){
         
-        NSString *contactPhone = [[NSString alloc]init];
         if (contact.phoneNumbers.count >0)
         {
-            CNLabeledValue<CNPhoneNumber*>* oneWeWant = [contact.phoneNumbers firstObject];
-            contactPhone = oneWeWant.value.stringValue;
             
             
-            
-            
-            contactPhone = [[contactPhone componentsSeparatedByCharactersInSet:[[NSCharacterSet decimalDigitCharacterSet] invertedSet]]
-                            componentsJoinedByString:@""]; // clean iPhone number
-            [self.contacts addObject:contactPhone];
-            //    }
-            // query Firebase to see if the contactIphone exists
-            Firebase *usersRef = [self.dataSource.firebaseRef childByAppendingPath:@"users"];
-            
-            [usersRef observeSingleEventOfType:FEventTypeValue withBlock:^(FDataSnapshot *snapshot) {
+            for (NSInteger i = 0; i<contact.phoneNumbers.count; i++) {
                 
-                if ([snapshot hasChild:contactPhone]) { // number exists in Firebase
+                NSLog(@"label is %@",contact.phoneNumbers[i].label);
+                
+                
+                if ([contact.phoneNumbers[i].label isEqual:@"_$!<Mobile>!$_"] || [contact.phoneNumbers[i].label isEqual:@"iPhone"] || !contact.phoneNumbers[i].label){
+                                                                            
                     
-                    [[usersRef childByAppendingPath:[NSString stringWithFormat:@"%@",contactPhone]] observeSingleEventOfType:FEventTypeValue withBlock:^(FDataSnapshot *snapshot) {
+                  PhoneNumber = [self updateUIandFireBasewith:contact atIndex:i];
                         
-                        JDDUser *contactToAdd =[self.dataSource useSnapShotAndCreateUser:snapshot];
-                        
-                        NSLog(@"user is: %@",contactToAdd.userID);
-                        
-                        [self.contactsToShow addObject:contactToAdd];
-                        
-                        NSLog(@"contactToShow: %@",self.contactsToShow);
-                        
-                        [self addUserToInviteScrollView:contactToAdd];
-                        
-                        
-                    }];
+
+                } else if (contact.phoneNumbers.count ==1){
                     
-                } else {
-                    
-                    // need to create JDDUser
-                    
-                    JDDUser *newUser = [[JDDUser alloc]init];
-                    newUser.userID = contactPhone;
-                    newUser.displayName = contact.givenName;
-                    newUser.phoneNumber = contactPhone;
-                    
-                    NSMutableDictionary * dictionary = [self.dataSource createDictionaryToSendToFirebaseWithJDDUser:newUser];
-                    
-                    [[usersRef childByAppendingPath:contactPhone]setValue:dictionary]; //create user in Firebase
-                    
-                    [self.contactsToShow addObject: newUser]; // add user to contacts to show
-                    
-                    [self addUserToInviteScrollView:newUser];
-                    
-                    
-                    NSLog(@"contactsToShowNewUser : %li",self.contactsToShow.count);
-                    NSLog(@"contactsAddressBookInvites : %lu",(unsigned long)contacts.count);
+                     PhoneNumber = [self updateUIandFireBasewith:contact atIndex:i];
                     
                 }
-                
-                
-                [NSNotification notificationWithName:@"contactsReadyForCreatePactView" object:nil];
-                [self didSelectedContactToInvite];
-                
-                
-            }];
+            }
+            
+        
+            
         } else {
-            [self alertFinishFiling:@"This contact has no phone number"];
+            
+            [self dismissViewControllerAnimated:YES completion:^{
+                [self alertFinishFiling:@"This contact has no number registered"];
+            }];
+
         }
     }
     
+    if (self.contacts.count < contacts.count) {
+        [self dismissViewControllerAnimated:YES completion:^{
+            [self alertFinishFiling:@"One of the members has no mobile number"];
+            
+            
+        }];
+        
+    }
     if (self.contacts.count >0) {
         self.descriptionLabel.alpha = 0;
     }
     
 }
 
+-(NSString *)updateUIandFireBasewith:(CNContact *)contact atIndex:(NSInteger)i
+{
+    NSString *contactPhone = [[NSString alloc]init];
+    
+    CNLabeledValue<CNPhoneNumber*>* oneWeWant =contact.phoneNumbers[i];
+    contactPhone = oneWeWant.value.stringValue;
+    NSLog(@"The oneWeWant %@",contactPhone);
+    
+    contactPhone = [[contactPhone componentsSeparatedByCharactersInSet:[[NSCharacterSet decimalDigitCharacterSet] invertedSet]]
+                    componentsJoinedByString:@""]; // clean iPhone number
+    [self.contacts addObject:contactPhone];
+    //    }
+    // query Firebase to see if the contactIphone exists
+    Firebase *usersRef = [self.dataSource.firebaseRef childByAppendingPath:@"users"];
+    
+    [usersRef observeSingleEventOfType:FEventTypeValue withBlock:^(FDataSnapshot *snapshot) {
+        
+        if ([snapshot hasChild:contactPhone]) { // number exists in Firebase
+            
+            [[usersRef childByAppendingPath:[NSString stringWithFormat:@"%@",contactPhone]] observeSingleEventOfType:FEventTypeValue withBlock:^(FDataSnapshot *snapshot) {
+                
+                JDDUser *contactToAdd =[self.dataSource useSnapShotAndCreateUser:snapshot];
+                
+                NSLog(@"user is: %@",contactToAdd.userID);
+                
+                [self.contactsToShow addObject:contactToAdd];
+                
+                NSLog(@"contactToShow: %@",self.contactsToShow);
+                
+                [self addUserToInviteScrollView:contactToAdd];
+                
+                
+            }];
+            
+        } else {
+            
+            // need to create JDDUser
+            
+            JDDUser *newUser = [[JDDUser alloc]init];
+            newUser.userID = contactPhone;
+            newUser.displayName = contact.givenName;
+            newUser.phoneNumber = contactPhone;
+            
+            NSMutableDictionary * dictionary = [self.dataSource createDictionaryToSendToFirebaseWithJDDUser:newUser];
+            
+            [[usersRef childByAppendingPath:contactPhone]setValue:dictionary]; //create user in Firebase
+            
+            [self.contactsToShow addObject: newUser]; // add user to contacts to show
+            
+            [self addUserToInviteScrollView:newUser];
+            
+            
+        }
+        
+        
+        [NSNotification notificationWithName:@"contactsReadyForCreatePactView" object:nil];
+        [self didSelectedContactToInvite];
+        
+        
+    }];
+
+    return contactPhone;
+}
 
 
 - (IBAction)removeContactButton:(id)sender {
@@ -671,7 +709,7 @@
         self.twitterOnboardingLabel.alpha = 0;
     }
     
-
+    
 }
 
 -(void)addUserToInviteScrollView: (JDDUser*)user {
@@ -1058,7 +1096,7 @@
 
 
 - (IBAction)pactTitleEditingEnd:(id)sender {
-//    self.topConstraint.constant = 0;
+    //    self.topConstraint.constant = 0;
     if (self.pactTitle.text.length >1) {
         [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
             
@@ -1071,7 +1109,7 @@
             self.addFriendsView.hidden = NO;
             
         }];
-
+        
         
     } else {
         [self alertFinishFiling:@"Please pick a pact name that is at least 3 characters"];
@@ -1084,7 +1122,7 @@
             self.descriptionLabel.alpha = 1;
         } completion:nil];
         
-    
+        
     } else {
         self.descriptionLabel.hidden = YES;
     }
@@ -1105,7 +1143,7 @@
         
         [UIView animateWithDuration:1 delay:2 options:0 animations:^{
             self.stakesTextView.alpha = 1;
-
+            
         } completion:nil];
         
     } else {
@@ -1126,8 +1164,8 @@
         [UIView animateWithDuration:1 animations:^{
             self.shameSwitch.alpha = 1;
             self.twitterShameLabel.alpha =1;
-
-          
+            
+            
         } completion:nil];
         
     }    else {
@@ -1156,17 +1194,17 @@
 {
     
     if (self.contactsToShow.count >0) {
-                [UIView animateWithDuration:1 animations:^{
-                    self.pactDescription.alpha = 1;
-                    self.descriptionLabel.alpha = 0;
-                } completion:nil];
+        [UIView animateWithDuration:1 animations:^{
+            self.pactDescription.alpha = 1;
+            self.descriptionLabel.alpha = 0;
+        } completion:nil];
         
-                } else {
+    } else {
         [self alertFinishFiling:@"Please add friends to your pact"];
         self.pactDescription.hidden = YES;
         
     }
-        
+    
 }
 
 -(void)alertFinishFiling: (NSString *)message
